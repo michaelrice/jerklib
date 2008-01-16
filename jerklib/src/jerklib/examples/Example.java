@@ -57,7 +57,7 @@ public class Example implements IRCEventListener
             System.out.println("Login/Ident: "+event.getLogin());
             System.out.println("Host name: "+event.getNicksHost());
             System.out.println("Channel Name: "+event.getChannel().getName());
-            System.out.println("message: "+event.getMessage());
+            System.out.println("Message: "+event.getMessage());
         }
 		else if(e.getType() == IRCEvent.Type.PRIVATE_MESSAGE)
 		{
