@@ -132,7 +132,6 @@ public class InternalEventParser
 		 *:SwingBot!n=SwingBot@207.114.175.81 JOIN :##swing */
 		else if (data.matches("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?#.*$"))
 		{
-
 			Pattern p = Pattern.compile("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?(#.*)$");
 			Matcher m = p.matcher(data);
 
@@ -143,7 +142,6 @@ public class InternalEventParser
 			con.addChannel(channel);
 			
 			manager.getSessionFor(con).addChannelName(channel.getName());
-
 
 			event = IRCEventFactory.joinCompleted(data, con, nick, channel);
 		}
@@ -160,7 +158,6 @@ public class InternalEventParser
 		 * :Solaya!~Solaya@cable-134-9.iesy.tv JOIN #bratwurstbude */
 		else if (data.matches("^:.*?\\!.*?\\s+JOIN\\s+:?#.*$"))
 		{
-			
 			JoinEvent jEvent = IRCEventFactory.regularJoin(data, con);
 
 			jEvent.getChannel().addNick(jEvent.getWho());
@@ -201,7 +198,7 @@ public class InternalEventParser
 		}
 		
 		//topic changed
-		//:mohadib!n=fran@unaffiliated/mohadib TOPIC #jerklib :Jerklib -- Hotter than a bag of LOLI
+		//:mohadib!n=fran@unaffiliated/mohadib TOPIC #jerklib :Jerklib 
 		else if(data.matches("^:.*?\\!\\S+\\s+TOPIC\\s+#.*?\\s+:.*$"))
 		{
 			Pattern p = Pattern.compile("^.*?TOPIC\\s+(#.*?)\\s+.*$");
