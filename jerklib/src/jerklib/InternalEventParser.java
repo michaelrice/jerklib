@@ -90,6 +90,7 @@ public class InternalEventParser
 		if (data.matches("^:.*?\\!.*?\\s+PRIVMSG\\s+\\S+\\s+:.*$"))
 		{
 			privMsg(data, con, nick);
+			return;
 		}
 		
 		//match numerics OMG INTERNETS?!
