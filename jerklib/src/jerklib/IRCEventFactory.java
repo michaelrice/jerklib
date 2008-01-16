@@ -360,7 +360,7 @@ class IRCEventFactory
   
   
   static PrivateMsgEvent privateMsg(String data , Connection con , String nick ){
-    Pattern p = Pattern.compile("^:(.+?)\\!(.+?)@(.+?)\\sprivmsg\\s\\Q" + nick.toLowerCase() + "\\E\\s+:(.*)$", Pattern.CASE_INSENSITIVE);
+    Pattern p = Pattern.compile("^:(.+?)\\!(.+?)@(.+?)\\sprivmsg\\s\\Q" + nick + "\\E\\s+:(.*)$", Pattern.CASE_INSENSITIVE);
     Matcher m = p.matcher(data);
 
     if (m.matches()) {
