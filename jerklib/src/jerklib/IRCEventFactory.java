@@ -41,7 +41,7 @@ import jerklib.events.impl.ConnectionCompleteEventImpl;
 class IRCEventFactory
 {
   
-	private static ConnectionManager myManager;
+	static private ConnectionManager myManager;
 	
 	static void setManager(ConnectionManager manager)
 	{
@@ -359,7 +359,7 @@ class IRCEventFactory
   
   
   static PrivateMsgEvent privateMsg(String data , Connection con , String nick ){
-    Pattern p = Pattern.compile("^:(.+?)\\!(.+?)\\sprivmsg\\s\\Q" + nick.toLowerCase() + "\\E\\s+:(.*)$", Pattern.CASE_INSENSITIVE);
+    Pattern p = Pattern.compile("^:(.+?)\\!(.+?)@(.+?)\\sprivmsg\\s\\Q" + nick.toLowerCase() + "\\E\\s+:(.*)$", Pattern.CASE_INSENSITIVE);
     Matcher m = p.matcher(data);
 
     if (m.matches()) {
@@ -368,8 +368,9 @@ class IRCEventFactory
             data, 
             myManager.getSessionFor(con),
             m.group(1).trim(), // nick
-            m.group(3), // message
-            m.group(2) // nicks host
+            m.group(2).trim(), // login    
+            m.group(4), // message
+            m.group(3) // nicks host
       );
       
       return privateMsg;
