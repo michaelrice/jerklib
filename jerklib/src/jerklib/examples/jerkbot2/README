@@ -4,7 +4,7 @@ This is a VERY simple example of how to write a bot with Jerklib.
 java -cp jerklib.jar jerklib.examples.jerkbot2.jerkbot.Jerkbot
 
 ==Using the bot==
-This bot is simple like i said. The bot will join the channel you specify
+This bot is simple like I said. The bot will join the channel you specify
 which is hard-coded in the Jerkbot class, it will then say "Hai 2u"
 when it is finished joining the channel and it is synced.
 The bot has two commands currently.
