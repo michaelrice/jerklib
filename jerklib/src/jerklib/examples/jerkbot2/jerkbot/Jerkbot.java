@@ -39,7 +39,7 @@ public class Jerkbot implements IRCEventListener {
 
     public void loadOperations() {
         operations.add(new Quit("abc123"));
-        operations.add(new ChannelManager()); 
+        operations.add(new ChannelManager());
     }
 
 
@@ -54,8 +54,7 @@ public class Jerkbot implements IRCEventListener {
         }
         if (e.getType() == IRCEvent.Type.CONNECT_COMPLETE) {
             e.getSession().joinChannel("#jerklib");
-        }
-        else if (e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
+        } else if (e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
             JoinCompleteEvent event = (JoinCompleteEvent) e;
             event.getChannel().say("Hai 2u");
         }
