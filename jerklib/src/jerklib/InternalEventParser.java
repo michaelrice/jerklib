@@ -61,7 +61,7 @@ public class InternalEventParser
 	private ConnectionManager manager;
 
 	private Map<Channel, TopicEvent> topicMap = new HashMap<Channel, TopicEvent>();
-	private Map<Pair<String, Connection> , WhoisEvent> whoisMap = new HashMap<Pair<String,Connection>, WhoisEvent>();
+//	/private Map<Pair<String, Connection> , WhoisEvent> whoisMap = new HashMap<Pair<String,Connection>, WhoisEvent>();
 	
 	public InternalEventParser(ConnectionManager manager)
 	{
