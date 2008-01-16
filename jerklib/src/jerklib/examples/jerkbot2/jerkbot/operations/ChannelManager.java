@@ -23,15 +23,7 @@ public class ChannelManager implements BotOperation {
         } else if (e.getType() == IRCEvent.Type.CHANNEL_MESSAGE) {
             ChannelMsgEvent event = (ChannelMsgEvent) e;
             String msg = event.getMessage(); // the message
-            if (msg.startsWith("~join")) {
-                String channel = msg.substring("~join ".length()); // name of the channel.
-                if (!channels.contains(e.getSession().getChannel(channel))) {
-                    e.getSession().joinChannel(msg.substring("~join ".length()));
-                }
-            } else if (msg.startsWith("~part")) {
-                // since this is issued in the channel -- we assume it exists.
-                e.getSession().partChannel(event.getChannel(), "I was asked to leave.");
-            } else if (msg.startsWith("~users")) {
+            if (msg.startsWith("~users")) {
                 StringBuilder sb = new StringBuilder();
                 Channel c = event.getChannel();
                 List<String> users = c.getNicks(); // users in the channel.
