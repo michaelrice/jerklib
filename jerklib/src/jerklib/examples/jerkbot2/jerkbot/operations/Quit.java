@@ -31,7 +31,7 @@ public class Quit implements BotOperation {
             String msg = event.getMessage(); // message
             if(msg.startsWith("~quit")) {
                 if(msg.substring("~quit ".length()).equals(password)) {
-                    e.getSession().rawSay("QUIT :I was asked disconnect\r\n");
+                    e.getSession().close("I was asked to leave");
                     System.exit(0); 
                 }
             }

@@ -62,7 +62,7 @@ public class Jerkbot implements IRCEventListener {
     }
 
     public static void main(String[] args) {
-        Jerkbot bot = new Jerkbot("ronnoco", "ronnoco", "irc.freenode.org", 6667);
+        Jerkbot bot = new Jerkbot("jerkbot", "jerkbot", "irc.freenode.org", 6667);
         bot.loadOperations();
     }
 
