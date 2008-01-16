@@ -105,8 +105,8 @@ public class InternalEventParser
 					case 333: secondPartOfTopic(data, con); return;
 					case 353: namesLine(data, con); return;
 					case 366: manager.addToRelayList(IRCEventFactory.nickList(data, con)); return;
-					case 372: 
-					case 375:
+					case 372: //motd
+					case 375: //motd
 					case 376: manager.addToRelayList(IRCEventFactory.motd(data, con));return;
 					case 433: nick(data, con, event.getSession());return;
 				}
@@ -146,7 +146,7 @@ public class InternalEventParser
 
 		
 		/* MODE event */
-		else if(data.matches("^:.*?\\!\\S+\\s+MODE\\s+.+$"))
+		else if(data.matches("^:.+?\\!\\S+\\s+MODE\\s+.+$"))
 		{
 			event = IRCEventFactory.modeEvent(data, con);
 		}
@@ -154,7 +154,7 @@ public class InternalEventParser
 		
 		/* SOMEONE JOINS A CHANNEL :Yog!~magnus@hades.27b-6.de JOIN :#perl
 		 * :Solaya!~Solaya@cable-134-9.iesy.tv JOIN #bratwurstbude */
-		else if (data.matches("^:.*?\\!.*?\\s+JOIN\\s+:?#.*$"))
+		else if (data.matches("^:.+?\\!.*?\\s+JOIN\\s+:?#.*$"))
 		{
 			JoinEvent jEvent = IRCEventFactory.regularJoin(data, con);
 
@@ -168,7 +168,7 @@ public class InternalEventParser
 		 * :DrGonzo42069!~raulduke@c-67-171-159-2.hsd1.or.comcast.net PART #debian :"Kopete 0.10 : http://kopete.kde.org"
 		 * :mooohadib!~mohadib@63-230-98-87.albq.qwest.net PART #test
 		 */
-		else if (data.matches("^:.*?\\!.*?\\s+PART\\s+#.*$"))
+		else if (data.matches("^:.+?\\!.*?\\s+PART\\s+#.*$"))
 		{
 			PartEvent pEvent = IRCEventFactory.part(data, con);
 
@@ -178,28 +178,28 @@ public class InternalEventParser
 		}
 		
 		/*Generic  NOTICE from server - not a specific usar ... so it seems*/
-		else if (data.matches("^NOTICE.*"))
+		else if (data.matches("^NOTICE.+"))
 		{
 			event = IRCEventFactory.notice(data, con);
 		}
 		
 		//channel notice - does this actually happen?
-		else if (data.matches("^:.*?\\!.*?\\s+NOTICE\\s+#.*?\\s+:.*$"))
+		else if (data.matches("^:.+?\\!.+?\\s+NOTICE\\s+#.+?\\s+:.*$"))
 		{
 			event = IRCEventFactory.notice(data, con);
 		}
 		
 		//user notice
-		else if (data.matches("^:.*?\\!.*?\\s+NOTICE\\s+.*?\\s+:.*$"))
+		else if (data.matches("^:.+?\\!.+?\\s+NOTICE\\s+.*?\\s+:.*$"))
 		{
 			event = IRCEventFactory.notice(data, con);
 		}
 		
 		//topic changed
 		//:mohadib!n=fran@unaffiliated/mohadib TOPIC #jerklib :Jerklib 
-		else if(data.matches("^:.*?\\!\\S+\\s+TOPIC\\s+#.*?\\s+:.*$"))
+		else if(data.matches("^:.+?\\!\\S+\\s+TOPIC\\s+#.+?\\s+:.*$"))
 		{
-			Pattern p = Pattern.compile("^.*?TOPIC\\s+(#.*?)\\s+.*$");
+			Pattern p = Pattern.compile("^.+?TOPIC\\s+(#.+?)\\s+.*$");
 			Matcher m = p.matcher(data);
 			m.matches();
 			event.getSession().rawSay("TOPIC " + m.group(1) +"\r\n");
@@ -207,7 +207,7 @@ public class InternalEventParser
 		}
 		
 		/* NICK CHANGE :mohadib!~mohadib@65.19.62.93 NICK :slaps */
-		else if (data.matches("^:.*?\\!.*?\\s+NICK\\s+:.*"))
+		else if (data.matches("^:.+?\\!.+?\\s+NICK\\s+:.*"))
 		{
 			NickChangeEvent nEvent = IRCEventFactory.nickChange(data,con);
 			con.nickChanged(nEvent.getOldNick(), nEvent.getNewNick());
@@ -220,7 +220,7 @@ public class InternalEventParser
 		}
 
 		/* KICK :mohadib!~mohadib@67.41.102.162 KICK #test scab :bye! */
-		else if (data.matches("^:.*?\\!\\S+\\s+KICK\\s+\\S+\\s+\\S+\\s+:.*$"))
+		else if (data.matches("^:.+?\\!\\S+\\s+KICK\\s+\\S+\\s+\\S+\\s+:.*$"))
 		{
 			KickEvent ke = IRCEventFactory.kick(data, con);
 			

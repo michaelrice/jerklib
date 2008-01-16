@@ -41,7 +41,6 @@ public class Example implements IRCEventListener
 		}
 		else if(e.getType() == IRCEvent.Type.JOIN_COMPLETE)
 		{
-			
 		}
 		else if(e.getType() == IRCEvent.Type.TOPIC)
 		{
