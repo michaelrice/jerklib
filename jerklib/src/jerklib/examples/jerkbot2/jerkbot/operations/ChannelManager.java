@@ -2,7 +2,6 @@ package jerklib.examples.jerkbot2.jerkbot.operations;
 
 import jerklib.Channel;
 import jerklib.events.IRCEvent;
-import jerklib.events.JoinCompleteEvent;
 import jerklib.events.ChannelMsgEvent;
 
 import java.util.Collection;
@@ -20,7 +19,6 @@ public class ChannelManager implements BotOperation {
 
     public void handleMessage(IRCEvent e) {
         if (e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
-            JoinCompleteEvent event = (JoinCompleteEvent) e;
             channels = e.getSession().getChannels();
         } else if (e.getType() == IRCEvent.Type.CHANNEL_MESSAGE) {
             ChannelMsgEvent event = (ChannelMsgEvent) e;
@@ -38,7 +36,7 @@ public class ChannelManager implements BotOperation {
                 Channel c = event.getChannel();
                 List<String> users = c.getNicks(); // users in the channel.
                 for (String user : users) {
-                    sb.append(user + " ");
+                    sb.append(user).append(" "); 
                 }
                 e.getSession().channelSay(c.getName(), "Users in " + c.getName() + " are: " + sb.toString());
             }
