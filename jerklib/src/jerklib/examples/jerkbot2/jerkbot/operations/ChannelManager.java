@@ -4,7 +4,6 @@ import jerklib.Channel;
 import jerklib.events.IRCEvent;
 import jerklib.events.ChannelMsgEvent;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -12,15 +11,12 @@ import java.util.List;
  * @author Robert O'Connor <robby.oconnor@gmail.com>
  */
 public class ChannelManager implements BotOperation {
-    private Collection<Channel> channels;
-
+   
     public ChannelManager() {
     }
 
     public void handleMessage(IRCEvent e) {
-        if (e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
-            channels = e.getSession().getChannels();
-        } else if (e.getType() == IRCEvent.Type.CHANNEL_MESSAGE) {
+         if (e.getType() == IRCEvent.Type.CHANNEL_MESSAGE) {
             ChannelMsgEvent event = (ChannelMsgEvent) e;
             String msg = event.getMessage(); // the message
             if (msg.startsWith("~users")) {
