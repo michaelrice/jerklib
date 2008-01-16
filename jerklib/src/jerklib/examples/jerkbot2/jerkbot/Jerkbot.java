@@ -1,4 +1,4 @@
-package jerkbot;
+package jerklib.examples.jerkbot2.jerkbot;
 
 import jerklib.ConnectionManager;
 import jerklib.Profile;
@@ -6,13 +6,12 @@ import jerklib.ProfileImpl;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
+import jerklib.examples.jerkbot2.src.jerkbot.operations.BotOperation;
+import jerklib.examples.jerkbot2.src.jerkbot.operations.ChannelManager;
+import jerklib.examples.jerkbot2.src.jerkbot.operations.Quit;
 
 import java.util.List;
 import java.util.LinkedList;
-
-import jerkbot.operations.BotOperation;
-import jerkbot.operations.Quit;
-import jerkbot.operations.ChannelManager;
 
 /**
  * This an the main class and entry point.

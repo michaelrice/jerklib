@@ -1,4 +1,4 @@
-package jerkbot.operations;
+package jerklib.examples.jerkbot2.jerkbot.operations;
 
 import jerklib.Channel;
 import jerklib.events.IRCEvent;

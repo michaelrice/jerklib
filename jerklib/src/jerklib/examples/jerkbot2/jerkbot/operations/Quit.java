@@ -1,4 +1,5 @@
-package jerkbot.operations;
+package jerklib.examples.jerkbot2.jerkbot.operations;
+
 
 import jerklib.events.IRCEvent;
 import jerklib.events.PrivateMsgEvent;
