@@ -33,8 +33,8 @@ public class Example implements IRCEventListener
 		}
 		else if(e.getType() == IRCEvent.Type.READY_TO_JOIN)
 		{
-			e.getSession().whois("mohadib");
-			//e.getSession().joinChannel("#jerklib");	
+			//e.getSession().whois("mohadib");
+			e.getSession().joinChannel("#jerklib");	
 			/*e.getSession().joinChannel("#ubuntu");
 			e.getSession().joinChannel("#debian");
 			e.getSession().joinChannel("#perl");*/
@@ -47,6 +47,14 @@ public class Example implements IRCEventListener
 		{
 			TopicEvent te = (TopicEvent)e;
 			System.out.println("Topic for " + te.getChannel().getName() + " " + te.getTopic() + " set by " + te.getSetBy() + " set when:" + te.getSetWhen());
+		}
+		else if(e.getType() == IRCEvent.Type.CHANNEL_MESSAGE)
+		{
+			System.out.println("Good " +e.getRawEventData());
+		}
+		else if(e.getType() == IRCEvent.Type.PRIVATE_MESSAGE)
+		{
+			System.out.println("Good Prv " +e.getRawEventData());
 		}
 		else if(e.getType() == IRCEvent.Type.MODE_EVENT)
 		{

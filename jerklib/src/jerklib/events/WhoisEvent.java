@@ -10,7 +10,9 @@ public interface WhoisEvent extends IRCEvent
 	
 	public String getHost();
 	
-	public String getIdent();
+	public String getUser();
+	
+	public String getRealName();
 	
 	public List<Channel> getChannelList();
 	

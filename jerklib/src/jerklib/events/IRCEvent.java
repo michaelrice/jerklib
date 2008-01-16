@@ -62,7 +62,8 @@ public interface IRCEvent
     JOIN_COMPLETE,
     MODE_EVENT,
     KICK_EVENT,
-    NICK_LIST_EVENT
+    NICK_LIST_EVENT,
+    WHOIS_EVENT;
   }
 
   /**

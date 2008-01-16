@@ -38,6 +38,7 @@ import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
+import jerklib.events.WhoisEvent;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.util.Pair;
 
@@ -60,13 +61,15 @@ public class InternalEventParser
 	private ConnectionManager manager;
 
 	private Map<Channel, TopicEvent> topicMap = new HashMap<Channel, TopicEvent>();
-	//private Map<Pair<String, Connection> , WhoisEvent>
+	private Map<Pair<String, Connection> , WhoisEvent> whoisMap = new HashMap<Pair<String,Connection>, WhoisEvent>();
 	
 	public InternalEventParser(ConnectionManager manager)
 	{
 		this.manager = manager;
 	}
 
+
+	
 	/**
 	 * Takes an IRCEvent and tries to parse it into a more specific event
 	 * then redispatch the more specfic event
@@ -76,29 +79,42 @@ public class InternalEventParser
 	 */
 	void parseEvent(IRCEvent event)
 	{
-
-		
 		final Connection con = ((InternalSession)event.getSession()).getConnection();
 		final String data = event.getRawEventData().trim();
 		final String nick = con.getProfile().getActualNick();
-
 		
 		/* A Channel Msg
 		 * :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah */
-		if (data.matches("^:.*?\\!.*?\\s+PRIVMSG\\s+#.*?\\s+:.*$"))
-		{
-			event = IRCEventFactory.channelMsg(data, con);
-		}
-		
-		
-
 		/* Private message
 		 * :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!! */
-		else if (data.toLowerCase().matches("^:.+?\\!.+?\\sprivmsg\\s\\Q" + nick.toLowerCase() + "\\E\\s+:.*$"))
+		if (data.matches("^:.*?\\!.*?\\s+PRIVMSG\\s+\\S+\\s+:.*$"))
 		{
-			event = IRCEventFactory.privateMsg(data, con, nick);
+			privMsg(data, con, nick);
 		}
-
+		
+		//match numerics OMG INTERNETS?!
+		else if(data.matches("^:\\S+\\s+\\d{3}.+$"))
+		{
+			Pattern p = Pattern.compile("^:\\S+\\s+(\\d{3}).+$");
+			Matcher m = p.matcher(data);
+			if(m.matches())
+			{
+				switch(Integer.parseInt(m.group(1)))
+				{
+					case 001: connectionComplete(data, con, event);return;
+					case 332: firstPartOfTopic(data, con); return;
+					case 333: secondPartOfTopic(data, con); return;
+					case 353: namesLine(data, con); return;
+					case 366: manager.addToRelayList(IRCEventFactory.nickList(data, con)); return;
+					case 372: 
+					case 375:
+					case 376: manager.addToRelayList(IRCEventFactory.motd(data, con));return;
+					case 433: nick(data, con, event.getSession());return;
+				}
+			}
+		}
+		
+		
 		/* PERSON QUIT 
 		 * :Xolt!brad@c-67-165-231-230.hsd1.co.comcast.net QUIT :"Deleted" 
 		 * :james_so!~me@213-152-46-35.dsl.eclipse.net.uk QUIT :Read error: 60 (Operation timed out) */
@@ -164,23 +180,6 @@ public class InternalEventParser
 
 			event = pEvent;
 		}
-
-		/* MOTD 
-		 * start of motd :irc.newcommunity.tummy.com 375 SwingBot :-
-		 * irc.newcommunity.tummy.com message of the day
-		 * motd line :irc.newcommunity.tummy.com 372 SwingBot :- NEW USERS NOTE> 1)
-		 * we can't talk to you when you don't exist.
-		 * end motd :irc.newcommunity.tummy.com 376 SwingBot :End of MOTD command */
-		else if (data.matches(":(.*?)\\s+376\\s+(.*?)\\s+:(.*)$"))
-		{
-			event = IRCEventFactory.motd(data, con);
-		}
-		else if (data.matches(":(.*?)\\s+(372|376|375)\\s+(.*?)\\s+:(.*)$"))
-		{
-			event = IRCEventFactory.motd(data, con);
-		}
-
-		
 		
 		/*Generic  NOTICE from server - not a specific usar ... so it seems*/
 		else if (data.matches("^NOTICE.*"))
@@ -199,49 +198,6 @@ public class InternalEventParser
 		{
 			event = IRCEventFactory.notice(data, con);
 		}
-	
-		
-		//FIRST PART TOF TOPPIC;
-		//sterling.freenode.net 332 scrip #test :Welcome to #test - This channel is for testing only.
-		else if(data.matches(":(.*?)\\s+332\\s+(.*?)\\s+(#.*?)\\s+:(.*)$"))
-		{
-			TopicEvent tEvent = IRCEventFactory.topic(data, con);
-			if(topicMap.containsValue(tEvent.getChannel()))
-			{
-				((TopicEventImpl)topicMap.get(tEvent.getChannel())).appendToTopic(tEvent.getTopic());
-			}
-			else
-			{
-				topicMap.put(tEvent.getChannel(), tEvent);
-			}
-			return;
-		}
-		
-		
-		
-		//2nd part of topic
-		//:zelazny.freenode.net 333 scrip #test LuX 1159267246
-		else if(data.matches(":(.*?)\\s+333\\s+(.*?)\\s+(#.*?)\\s+(\\S+)\\s+(\\S+)$"))
-		{
-			Pattern p = Pattern.compile(":(.*?)\\s+333\\s+(.*?)\\s+(#.*?)\\s+(\\S+)\\s+(\\S+)$");
-			Matcher m = p.matcher(data);
-			m.matches();
-			ChannelImpl chan = (ChannelImpl)con.getChannel(m.group(3));
-			if(topicMap.containsKey(chan))
-			{
-				TopicEventImpl tEvent = (TopicEventImpl)topicMap.get(chan);
-				topicMap.remove(chan);
-				tEvent.setSetBy(m.group(4));
-				tEvent.setSetWhen(m.group(5));
-				chan.setTopicEvent(tEvent);
-				event = tEvent;
-			}
-		}
-		
-		
-		
-		
-		
 		
 		//topic changed
 		//:mohadib!n=fran@unaffiliated/mohadib TOPIC #jerklib :Jerklib -- Hotter than a bag of LOLI
@@ -253,7 +209,6 @@ public class InternalEventParser
 			event.getSession().rawSay("TOPIC " + m.group(1) +"\r\n");
 			return;
 		}
-		
 		
 		/* NICK CHANGE :mohadib!~mohadib@65.19.62.93 NICK :slaps */
 		else if (data.matches("^:.*?\\!.*?\\s+NICK\\s+:.*"))
@@ -267,72 +222,6 @@ public class InternalEventParser
 				event.getSession().updateProfileSuccessfully(true);
 			}
 		}
-
-		/* NICK IN USE */
-		 else if (data.matches(".*?\\s433\\s.*?\\s.*?\\s:?Nickname is already in use.*$")) 
-		 {
-			 Session session = event.getSession();
-			 if(session.isConnected() && session.isProfileUpdating())
-			 {
-				 session.updateProfileSuccessfully(false);
-			 }
-			 else
-			 {
-				 Profile p = session.getRequestedConnection().getProfile();
-				 String aNick = p.getActualNick();
-				 String newNick = p.getFirstNick() + (Math.random() * 100);
-				 if(aNick.equals(p.getFirstNick())){ newNick = p.getSecondNick(); }
-				 else if(aNick.equals(p.getSecondNick())){ newNick = p.getThirdNick(); }
-				
-				 p.setActualNick(newNick);
-				 
-				 session.changeProfile(p);
-				 
-				 event = IRCEventFactory.nickInUse(data, con);
-			 } 
-		 }
-		
-		
-		/* NAMES LINE
-		 * :irc.newcommunity.tummy.com 353 SwingBot = #test :SwingBot @mohadib
-		 * :calvino.freenode.net 353 SwingBot1 @ #gentoo :SwingBot1 eInv1s1bl GUIPEnguin sebkur NullAcht15 imcsk8 KaZeR */
-		else if (data.matches("^:(.*?)\\s+353\\s+\\S+\\s+(=|@)\\s+#+\\S+\\s+:.+$"))
-		{
-			namesLine(data, con);
-			return;
-		}
-
-		/* end of names :irc.newcommunity.tummy.com 366 SwingBot #test :End of NAMES list */
-		else if (data.matches("^:(?:.*?)\\s+366\\s+\\S+\\s+(.*?)\\s+.*$"))
-		{
-			event = IRCEventFactory.nickList(data, con);
-		}
-
-		/* CONNECTION COMPLETE 
-		 * irc,freenode.net might actually be niveen.freenode.net
-		 * :irc.nmglug.org 001 namnar :Welcome to the nmglug.org Internet Relay Chat Network namnar */
-		else if (data.matches(":.*?\\s+001\\s+.*?\\s+:.*$"))
-		{
-			manager.addToRelayList(event);
-			manager.addToRelayList(IRCEventFactory.readyToJoin(data ,con));
-			ConnectionCompleteEvent ccEvent = IRCEventFactory.connectionComplete(data, con);
-			con.setHostName(ccEvent.getActualHostName());
-			event = ccEvent;
-		}
-
-		/* PING PONG */
-		else if (data.matches("^PING.*"))
-		{
-			con.pong(event);
-			return;
-		}
-		else if (data.matches(".*PONG.*"))
-		{
-			con.gotPong();
-			return;
-		}
-
-
 
 		/* KICK :mohadib!~mohadib@67.41.102.162 KICK #test scab :bye! */
 		else if (data.matches("^:.*?\\!\\S+\\s+KICK\\s+\\S+\\s+\\S+\\s+:.*$"))
@@ -352,10 +241,119 @@ public class InternalEventParser
 			event = ke;
 		}
 
-		manager.addToRelayList(event);
+		/* PING PONG */
+		else if (data.matches("^PING.*"))
+		{
+			con.pong(event);
+			return;
+		}
+		else if (data.matches(".*PONG.*"))
+		{
+			con.gotPong();
+			return;
+		}
 
+		manager.addToRelayList(event);
 	}
 
+	
+	
+	
+	private void firstPartOfTopic(String data , Connection con)
+	{
+		//FIRST PART TOF TOPPIC;
+		//sterling.freenode.net 332 scrip #test :Welcome to #test - This channel is for testing only.
+		if(data.matches(":(.*?)\\s+332\\s+(.*?)\\s+(#.*?)\\s+:(.*)$"))
+		{
+			TopicEvent tEvent = IRCEventFactory.topic(data, con);
+			if(topicMap.containsValue(tEvent.getChannel()))
+			{
+				((TopicEventImpl)topicMap.get(tEvent.getChannel())).appendToTopic(tEvent.getTopic());
+			}
+			else
+			{
+				topicMap.put(tEvent.getChannel(), tEvent);
+			}
+		}
+	}
+	
+	private void secondPartOfTopic(String data , Connection con)
+	{
+		//2nd part of topic
+		//:zelazny.freenode.net 333 scrip #test LuX 1159267246
+		if(data.matches(":(.*?)\\s+333\\s+(.*?)\\s+(#.*?)\\s+(\\S+)\\s+(\\S+)$"))
+		{
+			Pattern p = Pattern.compile(":(.*?)\\s+333\\s+(.*?)\\s+(#.*?)\\s+(\\S+)\\s+(\\S+)$");
+			Matcher m = p.matcher(data);
+			m.matches();
+			ChannelImpl chan = (ChannelImpl)con.getChannel(m.group(3));
+			if(topicMap.containsKey(chan))
+			{
+				TopicEventImpl tEvent = (TopicEventImpl)topicMap.get(chan);
+				topicMap.remove(chan);
+				tEvent.setSetBy(m.group(4));
+				tEvent.setSetWhen(m.group(5));
+				chan.setTopicEvent(tEvent);
+				manager.addToRelayList(tEvent);
+			}
+		}
+	}
+	
+	private void nick(String data , Connection con , Session session)
+	{
+		/* NICK IN USE */
+		 if (data.matches(".*?\\s433\\s.*?\\s.*?\\s:?Nickname is already in use.*$")) 
+		 {
+			 if(session.isConnected() && session.isProfileUpdating())
+			 {
+				 session.updateProfileSuccessfully(false);
+			 }
+			 else
+			 {
+				 Profile p = session.getRequestedConnection().getProfile();
+				 String aNick = p.getActualNick();
+				 String newNick = p.getFirstNick() + (Math.random() * 100);
+				 if(aNick.equals(p.getFirstNick())){ newNick = p.getSecondNick(); }
+				 else if(aNick.equals(p.getSecondNick())){ newNick = p.getThirdNick(); }
+				
+				 p.setActualNick(newNick);
+				 
+				 session.changeProfile(p);
+				 
+				 manager.addToRelayList(IRCEventFactory.nickInUse(data, con));
+			 } 
+		 }
+		
+	}
+	
+	private void connectionComplete(String data, Connection con , IRCEvent event)
+	{
+
+		/* CONNECTION COMPLETE 
+		 * irc,freenode.net might actually be niveen.freenode.net
+		 * :irc.nmglug.org 001 namnar :Welcome to the nmglug.org Internet Relay Chat Network namnar */
+		if (data.matches(":.*?\\s+001\\s+.*?\\s+:.*$"))
+		{
+			manager.addToRelayList(event);
+			manager.addToRelayList(IRCEventFactory.readyToJoin(data ,con));
+			ConnectionCompleteEvent ccEvent = IRCEventFactory.connectionComplete(data, con);
+			con.setHostName(ccEvent.getActualHostName());
+			manager.addToRelayList(ccEvent);
+		}
+	}
+	
+	private void privMsg(String data , Connection con , String nick)
+	{
+		if(data.matches("^.+?PRIVMSG\\s+#.+$"))
+		{
+			manager.addToRelayList(IRCEventFactory.channelMsg(data, con));
+		}
+		else
+		{
+			manager.addToRelayList(IRCEventFactory.privateMsg(data, con, nick));
+		}
+	}
+	
 	private void namesLine(String data, Connection con)
 	{
 		Pattern p = Pattern.compile("^:(?:.*?)\\s+353\\s+\\S+\\s+(?:=|@)\\s+(#+\\S+)\\s:(.+)$");
@@ -374,6 +372,5 @@ public class InternalEventParser
 			}
 		}
 	}
-
 
 }
