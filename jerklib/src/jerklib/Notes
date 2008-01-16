@@ -1,0 +1,17 @@
+TODO:
+
+
+
+    
+
+
+    /* Nick is aready in use irc.nmglug.org::irc.nmglug.org 433 * mohadib
+     * :Nickname is already in use. this should only happen to us :) if it
+     * happens as we are joining a server it's a problem - need to notify the
+     * ircconnection and let it fiqure out a new nick .. some variation - if it
+     * happens when we are not joing a server just throw a event */
+    else if (data.matches(".*\\s433\\s\\*\\s.*?\\s:?Nickname is already in use.*$")) {
+      nickInUse(data , con);
+    }
+    
+ 	
