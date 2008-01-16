@@ -53,18 +53,18 @@ public class Example implements IRCEventListener
 		{
 			System.out.println("Good " +e.getRawEventData());
             ChannelMsgEvent event = (ChannelMsgEvent)e;
-            System.out.println("Good: "+event.getNick());
-            System.out.println("Good: "+event.getLogin());
-            System.out.println("Good: "+event.getNicksHost());
-            System.out.println("Good: "+event.getChannel().getName());
-            System.out.println("Good: "+event.getMessage());
+            System.out.println("Nick: "+event.getNick());
+            System.out.println("Login/Ident: "+event.getLogin());
+            System.out.println("Host name: "+event.getNicksHost());
+            System.out.println("Channel Name: "+event.getChannel().getName());
+            System.out.println("message: "+event.getMessage());
         }
 		else if(e.getType() == IRCEvent.Type.PRIVATE_MESSAGE)
 		{
 			System.out.println("Good Prv " +e.getRawEventData());
             PrivateMsgEvent event = (PrivateMsgEvent)e;
-            System.out.println("Good Prv: "+event.getNicksHost());
-            System.out.println("Good Prv: "+event.getLogin());
+            System.out.println("Nick Host: "+event.getNicksHost());
+            System.out.println("Login/Ident: "+event.getLogin());
         }
 		else if(e.getType() == IRCEvent.Type.MODE_EVENT)
 		{
