@@ -13,6 +13,13 @@ public interface PrivateMsgEvent extends IRCEvent
    * @return <code>String</code> the nick
    */
   public String getNick();
+
+    /**
+     * getLogin() returns the login of the person who created the PrivMsgIRCEvent
+     * :nick!login@host PRIVMSG :msg 
+     * @return <code>String</code> the login of the person.
+     */
+    public String getLogin(); 
 	
   
   /**

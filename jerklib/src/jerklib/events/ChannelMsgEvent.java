@@ -50,6 +50,13 @@ public interface ChannelMsgEvent extends IRCEvent {
    * @return <code>String</code> the nick
    */
   public String getNick();
+
+    /**
+     * This will return the login field of the user.
+     * nick!login@host is the hostmask. 
+     * @return <code>String</code> the login field
+     */
+ public String getLogin();
 	
   
   /**

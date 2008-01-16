@@ -6,6 +6,8 @@ import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.ModeEvent;
 import jerklib.events.TopicEvent;
+import jerklib.events.PrivateMsgEvent;
+import jerklib.events.ChannelMsgEvent;
 import jerklib.events.listeners.IRCEventListener;
 
 
@@ -50,11 +52,20 @@ public class Example implements IRCEventListener
 		else if(e.getType() == IRCEvent.Type.CHANNEL_MESSAGE)
 		{
 			System.out.println("Good " +e.getRawEventData());
-		}
+            ChannelMsgEvent event = (ChannelMsgEvent)e;
+            System.out.println("Good: "+event.getNick());
+            System.out.println("Good: "+event.getLogin());
+            System.out.println("Good: "+event.getNicksHost());
+            System.out.println("Good: "+event.getChannel().getName());
+            System.out.println("Good: "+event.getMessage());
+        }
 		else if(e.getType() == IRCEvent.Type.PRIVATE_MESSAGE)
 		{
 			System.out.println("Good Prv " +e.getRawEventData());
-		}
+            PrivateMsgEvent event = (PrivateMsgEvent)e;
+            System.out.println("Good Prv: "+event.getNicksHost());
+            System.out.println("Good Prv: "+event.getLogin());
+        }
 		else if(e.getType() == IRCEvent.Type.MODE_EVENT)
 		{
 			ModeEvent me = (ModeEvent)e;

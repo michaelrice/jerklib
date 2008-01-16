@@ -155,7 +155,7 @@ class IRCEventFactory
 	
   static ChannelMsgEvent channelMsg(String data , Connection con)
   {
-    Pattern p = Pattern.compile("^:(.*?)\\!(.*?)\\s+PRIVMSG\\s+(\\S+)\\s+:(.*)$");
+    Pattern p = Pattern.compile("^:(.*?)\\!(.*?)@(.*?)\\s+PRIVMSG\\s+(\\S+)\\s+:(.*)$");
     Matcher m = p.matcher(data);
     if (m.matches()) 
     {
@@ -163,10 +163,11 @@ class IRCEventFactory
         ( 
           data, 
           myManager.getSessionFor(con),
-          con.getChannel(m.group(3).trim().toLowerCase()), // channel
+          con.getChannel(m.group(4).trim().toLowerCase()), // channel
           m.group(1).trim(), // nick
-          m.group(4), // message
-          m.group(2) // nicks host
+          m.group(2).trim(), // login
+          m.group(5), // message
+          m.group(3) // nicks host
         );
       
       return channelMsgEvent;
