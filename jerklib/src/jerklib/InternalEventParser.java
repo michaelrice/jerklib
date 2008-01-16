@@ -44,9 +44,9 @@ import jerklib.events.impl.TopicEventImpl;
 /**
  * InternalEventParser is the first place IRCEvents are sent.
  * Here they are parsed and made into more specific events then
- * re-dispachted to any listeners via the IRCConnectionManager.
+ * re-dispachted to any listeners via the ConnectionManager.
  * 
- * This class is most convience for users of the lib , however some
+ * This class is mostly convience for users of the lib , however some
  * internal stuff depends on this class as well. Like keeping track
  * of nicks in a channel or knowing when a connection is ready to join channels etc.
  * 
