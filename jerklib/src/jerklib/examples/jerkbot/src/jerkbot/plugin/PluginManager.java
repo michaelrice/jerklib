@@ -1,13 +1,13 @@
-package marinbot.plugin;
+package jerkbot.plugin;
 
 import java.util.ArrayList;
 
+import jerkbot.plugin.types.ChannelMsgPlugin;
+import jerkbot.plugin.types.PrivateMsgPlugin;
 import jerklib.events.ChannelMsgEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.PrivateMsgEvent;
 
-import marinbot.plugin.types.ChannelMsgPlugin;
-import marinbot.plugin.types.PrivateMsgPlugin;
 
 public class PluginManager {
 	private ArrayList<Plugin> pmPlugins = new ArrayList<Plugin>();

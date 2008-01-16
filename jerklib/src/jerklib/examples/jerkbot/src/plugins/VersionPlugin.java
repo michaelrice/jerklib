@@ -1,8 +1,8 @@
 package plugins;
 
+import jerkbot.plugin.Plugin;
+import jerkbot.plugin.types.PrivateMsgPlugin;
 import jerklib.events.PrivateMsgEvent;
-import marinbot.plugin.Plugin;
-import marinbot.plugin.types.PrivateMsgPlugin;
 
 public class VersionPlugin extends Plugin implements PrivateMsgPlugin {
 

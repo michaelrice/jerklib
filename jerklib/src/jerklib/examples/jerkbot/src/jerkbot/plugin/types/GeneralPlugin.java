@@ -1,4 +1,4 @@
-package marinbot.plugin.types;
+package jerkbot.plugin.types;
 
 import jerklib.events.IRCEvent;
 

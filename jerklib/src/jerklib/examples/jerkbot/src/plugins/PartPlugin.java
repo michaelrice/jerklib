@@ -1,8 +1,8 @@
 package plugins;
 
+import jerkbot.plugin.Plugin;
+import jerkbot.plugin.types.ChannelMsgPlugin;
 import jerklib.events.ChannelMsgEvent;
-import marinbot.plugin.Plugin;
-import marinbot.plugin.types.ChannelMsgPlugin;
 
 public class PartPlugin extends Plugin implements ChannelMsgPlugin {
 	@Override

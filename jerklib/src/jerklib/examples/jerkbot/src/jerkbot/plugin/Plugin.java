@@ -1,9 +1,9 @@
-package marinbot.plugin;
+package jerkbot.plugin;
 
+import jerkbot.plugin.types.ChannelMsgPlugin;
+import jerkbot.plugin.types.GeneralPlugin;
+import jerkbot.plugin.types.PrivateMsgPlugin;
 import jerklib.events.IRCEvent;
-import marinbot.plugin.types.ChannelMsgPlugin;
-import marinbot.plugin.types.GeneralPlugin;
-import marinbot.plugin.types.PrivateMsgPlugin;
 
 public abstract class Plugin {
 	private static String prefix = new String("~");

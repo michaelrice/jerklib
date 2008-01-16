@@ -1,15 +1,15 @@
-package marinbot;
+package jerkbot;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import jerkbot.plugin.Plugin;
+import jerkbot.plugin.PluginManager;
 import jerklib.ConnectionManager;
 import jerklib.ProfileImpl;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.listeners.IRCEventListener;
-import marinbot.plugin.Plugin;
-import marinbot.plugin.PluginManager;
 
 public class Marinbot implements IRCEventListener {
 	ConnectionManager mngr;
