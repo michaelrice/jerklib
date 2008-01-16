@@ -1,5 +1,22 @@
 This is a VERY simple example of how to write a bot with Jerklib.
 
-For information about how it works, just examine the code. 
+==Running==
+java -cp jerklib.jar jerklib.examples.jerkbot2.jerkbot.Jerkbot
+
+==Using the bot==
+This bot is simple like i said. The bot will join the channel you specify
+which is hard-coded in the Jerkbot class, it will then say "Hai 2u"
+when it is finished joining the channel and it is synced.
+The bot has two commands currently.
+
+Typing "~users" (without quotes) will cause it to output the message seen below:
+Users in #example are: jerkbot
+
+==Killing the bot from IRC==
+Typing "~quit <password>" (without quotes) in a private message with the bot will cause the bot to
+disconnect from IRC. '<password>' is passed into the constructor of the QuitOperation.
+This password is case-sensitive.
 
 Author: Robert O'Connor <robby.oconnor@gmail.com>
+
+
