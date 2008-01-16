@@ -41,7 +41,7 @@ import jerklib.events.impl.ConnectionCompleteEventImpl;
 class IRCEventFactory
 {
   
-	static private ConnectionManager myManager;
+	private static ConnectionManager myManager;
 	
 	static void setManager(ConnectionManager manager)
 	{
