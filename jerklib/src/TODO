@@ -1,0 +1,16 @@
+TODO
+
+01.17.2008
+- Add the ability for extending Jerkbot's event system so that the users can add events on the fly w/o
+  having to modify the various classes, namely IRCEventFactory and InternalEventParser. - r0bby
+
+- Add InviteEvent [done] - r0bby implemented it
+
+- Add ChannelListEvent [partially done - just needs to be written into InternalEventParser
+  w/ buffering until 323 is encountered.] (321-323 is /LIST) - r0bby implemented most of it.
+
+- We have a few slight bugs related to joinChannel() and channelSay()   
+
+
+
+
