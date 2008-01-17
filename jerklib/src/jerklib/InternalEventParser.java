@@ -362,12 +362,13 @@ public class InternalEventParser
 		{
 			Channel chan = con.getChannel(m.group(1).toLowerCase().trim());
 			String[] names = m.group(2).trim().split("\\s+");
-			for (int i = 0; i < names.length; i++)
+
+            for(String name : names)
 			{
 				// remove @ and + from front for operators ?
-				if (names[i] != null && names[i].length() > 0)
+				if (name != null && name.length() > 0)
 				{
-					chan.addNick(names[i].toLowerCase().replace("+", "").replace("@", "").trim());
+					chan.addNick(name.toLowerCase().replace("+", "").replace("@", "").trim());
 				}
 			}
 		}
