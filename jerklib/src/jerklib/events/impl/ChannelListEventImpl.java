@@ -7,6 +7,7 @@ import jerklib.Channel;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Collections;
 
 public class ChannelListEventImpl implements ChannelListEvent {
 
@@ -23,8 +24,8 @@ public class ChannelListEventImpl implements ChannelListEvent {
         this.session = session;
     }
 
-    public Map<Channel,Integer> getChannel() {
-        return chanMap;
+    public Map<Channel,Integer> getChannels() {
+        return Collections.unmodifiableMap(chanMap);
     }
 
     public Type getType() {
