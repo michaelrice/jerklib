@@ -259,7 +259,7 @@ public class InternalEventParser
 	{
 		//FIRST PART TOF TOPPIC;
 		//sterling.freenode.net 332 scrip #test :Welcome to #test - This channel is for testing only.
-		if(data.matches(":(.*?)\\s+332\\s+(.*?)\\s+(#.*?)\\s+:(.*)$"))
+		if(data.matches(":(.+?)\\s+332\\s+(.+?)\\s+(#.+?)\\s+:(.*)$"))
 		{
 			TopicEvent tEvent = IRCEventFactory.topic(data, con);
 			if(topicMap.containsValue(tEvent.getChannel()))
@@ -277,9 +277,9 @@ public class InternalEventParser
 	{
 		//2nd part of topic
 		//:zelazny.freenode.net 333 scrip #test LuX 1159267246
-		if(data.matches(":(.*?)\\s+333\\s+(.*?)\\s+(#.*?)\\s+(\\S+)\\s+(\\S+)$"))
+		if(data.matches(":(.+?)\\s+333\\s+(.+?)\\s+(#.+?)\\s+(\\S+)\\s+(\\S+)$"))
 		{
-			Pattern p = Pattern.compile(":(.*?)\\s+333\\s+(.*?)\\s+(#.*?)\\s+(\\S+)\\s+(\\S+)$");
+			Pattern p = Pattern.compile(":(.+?)\\s+333\\s+(.+?)\\s+(#.+?)\\s+(\\S+)\\s+(\\S+)$");
 			Matcher m = p.matcher(data);
 			m.matches();
 			ChannelImpl chan = (ChannelImpl)con.getChannel(m.group(3));
@@ -298,7 +298,7 @@ public class InternalEventParser
 	private void nick(String data , Connection con , Session session)
 	{
 		/* NICK IN USE */
-		 if (data.matches(".*?\\s433\\s.*?\\s.*?\\s:?Nickname is already in use.*$")) 
+		 if (data.matches(".+?\\s433\\s.+?\\s.+?\\s:?Nickname is already in use.*$")) 
 		 {
 			 if(session.isConnected() && session.isProfileUpdating())
 			 {
@@ -328,7 +328,7 @@ public class InternalEventParser
 		/* CONNECTION COMPLETE 
 		 * irc,freenode.net might actually be niveen.freenode.net
 		 * :irc.nmglug.org 001 namnar :Welcome to the nmglug.org Internet Relay Chat Network namnar */
-		if (data.matches(":.*?\\s+001\\s+.*?\\s+:.*$"))
+		if (data.matches(":.+?\\s+001\\s+.+?\\s+:.*$"))
 		{
 			manager.addToRelayList(event);
 			manager.addToRelayList(IRCEventFactory.readyToJoin(data ,con));
@@ -352,7 +352,7 @@ public class InternalEventParser
 	
 	private void namesLine(String data, Connection con)
 	{
-		Pattern p = Pattern.compile("^:(?:.*?)\\s+353\\s+\\S+\\s+(?:=|@)\\s+(#+\\S+)\\s:(.+)$");
+		Pattern p = Pattern.compile("^:(?:.+?)\\s+353\\s+\\S+\\s+(?:=|@)\\s+(#+\\S+)\\s:(.+)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
