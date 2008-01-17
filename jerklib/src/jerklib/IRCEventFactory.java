@@ -20,6 +20,7 @@ import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.ChannelListEvent;
+import jerklib.events.InviteEvent;
 import jerklib.events.impl.JoinCompleteEventImpl;
 import jerklib.events.impl.JoinEventImpl;
 import jerklib.events.impl.KickEventImpl;
@@ -37,6 +38,7 @@ import jerklib.events.impl.ReadyToJoinEventImpl;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.ConnectionCompleteEventImpl;
 import jerklib.events.impl.ChannelListEventImpl;
+import jerklib.events.impl.InviteEventImpl;
 
 
 class IRCEventFactory
@@ -420,6 +422,15 @@ class IRCEventFactory
     }
     return null;
   }
+  //:r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2
+  static InviteEvent invitedToChan(String data, Connection con) {
+      Pattern p = Pattern.compile(":(.*?)!.*\\sINVITE\\s.*\\s:(.*?)");
+      Matcher m = p.matcher(data);
+      if(m.matches()) {
+        return new InviteEventImpl(m.group(2),m.group(1),data,myManager.getSessionFor(con));
+      }
+      return null;
+  }
 
-	
+
 }

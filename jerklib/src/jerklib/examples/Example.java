@@ -8,6 +8,7 @@ import jerklib.events.ModeEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.PrivateMsgEvent;
 import jerklib.events.ChannelMsgEvent;
+import jerklib.events.InviteEvent;
 import jerklib.events.listeners.IRCEventListener;
 
 import java.text.SimpleDateFormat;
@@ -38,7 +39,7 @@ public class Example implements IRCEventListener
 		else if(e.getType() == IRCEvent.Type.READY_TO_JOIN)
 		{
 			//e.getSession().whois("mohadib");
-			e.getSession().joinChannel("#jerklib");	
+			e.getSession().joinChannel("#jerklib2");
 			/*e.getSession().joinChannel("#ubuntu");
 			e.getSession().joinChannel("#debian");
 			e.getSession().joinChannel("#perl");*/
@@ -47,7 +48,12 @@ public class Example implements IRCEventListener
 		else if(e.getType() == IRCEvent.Type.JOIN_COMPLETE)
 		{
 		}
-		else if(e.getType() == IRCEvent.Type.TOPIC)
+        else if(e.getType() == IRCEvent.Type.INVITE_EVENT) {
+            InviteEvent event = (InviteEvent)e;
+            e.getSession().joinChannel(event.getChannel());
+            e.getSession().rawSay("PRIVMSG "+event.getNick()+" : thanks!\r\n");
+        }
+        else if(e.getType() == IRCEvent.Type.TOPIC)
 		{
 			TopicEvent te = (TopicEvent)e;
             System.out.println("Topic for " + te.getChannel().getName() + " " + te.getTopic() + " set by " + te.getSetBy() + " set when:" + te.getSetWhen());

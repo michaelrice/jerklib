@@ -38,6 +38,7 @@ import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
+import jerklib.events.InviteEvent;
 import jerklib.events.impl.TopicEventImpl;
 
 
@@ -209,8 +210,12 @@ public class InternalEventParser
 			event.getSession().rawSay("TOPIC " + m.group(1) +"\r\n");
 			return;
 		}
-		
-		/* NICK CHANGE :mohadib!~mohadib@65.19.62.93 NICK :slaps */
+        // :r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2
+        else if(data.matches(".*\\sINVITE.*")) {
+            event = IRCEventFactory.invitedToChan(data,con);
+        }
+
+        /* NICK CHANGE :mohadib!~mohadib@65.19.62.93 NICK :slaps */
 		else if (data.matches("^:.+?\\!.+?\\s+NICK\\s+:.*"))
 		{
 			NickChangeEvent nEvent = IRCEventFactory.nickChange(data,con);
