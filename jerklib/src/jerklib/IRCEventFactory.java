@@ -19,6 +19,7 @@ import jerklib.events.PrivateMsgEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
+import jerklib.events.ChannelListEvent;
 import jerklib.events.impl.JoinCompleteEventImpl;
 import jerklib.events.impl.JoinEventImpl;
 import jerklib.events.impl.KickEventImpl;
@@ -35,7 +36,7 @@ import jerklib.events.impl.QuitEventImpl;
 import jerklib.events.impl.ReadyToJoinEventImpl;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.ConnectionCompleteEventImpl;
-
+import jerklib.events.impl.ChannelListEventImpl;
 
 
 class IRCEventFactory
@@ -331,8 +332,14 @@ class IRCEventFactory
     return null;
   }
   
-  
-  static JoinCompleteEvent joinCompleted(String data , Connection con, String nick , Channel channel)
+    //:card.freenode.net 322 ronnoco #blender.de 6 :happy new year <- the data we need parse
+    static ChannelListEvent parseChannelList(String data, Connection con) {
+        // pass off the raw data and session leave the parsing for later.
+        return new ChannelListEventImpl(data,myManager.getSessionFor(con));
+    }
+
+
+    static JoinCompleteEvent joinCompleted(String data , Connection con, String nick , Channel channel)
   {
   	return new JoinCompleteEventImpl(data ,myManager.getSessionFor(con), channel);
   }
