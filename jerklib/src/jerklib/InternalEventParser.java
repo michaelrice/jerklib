@@ -80,12 +80,13 @@ public class InternalEventParser
 		final Connection con = ((InternalSession)event.getSession()).getConnection();
 		final String data = event.getRawEventData().trim();
 		final String nick = con.getProfile().getActualNick();
+		final IRCEvent origEventCopy = event;
 		
 		/* A Channel Msg
 		 * :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah */
 		/* Private message
 		 * :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!! */
-		if (data.matches("^:.*?\\!.*?\\s+PRIVMSG\\s+\\S+\\s+:.*$"))
+		if (data.matches("^:.+?\\!.+?\\s+PRIVMSG\\s+\\S+\\s+:.*$"))
 		{
 			privMsg(data, con, nick);
 			return;
@@ -117,7 +118,7 @@ public class InternalEventParser
 		/* PERSON QUIT 
 		 * :Xolt!brad@c-67-165-231-230.hsd1.co.comcast.net QUIT :"Deleted" 
 		 * :james_so!~me@213-152-46-35.dsl.eclipse.net.uk QUIT :Read error: 60 (Operation timed out) */
-		else if (data.matches("^:.*?\\s+QUIT\\s+:.*"))
+		else if (data.matches("^:.+?\\s+QUIT\\s+:.*"))
 		{
 			QuitEvent qEvent = IRCEventFactory.quit(data,con);
 			con.removeNickFromAllChannels(qEvent.getWho());
@@ -154,7 +155,7 @@ public class InternalEventParser
 		
 		/* SOMEONE JOINS A CHANNEL :Yog!~magnus@hades.27b-6.de JOIN :#perl
 		 * :Solaya!~Solaya@cable-134-9.iesy.tv JOIN #bratwurstbude */
-		else if (data.matches("^:.+?\\!.*?\\s+JOIN\\s+:?#.*$"))
+		else if (data.matches("^:.+?\\!.+?\\s+JOIN\\s+:?#.*$"))
 		{
 			JoinEvent jEvent = IRCEventFactory.regularJoin(data, con);
 
@@ -168,7 +169,7 @@ public class InternalEventParser
 		 * :DrGonzo42069!~raulduke@c-67-171-159-2.hsd1.or.comcast.net PART #debian :"Kopete 0.10 : http://kopete.kde.org"
 		 * :mooohadib!~mohadib@63-230-98-87.albq.qwest.net PART #test
 		 */
-		else if (data.matches("^:.+?\\!.*?\\s+PART\\s+#.*$"))
+		else if (data.matches("^:.+?\\!.+?\\s+PART\\s+#.*$"))
 		{
 			PartEvent pEvent = IRCEventFactory.part(data, con);
 
@@ -249,7 +250,7 @@ public class InternalEventParser
 			return;
 		}
 
-		manager.addToRelayList(event);
+		manager.addToRelayList(event == null? origEventCopy:event );
 	}
 
 	
