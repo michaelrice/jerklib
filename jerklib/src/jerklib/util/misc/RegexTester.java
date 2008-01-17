@@ -20,7 +20,7 @@ public class RegexTester {
             System.out.println(m.group(3)); // topic 
 
         }
-        // reset our Pattern and Matcher objects to null references to prepare for the next regex
+        // reset our Pattern and Matcher references to null references to prepare for the next regex
         p = null;
         m = null;
         // check for end of /list
