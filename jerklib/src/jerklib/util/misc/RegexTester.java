@@ -14,9 +14,9 @@ public class RegexTester {
         Matcher m = p.matcher(":card.freenode.net 322 ronnoco #blender.de 6 :happy new year");
 
         if(m.matches()) {
-            System.out.println(m.group(1));
-            System.out.println(m.group(2));
-            System.out.println(m.group(3));
+            System.out.println(m.group(1));  // channel
+            System.out.println(m.group(2)); // number of users
+            System.out.println(m.group(3)); // topic 
 
         }
     }
