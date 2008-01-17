@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 
 /**
  * Use this class to test out your regexes w/o breaking things
+ * 
  * @author Robert O'Connor <robby.oconnor@gmail.com>
  */
 public class RegexTester {
