@@ -3,6 +3,10 @@ package jerklib.util.misc;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+/**
+ * Use this class to test out your regexes w/o breaking things
+ * @author Robert O'Connor <robby.oconnor@gmail.com>
+ */
 public class RegexTester {
     public static void main(String[] args) {
         Pattern p = Pattern.compile(".*\\s322\\s.*?\\s(.*?)\\s(.*?)\\s:(.*?)");
