@@ -3,46 +3,43 @@ package jerklib.events.impl;
 import jerklib.events.ChannelListEvent;
 import jerklib.events.IRCEvent;
 import jerklib.Session;
+import jerklib.Channel;
+
+import java.util.Map;
+import java.util.HashMap;
 
 public class ChannelListEventImpl implements ChannelListEvent {
 
-    private final int numberOfUsers;
-
-    private final String rawEventData,channelName,channelTopic;
-
-    private final Type type = IRCEvent.Type.CHANNEL_LIST_EVENT;
     private final Session session;
 
-    public ChannelListEventImpl(String channelName, String channelTopic, int numberOfUsers, String rawEventData, Session session) {
-        this.channelName = channelName;
-        this.channelTopic = channelTopic;
-        this.numberOfUsers = numberOfUsers;
+    private final String rawEventData;
+
+    private final Map<Channel, Integer> chanMap = new HashMap<Channel, Integer>(); 
+
+    private final Type type = IRCEvent.Type.CHANNEL_LIST_EVENT;
+
+    public ChannelListEventImpl(String rawEventData, Session session) {
         this.rawEventData = rawEventData;
         this.session = session;
+    }
+
+    public Map<Channel,Integer> getChannel() {
+        return chanMap;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public String getRawEventData() {
+        return rawEventData;
     }
 
     public Session getSession() {
         return session;
     }
 
-
-    public String getChannelTopic() {
-        return channelTopic;
-    }
-
-    public int getNumberOfUsers() {
-        return numberOfUsers;
-    }
-
-    public String getChannelName() {
-        return channelName;
-    }
-
-   public String getRawEventData() {
-        return rawEventData;
-    }
-
-    public Type getType() {
-        return type;
+    public void appendToMap(Channel channel, int numberOfUsers) {
+        chanMap.put(channel,numberOfUsers);
     }
 }

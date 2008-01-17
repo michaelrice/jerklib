@@ -1,12 +1,12 @@
 package jerklib.events;
 
+import jerklib.Channel;
+
+import java.util.Map;
+
 public interface ChannelListEvent extends IRCEvent
 {
 
-    public int getNumberOfUsers();
-
-    public String getChannelName();
-
-    public String getChannelTopic();
+    public Map<Channel,Integer> getChannel();
 
 }
