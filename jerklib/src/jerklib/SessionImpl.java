@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import jerklib.events.listeners.IRCEventListener;
 
@@ -89,7 +90,8 @@ public class SessionImpl implements Session
 
 	public void joinChannel(String channelName)
 	{
-		if (!channelNames.contains(channelName))
+
+        if (!channelNames.contains(channelName))
 		{
 			channelNames.add(channelName);
 			if (con != null)
@@ -181,7 +183,8 @@ public class SessionImpl implements Session
 		}
 		else
 		{
-			System.out.println("UPDATED PROFILE FAILEDDDD!!");
+			/* rather than just bail, let's see if we can get a different nick by tacking on numbers */
+            rCon.getProfile().setActualNick(tmpProfile.getFirstNick()+new Random().nextInt(42));
 		}
 		tmpProfile = null;
 		profileUpdating = false;
