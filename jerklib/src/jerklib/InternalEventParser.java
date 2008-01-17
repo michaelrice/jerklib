@@ -102,7 +102,10 @@ public class InternalEventParser
 				switch(Integer.parseInt(m.group(1)))
 				{
 					case 001: connectionComplete(data, con, event);return;
-					case 332: firstPartOfTopic(data, con); return;
+                    case 321: // beginning of /list
+                    case 322: // channel listings use this numeric
+                    case 323: // end of /list
+                    case 332: firstPartOfTopic(data, con); return;
 					case 333: secondPartOfTopic(data, con); return;
 					case 353: namesLine(data, con); return;
 					case 366: manager.addToRelayList(IRCEventFactory.nickList(data, con)); return;
