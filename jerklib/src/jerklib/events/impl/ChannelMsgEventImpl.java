@@ -15,7 +15,16 @@ public class ChannelMsgEventImpl implements ChannelMsgEvent
 	private final Session session;
 	private final Channel channel;
 
-	public ChannelMsgEventImpl(String rawEventData, Session session, Channel channel, String nick, String userName, String message, String host)
+	public ChannelMsgEventImpl
+	(
+			String rawEventData, 
+			Session session, 
+			Channel channel, 
+			String nick, 
+			String userName, 
+			String message, 
+			String host
+	)
 	{
 
 		this.rawEventData = rawEventData;
@@ -39,10 +48,10 @@ public class ChannelMsgEventImpl implements ChannelMsgEvent
 		return nick;
 	}
 
-    public String getUserName()
-    {
-        return userName;
-    }
+  public String getUserName()
+  {
+  	return userName;
+  }
     public Type getType()
 	{
 		return type;
