@@ -7,8 +7,8 @@ import jerklib.events.listeners.IRCEventListener;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.examples.jerkbot2.jerkbot.operations.BotOperation;
-import jerklib.examples.jerkbot2.jerkbot.operations.ChannelManager;
-import jerklib.examples.jerkbot2.jerkbot.operations.Quit;
+import jerklib.examples.jerkbot2.jerkbot.operations.ChannelManagerOperation;
+import jerklib.examples.jerkbot2.jerkbot.operations.QuitOperation;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -38,8 +38,8 @@ public class Jerkbot implements IRCEventListener {
     }
 
     public void loadOperations() {
-        operations.add(new Quit("abc123"));
-        operations.add(new ChannelManager());
+        operations.add(new QuitOperation("abc123"));
+        operations.add(new ChannelManagerOperation());
     }
 
 
