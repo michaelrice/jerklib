@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import jerklib.events.listeners.IRCEventListener;
 
@@ -183,8 +182,7 @@ public class SessionImpl implements Session
 		}
 		else
 		{
-			/* rather than just bail, let's see if we can get a different nick by tacking on numbers */
-            rCon.getProfile().setActualNick(tmpProfile.getFirstNick()+new Random().nextInt(42));
+			System.out.println("UPDATED PROFILE FAILEDDDD!!");
 		}
 		tmpProfile = null;
 		profileUpdating = false;
