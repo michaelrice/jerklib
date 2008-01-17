@@ -103,7 +103,7 @@ public class InternalEventParser
 				{
 					case 001: connectionComplete(data, con, event);return;
                     case 321: // beginning of /list
-                    case 322: // channel listings use this numeric
+                    case 322: // channel listings use this numeric method is IRCEventFactory.parseChannelList(data,con)
                     case 323: // end of /list
                     case 332: firstPartOfTopic(data, con); return;
 					case 333: secondPartOfTopic(data, con); return;
