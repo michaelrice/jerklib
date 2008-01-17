@@ -38,7 +38,7 @@ public class ChannelMsgEventImpl implements ChannelMsgEvent
 	}
 
 
-    public Channel getChannel()
+  public Channel getChannel()
 	{
 		return channel;
 	}
