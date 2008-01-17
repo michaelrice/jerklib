@@ -51,7 +51,7 @@ public class Example implements IRCEventListener
 		}
 		else if(e.getType() == IRCEvent.Type.CHANNEL_MESSAGE)
 		{
-			System.out.println("Good " +e.getRawEventData());
+			System.out.println("Good Chan Msg: " +e.getRawEventData());
             ChannelMsgEvent event = (ChannelMsgEvent)e;
             System.out.println("Nick: "+event.getNick());
             System.out.println("User Name: "+event.getUserName());
