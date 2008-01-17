@@ -10,6 +10,8 @@ import jerklib.events.PrivateMsgEvent;
 import jerklib.events.ChannelMsgEvent;
 import jerklib.events.listeners.IRCEventListener;
 
+import java.text.SimpleDateFormat;
+
 
 public class Example implements IRCEventListener
 {
@@ -40,14 +42,15 @@ public class Example implements IRCEventListener
 			/*e.getSession().joinChannel("#ubuntu");
 			e.getSession().joinChannel("#debian");
 			e.getSession().joinChannel("#perl");*/
-		}
+            e.getSession().rawSay("LIST ##swing");
+        }
 		else if(e.getType() == IRCEvent.Type.JOIN_COMPLETE)
 		{
 		}
 		else if(e.getType() == IRCEvent.Type.TOPIC)
 		{
 			TopicEvent te = (TopicEvent)e;
-			System.out.println("Topic for " + te.getChannel().getName() + " " + te.getTopic() + " set by " + te.getSetBy() + " set when:" + te.getSetWhen());
+            System.out.println("Topic for " + te.getChannel().getName() + " " + te.getTopic() + " set by " + te.getSetBy() + " set when:" + te.getSetWhen());
 		}
 		else if(e.getType() == IRCEvent.Type.CHANNEL_MESSAGE)
 		{
@@ -61,7 +64,7 @@ public class Example implements IRCEventListener
         }
 		else if(e.getType() == IRCEvent.Type.PRIVATE_MESSAGE)
 		{
-			System.out.println("Good Prv " +e.getRawEventData());
+			System.out.println("Good Prv: " +e.getRawEventData());
             PrivateMsgEvent event = (PrivateMsgEvent)e;
             System.out.println("Host Name: "+event.getHostName());
             System.out.println("User Name: "+event.getUserName());
