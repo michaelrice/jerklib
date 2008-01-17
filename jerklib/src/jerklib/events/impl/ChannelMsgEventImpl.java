@@ -10,21 +10,21 @@ import jerklib.events.ChannelMsgEvent;
 public class ChannelMsgEventImpl implements ChannelMsgEvent
 {
 
-	private final String rawEventData, nick, login, message, nicksHost;
+	private final String rawEventData, nick, userName, message, host;
 	private final Type type = IRCEvent.Type.CHANNEL_MESSAGE;
 	private final Session session;
 	private final Channel channel;
 
-	public ChannelMsgEventImpl(String rawEventData, Session session, Channel channel, String nick, String login, String message, String nicksHost)
+	public ChannelMsgEventImpl(String rawEventData, Session session, Channel channel, String nick, String userName, String message, String host)
 	{
 
 		this.rawEventData = rawEventData;
 		this.session = session;
 		this.channel = channel;
 		this.nick = nick;
-        this.login = login;
+        this.userName = userName;
         this.message = message;
-		this.nicksHost = nicksHost;
+		this.host = host;
 
 	}
 
@@ -39,9 +39,9 @@ public class ChannelMsgEventImpl implements ChannelMsgEvent
 		return nick;
 	}
 
-    public String getLogin()
+    public String getUserName()
     {
-        return login;
+        return userName;
     }
     public Type getType()
 	{
@@ -64,9 +64,9 @@ public class ChannelMsgEventImpl implements ChannelMsgEvent
 		return this.message;
 	}
 
-	public String getNicksHost()
+	public String getHostName()
 	{
-		return nicksHost;
+		return host;
 	}
 
 	public String toString()

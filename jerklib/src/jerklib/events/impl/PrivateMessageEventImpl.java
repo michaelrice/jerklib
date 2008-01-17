@@ -9,24 +9,24 @@ import jerklib.events.PrivateMsgEvent;
 public class PrivateMessageEventImpl implements PrivateMsgEvent
 {
 
-	private final String rawEventData,nick,message, nicksHost,login;
+	private final String rawEventData,nick,message, host,userName;
 	private final Type type = IRCEvent.Type.PRIVATE_MESSAGE;
 	private final Session session;
 
-	public PrivateMessageEventImpl(String rawEventData,Session session, String nick, String login, String message, String nicksHost)
+	public PrivateMessageEventImpl(String rawEventData,Session session, String nick, String userName, String message, String host)
 	{
 		this.rawEventData = rawEventData;
 		this.session = session;
 		this.nick = nick;
-        this.login = login;
+        this.userName = userName;
         this.message = message;
-		this.nicksHost = nicksHost;
+		this.host = host;
 
 	}
 
-    public final String getLogin()
+    public final String getUserName()
     {
-        return login;
+        return userName;
     }
 
     public final String getNick()
@@ -55,9 +55,9 @@ public class PrivateMessageEventImpl implements PrivateMsgEvent
 		return this.message;
 	}
 
-	public final String getNicksHost()
+	public final String getHostName()
 	{
-		return nicksHost;
+		return host;
 	}
 
 	public String toString()

@@ -165,7 +165,7 @@ class IRCEventFactory
           myManager.getSessionFor(con),
           con.getChannel(m.group(4).trim().toLowerCase()), // channel
           m.group(1).trim(), // nick
-          m.group(2).trim(), // login
+          m.group(2).trim(), // user name
           m.group(5), // message
           m.group(3) // nicks host
         );
@@ -369,7 +369,7 @@ class IRCEventFactory
             data, 
             myManager.getSessionFor(con),
             m.group(1).trim(), // nick
-            m.group(2).trim(), // login    
+            m.group(2).trim(), // user name  
             m.group(4), // message
             m.group(3) // nicks host
       );
