@@ -12,7 +12,6 @@ import jerklib.events.InviteEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.listeners.IRCEventListener;
 
-import java.text.SimpleDateFormat;
 
 
 public class Example implements IRCEventListener
@@ -40,8 +39,6 @@ public class Example implements IRCEventListener
 		else if(e.getType() == IRCEvent.Type.READY_TO_JOIN)
 		{
 			//e.getSession().whois("mohadib");
-			e.getSession().joinChannel("#jerklib2");
-			e.getSession().joinChannel("#jerklib3");
             e.getSession().joinChannel("#jerklib");
             /*e.getSession().joinChannel("#ubuntu");
 			e.getSession().joinChannel("#debian");
@@ -54,9 +51,8 @@ public class Example implements IRCEventListener
             e.getSession().channelSay(event.getChannel().getName(),"Hai 2u");
         }
         else if(e.getType() == IRCEvent.Type.INVITE_EVENT) {
-            InviteEvent event = (InviteEvent)e;
+            final InviteEvent event = (InviteEvent)e;
             e.getSession().joinChannel(event.getChannel());
-            e.getSession().channelSay(event.getChannel(),"You rang?!?");
         }
         else if(e.getType() == IRCEvent.Type.TOPIC)
 		{
@@ -74,6 +70,9 @@ public class Example implements IRCEventListener
             System.out.println("Message: "+event.getMessage());
             if(event.getMessage().startsWith("~say")) {
                 e.getSession().channelSay(event.getChannel().getName(),event.getMessage().substring("~say".length()));
+            }
+            else if(event.getMessage().startsWith("~join")) {
+                e.getSession().joinChannel(event.getMessage().substring("~join ".length()));
             }
         }
 		else if(e.getType() == IRCEvent.Type.PRIVATE_MESSAGE)
