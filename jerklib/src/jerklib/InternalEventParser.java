@@ -30,7 +30,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jerklib.events.ChannelListEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
@@ -39,7 +38,6 @@ import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
-import jerklib.events.impl.ChannelListEventImpl;
 import jerklib.events.impl.TopicEventImpl;
 
 
@@ -62,7 +60,6 @@ public class InternalEventParser
 
 	private Map<Channel, TopicEvent> topicMap = new HashMap<Channel, TopicEvent>();
 //	/private Map<Pair<String, Connection> , WhoisEvent> whoisMap = new HashMap<Pair<String,Connection>, WhoisEvent>();
-	private ChannelListEvent tempListEvent;
 	
 	public InternalEventParser(ConnectionManager manager)
 	{
