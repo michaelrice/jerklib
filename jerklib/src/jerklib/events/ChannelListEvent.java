@@ -1,15 +1,14 @@
 package jerklib.events;
 
 import jerklib.Channel;
-import jerklib.util.Pair;
 
 import java.util.Map;
 
 public interface ChannelListEvent extends IRCEvent
 {
 
-    public Map<Channel, Pair<Integer,String>> getChannels();
+    public Map<Channel,Integer> getChannels();
 
-    public void appendToMap(Channel chan, Pair<Integer,String> pair); 
+    public void appendToMap(Channel chan, int numberOfUsers);
 
 }
