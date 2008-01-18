@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 public class RegexTester {
     public static void main(String[] args) {
         // we'll ignore 321 since it's just basically misc. data that isn't relevant to us.
-        Pattern p = Pattern.compile(".*\\s322\\s.*?\\s(.*?)\\s(.*?)\\s:(.*?)");
+        Pattern p = Pattern.compile(".+?\\s322\\s.+?\\s(.+?)\\s(\\d+)\\s:(.+?)");
         Matcher m = p.matcher(":card.freenode.net 322 ronnoco #blender.de 6 :happy new year");
 
         if(m.matches()) {
@@ -24,8 +24,9 @@ public class RegexTester {
         p = null;
         m = null;
         // check for end of /list
-        p = Pattern.compile(".*\\s323.*");
-        m = p.matcher(":kubrick.freenode.net 323 r0by :End of /LIST");
+        //^:(.*?)\\!\\S+\\s+KICK\\s+(\\S+)\\s+(\\S+)\\s+:?(.*)
+        p = Pattern.compile("^:.*+\\s323+$"); 
+        m = p.matcher(":card.freenode.net 323 r0bby___ :End of /LIST");
 
         // does it match?!?!?
         System.out.println(m.matches());
