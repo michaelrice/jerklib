@@ -126,10 +126,10 @@ public class InternalEventParser
 				switch(Integer.parseInt(m.group(1)))
 				{
 					case 001: connectionComplete(data, con, event);return;
-          case 321: // beginning of /list
-          case 322: // channel listings use this numeric method is IRCEventFactory.parseChannelList(data,con)
-          case 323: chanList(data, con); return;// end of channel /list
-          case 332: firstPartOfTopic(data, con); return;
+                    case 321: break; // beginning of /names
+                    case 322: break; //the channel listings                        
+                    case 323: chanList(data, con); return;
+                    case 332: firstPartOfTopic(data, con); return;
 					case 333: secondPartOfTopic(data, con); return;
 					case 353: namesLine(data, con); return;
 					case 366: manager.addToRelayList(IRCEventFactory.nickList(data, con)); return;
@@ -342,7 +342,7 @@ public class InternalEventParser
 			 else
 			 {
 				 Profile p = session.getRequestedConnection().getProfile();
-				 String aNick = p.getActualNick();
+				 String aNick = p.getActualNick();         
 				 String newNick = p.getFirstNick() + (Math.random() * 100);
 				 if(aNick.equals(p.getFirstNick())){ newNick = p.getSecondNick(); }
 				 else if(aNick.equals(p.getSecondNick())){ newNick = p.getThirdNick(); }
