@@ -1,4 +1,4 @@
-package jerklib.examples.jerkbot.plugin;
+ package jerklib.examples.jerkbot.plugin;
 
 
 public abstract class Plugin {
