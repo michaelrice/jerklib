@@ -306,8 +306,9 @@ class Connection
 				data = request.getMessage();
 			}
 
-			ByteBuffer buff = ByteBuffer.allocate(data.length());
-			buff.put(data.getBytes());
+			byte[] dataArray = data.getBytes();
+			ByteBuffer buff = ByteBuffer.allocate(dataArray.length);
+			buff.put(dataArray);
 			buff.flip();
 
 			try
