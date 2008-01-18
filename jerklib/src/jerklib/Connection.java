@@ -135,6 +135,16 @@ class Connection
 		channelMap.put(channel.getName(), channel);
 	}
 
+	void chanList()
+	{
+		addWriteRequest(new WriteRequestImpl("LIST\r\n" , this));
+	}
+	
+	void chanList(String channel)
+	{
+		
+	}
+	
 	void join(final String channel)
 	{
 		if (!channelMap.containsKey(channel))

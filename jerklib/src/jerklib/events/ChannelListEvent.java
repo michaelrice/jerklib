@@ -9,6 +9,4 @@ public interface ChannelListEvent extends IRCEvent
 
     public Map<Channel,Integer> getChannels();
 
-    public void appendToMap(Channel chan, int numberOfUsers);
-
 }

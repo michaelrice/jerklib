@@ -9,38 +9,47 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
 
-public class ChannelListEventImpl implements ChannelListEvent {
+public class ChannelListEventImpl implements ChannelListEvent
+{
 
-    private final Session session;
+	private final Session session;
+	private String rawEventData;
+	private final Map<Channel, Integer> chanMap = new HashMap<Channel, Integer>();
+	private final Type type = IRCEvent.Type.CHANNEL_LIST_EVENT;
 
-    private final String rawEventData;
+	public ChannelListEventImpl(String rawEventData, Session session)
+	{
+		this.rawEventData = rawEventData;
+		this.session = session;
+	}
 
-    private final Map<Channel, Integer> chanMap = new HashMap<Channel, Integer>(); 
+	public Map<Channel, Integer> getChannels()
+	{
+		return Collections.unmodifiableMap(chanMap);
+	}
 
-    private final Type type = IRCEvent.Type.CHANNEL_LIST_EVENT;
+	public Type getType()
+	{
+		return type;
+	}
 
-    public ChannelListEventImpl(String rawEventData, Session session) {
-        this.rawEventData = rawEventData;
-        this.session = session;
-    }
+	public String getRawEventData()
+	{
+		return rawEventData;
+	}
 
-    public Map<Channel,Integer> getChannels() {
-        return Collections.unmodifiableMap(chanMap);
-    }
+	public Session getSession()
+	{
+		return session;
+	}
 
-    public Type getType() {
-        return type;
-    }
+	public void appendToMap(Channel channel, int numberOfUsers)
+	{
+		chanMap.put(channel, numberOfUsers);
+	}
 
-    public String getRawEventData() {
-        return rawEventData;
-    }
-
-    public Session getSession() {
-        return session;
-    }
-
-    public void appendToMap(Channel channel, int numberOfUsers) {
-        chanMap.put(channel,numberOfUsers);
-    }
+	public void appendToRawEventData(String data)
+	{
+		rawEventData += "\r\n" + data;
+	}
 }

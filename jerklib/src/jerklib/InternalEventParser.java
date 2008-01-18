@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jerklib.events.ChannelListEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
@@ -39,6 +40,7 @@ import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.InviteEvent;
+import jerklib.events.impl.ChannelListEventImpl;
 import jerklib.events.impl.TopicEventImpl;
 
 
@@ -61,6 +63,7 @@ public class InternalEventParser
 
 	private Map<Channel, TopicEvent> topicMap = new HashMap<Channel, TopicEvent>();
 //	/private Map<Pair<String, Connection> , WhoisEvent> whoisMap = new HashMap<Pair<String,Connection>, WhoisEvent>();
+	private ChannelListEvent tempListEvent;
 	
 	public InternalEventParser(ConnectionManager manager)
 	{
@@ -68,6 +71,45 @@ public class InternalEventParser
 	}
 
 
+	/*
+	:card.freenode.net 321 r0bby___ Channel :Users  Name
+	:card.freenode.net 322 r0bby___ #jerklib 6 :JerkLib - You know you want it
+	:card.freenode.net 323 r0bby___ :End of /LIST
+	*/
+	private void chanList(String data , Connection con)
+	{
+		if(data.matches("^:\\S+\\s321\\s.+$"))
+		{
+			tempListEvent = IRCEventFactory.chanList(data, con);
+		}
+		else if(data.matches("^:\\S+\\s322\\s.*"))
+		{
+			Pattern p = Pattern.compile("^:\\S+\\s322\\s\\S+\\s(#\\S+)\\s(\\d+)\\s:(.*)$");
+			Matcher m = p.matcher(data);
+			if(m.matches())
+			{
+				Channel channel = new ChannelImpl(m.group(1) , con);
+				channel.setTopic(m.group(3));
+				if(tempListEvent != null)
+				{
+					ChannelListEventImpl cle = (ChannelListEventImpl)tempListEvent;
+					cle.appendToMap(channel, Integer.parseInt(m.group(2)));
+					cle.appendToRawEventData(data);
+				}
+			}
+		}
+		else
+		{
+			if(tempListEvent != null)
+			{
+				ChannelListEventImpl cle = (ChannelListEventImpl)tempListEvent;
+				cle.appendToRawEventData(data);
+				manager.addToRelayList(cle);
+				tempListEvent = null;
+			}
+		}
+	}
+	
 	
 	/**
 	 * Takes an IRCEvent and tries to parse it into a more specific event
@@ -103,10 +145,10 @@ public class InternalEventParser
 				switch(Integer.parseInt(m.group(1)))
 				{
 					case 001: connectionComplete(data, con, event);return;
-                    case 321: // beginning of /list
-                    case 322: // channel listings use this numeric method is IRCEventFactory.parseChannelList(data,con)
-                    case 323: // end of /list
-                    case 332: firstPartOfTopic(data, con); return;
+          case 321: // beginning of /list
+          case 322: // channel listings use this numeric method is IRCEventFactory.parseChannelList(data,con)
+          case 323: chanList(data, con); return;// end of channel /list
+          case 332: firstPartOfTopic(data, con); return;
 					case 333: secondPartOfTopic(data, con); return;
 					case 353: namesLine(data, con); return;
 					case 366: manager.addToRelayList(IRCEventFactory.nickList(data, con)); return;
@@ -117,6 +159,8 @@ public class InternalEventParser
 				}
 			}
 		}
+		
+	
 		
 		
 		/* PERSON QUIT 

@@ -335,7 +335,7 @@ class IRCEventFactory
   }
   
     //:card.freenode.net 322 ronnoco #blender.de 6 :happy new year <- the data we need parse
-    static ChannelListEvent parseChannelList(String data, Connection con) {
+    static ChannelListEvent chanList(String data, Connection con) {
         // pass off the raw data and session leave the parsing for later.
         return new ChannelListEventImpl(data,myManager.getSessionFor(con));
     }
