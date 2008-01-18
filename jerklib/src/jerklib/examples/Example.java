@@ -9,6 +9,7 @@ import jerklib.events.TopicEvent;
 import jerklib.events.PrivateMsgEvent;
 import jerklib.events.ChannelMsgEvent;
 import jerklib.events.InviteEvent;
+import jerklib.events.JoinCompleteEvent;
 import jerklib.events.listeners.IRCEventListener;
 
 import java.text.SimpleDateFormat;
@@ -40,18 +41,22 @@ public class Example implements IRCEventListener
 		{
 			//e.getSession().whois("mohadib");
 			e.getSession().joinChannel("#jerklib2");
-			/*e.getSession().joinChannel("#ubuntu");
+			e.getSession().joinChannel("#jerklib3");
+            e.getSession().joinChannel("#jerklib");
+            /*e.getSession().joinChannel("#ubuntu");
 			e.getSession().joinChannel("#debian");
 			e.getSession().joinChannel("#perl");*/
-            e.getSession().rawSay("LIST ##swing");
+            //e.getSession().rawSay("LIST ##swing");
         }
 		else if(e.getType() == IRCEvent.Type.JOIN_COMPLETE)
 		{
-		}
+            JoinCompleteEvent event = (JoinCompleteEvent)e;
+            e.getSession().channelSay(event.getChannel().getName(),"Hai 2u");
+        }
         else if(e.getType() == IRCEvent.Type.INVITE_EVENT) {
             InviteEvent event = (InviteEvent)e;
             e.getSession().joinChannel(event.getChannel());
-            e.getSession().rawSay("PRIVMSG "+event.getNick()+" : thanks!\r\n");
+            e.getSession().channelSay(event.getChannel(),"You rang?!?");
         }
         else if(e.getType() == IRCEvent.Type.TOPIC)
 		{
@@ -67,6 +72,9 @@ public class Example implements IRCEventListener
             System.out.println("Host Name: "+event.getHostName());
             System.out.println("Channel Name: "+event.getChannel().getName());
             System.out.println("Message: "+event.getMessage());
+            if(event.getMessage().startsWith("~say")) {
+                e.getSession().channelSay(event.getChannel().getName(),event.getMessage().substring("~say".length()));
+            }
         }
 		else if(e.getType() == IRCEvent.Type.PRIVATE_MESSAGE)
 		{
