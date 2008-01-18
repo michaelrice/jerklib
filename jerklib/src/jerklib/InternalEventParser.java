@@ -123,19 +123,36 @@ public class InternalEventParser
 			{
 				switch (Integer.parseInt(m.group(1)))
 				{
-					case 001:connectionComplete(data, con, event); return;
-					case 321:// beginning of /names
-					case 322:// the channel listings
-					case 323:chanList(data, con);return;
-					case 332:firstPartOfTopic(data, con);return;
-					case 333:secondPartOfTopic(data, con);return;
-					case 353:namesLine(data, con);return;
-					case 366:manager.addToRelayList(IRCEventFactory.nickList(data, con));return;
-					case 372: // motd
-					case 375: // motd
-					case 376:manager.addToRelayList(IRCEventFactory.motd(data, con));return;
-					case 433:nick(data, con, event.getSession());return;
-					default : manager.addToRelayList(event);
+				case 001:
+					connectionComplete(data, con, event);
+					return;
+				case 321:// beginning of /names
+				case 322:// the channel listings
+				case 323:
+					chanList(data, con);
+					return;
+				case 332:
+					firstPartOfTopic(data, con);
+					return;
+				case 333:
+					secondPartOfTopic(data, con);
+					return;
+				case 353:
+					namesLine(data, con);
+					return;
+				case 366:
+					manager.addToRelayList(IRCEventFactory.nickList(data, con));
+					return;
+				case 372: // motd
+				case 375: // motd
+				case 376:
+					manager.addToRelayList(IRCEventFactory.motd(data, con));
+					return;
+				case 433:
+					nick(data, con, event.getSession());
+					return;
+				default:
+					manager.addToRelayList(event);
 				}
 			}
 		}
@@ -160,8 +177,7 @@ public class InternalEventParser
 		 */
 		else if (data.matches("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?#.*$"))
 		{
-			Pattern p = Pattern.compile("^:\\Q" + nick
-					+ "\\E\\!.*?\\s+JOIN\\s+:?(#.*)$");
+			Pattern p = Pattern.compile("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?(#.*)$");
 			Matcher m = p.matcher(data);
 
 			m.matches();
@@ -263,15 +279,13 @@ public class InternalEventParser
 
 			if (!ke.getChannel().removeNick(ke.who()))
 			{
-				System.out.println("COULD NOT REMOVE NICK " + ke.who()
-						+ " from channel " + ke.getChannel().getName());
+				System.out.println("COULD NOT REMOVE NICK " + ke.who() + " from channel " + ke.getChannel().getName());
 			}
 
 			if (ke.who().equals(nick))
 			{
 				con.removeChannel(ke.getChannel());
-				if (manager.getSessionFor(con).isRejoinOnKick()) con.join(ke
-						.getChannel().getName());
+				if (manager.getSessionFor(con).isRejoinOnKick()) con.join(ke.getChannel().getName());
 			}
 			event = ke;
 		}
@@ -301,8 +315,7 @@ public class InternalEventParser
 			TopicEvent tEvent = IRCEventFactory.topic(data, con);
 			if (topicMap.containsValue(tEvent.getChannel()))
 			{
-				((TopicEventImpl) topicMap.get(tEvent.getChannel()))
-						.appendToTopic(tEvent.getTopic());
+				((TopicEventImpl) topicMap.get(tEvent.getChannel())).appendToTopic(tEvent.getTopic());
 			}
 			else
 			{
@@ -317,8 +330,7 @@ public class InternalEventParser
 		// :zelazny.freenode.net 333 scrip #test LuX 1159267246
 		if (data.matches(":(.+?)\\s+333\\s+(.+?)\\s+(#.+?)\\s+(\\S+)\\s+(\\S+)$"))
 		{
-			Pattern p = Pattern
-					.compile(":(.+?)\\s+333\\s+(.+?)\\s+(#.+?)\\s+(\\S+)\\s+(\\S+)$");
+			Pattern p = Pattern.compile(":(.+?)\\s+333\\s+(.+?)\\s+(#.+?)\\s+(\\S+)\\s+(\\S+)$");
 			Matcher m = p.matcher(data);
 			m.matches();
 			ChannelImpl chan = (ChannelImpl) con.getChannel(m.group(3));
@@ -379,8 +391,7 @@ public class InternalEventParser
 		{
 			manager.addToRelayList(event);
 			manager.addToRelayList(IRCEventFactory.readyToJoin(data, con));
-			ConnectionCompleteEvent ccEvent = IRCEventFactory.connectionComplete(
-					data, con);
+			ConnectionCompleteEvent ccEvent = IRCEventFactory.connectionComplete(data, con);
 			con.setHostName(ccEvent.getActualHostName());
 			manager.addToRelayList(ccEvent);
 		}
@@ -400,8 +411,7 @@ public class InternalEventParser
 
 	private void namesLine(String data, Connection con)
 	{
-		Pattern p = Pattern
-				.compile("^:(?:.+?)\\s+353\\s+\\S+\\s+(?:=|@)\\s+(#+\\S+)\\s:(.+)$");
+		Pattern p = Pattern.compile("^:(?:.+?)\\s+353\\s+\\S+\\s+(?:=|@)\\s+(#+\\S+)\\s:(.+)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
@@ -413,8 +423,7 @@ public class InternalEventParser
 				// remove @ and + from front for operators ?
 				if (name != null && name.length() > 0)
 				{
-					chan.addNick(name.toLowerCase().replace("+", "").replace("@", "")
-							.trim());
+					chan.addNick(name.toLowerCase().replace("+", "").replace("@", "").trim());
 				}
 			}
 		}
