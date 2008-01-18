@@ -20,7 +20,7 @@ public class Jerkbot implements IRCEventListener {
 	}
 
 	public Jerkbot() {
-		mngr = new ConnectionManager(new ProfileImpl("Jerk Bot", "jerkbot",
+		mngr = new ConnectionManager(new ProfileImpl("jerkbot", "jerkbot",
 				"jerkb0t", "jerkb1t"));
 		Session session = mngr.requestConnection("irc.freenode.net");
 		session.addIRCEventListener(this);
