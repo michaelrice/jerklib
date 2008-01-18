@@ -79,33 +79,15 @@ public class InternalEventParser
 	{
 		if(data.matches("^:\\S+\\s321\\s.+$"))
 		{
-			tempListEvent = IRCEventFactory.chanList(data, con);
+			System.out.println(data);
 		}
 		else if(data.matches("^:\\S+\\s322\\s.*"))
 		{
-			Pattern p = Pattern.compile("^:\\S+\\s322\\s\\S+\\s(#\\S+)\\s(\\d+)\\s:(.*)$");
-			Matcher m = p.matcher(data);
-			if(m.matches())
-			{
-				Channel channel = new ChannelImpl(m.group(1) , con);
-				channel.setTopic(m.group(3));
-				if(tempListEvent != null)
-				{
-					ChannelListEventImpl cle = (ChannelListEventImpl)tempListEvent;
-					cle.appendToMap(channel, Integer.parseInt(m.group(2)));
-					cle.appendToRawEventData(data);
-				}
-			}
+			manager.addToRelayList(IRCEventFactory.chanList(data, con));
 		}
 		else
 		{
-			if(tempListEvent != null)
-			{
-				ChannelListEventImpl cle = (ChannelListEventImpl)tempListEvent;
-				cle.appendToRawEventData(data);
-				manager.addToRelayList(cle);
-				tempListEvent = null;
-			}
+			System.out.println(data);
 		}
 	}
 	

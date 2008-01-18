@@ -335,9 +335,24 @@ class IRCEventFactory
   }
   
     //:card.freenode.net 322 ronnoco #blender.de 6 :happy new year <- the data we need parse
-    static ChannelListEvent chanList(String data, Connection con) {
-        // pass off the raw data and session leave the parsing for later.
-        return new ChannelListEventImpl(data,myManager.getSessionFor(con));
+    static ChannelListEvent chanList(String data, Connection con) 
+    {
+    	Pattern p = Pattern.compile("^:\\S+\\s322\\s\\S+\\s(#\\S+)\\s(\\d+)\\s:(.*)$");
+			Matcher m = p.matcher(data);
+			if(m.matches())
+			{
+				Channel channel = new ChannelImpl(m.group(1) , con);
+				channel.setTopic(m.group(3));
+				return new ChannelListEventImpl
+				(
+						data , 
+						m.group(1) , 
+						m.group(3), 
+						Integer.parseInt(m.group(2)), 
+						myManager.getSessionFor(con)
+				);
+			}
+			return null;
     }
 
 

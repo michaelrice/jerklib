@@ -3,6 +3,7 @@ package jerklib.examples;
 import jerklib.ConnectionManager;
 import jerklib.ProfileImpl;
 import jerklib.Session;
+import jerklib.events.ChannelListEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.listeners.IRCEventListener;
 
@@ -35,7 +36,8 @@ public class Example implements IRCEventListener
 		}
 		else if(e.getType() == IRCEvent.Type.CHANNEL_LIST_EVENT)
 		{
-			System.out.println(e.getRawEventData());
+			ChannelListEvent cle = (ChannelListEvent)e;
+			System.out.println(cle.getChannelName() + " " + cle.getTopic());
 		}
 	}
 	
