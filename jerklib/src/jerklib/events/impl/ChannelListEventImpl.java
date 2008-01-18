@@ -4,6 +4,7 @@ import jerklib.events.ChannelListEvent;
 import jerklib.events.IRCEvent;
 import jerklib.Session;
 import jerklib.Channel;
+import jerklib.util.Pair;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class ChannelListEventImpl implements ChannelListEvent {
 
     private final String rawEventData;
 
-    private final Map<Channel, Integer> chanMap = new HashMap<Channel, Integer>(); 
+    private final Map<Channel, Pair<Integer,String>> chanMap = new HashMap<Channel, Pair<Integer,String>>();
 
     private final Type type = IRCEvent.Type.CHANNEL_LIST_EVENT;
 
@@ -24,7 +25,7 @@ public class ChannelListEventImpl implements ChannelListEvent {
         this.session = session;
     }
 
-    public Map<Channel,Integer> getChannels() {
+    public Map<Channel,Pair<Integer,String>> getChannels() {
         return Collections.unmodifiableMap(chanMap);
     }
 
@@ -40,7 +41,7 @@ public class ChannelListEventImpl implements ChannelListEvent {
         return session;
     }
 
-    public void appendToMap(Channel channel, int numberOfUsers) {
-        chanMap.put(channel,numberOfUsers);
+    public void appendToMap(Channel channel, Pair<Integer,String> pair) {
+        chanMap.put(channel,pair);
     }
 }
