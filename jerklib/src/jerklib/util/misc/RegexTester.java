@@ -25,7 +25,7 @@ public class RegexTester {
         m = null;
         // check for end of /list
         //^:(.*?)\\!\\S+\\s+KICK\\s+(\\S+)\\s+(\\S+)\\s+:?(.*)
-        p = Pattern.compile("^:.*+\\s323+$"); 
+        p = Pattern.compile("^:\\S+\\s323\\s\\S+\\s:.*$");
         m = p.matcher(":card.freenode.net 323 r0bby___ :End of /LIST");
 
         // does it match?!?!?
