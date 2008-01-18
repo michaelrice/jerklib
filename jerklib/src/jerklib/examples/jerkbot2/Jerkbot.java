@@ -1,4 +1,4 @@
-package jerklib.examples.jerkbot2.jerkbot;
+package jerklib.examples.jerkbot2;
 
 import jerklib.ConnectionManager;
 import jerklib.Profile;
@@ -6,9 +6,9 @@ import jerklib.ProfileImpl;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
-import jerklib.examples.jerkbot2.jerkbot.operations.BotOperation;
-import jerklib.examples.jerkbot2.jerkbot.operations.ChannelManagerOperation;
-import jerklib.examples.jerkbot2.jerkbot.operations.QuitOperation;
+import jerklib.examples.jerkbot2.operations.BotOperation;
+import jerklib.examples.jerkbot2.operations.ChannelManagerOperation;
+import jerklib.examples.jerkbot2.operations.QuitOperation;
 
 import java.util.List;
 import java.util.LinkedList;
