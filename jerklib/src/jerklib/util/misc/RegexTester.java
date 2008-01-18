@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 public class RegexTester {
     public static void main(String[] args) {
         // we'll ignore 321 since it's just basically misc. data that isn't relevant to us.
-        Pattern p = Pattern.compile(".+?\\s322\\s.+?\\s(.+?)\\s(\\d+)\\s:(.+?)");
+        Pattern p = Pattern.compile("^.+?\\s322\\s.+?\\s(.+?)\\s(\\d+)\\s:(.+?)$");
         Matcher m = p.matcher(":card.freenode.net 322 ronnoco #blender.de 6 :happy new year");
 
         if(m.matches()) {
