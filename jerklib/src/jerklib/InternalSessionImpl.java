@@ -267,6 +267,20 @@ class InternalSessionImpl implements Session , InternalSession
 	{
 		session.mode(userName, channel, mode);
 	}
+
+
+	@Override
+	public void channelList()
+	{
+		session.channelList();
+	}
+
+
+	@Override
+	public void channelList(String channel)
+	{
+		session.channelList(channel);
+	}
 	
 }
 

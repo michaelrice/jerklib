@@ -142,7 +142,7 @@ class Connection
 	
 	void chanList(String channel)
 	{
-		
+		addWriteRequest(new WriteRequestImpl("LIST " + channel + "\r\n" , this));
 	}
 	
 	void join(final String channel)

@@ -76,6 +76,10 @@ public interface Session extends ProfileUpdateable
 	
 	public void whois(String nick);
 	
+	public void channelList();
+	
+	public void channelList(String channel);
+	
 	public void addIRCEventListener(IRCEventListener listener);
 	
 	public Collection<IRCEventListener> getIRCEventListeners();

@@ -297,6 +297,19 @@ public class SessionImpl implements Session
 		con.whois(nick);
 	}
 	
+	
+	@Override
+	public void channelList()
+	{
+		con.chanList();
+	}
+	
+	@Override
+	public void channelList(String channel)
+	{
+		con.chanList(channel);
+	}
+	
 	@Override
 	public void addIRCEventListener(IRCEventListener listener) 
 	{
