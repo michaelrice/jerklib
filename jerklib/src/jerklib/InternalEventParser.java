@@ -211,7 +211,7 @@ public class InternalEventParser
 			return;
 		}
         // :r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2
-        else if(data.matches(".*\\sINVITE.*")) {
+        else if(data.matches("^.+?\\sINVITE.+$")) {
             event = IRCEventFactory.invitedToChan(data,con);
         }
 
