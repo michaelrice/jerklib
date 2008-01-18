@@ -39,7 +39,6 @@ import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
-import jerklib.events.InviteEvent;
 import jerklib.events.impl.ChannelListEventImpl;
 import jerklib.events.impl.TopicEventImpl;
 
