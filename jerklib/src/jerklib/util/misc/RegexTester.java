@@ -30,6 +30,10 @@ public class RegexTester {
         // does it match?!?!?
         System.out.println(m.matches());
 
+        // reset references
+        p = null;
+        m = null;
+
         p = Pattern.compile("^:.+?!.*\\sINVITE\\s.+\\s:.+?$");
         m = p.matcher(":r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2");
 
