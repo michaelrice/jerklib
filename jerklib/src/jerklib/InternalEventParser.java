@@ -126,10 +126,10 @@ public class InternalEventParser
 				switch(Integer.parseInt(m.group(1)))
 				{
 					case 001: connectionComplete(data, con, event);return;
-                    case 321: // beginning of /list
-                    case 322: // channel listings use this numeric method is IRCEventFactory.parseChannelList(data,con)
-                    case 323: chanList(data, con); return;// end of channel /list
-                    case 332: firstPartOfTopic(data, con); return;
+          case 321: // beginning of /list
+          case 322: // channel listings use this numeric method is IRCEventFactory.parseChannelList(data,con)
+          case 323: chanList(data, con); return;// end of channel /list
+          case 332: firstPartOfTopic(data, con); return;
 					case 333: secondPartOfTopic(data, con); return;
 					case 353: namesLine(data, con); return;
 					case 366: manager.addToRelayList(IRCEventFactory.nickList(data, con)); return;
@@ -235,10 +235,11 @@ public class InternalEventParser
 			event.getSession().rawSay("TOPIC " + m.group(1) +"\r\n");
 			return;
 		}
-        // :r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2
-        else if(data.matches("^:.+?!.+\\sINVITE\\s.*\\s:.+?$")) {
-            event = IRCEventFactory.invitedToChan(data,con);
-        }
+    // :r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2
+    else if(data.matches("^:.+?!.+\\sINVITE\\s.*\\s:.+?$")) 
+    {
+    	event = IRCEventFactory.invitedToChan(data,con);
+    }
 
         /* NICK CHANGE :mohadib!~mohadib@65.19.62.93 NICK :slaps */
 		else if (data.matches("^:.+?\\!.+?\\s+NICK\\s+:.*"))

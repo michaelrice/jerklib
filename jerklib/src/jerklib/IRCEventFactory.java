@@ -438,10 +438,12 @@ class IRCEventFactory
     return null;
   }
   //:r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2
-  static InviteEvent invitedToChan(String data, Connection con) {
+  static InviteEvent invitedToChan(String data, Connection con) 
+  {
       Pattern p = Pattern.compile("^:(.+?)!.*\\sINVITE\\s.*\\s:(.+?)$");
       Matcher m = p.matcher(data);
-      if(m.matches()) {
+      if(m.matches()) 
+      {
         return new InviteEventImpl(m.group(2),m.group(1),data,myManager.getSessionFor(con));
       }
       return null;
