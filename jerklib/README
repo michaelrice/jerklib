@@ -2,4 +2,6 @@ Jerklib is an event-driven IRC library that can be used to write an IRC bot/clie
 
 To compile:
 1) type 'ant dist' without single quotes.
-2) just copy dist/jerklib-*.jar to your classpath. 
+2) just copy dist/jerklib-*.jar to your classpath.
+
+To run our example type 'ant run'
