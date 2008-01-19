@@ -120,6 +120,7 @@ public class InternalEventParser
 				{
 					List<String> chanNames = Arrays.asList(m.group(1).split("\\s+"));
 					we.setChannelNamesList(chanNames);
+					we.appendRawEventData(data);
 				}
 				break;
 			}
@@ -133,6 +134,7 @@ public class InternalEventParser
 				{
 					we.setWhoisServer(m.group(1));
 					we.setWhoisServerInfo(m.group(2));
+					we.appendRawEventData(data);
 				}
 				break;
 			}
@@ -142,9 +144,10 @@ public class InternalEventParser
 			{
 				Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s(\\S+)\\s:(.*)$");
 				Matcher m = p.matcher(data);
-				if(m.matches())
+				if(we != null && m.matches())
 				{
 					//System.out.println("nick idented: " + m.group(1) + " " + m.group(2));
+					we.appendRawEventData(data);
 				}
 				break;
 			}
@@ -153,6 +156,7 @@ public class InternalEventParser
 				//end of whois - fireevent
 				if(we != null)
 				{
+					we.appendRawEventData(data);
 					manager.addToRelayList(we);
 					we = null;
 				}

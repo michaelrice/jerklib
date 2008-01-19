@@ -24,6 +24,7 @@ public class WhoisEventImpl implements WhoisEvent
 		String realName,
 		String user,
 		String host,
+		String rawEventData,
 		Session session
 	)
 	{
@@ -32,6 +33,7 @@ public class WhoisEventImpl implements WhoisEvent
 		this.user = user;
 		this.host = host;
 		this.session = session;
+		this.rawEventData = rawEventData;
 	}
 	
 	@Override

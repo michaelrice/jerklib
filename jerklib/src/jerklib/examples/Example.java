@@ -53,7 +53,7 @@ public class Example implements IRCEventListener
 		else if(e.getType() == IRCEvent.Type.WHOIS_EVENT)
 		{
 			WhoisEvent we = (WhoisEvent)e;
-			System.out.println("GOT WHOIS EVENT " + we.getNick() + " " + we.getHost() + " " + we.getRealName());
+			System.out.println("GOT WHOIS EVENT " + we.getRawEventData());
 		}
 	}
 	

@@ -81,7 +81,7 @@ class IRCEventFactory
 		Matcher m = p.matcher(data);
 		if(m.matches())
 		{
-			return new WhoisEventImpl(m.group(1),m.group(4) , m.group(2) , m.group(3) , session);
+			return new WhoisEventImpl(m.group(1),m.group(4) , m.group(2) , m.group(3) ,data, session);
 		}
 		return null;
 	}
