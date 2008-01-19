@@ -145,6 +145,11 @@ class Connection
 		addWriteRequest(new WriteRequestImpl("LIST " + channel + "\r\n" , this));
 	}
 	
+	void whoWas(String nick)
+	{
+		addWriteRequest(new WriteRequestImpl("WHOWAS " + nick + "\r\n", this));
+	}
+	
 	void join(final String channel)
 	{
 		if (!channelMap.containsKey(channel))

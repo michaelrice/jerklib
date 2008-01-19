@@ -310,6 +310,10 @@ public class SessionImpl implements Session
 		con.whois(nick);
 	}
 	
+	public void whowas(String nick)
+	{
+		con.whoWas(nick);
+	}
 	
 	@Override
 	public void channelList()

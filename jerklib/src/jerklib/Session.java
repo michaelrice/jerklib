@@ -78,6 +78,8 @@ public interface Session extends ProfileUpdateable
 	
 	public void whois(String nick);
 	
+	public void whowas(String nick);
+	
 	public void channelList();
 	
 	public void channelList(String channel);

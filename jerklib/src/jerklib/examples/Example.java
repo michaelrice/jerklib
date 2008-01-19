@@ -7,6 +7,7 @@ import jerklib.events.IRCEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.NumericErrorEvent;
 import jerklib.events.WhoisEvent;
+import jerklib.events.WhowasEvent;
 import jerklib.events.listeners.IRCEventListener;
 
 
@@ -43,7 +44,13 @@ public class Example implements IRCEventListener
 			if(j == 1)
 			{
 				e.getSession().whois("mohadibggg");
+				e.getSession().whowas("honda");
 			}
+		}
+		else if(e.getType() == IRCEvent.Type.WHOWAS_EVENT)
+		{
+			WhowasEvent we = (WhowasEvent)e;
+			System.out.println("WHOWAS " + we.getNick() + " " + we.getUserName() + " " + we.getRealName() + " " + we.getHostName());
 		}
 		else if(e.getType() == IRCEvent.Type.JOIN)
 		{

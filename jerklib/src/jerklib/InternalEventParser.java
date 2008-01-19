@@ -39,7 +39,6 @@ import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
-import jerklib.events.NumericErrorEvent.ErrorType;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.WhoisEventImpl;
 
@@ -164,17 +163,7 @@ public class InternalEventParser
 		}
 	}
 
-	//"<nickname> :There was no such nickname"
-	//:kubrick.freenode.net 401 scripy1 mohadibggg :No such nick/channel
-	private void error(String data , Session session , int numeric)
-	{
-		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s(.*)$");
-		Matcher m = p.matcher(data);
-		if(m.matches())
-		{
-			
-		}
-	}
+
 	
 	/**
 	 * Takes an IRCEvent and tries to parse it into a more specific event then
@@ -213,6 +202,7 @@ public class InternalEventParser
 				switch (Integer.parseInt(m.group(1)))
 				{
 					case 001:connectionComplete(data, con, event);break;
+					case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
 					case 311://whois
 					case 312://whois
 					case 318://whois

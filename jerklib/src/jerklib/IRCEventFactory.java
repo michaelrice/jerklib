@@ -25,6 +25,7 @@ import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.ChannelListEvent;
 import jerklib.events.InviteEvent;
 import jerklib.events.WhoisEvent;
+import jerklib.events.WhowasEvent;
 import jerklib.events.NumericErrorEvent.ErrorType;
 import jerklib.events.impl.JoinCompleteEventImpl;
 import jerklib.events.impl.JoinEventImpl;
@@ -46,6 +47,7 @@ import jerklib.events.impl.ConnectionCompleteEventImpl;
 import jerklib.events.impl.ChannelListEventImpl;
 import jerklib.events.impl.InviteEventImpl;
 import jerklib.events.impl.WhoisEventImpl;
+import jerklib.events.impl.WhowasEventImpl;
 
 
 class IRCEventFactory
@@ -79,6 +81,18 @@ class IRCEventFactory
 	  return null;
 	}
 	
+	//:kubrick.freenode.net 314 scripy1 ty n=ty 71.237.206.180 * :ty
+	//"<nick> <user> <host> * :<real name>"
+	static WhowasEvent whowas(String data , Connection con)
+	{
+		Pattern p = Pattern.compile("^:\\S+\\s314\\s\\S+\\s(\\S+)\\s(\\S+)\\s(\\S+).+?:(.*)$");
+		Matcher m = p.matcher(data);
+		if(m.matches())
+		{
+			return new WhowasEventImpl(m.group(3) , m.group(2) , m.group(1),m.group(4),data,myManager.getSessionFor(con));
+		}
+		return null;
+	}
 	
 	static NumericErrorEvent numericError(String data , Connection con , int numeric)
 	{
