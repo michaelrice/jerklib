@@ -28,7 +28,7 @@ import jerklib.Channel;
 
 
 /**
- * PrivMsgIRCEvent - this is the event made when someone speaks in a channel
+ * This is the event made when someone speaks in a channel
  * 
  * @author mohadib
  *
@@ -37,24 +37,24 @@ public interface ChannelMsgEvent extends IRCEvent {
   
   
 	/**
-   * getChannel() returns IRCChannel object the PrivMsg occured in 
+   * returns IRCChannel object the PrivMsg occured in 
    * 
-	 * @return <code>IRCChannel</code> the IRCChannel object
+	 * @return the IRCChannel object
 	 */
 	public Channel getChannel();
 	
   
   /**
-   * getNick() returns the nick of the person who created the PrivMsgIRCEvent
+   * returns the nick of the person who created the PrivMsgIRCEvent
    * 
-   * @return <code>String</code> the nick
+   * @return the nick
    */
   public String getNick();
 
     /**
      * This will return the username field of the user's hostmask
      * nick!username@host
-     * @return <code>String</code> the login field
+     * @return the login field
      */
  public String getUserName();
 	
@@ -63,7 +63,7 @@ public interface ChannelMsgEvent extends IRCEvent {
    * getHostName() returns a string that represents the host
    * of the creator of this event
    * 
-   * @return <code>String</code> the host string
+   * @return the host name
    */
   public String getHostName();
   
@@ -71,7 +71,7 @@ public interface ChannelMsgEvent extends IRCEvent {
   /**
    * getMessage() returns the message part of the event
    * 
-   * @return <code>String</code> the message
+   * @return the message
    */
   public String getMessage();
   

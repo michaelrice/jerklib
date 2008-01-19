@@ -33,16 +33,16 @@ package jerklib.events;
 public interface NickChangeEvent extends IRCEvent {
 	
   /**
-   * getOldNick() returns the previous nick of the user before the change
+   * Returns the previous nick of the user before the change
    * 
-   * @return <code>String</code> Old nick for user.
+   * @return Old nick for user.
    */
   public String getOldNick();
   
   /**
    * getNewNick() returns the new nick of the user
    * 
-   * @return <code>String</code> New nick for user
+   * @return New nick for user
    */
   public String getNewNick();
 }

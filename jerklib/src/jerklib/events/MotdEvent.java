@@ -34,8 +34,9 @@ package jerklib.events;
 public interface MotdEvent extends IRCEvent {
 	
   /**
-   * @return <code>String</code> One line of the MOTD
+   * Gets a line of the MOTD
+   * @return One line of the MOTD
    */
-  public String getMOTDLine();
+  public String getMotdLine();
   
 }

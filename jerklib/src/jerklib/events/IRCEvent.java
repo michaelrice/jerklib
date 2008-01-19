@@ -28,7 +28,7 @@ import jerklib.Session;
 
 
 /**
- * IRCEvent is the base interface for all JerkLib events.
+ * The base interface for all JerkLib events.
  * 
  * This Interface provieds the bare essintails for an IRCEvent. The raw event
  * data, host , port , and IRCConnection object.
@@ -72,27 +72,26 @@ public interface IRCEvent
   }
 
   /**
-   * getType() is used to find out the exact type of event the IRCEvent object
+   * Used to find out the exact type of event the IRCEvent object
    * is. The IRCEvent object can be cast into a more specific event object to
    * get access to convience methods for the specific event types.
    * 
-   * @return <code>Type</code> enum for event.
+   * @return Type of event
    */
   public Type getType();
 
   
   /**
-   * getRawEventData() returns the raw IRC data that makes up this event
+   * Returns the raw IRC data that makes up this event
    * 
-   * @return <code>String</code> Raw IRC event text.
+   * @return Raw IRC event text.
    */
   public String getRawEventData();
 
   
   /**
-   * getConnection() returns the IRCConnection object for the host.
-   * 
-   * @return <code>IRCConnection</code> for the host.
+   * Gets session for connection
+   * @return Session 
    */
   public Session getSession();
 

@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 package jerklib.events;
 
 /**
- * UpdateHostNameIRCEvent - event made when connected to the server
+ * Event made when connected to the server
  * This event contains the real server name. Example. When connection
  * to 'irc.freenode.net' we might actually connect to kornbluf.freenode.net 
- * or sopme other host. This event will have the real hosts name.
+ * or some other host. This event will have the real hosts name.
  * 
  * @author mohadib
  *

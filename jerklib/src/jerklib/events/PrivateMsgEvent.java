@@ -2,39 +2,44 @@ package jerklib.events;
 
 
 
+/**
+ * @author mohadib
+ * Event sent for private messages
+ *
+ */
 public interface PrivateMsgEvent extends IRCEvent
 {
 
 	
 	
   /**
-   * getNick() returns the nick of the person who created the PrivMsgIRCEvent
+   * returns the nick of the person who created the PrivMsgIRCEvent
    * 
-   * @return <code>String</code> the nick
+   * @return the nick
    */
   public String getNick();
 
     /**
      * Returns the username field of the user's hostmask.
      * nick!username@host
-     * @return <code>String</code> the login of the person.
+     * @return the username of the person.
      */
     public String getUserName();
 	
   
   /**
-   * getHostName() returns a string that represents the host
+   * returns a string that represents the host
    * of the creator of this event
    * 
-   * @return <code>String</code> the host string
+   * @return the host name
    */
   public String getHostName();
   
   
   /**
-   * getMessage() returns the message part of the event
+   * returns the message part of the event
    * 
-   * @return <code>String</code> the message
+   * @return the message
    */
   public String getMessage();
   

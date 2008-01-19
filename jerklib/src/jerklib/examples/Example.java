@@ -38,6 +38,8 @@ public class Example implements IRCEventListener
 				session.close("Bye");
 			}
 		});
+		
+		System.out.println(ConnectionManager.getVersion());
 	}
 
 	public void recieveEvent(IRCEvent e)

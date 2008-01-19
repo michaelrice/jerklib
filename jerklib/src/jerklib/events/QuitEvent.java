@@ -29,32 +29,32 @@ import java.util.List;
 import jerklib.Channel;
 
 /**
- * QuitIRCEvent - this is the event made when someone quits
+ * This is the event made when someone quits
  * 
  * @author mohadib
  */
 public interface QuitEvent extends IRCEvent{
 
   /**
-   * getWho() returns the nick of who quit
+   * returns the nick of who quit
    * 
-   * @return <code>String</code> the nick who quit
+   * @return the nick who quit
    */
   public String getWho();
   
   
 	/**
-   * getQuitMessage() get the quit message
+   * getQuitMessage get the quit message
    * 
-	 * @return <code>String</code> the quit message
+	 * @return the quit message
 	 */
 	public String getQuitMessage();
   
 	/**
-   * getChannelList() returns a list of IRCChannel object
+   * returns a list of Channel objects
    * the nick who quit was in
-   * 
-	 * @return <code>List<IRCChannel><code> List of channels nick was in
+   * @see Channel
+	 * @return List of channels nick was in
 	 */
 	public List<Channel> getChannelList();
 }

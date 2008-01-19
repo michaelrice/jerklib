@@ -31,12 +31,13 @@ package jerklib.events;
  * @author mohadib
  *
  */
-public interface NickInUseEvent extends IRCEvent {
+public interface NickInUseEvent extends IRCEvent
+{
 	
   /**
-   * getInUseNick() - returns nick that was in use
+   * returns nick that was in use
    * 
-   * @return <code>String</code> nick that was in use.
+   * @return nick that was in use.
    */
   public String getInUseNick();
 }

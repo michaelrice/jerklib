@@ -11,6 +11,7 @@ import jerklib.events.listeners.IRCEventListener;
 
 /**
  * @author mohadib
+ * @see Session
  *
  */
 public class SessionImpl implements Session

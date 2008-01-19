@@ -1,7 +1,18 @@
 package jerklib.events;
 
+/**
+ * @author Mohadib
+ * Event fired for most all numeric error replies
+ *
+ */
 public interface NumericErrorEvent extends IRCEvent
 {
+	
+	/**
+	 * @author Mohadib
+	 * Enum used with getErrorType
+	 *
+	 */
 	//http://www.irchelp.org/irchelp/rfc/chapter6.html
 	public enum ErrorType
 	{
@@ -51,10 +62,22 @@ public interface NumericErrorEvent extends IRCEvent
 		ERR_USERSDONTMATCH //502
 	}
 	
+	/**
+	 * gets error type
+	 * @return error type
+	 */
 	public ErrorType getErrorType();
 	
+	/**
+	 * gets error message
+	 * @return error message
+	 */
 	public String getErrorMsg();
 	
+	/**
+	 * Gets numeric error code
+	 * @return numeric
+	 */
 	public int getNumeric();
 	
 }

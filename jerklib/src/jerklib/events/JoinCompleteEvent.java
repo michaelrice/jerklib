@@ -36,9 +36,10 @@ public interface JoinCompleteEvent extends IRCEvent
 {
   
   /**
-   * getChannel() returns IRCChannel object for event
+   * getChannel() returns Channel object for event
    * 
-   * @return <code>IRCChannel</code> 
+   * @return <code>Channel</code>
+   * @see Channel 
    */
   public Channel getChannel();
 }

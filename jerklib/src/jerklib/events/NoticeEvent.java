@@ -36,24 +36,39 @@ public interface NoticeEvent extends IRCEvent {
 	
   
   /**
-   * getNoticeType() - returns a string that represents the notice type
+   * Returns a string that represents the notice type
    * 
-   * @return <code>String</code>  event type
+   * @return event type
    */
   public String getNoticeType();
 	
   
   /**
-   * getNoticeMessage() - returns notice message
+   * returns notice message
    * 
-   * @return <code>String</code> notice message
+   * @return notice message
    */
   public String getNoticeMessage();
   
+  /**
+   * Gets who sent the notice event
+   * 
+   * @return who
+   */
   public String byWho();
   
+  /**
+   * If this notice is sent to a user this will return who
+   * @return who
+   */
   public String toWho();
 
+  /**
+   * If this is a Channel notice this will return the Channel
+   * 
+   * @return Channel
+   * @see Channel
+   */
   public Channel getChannel();
   
 }

@@ -20,7 +20,7 @@ public class MotdEventImpl implements MotdEvent
 		this.motdLine = motdLine;
 	}
 
-	public String getMOTDLine()
+	public String getMotdLine()
 	{
 		return motdLine;
 	}

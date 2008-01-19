@@ -27,7 +27,7 @@ package jerklib.events;
 import jerklib.Channel;
 
 /**
- * PartIRCEvent() is made when someone parts a channel 
+ * PartIRCEvent is made when someone parts a channel 
  * 
  * @author mohadib
  *
@@ -36,32 +36,33 @@ public interface PartEvent extends IRCEvent {
   
   
 	/**
-   * getWho() returns the nick of who parted
+   * returns the nick of who parted
    * 
-	 * @return <code>String</code> nick of parted
+	 * @return nick of parted
 	 */
 	public String getWho();
   
   
 	/**
-   * getChannelName() returns the name of the channel parted
+   * returns the name of the channel parted
    * 
-	 * @return <code>String</code> name of channel parted
+	 * @return name of channel parted
 	 */
 	public String getChannelName();
 	
   
   /**
-   * getChannel() returns IRCChannel object for channel parted
-   * @return <code>IRCChannel</code> IRCChannel object parted
+   * returns IRCChannel object for channel parted
+   * @return Channel object parted
+   * @see Channel
    */
   public Channel getChannel();
 	
   
   /**
-   * getPartMessage() returns part message if there is one
+   * returns part message if there is one
    * 
-   * @return <code>String</code> part message
+   * @return part message
    */
   public String getPartMessage();
 }

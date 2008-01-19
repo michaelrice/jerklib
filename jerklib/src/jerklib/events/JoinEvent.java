@@ -36,23 +36,24 @@ import jerklib.Channel;
 public interface JoinEvent extends IRCEvent {
   
 	/**
-   * getWho() returns the nick of who joined the channel
+   * returns the nick of who joined the channel
    * 
-	 * @return <code>String</code> Nick of who joined channel
+	 * @return Nick of who joined channel
 	 */
 	public String getWho();
 	
   /**
-   * getChannelName() returns the name of the channel joined to cause this event
+   * returns the name of the channel joined to cause this event
    * 
-   * @return <code>String</code> Name of channel
+   * @return Name of channel
    */
   public String getChannelName();
 	
   /**
-   * getChannel() returns the channel object joined
+   * returns the Channel object joined
    * 
-   * @return <code>IRCChannel</code>  The IRCChannel object
+   * @return The Channel object
+   * @see Channel
    */
   public Channel getChannel();
 }

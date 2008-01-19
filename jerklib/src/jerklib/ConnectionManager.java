@@ -91,7 +91,7 @@ public class ConnectionManager
 	 * Only constructor - Takes a profile to use as
 	 * default profile for new Connections
 	 * 
-	 * @param defaultProfile - default user profile
+	 * @param defaultProfile default user profile
 	 * @see Profile
 	 * @see ProfileImpl
 	 */

@@ -1,6 +1,14 @@
 package jerklib.events;
 
-public interface InviteEvent extends IRCEvent{
+
+/**
+ * Event fired when an Invite message is recieved from server
+ * 
+ * @author  Robert O'Connor <robby.oconnor@gmail.com>
+ *
+ */
+public interface InviteEvent extends IRCEvent
+{
 
     /**
      * Gets the nick of the person who invited us
