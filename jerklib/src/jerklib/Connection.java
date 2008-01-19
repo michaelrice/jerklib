@@ -85,6 +85,10 @@ class Connection
 		addWriteRequest(new WriteRequestImpl("WHOIS " + nick + "\r\n" , this));
 	}
 	
+	void invite(String nick , Channel chan)
+	{
+		addWriteRequest(new WriteRequestImpl("INVITE " + nick + " " + chan.getName() + "\r\n" , this));
+	}
 	
 	List<Channel>  removeNickFromAllChannels(String nick)
 	{

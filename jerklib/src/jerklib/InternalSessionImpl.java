@@ -281,6 +281,12 @@ class InternalSessionImpl implements Session , InternalSession
 
 
 	@Override
+	public void invite(String nick, Channel chan)
+	{
+		session.invite(nick, chan);
+	}
+	
+	@Override
 	public void channelList()
 	{
 		session.channelList();

@@ -328,6 +328,12 @@ public class SessionImpl implements Session
 	}
 	
 	@Override
+	public void invite(String nick, Channel chan)
+	{
+		con.invite(nick, chan);
+	}
+	
+	@Override
 	public void addIRCEventListener(IRCEventListener listener) 
 	{
 		listenerList.add(listener);
