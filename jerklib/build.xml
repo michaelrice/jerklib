@@ -6,12 +6,18 @@
     <property name="src" location="src"/>
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>
+    <property prefix="svn" file="build/svn.properties"/>
 
     <target name="init">
         <tstamp/>
         <mkdir dir="${build}"/>
         <mkdir dir="${dist}"/>
-        <buildnumber file="${src}/build.number"/>
+        <touch file="${build}/svn.properties"/>
+        <exec executable="svn" output="${build}/svn.properties">
+            <arg value="info"/>
+        </exec>
+
+
     </target>
 
     <target name="javadoc" depends="init">
@@ -31,17 +37,17 @@
     <target name="compile" depends="init"
             description="compile">
         <javac srcdir="${src}" destdir="${build}"/>
-        <echo file="${build}/jerklib/JerkLib.Properties" message="version=0.4rev${DSTAMP}+${build.number}"/>
-        <echo file="${src}/jerklib/JerkLib.Properties" message="version=0.4rev${DSTAMP}+${build.number}"/>
+        <echo file="${build}/jerklib/JerkLib.Properties" message="version=0.4+${svn.Revision}"/>
+        <echo file="${src}/jerklib/JerkLib.Properties" message="version=0.4+${svn.Revision}"/>
     </target>
 
     <target name="dist" depends="compile"
             description="Create the jar">
-        <jar jarfile="${dist}/jerklib-${DSTAMP}.jar" basedir="${build}"/>
+        <jar jarfile="${dist}/jerklib.jar" basedir="${build}"/>
     </target>
 
     <target name="run" depends="dist">
-        <java classpath="${dist}/jerklib-${DSTAMP}.jar" classname="jerklib.examples.jerkbot2.Jerkbot"
+        <java classpath="${dist}/jerklib.jar" classname="jerklib.examples.jerkbot2.Jerkbot"
               fork="true" spawn="true"/>
     </target>
 
