@@ -4,8 +4,6 @@ import jerklib.ConnectionManager;
 import jerklib.ProfileImpl;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.JoinCompleteEvent;
-import jerklib.events.JoinEvent;
 import jerklib.events.WhoisEvent;
 import jerklib.events.listeners.IRCEventListener;
 
@@ -42,7 +40,7 @@ public class Example implements IRCEventListener
 			j++;
 			if(j == 1)
 			{
-				e.getSession().whois("mohadib");
+				e.getSession().whois("mohadibggg");
 			}
 		}
 		else if(e.getType() == IRCEvent.Type.JOIN)

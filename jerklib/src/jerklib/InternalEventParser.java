@@ -191,44 +191,36 @@ public class InternalEventParser
 		}
 
 		// match numerics OMG INTERNETS?!
-		else if (data.matches("^:\\S+\\s+\\d{3}.+$"))
+		else if (data.matches("^:\\S+\\s+\\d{3}\\s.+$"))
 		{
-			Pattern p = Pattern.compile("^:\\S+\\s+(\\d{3}).+$");
+			Pattern p = Pattern.compile("^:\\S+\\s+(\\d{3})\\s.+$");
 			Matcher m = p.matcher(data);
 			if (m.matches())
 			{
 				switch (Integer.parseInt(m.group(1)))
 				{
 					case 001:connectionComplete(data, con, event);break;
-					case 311:
-					case 312:
-					case 318:
-					case 319:
+					case 311://whois
+					case 312://whois
+					case 318://whois
+					case 319://whois
 					case 320:whois(data, manager.getSessionFor(con), Integer.parseInt(m.group(1)));break;
-					case 321:// beginning of /names
-					case 322:// the channel listings
+					case 321://chanlist
+					case 322://chanlist
 					case 323:chanList(data, con);break;
 					case 332:firstPartOfTopic(data, con);break;
 					case 333:secondPartOfTopic(data, con);break;
 					case 353:namesLine(data, con);break;
 					case 366:manager.addToRelayList(IRCEventFactory.nickList(data, con));break;
-					case 372: // motd
-					case 375: // motd
+					case 372://motd
+					case 375://motd
 					case 376:manager.addToRelayList(IRCEventFactory.motd(data, con));break;
 					case 433:nick(data, con, event.getSession());break;
-					default:manager.addToRelayList(event);
+					default :manager.addToRelayList(event);
 				}
 				return;
 			}
 		}
-
-		
-		/*
-		:kubrick.freenode.net 311 scripy mohadib n=fran unaffiliated/mohadib * :fran
-		:kubrick.freenode.net 319 scripy mohadib :#jerklib 
-		:kubrick.freenode.net 312 scripy mohadib irc.freenode.net :http://freenode.net/
-		:kubrick.freenode.net 320 scripy mohadib :is identified to services 
-		:kubrick.freenode.net 318 scripy mohadib :End of /WHOIS list. */
 		
 		/*
 		 * PERSON QUIT :Xolt!brad@c-67-165-231-230.hsd1.co.comcast.net QUIT
