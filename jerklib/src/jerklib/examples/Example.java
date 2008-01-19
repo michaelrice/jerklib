@@ -25,7 +25,7 @@ public class Example implements IRCEventListener
 		session.setRejoinOnReconnect(true);
 
         /*
-         * Give your client a chance to gracefully exit.
+         * Give your client/bot a chance to gracefully exit.
          * It your responsibility to add this as it
          * is not included in the library itself.
          */
