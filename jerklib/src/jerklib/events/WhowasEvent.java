@@ -3,6 +3,7 @@ package jerklib.events;
 /**
  * @author mohadib
  * 
+ * 
  *Event fired when whowas data received
  */
 public interface WhowasEvent extends IRCEvent
