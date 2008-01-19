@@ -11,6 +11,7 @@
         <tstamp/>
         <mkdir dir="${build}"/>
         <mkdir dir="${dist}"/>
+        <buildnumber file="${src}/build.number"/>
     </target>
 
     <target name="javadoc" depends="init">
@@ -30,8 +31,8 @@
     <target name="compile" depends="init"
             description="compile">
         <javac srcdir="${src}" destdir="${build}"/>
-        <echo file="${build}/jerklib/JerkLib.Properties" message=".04rev${DSTAMP}"/>
-        <echo file="${src}/jerklib/JerkLib.Properties" message=".04rev${DSTAMP}"/>
+        <echo file="${build}/jerklib/JerkLib.Properties" message="version=0.4rev${DSTAMP}+${build.number}"/>
+        <echo file="${src}/jerklib/JerkLib.Properties" message="version=0.4rev${DSTAMP}+${build.number}"/>
     </target>
 
     <target name="dist" depends="compile"
@@ -41,7 +42,7 @@
 
     <target name="run" depends="dist">
         <java classpath="${dist}/jerklib-${DSTAMP}.jar" classname="jerklib.examples.jerkbot2.Jerkbot"
-              />
+              fork="true" spawn="true"/>
     </target>
 
     <target name="clean"
