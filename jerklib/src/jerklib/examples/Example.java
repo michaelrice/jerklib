@@ -5,6 +5,7 @@ import jerklib.ProfileImpl;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinEvent;
+import jerklib.events.NumericErrorEvent;
 import jerklib.events.WhoisEvent;
 import jerklib.events.listeners.IRCEventListener;
 
@@ -57,6 +58,11 @@ public class Example implements IRCEventListener
 		{
 			WhoisEvent we = (WhoisEvent)e;
 			System.out.println("GOT WHOIS EVENT " + we.getRawEventData());
+		}
+		else if(e.getType() == IRCEvent.Type.ERROR)
+		{
+			NumericErrorEvent ne = (NumericErrorEvent)e;
+			System.out.println(ne.getErrorType() + " " + ne.getNumeric() + " " + ne.getErrorMsg());
 		}
 	}
 	

@@ -8,7 +8,7 @@ public interface NumericErrorEvent extends IRCEvent
 		ERR_NOSUCHSERVER , //402,
 		ERR_NOSUCHCHANNEL, //403,
 		ERR_CANNOTSENDTOCHAN, //404
-		ERR_TOOMANYCHANNELS, //505
+		ERR_TOOMANYCHANNELS, //405
 		ERR_WASNOSUCHNICK, //406
 		ERR_TOOMANYTARGETS, //407
 		ERR_NOORIGIN, //409
@@ -50,6 +50,10 @@ public interface NumericErrorEvent extends IRCEvent
 		ERR_USERSDONTMATCH //502
 	}
 	
+	public ErrorType getErrorType();
 	
+	public String getErrorMsg();
+	
+	public int getNumeric();
 	
 }

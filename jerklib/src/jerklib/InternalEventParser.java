@@ -39,6 +39,7 @@ import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
+import jerklib.events.NumericErrorEvent.ErrorType;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.WhoisEventImpl;
 
@@ -163,6 +164,18 @@ public class InternalEventParser
 		}
 	}
 
+	//"<nickname> :There was no such nickname"
+	//:kubrick.freenode.net 401 scripy1 mohadibggg :No such nick/channel
+	private void error(String data , Session session , int numeric)
+	{
+		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s(.*)$");
+		Matcher m = p.matcher(data);
+		if(m.matches())
+		{
+			
+		}
+	}
+	
 	/**
 	 * Takes an IRCEvent and tries to parse it into a more specific event then
 	 * redispatch the more specfic event
@@ -215,7 +228,50 @@ public class InternalEventParser
 					case 372://motd
 					case 375://motd
 					case 376:manager.addToRelayList(IRCEventFactory.motd(data, con));break;
+					case 401:
+					case 402:
+					case 403:
+					case 404:
+					case 405:
+					case 406:
+					case 407:
+					case 409:
+					case 411:
+					case 412:
+					case 413:
+					case 414:
+					case 421:
+					case 422:
+					case 423:
+					case 424:
+					case 431:
+					case 432:manager.addToRelayList(IRCEventFactory.numericError(data, con, Integer.parseInt(m.group(1))));break;
 					case 433:nick(data, con, event.getSession());break;
+					case 436:
+					case 441:
+					case 442:
+					case 443:
+					case 444:
+					case 445:
+					case 446:
+					case 451:
+					case 461:
+					case 462:
+					case 463:
+					case 464:
+					case 465:
+					case 467:
+					case 471:
+					case 472:
+					case 473:
+					case 474:
+					case 475:
+					case 481:
+					case 482:
+					case 483:
+					case 491:
+					case 501:
+					case 502:manager.addToRelayList(IRCEventFactory.numericError(data, con, Integer.parseInt(m.group(1))));break;
 					default :manager.addToRelayList(event);
 				}
 				return;
@@ -493,4 +549,7 @@ public class InternalEventParser
 		}
 	}
 
+	
+
+	
 }

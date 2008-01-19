@@ -65,7 +65,8 @@ public interface IRCEvent
     NICK_LIST_EVENT,
     WHOIS_EVENT,
     CHANNEL_LIST_EVENT,
-    INVITE_EVENT;
+    INVITE_EVENT,
+    ERROR
   }
 
   /**

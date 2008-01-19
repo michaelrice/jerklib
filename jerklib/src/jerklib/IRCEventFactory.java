@@ -1,6 +1,8 @@
 package jerklib;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +15,7 @@ import jerklib.events.NickChangeEvent;
 import jerklib.events.NickInUseEvent;
 import jerklib.events.NickListEvent;
 import jerklib.events.NoticeEvent;
+import jerklib.events.NumericErrorEvent;
 import jerklib.events.PartEvent;
 import jerklib.events.ChannelMsgEvent;
 import jerklib.events.PrivateMsgEvent;
@@ -22,6 +25,7 @@ import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.ChannelListEvent;
 import jerklib.events.InviteEvent;
 import jerklib.events.WhoisEvent;
+import jerklib.events.NumericErrorEvent.ErrorType;
 import jerklib.events.impl.JoinCompleteEventImpl;
 import jerklib.events.impl.JoinEventImpl;
 import jerklib.events.impl.KickEventImpl;
@@ -31,6 +35,7 @@ import jerklib.events.impl.NickChangeEventImpl;
 import jerklib.events.impl.NickInUseEventImpl;
 import jerklib.events.impl.NickListEventImpl;
 import jerklib.events.impl.NoticeEventImpl;
+import jerklib.events.impl.NumericEventImpl;
 import jerklib.events.impl.PartEventImpl;
 import jerklib.events.impl.ChannelMsgEventImpl;
 import jerklib.events.impl.PrivateMessageEventImpl;
@@ -47,10 +52,11 @@ class IRCEventFactory
 {
   
 	static private ConnectionManager myManager;
-	
+	static private 	Map<Integer, ErrorType>numericErrorMap;
 	static void setManager(ConnectionManager manager)
 	{
 		myManager = manager;
+		initNumericErrorMap();
 	}
 	
 	static ConnectionCompleteEvent connectionComplete(String data , Connection con)
@@ -73,6 +79,24 @@ class IRCEventFactory
 	  return null;
 	}
 	
+	
+	static NumericErrorEvent numericError(String data , Connection con , int numeric)
+	{
+		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s(.*)$");
+		Matcher m = p.matcher(data);
+		if(m.matches())
+		{
+			return new NumericEventImpl
+			(
+					m.group(1),
+					data,
+					numericErrorMap.get(numeric),
+					numeric,
+					myManager.getSessionFor(con)
+			);
+		}
+		return null;
+	}
 	
 	static WhoisEvent whois(String data , Session session)
 	{
@@ -466,4 +490,54 @@ class IRCEventFactory
   }
 
 
+  
+	static void initNumericErrorMap()
+	{
+		numericErrorMap = new HashMap<Integer, ErrorType>();
+		numericErrorMap.put(401 , ErrorType.ERR_NOSUCHNICK);
+		numericErrorMap.put(402 , ErrorType.ERR_NOSUCHSERVER);
+		numericErrorMap.put(403 , ErrorType.ERR_NOSUCHCHANNEL);
+		numericErrorMap.put(404 , ErrorType.ERR_CANNOTSENDTOCHAN);
+		numericErrorMap.put(405 , ErrorType.ERR_TOOMANYCHANNELS);
+		numericErrorMap.put(406 , ErrorType.ERR_WASNOSUCHNICK);
+		numericErrorMap.put(407 , ErrorType.ERR_TOOMANYTARGETS);
+		numericErrorMap.put(409 , ErrorType.ERR_NOORIGIN);
+		numericErrorMap.put(411 , ErrorType.ERR_NORECIPIENT);
+		numericErrorMap.put(412 , ErrorType.ERR_NOTEXTTOSEND);
+		numericErrorMap.put(413 , ErrorType.ERR_NOTOPLEVEL);
+		numericErrorMap.put(414 , ErrorType.ERR_WILDTOPLEVEL);
+		numericErrorMap.put(421 , ErrorType.ERR_UNKNOWNCOMMAND);
+		numericErrorMap.put(422 , ErrorType.ERR_NOMOTD);
+		numericErrorMap.put(423 , ErrorType.ERR_NOADMININFO);
+		numericErrorMap.put(424 , ErrorType.ERR_FILEERROR);
+		numericErrorMap.put(431 , ErrorType.ERR_NONICKNAMEGIVEN);
+		numericErrorMap.put(432 , ErrorType.ERR_ERRONEUSNICKNAME);
+		numericErrorMap.put(433 , ErrorType.ERR_NICKNAMEINUSE);
+		numericErrorMap.put(436 , ErrorType.ERR_NICKCOLLISION);
+		numericErrorMap.put(441 , ErrorType.ERR_USERNOTINCHANNEL);
+		numericErrorMap.put(442 , ErrorType.ERR_NOTONCHANNEL);
+		numericErrorMap.put(443 , ErrorType.ERR_USERONCHANNEL);
+		numericErrorMap.put(444 , ErrorType.ERR_NOLOGIN);
+		numericErrorMap.put(445 , ErrorType.ERR_SUMMONDISABLED);
+		numericErrorMap.put(446 , ErrorType.ERR_USERSDISABLED);
+		numericErrorMap.put(451 , ErrorType.ERR_NOTREGISTERED);
+		numericErrorMap.put(461 , ErrorType.ERR_NEEDMOREPARAMS);
+		numericErrorMap.put(462 , ErrorType.ERR_ALREADYREGISTRED);
+		numericErrorMap.put(463 , ErrorType.ERR_NOPERMFORHOST);
+		numericErrorMap.put(464 , ErrorType.ERR_PASSWDMISMATCH);
+		numericErrorMap.put(465 , ErrorType.ERR_YOUREBANNEDCREEP);
+		numericErrorMap.put(467 , ErrorType.ERR_KEYSET);
+		numericErrorMap.put(471 , ErrorType.ERR_CHANNELISFULL);
+		numericErrorMap.put(472 , ErrorType.ERR_UNKNOWNMODE);
+		numericErrorMap.put(473 , ErrorType.ERR_INVITEONLYCHAN);
+		numericErrorMap.put(474 , ErrorType.ERR_BANNEDFROMCHAN);
+		numericErrorMap.put(475 , ErrorType.ERR_BADCHANNELKEY);
+		numericErrorMap.put(481 , ErrorType.ERR_NOPRIVILEGES);
+		numericErrorMap.put(482 , ErrorType.ERR_CHANOPRIVSNEEDED);
+		numericErrorMap.put(483 , ErrorType.ERR_CANTKILLSERVER);
+		numericErrorMap.put(491 , ErrorType.ERR_NOOPERHOST);
+		numericErrorMap.put(501 , ErrorType.ERR_UMODEUNKNOWNFLAG);
+		numericErrorMap.put(502 , ErrorType.ERR_USERSDONTMATCH);
+	}
+  
 }
