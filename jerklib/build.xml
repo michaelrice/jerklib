@@ -6,11 +6,11 @@
     <property name="src" location="src"/>
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>
-    <property file="Jerklib.properties"/>
 
     <target name="init">
         <tstamp/>
         <mkdir dir="${build}"/>
+        <mkdir dir="${dist}"
         <echo file="Jerklib.properties" message="version=${DSTAMP}"/>
     </target>
 
@@ -21,7 +21,6 @@
 
     <target name="dist" depends="compile"
             description="Create the jar">
-        <mkdir dir="${dist}"/>
         <jar jarfile="${dist}/jerklib-${DSTAMP}.jar" basedir="${build}"/>
     </target>
 
