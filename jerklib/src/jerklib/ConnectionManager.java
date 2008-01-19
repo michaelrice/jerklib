@@ -174,7 +174,7 @@ public class ConnectionManager
 	/**
 	 * request a new connection to a host
 	 * @param hostName DNS name of host to connect to
-	 * @parm port port to use for connection
+	 * @param port port to use for connection
 	 */
 	public Session requestConnection(String hostName , int port)
 	{
