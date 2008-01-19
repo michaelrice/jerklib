@@ -100,6 +100,19 @@ public class SessionImpl implements Session
 		}
 	}
 
+	@Override
+	public void joinChannel(String channelName, String pass)
+	{
+    if (!channelNames.contains(channelName))
+		{
+			channelNames.add(channelName);
+			if (con != null)
+			{
+				con.join(channelName , pass);
+			}
+		}
+	}
+	
 	public boolean partChannel(Channel channel, String msg)
 	{
 		return partChannel(channel.getName(), msg);

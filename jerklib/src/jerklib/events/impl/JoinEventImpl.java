@@ -14,8 +14,16 @@ public class JoinEventImpl implements JoinEvent
 	private final String rawEventData, who, channelName;
 	private final Session session;
 	private final Channel chan;
-
-	public JoinEventImpl(String rawEventData, Session session, String who, String channelName, Channel chan)
+	private String passwd;
+	
+	public JoinEventImpl
+	(
+			String rawEventData, 
+			Session session, 
+			String who, 
+			String channelName, 
+			Channel chan
+	)
 	{
 		this.rawEventData = rawEventData;
 		this.session = session;
@@ -24,6 +32,29 @@ public class JoinEventImpl implements JoinEvent
 		this.chan = chan;
 	}
 
+	public JoinEventImpl
+	(
+			String rawEventData, 
+			Session session, 
+			String who, 
+			String channelName,
+			String passwd,
+			Channel chan
+	)
+	{
+		this.rawEventData = rawEventData;
+		this.session = session;
+		this.who = who;
+		this.channelName = channelName;
+		this.chan = chan;
+		this.passwd = passwd;
+	}
+	
+	public final String getPass()
+	{
+		return passwd;
+	}
+	
 	public final String getWho()
 	{
 		return who;

@@ -2,6 +2,7 @@ package jerklib.events;
 
 public interface NumericErrorEvent extends IRCEvent
 {
+	//http://www.irchelp.org/irchelp/rfc/chapter6.html
 	public enum ErrorType
 	{
 		ERR_NOSUCHNICK, //401

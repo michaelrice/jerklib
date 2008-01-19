@@ -35,7 +35,7 @@ public class Example implements IRCEventListener
 		}
 		else if(e.getType() == IRCEvent.Type.READY_TO_JOIN)
 		{
-			e.getSession().joinChannel("#jerklib");
+			e.getSession().joinChannel("#jerklib" , "letmein");
 		}
 		else if(e.getType() == IRCEvent.Type.JOIN_COMPLETE)
 		{

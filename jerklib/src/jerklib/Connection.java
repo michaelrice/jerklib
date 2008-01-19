@@ -155,6 +155,16 @@ class Connection
 		}
 	}
 
+	void join(final String channel , String pass)
+	{
+		if (!channelMap.containsKey(channel))
+		{
+			WriteRequest request = new WriteRequestImpl("JOIN " + channel + " " + pass + "\r\n", this);
+
+			writeRequests.add(request);
+		}
+	}
+	
 	boolean part(Channel channel , String partMsg)
 	{
 		return part(channel.getName(), partMsg);

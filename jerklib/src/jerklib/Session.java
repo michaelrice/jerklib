@@ -46,6 +46,8 @@ public interface Session extends ProfileUpdateable
 	
 	public void joinChannel(String channelName);
 	
+	public void joinChannel(String channelName , String pass);
+	
 	public boolean partChannel(Channel channel , String msg);
 	
 	public boolean partChannel(String channelName , String msg);

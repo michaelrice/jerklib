@@ -122,6 +122,12 @@ class InternalSessionImpl implements Session , InternalSession
 	{
 		session.joinChannel(channelName);
 	}
+	
+	@Override
+	public void joinChannel(String channelName, String pass)
+	{
+		session.joinChannel(channelName, pass);
+	}
 
 	public boolean partChannel(Channel channel , String msg)
 	{
