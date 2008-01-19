@@ -25,7 +25,8 @@
     </target>
 
     <target name="run" depends="dist">
-        <java classpath="${dist}/jerklib-${DSTAMP}.jar" classname="jerklib.examples.jerkbot2.Jerkbot"/>
+        <java classpath="${dist}/jerklib-${DSTAMP}.jar" classname="jerklib.examples.jerkbot2.Jerkbot"
+              fork="true" spawn="true"/>
     </target>
 
     <target name="clean"
