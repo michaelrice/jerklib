@@ -299,6 +299,19 @@ class InternalSessionImpl implements Session , InternalSession
 		session.channelList(channel);
 	}
 	
+	
+	@Override
+	public void getServerVersion()
+	{
+		session.getServerVersion();
+	}
+	
+	
+	@Override
+	public void getServerVersion(String hostPattern)
+	{
+		session.getServerVersion(hostPattern);
+	}
 }
 
 

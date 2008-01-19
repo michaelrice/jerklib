@@ -334,6 +334,18 @@ public class SessionImpl implements Session
 	}
 	
 	@Override
+	public void getServerVersion()
+	{
+		con.getServerVersion();
+	}
+	
+	@Override
+	public void getServerVersion(String hostPattern)
+	{
+		con.getServerVersion(hostPattern);
+	}
+	
+	@Override
 	public void addIRCEventListener(IRCEventListener listener) 
 	{
 		listenerList.add(listener);

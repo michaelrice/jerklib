@@ -260,6 +260,19 @@ public interface Session extends ProfileUpdateable
 	public void channelList(String channel);
 	
 	/**
+	 * Gets the server version string
+	 */
+	public void getServerVersion();
+	
+	
+	/**
+	 * Gets the server version string of a server matching the pattern
+	 * ex. *.gov would match a irc server from the .gov TLD
+	 * @param hostPattern pattern of hostname
+	 */
+	public void getServerVersion(String hostPattern);
+	
+	/**
 	 * Adds an event listener to be notified of all incoming events for Session
 	 * @param listener Listener to notify
 	 * @see IRCEventListener

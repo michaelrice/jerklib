@@ -6,6 +6,7 @@ import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.NumericErrorEvent;
+import jerklib.events.ServerVersionEvent;
 import jerklib.events.WhoisEvent;
 import jerklib.events.WhowasEvent;
 import jerklib.events.listeners.IRCEventListener;
@@ -37,34 +38,13 @@ public class Example implements IRCEventListener
 		else if(e.getType() == IRCEvent.Type.READY_TO_JOIN)
 		{
 			e.getSession().joinChannel("#jerklib" , "letmein");
+			e.getSession().getServerVersion();
 		}
-		else if(e.getType() == IRCEvent.Type.JOIN_COMPLETE)
+		else if(e.getType() == IRCEvent.Type.SERVER_VERSION_EVENT)
 		{
-			j++;
-			if(j == 1)
-			{
-				e.getSession().whois("mohadibggg");
-				e.getSession().whowas("honda");
-			}
-		}
-		else if(e.getType() == IRCEvent.Type.WHOWAS_EVENT)
-		{
-			WhowasEvent we = (WhowasEvent)e;
-			System.out.println("WHOWAS " + we.getNick() + " " + we.getUserName() + " " + we.getRealName() + " " + we.getHostName());
-		}
-		else if(e.getType() == IRCEvent.Type.JOIN)
-		{
-			JoinEvent je = (JoinEvent)e;
-			//je.getChannel().say(je.getWho() + " PLEASE TO BE WRITING MEH DOCS NOW! KTHKXBYE");
-			if(je.getWho().toLowerCase().matches("r0bby.*"))
-			{
-				je.getChannel().say("GAYS ON MY INTERNETS?? :(");
-			}
-		}
-		else if(e.getType() == IRCEvent.Type.WHOIS_EVENT)
-		{
-			WhoisEvent we = (WhoisEvent)e;
-			System.out.println("GOT WHOIS EVENT " + we.getRawEventData());
+			ServerVersionEvent se = (ServerVersionEvent)e;
+			System.out.println
+			("VERSION " + se.getVersion() + " " + se.getHostName() + " " + se.getComment());
 		}
 		else if(e.getType() == IRCEvent.Type.ERROR)
 		{

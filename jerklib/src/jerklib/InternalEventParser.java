@@ -213,6 +213,7 @@ public class InternalEventParser
 					case 323:chanList(data, con);break;
 					case 332:firstPartOfTopic(data, con);break;
 					case 333:secondPartOfTopic(data, con);break;
+					case 351:manager.addToRelayList(IRCEventFactory.serverVersion(data, con));break;
 					case 353:namesLine(data, con);break;
 					case 366:manager.addToRelayList(IRCEventFactory.nickList(data, con));break;
 					case 372://motd

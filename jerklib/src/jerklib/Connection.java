@@ -192,6 +192,19 @@ class Connection
 		return false;
 	}
 
+	
+	void getServerVersion()
+	{
+		WriteRequest req = new WriteRequestImpl("VERSION " + actualHostName + "\r\n" , this);
+		addWriteRequest(req);
+	}
+	
+	void getServerVersion(String hostPattern)
+	{
+		WriteRequest req = new WriteRequestImpl("VERSION " + hostPattern + "\r\n" , this);
+		addWriteRequest(req);
+	}
+	
 	void changeNick(String nick)
 	{
 		WriteRequest request = new WriteRequestImpl("NICK " + nick + "\r\n" , this);

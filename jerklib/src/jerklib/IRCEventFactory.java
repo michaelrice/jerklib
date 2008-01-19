@@ -20,6 +20,7 @@ import jerklib.events.PartEvent;
 import jerklib.events.ChannelMsgEvent;
 import jerklib.events.PrivateMsgEvent;
 import jerklib.events.QuitEvent;
+import jerklib.events.ServerVersionEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.ChannelListEvent;
@@ -42,6 +43,7 @@ import jerklib.events.impl.ChannelMsgEventImpl;
 import jerklib.events.impl.PrivateMessageEventImpl;
 import jerklib.events.impl.QuitEventImpl;
 import jerklib.events.impl.ReadyToJoinEventImpl;
+import jerklib.events.impl.ServerVersionEventImpl;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.ConnectionCompleteEventImpl;
 import jerklib.events.impl.ChannelListEventImpl;
@@ -59,6 +61,27 @@ class IRCEventFactory
 	{
 		myManager = manager;
 		initNumericErrorMap();
+	}
+	
+	//:kubrick.freenode.net 351 scripy hyperion-1.0.2b(382). kubrick.freenode.net :iM dncrTS/v4
+	//"<version>.<debuglevel> <server> :<comments>"
+	static ServerVersionEvent serverVersion(String data , Connection con)
+	{
+		Pattern p = Pattern.compile("^:\\S+\\s351\\s\\S+\\s(\\S+)\\s(\\S+)\\s:(.*)$");
+		Matcher m = p.matcher(data);
+		if(m.matches())
+		{
+			return new ServerVersionEventImpl
+			(
+					m.group(3),
+					m.group(2),
+					m.group(1),
+					"",
+					data,
+					myManager.getSessionFor(con)
+			);
+		}
+		return null;
 	}
 	
 	static ConnectionCompleteEvent connectionComplete(String data , Connection con)
