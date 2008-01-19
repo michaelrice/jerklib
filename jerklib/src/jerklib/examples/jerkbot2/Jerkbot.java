@@ -12,6 +12,7 @@ import jerklib.examples.jerkbot2.operations.QuitOperation;
 
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * This an the main class and entry point.
@@ -32,7 +33,7 @@ public class Jerkbot implements IRCEventListener {
      * @param port   the port of the server to connect to.
      */
     public Jerkbot(String nick, String login, String server, int port) {
-        Profile profile = new ProfileImpl(login, nick, nick + "1", nick + "2");
+        Profile profile = new ProfileImpl(login, nick, nick + new Random().nextInt(42), nick+ new Random().nextInt(42));
         manager = new ConnectionManager(profile);
         manager.requestConnection(server, port, profile).addIRCEventListener(this);
     }
@@ -57,7 +58,8 @@ public class Jerkbot implements IRCEventListener {
         } else if (e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
             JoinCompleteEvent event = (JoinCompleteEvent) e;
             event.getChannel().say("Hai 2u");
-            event.getChannel().say("I'm using Jerklib version "+ConnectionManager.getVersion());
+            event.getChannel().say("I am running jerklib version "+ConnectionManager.getVersion());
+ 
 
         }
     }
