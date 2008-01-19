@@ -316,7 +316,7 @@ public class InternalEventParser
 		{
 			JoinEvent jEvent = IRCEventFactory.regularJoin(data, con);
 
-			jEvent.getChannel().addNick(jEvent.getWho());
+			((ChannelImpl)jEvent.getChannel()).addNick(jEvent.getWho());
 
 			event = jEvent;
 		}
@@ -331,7 +331,7 @@ public class InternalEventParser
 		{
 			PartEvent pEvent = IRCEventFactory.part(data, con);
 
-			pEvent.getChannel().removeNick(pEvent.getWho());
+			((ChannelImpl)pEvent.getChannel()).removeNick(pEvent.getWho());
 
 			event = pEvent;
 		}
@@ -388,7 +388,7 @@ public class InternalEventParser
 		{
 			KickEvent ke = IRCEventFactory.kick(data, con);
 
-			if (!ke.getChannel().removeNick(ke.who()))
+			if (!((ChannelImpl)ke.getChannel()).removeNick(ke.who()))
 			{
 				System.out.println("COULD NOT REMOVE NICK " + ke.who() + " from channel " + ke.getChannel().getName());
 			}
@@ -533,7 +533,7 @@ public class InternalEventParser
 				// remove @ and + from front for operators ?
 				if (name != null && name.length() > 0)
 				{
-					chan.addNick(name.toLowerCase().replace("+", "").replace("@", "").trim());
+					((ChannelImpl)chan).addNick(name.toLowerCase().replace("+", "").replace("@", "").trim());
 				}
 			}
 		}

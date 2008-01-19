@@ -95,7 +95,7 @@ class Connection
 		List<Channel>returnList = new ArrayList<Channel>();
 		for(Channel chan : channelMap.values())
 		{
-			if(chan.removeNick(nick))
+			if(((ChannelImpl)chan).removeNick(nick))
 			{
 				returnList.add(chan);
 			}
