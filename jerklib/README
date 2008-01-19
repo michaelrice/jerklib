@@ -1,5 +1,17 @@
 Jerklib is an event-driven IRC library that can be used to write an IRC bot/client.
+https://sourceforge.net/projects/jerklib/
 
-To run our example type just 'ant run'
+To run one of the examples run one of the following commands:
 
-If you just want to compile: 'ant compile'
+This is the simplest example:
+java -cp jerklib.jar jerklib.examples.Example
+
+An example of a bot:
+java -cp jerklib.jar jerklib.examples.jerkbot2.jerkbot
+
+Another example of a bot:
+java -cp jerklib.jar jerklib.examples.jerkbot.jerkbot
+
+
+Optionally you can run example 2 with ant: 
+ant run

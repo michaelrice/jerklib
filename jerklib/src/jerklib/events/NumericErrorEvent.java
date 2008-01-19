@@ -51,4 +51,5 @@ public interface NumericErrorEvent extends IRCEvent
 	}
 	
 	
+	
 }

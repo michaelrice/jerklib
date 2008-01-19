@@ -4,6 +4,7 @@ import jerklib.ConnectionManager;
 import jerklib.ProfileImpl;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
+import jerklib.events.JoinEvent;
 import jerklib.events.WhoisEvent;
 import jerklib.events.listeners.IRCEventListener;
 
@@ -45,8 +46,12 @@ public class Example implements IRCEventListener
 		}
 		else if(e.getType() == IRCEvent.Type.JOIN)
 		{
-			//JoinEvent je = (JoinEvent)e;
+			JoinEvent je = (JoinEvent)e;
 			//je.getChannel().say(je.getWho() + " PLEASE TO BE WRITING MEH DOCS NOW! KTHKXBYE");
+			if(je.getWho().toLowerCase().matches("r0bby.*"))
+			{
+				je.getChannel().say("GAYS ON MY INTERNETS?? :(");
+			}
 		}
 		else if(e.getType() == IRCEvent.Type.WHOIS_EVENT)
 		{
