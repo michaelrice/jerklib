@@ -33,7 +33,7 @@ public class Jerkbot implements IRCEventListener {
      * @param port   the port of the server to connect to.
      */
     public Jerkbot(String nick, String login, String server, int port) {
-        Profile profile = new ProfileImpl(login, nick, nick + new Random().nextInt(42), nick+ new Random().nextInt(42));
+        Profile profile = new ProfileImpl(login, nick, nick+new Random().nextInt(42), nick+ new Random().nextInt(42));
         manager = new ConnectionManager(profile);
         manager.requestConnection(server, port, profile).addIRCEventListener(this);
     }
