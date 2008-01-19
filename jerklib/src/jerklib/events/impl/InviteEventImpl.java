@@ -14,7 +14,6 @@ public class InviteEventImpl implements InviteEvent {
         this.nick = nick;
         this.rawEventData = rawEventData;
         this.session = session;
-        this.type = type;
     }
 
     /**
