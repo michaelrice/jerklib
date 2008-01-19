@@ -1,7 +1,6 @@
 package jerklib.examples.jerkbot.plugins;
 
 import jerklib.events.ChannelMsgEvent;
-import jerklib.events.PrivateMsgEvent;
 import jerklib.examples.jerkbot.plugin.types.ChannelPlugin;
 
 public class VersionPlugin extends ChannelPlugin {

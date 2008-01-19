@@ -19,6 +19,7 @@ public class Jerkbot implements IRCEventListener {
 		new Jerkbot();
 	}
 
+	@SuppressWarnings("unchecked")
 	public Jerkbot() {
 		mngr = new ConnectionManager(new ProfileImpl("Jerk Bot", "jerkbot",
 				"jerkb0t", "jerkb1t"));
