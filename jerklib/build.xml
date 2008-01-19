@@ -13,6 +13,20 @@
         <mkdir dir="${dist}"/>
     </target>
 
+    <target name="javadoc" depends="init">
+        <javadoc access="public" author="true" classpath="."
+                 destdir="${dist}/docs" nodeprecated="false"
+                 nodeprecatedlist="false"
+                 noindex="false" nonavbar="false" notree="false"
+                 windowtitle="Jerklib API">
+            <fileset dir="${src}/jerklib" includes="**/*.java"/>
+
+            <link href="file://${dist}/docs/"/>
+            <link href="http://java.sun.com/javase/6/docs/api/"/>
+        </javadoc>
+
+    </target>
+
     <target name="compile" depends="init"
             description="compile">
         <javac srcdir="${src}" destdir="${build}"/>
