@@ -24,7 +24,6 @@
 
 package jerklib;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -40,10 +39,8 @@ import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
-import jerklib.events.WhoisEvent;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.WhoisEventImpl;
-import jerklib.util.Pair;
 
 /**
  * InternalEventParser is the first place IRCEvents are sent. Here they are
