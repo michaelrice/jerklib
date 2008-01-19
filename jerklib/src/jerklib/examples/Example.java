@@ -24,8 +24,13 @@ public class Example implements IRCEventListener
 		session.addIRCEventListener(this);
 		session.setRejoinOnKick(true);
 		session.setRejoinOnReconnect(true);
-		
-		Runtime.getRuntime().addShutdownHook(new Thread()
+
+        /*
+         * Give your client a chance to gracefully exit.
+         * It your responsibility to add this as it
+         * is not included in the library itself.
+         */
+        Runtime.getRuntime().addShutdownHook(new Thread()
 		{
 			@Override
 			public void run()
