@@ -11,8 +11,7 @@ import jerklib.events.listeners.IRCEventListener;
 
 public class Example implements IRCEventListener
 {
-	ConnectionManager manager;
-	int j = 0;
+	private ConnectionManager manager;
 	
 	public Example()
 	{
