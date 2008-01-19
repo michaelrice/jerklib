@@ -58,7 +58,8 @@ public class ProfileImpl implements Profile
 	 * @see jerklib.Profile#getSecondNick()
 	 */
 	@Override
-	public String getSecondNick() {
+	public String getSecondNick() 
+	{
 		return secondNick;
 	}
 	

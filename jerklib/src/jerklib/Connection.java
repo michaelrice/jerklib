@@ -395,7 +395,6 @@ class Connection
 			//clear out write queue 
 			doWrites();
 			
-			//send quit message here
 			socChannel.close();
 		}
 		catch (IOException e)
