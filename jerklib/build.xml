@@ -16,7 +16,7 @@
     <target name="compile" depends="init"
             description="compile">
         <javac srcdir="${src}" destdir="${build}"/>
-        <echo file="${build}/jerklib/JerkLib.Properties" message=".04+${DSTAMP}"/>
+        <echo file="${build}/jerklib/JerkLib.Properties" message=".04rev${DSTAMP}"/>
     </target>
 
     <target name="dist" depends="compile"
