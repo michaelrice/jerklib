@@ -57,6 +57,8 @@ public class Jerkbot implements IRCEventListener {
         } else if (e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
             JoinCompleteEvent event = (JoinCompleteEvent) e;
             event.getChannel().say("Hai 2u");
+            event.getChannel().say("I'm using Jerklib version "+ConnectionManager.getVersion());
+
         }
     }
 
