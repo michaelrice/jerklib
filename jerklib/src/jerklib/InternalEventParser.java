@@ -480,7 +480,7 @@ public class InternalEventParser
 					newNick = p.getThirdNick();
 				}
 
-				p.setActualNick(newNick);
+				((ProfileImpl)p).setActualNick(newNick);
 
 				session.changeProfile(p);
 

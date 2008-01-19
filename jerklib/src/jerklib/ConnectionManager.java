@@ -50,6 +50,10 @@ public class ConnectionManager
 		}
 	}
 	
+	/**
+	 * gets the version string of library
+	 * @return Version string
+	 */
 	public static String getVersion()
 	{
 		return version;
@@ -88,6 +92,8 @@ public class ConnectionManager
 	 * default profile for new Connections
 	 * 
 	 * @param defaultProfile - default user profile
+	 * @see Profile
+	 * @see ProfileImpl
 	 */
 	public ConnectionManager(Profile defaultProfile)
 	{
@@ -110,7 +116,7 @@ public class ConnectionManager
 	/**
 	 * get a list of Sessions
 	 * 
-	 * @return List<Session> - Session list
+	 * @return Session list
 	 */
 	public List<Session> getSessions()
 	{
@@ -125,8 +131,8 @@ public class ConnectionManager
 	/**
 	 * gets a session by name
 	 * 
-	 * @param name - session name - the hostname of the server this session is for
-	 * @return Session or null if no Session with name exist
+	 * @param name session name - the hostname of the server this session is for
+	 * @return Session or null if no Session with name exists
 	 */
 	public Session getSession(String name)
 	{
@@ -137,7 +143,7 @@ public class ConnectionManager
 	/**
 	 * Adds a listener to be notified of all writes
 	 * 
-	 * @param listener
+	 * @param listener listener to be notified
 	 */
 	public void addWriteRequestListener(WriteRequestListener listener)
 	{
@@ -147,7 +153,7 @@ public class ConnectionManager
 	/**
 	 *  gets an unmodifiable list of WriteListeners
 	 * 
-	 * @return List<WriteRequestListener> - listeners
+	 * @return listeners
 	 */
 	public List<WriteRequestListener> getWriteListeners()
 	{
@@ -158,7 +164,7 @@ public class ConnectionManager
 	
 	/**
 	 * request a new connection to a host
-	 * @param hostName - DNS name of host to connect to
+	 * @param hostName DNS name of host to connect to
 	 */
 	public Session requestConnection(String hostName)
 	{
@@ -167,8 +173,8 @@ public class ConnectionManager
 	
 	/**
 	 * request a new connection to a host
-	 * @param hostName - DNS name of host to connect to
-	 * @parm port to use for connection
+	 * @param hostName DNS name of host to connect to
+	 * @parm port port to use for connection
 	 */
 	public Session requestConnection(String hostName , int port)
 	{
@@ -177,8 +183,8 @@ public class ConnectionManager
 	
 	/**
 	 * request a new connection to a host
-	 * @param hostName - DNS name of host to connect to
-	 * @parm port to use for connection
+	 * @param hostName  DNS name of host to connect to
+	 * @parm port port to use for connection
 	 * @param user profile to use for this connection
 	 */
 	public Session requestConnection(String hostName , int port , Profile profile)
@@ -203,9 +209,9 @@ public class ConnectionManager
 	}
 	
 	/**
-	 * Closes all connections and shutsdown manager
+	 * Closes all connections and shuts down manager
 	 * 
-	 * @param quitMsg - quit message
+	 * @param quitMsg  quit message
 	 */
 	public synchronized void quit(String quitMsg)
 	{
@@ -234,16 +240,27 @@ public class ConnectionManager
 
 	}
 	
+	/**
+	 *Closes all Sessions and exits library 
+	 */
 	public synchronized void quit()
 	{
 		quit("");
 	}
 	
+	/**
+	 * gets the default profile used for new connections
+	 * @return default profile
+	 */
 	public Profile getDefaultProfile()
 	{
 		return defaultProfile;
 	}
 	
+	/**
+	 * sets the default profile to use for new connections
+	 * @param profile default profile to use for connections
+	 */
 	public void setDefaultProfile(Profile profile)
 	{
 		this.defaultProfile = profile;

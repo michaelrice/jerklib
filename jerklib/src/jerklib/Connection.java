@@ -111,7 +111,7 @@ class Connection
 			{
 				if(chan.getNicks().contains(oldNick))
 				{
-					chan.nickChanged(oldNick, newNick);
+					((ChannelImpl)chan).nickChanged(oldNick, newNick);
 				}
 			}
 		}

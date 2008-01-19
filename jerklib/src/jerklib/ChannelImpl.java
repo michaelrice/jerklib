@@ -22,24 +22,36 @@ public class ChannelImpl implements Channel
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see jerklib.Channel#getTopic()
+	 */
 	public String getTopic()
 	{
 		if(topicEvent != null) return topicEvent.getTopic();
 		return "";
 	}
 	
+	/* (non-Javadoc)
+	 * @see jerklib.Channel#getTopicSetter()
+	 */
 	public String getTopicSetter()
 	{
 		if(topicEvent != null) return topicEvent.getSetBy();
 		return "";
 	}
 	
+	/* (non-Javadoc)
+	 * @see jerklib.Channel#getTopicSetTime()
+	 */
 	public String getTopicSetTime()
 	{
 		if(topicEvent != null) return topicEvent.getSetWhen();
 		return "";
 	}
 	
+	/* (non-Javadoc)
+	 * @see jerklib.Channel#setTopic(java.lang.String)
+	 */
 	public void setTopic(String topic)
 	{
 		con.addWriteRequest
@@ -54,11 +66,17 @@ public class ChannelImpl implements Channel
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see jerklib.Channel#getName()
+	 */
 	public String getName()
 	{
 		return name;
 	}
 
+	/* (non-Javadoc)
+	 * @see jerklib.Channel#say(java.lang.String)
+	 */
 	public void say(String message)
 	{
 		con.addWriteRequest(new WriteRequestImpl(message , this , con));
@@ -84,22 +102,34 @@ public class ChannelImpl implements Channel
 		users.add(newNick);
 	}
 	
+	/* (non-Javadoc)
+	 * @see jerklib.Channel#getNicks()
+	 */
 	public List<String> getNicks()
 	{
 		return Collections.unmodifiableList(users);
 	}
 	
+	/* (non-Javadoc)
+	 * @see jerklib.Channel#part(java.lang.String)
+	 */
 	public void part(String partMsg)
 	{
 		con.part(this, partMsg);
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	public int hashCode()
 	{
 		return (name + con.getHostName()).hashCode();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	public boolean equals(Object o)
 	{
 		return o == this;
