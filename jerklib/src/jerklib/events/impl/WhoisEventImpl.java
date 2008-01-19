@@ -2,7 +2,6 @@ package jerklib.events.impl;
 
 import java.util.List;
 
-import jerklib.Channel;
 import jerklib.Session;
 import jerklib.events.WhoisEvent;
 
@@ -11,8 +10,8 @@ public class WhoisEventImpl implements WhoisEvent
 	private final Type type = Type.WHOIS_EVENT;
 	private final String host,user,realName,nick;
 	private final Session session;
-	private String whoisServer,rawEventData;
-	private List<Channel> channels;
+	private String whoisServer,whoisServerInfo,rawEventData;
+	private List<String> channelNames;
 	private boolean isOp , isIdle;
 	private long secondsIdle;
 	private int signOnTime;
@@ -36,14 +35,14 @@ public class WhoisEventImpl implements WhoisEvent
 	}
 	
 	@Override
-	public List<Channel> getChannelList() 
+	public List<String> getChannelNames() 
 	{
-		return channels;
+		return channelNames;
 	}
 	
-	public void setChannelList(List<Channel> channels)
+	public void setChannelNamesList(List<String> chanNames)
 	{
-		this.channels = channels;
+		channelNames = chanNames;
 	}
 	
 	@Override
@@ -123,6 +122,17 @@ public class WhoisEventImpl implements WhoisEvent
 	public void setWhoisServer(String whoisServer)
 	{
 		this.whoisServer = whoisServer;
+	}
+	
+	@Override
+	public String whoisServerInfo()
+	{
+		return whoisServerInfo;
+	}
+	
+	public void setWhoisServerInfo(String whoisServerInfo)
+	{
+		this.whoisServerInfo = whoisServerInfo;
 	}
 	
 	@Override

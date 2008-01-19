@@ -3,14 +3,17 @@ package jerklib.examples;
 import jerklib.ConnectionManager;
 import jerklib.ProfileImpl;
 import jerklib.Session;
-import jerklib.events.ChannelListEvent;
 import jerklib.events.IRCEvent;
+import jerklib.events.JoinCompleteEvent;
+import jerklib.events.JoinEvent;
+import jerklib.events.WhoisEvent;
 import jerklib.events.listeners.IRCEventListener;
 
 
 public class Example implements IRCEventListener
 {
 	ConnectionManager manager;
+	int j = 0;
 	
 	public Example()
 	{
@@ -32,12 +35,25 @@ public class Example implements IRCEventListener
 		}
 		else if(e.getType() == IRCEvent.Type.READY_TO_JOIN)
 		{
-			e.getSession().channelList();
+			e.getSession().joinChannel("#jerklib");
 		}
-		else if(e.getType() == IRCEvent.Type.CHANNEL_LIST_EVENT)
+		else if(e.getType() == IRCEvent.Type.JOIN_COMPLETE)
 		{
-			ChannelListEvent cle = (ChannelListEvent)e;
-			System.out.println(cle.getChannelName() + " " + cle.getTopic());
+			j++;
+			if(j == 1)
+			{
+				e.getSession().whois("mohadib");
+			}
+		}
+		else if(e.getType() == IRCEvent.Type.JOIN)
+		{
+			//JoinEvent je = (JoinEvent)e;
+			//je.getChannel().say(je.getWho() + " PLEASE TO BE WRITING MEH DOCS NOW! KTHKXBYE");
+		}
+		else if(e.getType() == IRCEvent.Type.WHOIS_EVENT)
+		{
+			WhoisEvent we = (WhoisEvent)e;
+			System.out.println("GOT WHOIS EVENT " + we.getNick() + " " + we.getHost() + " " + we.getRealName());
 		}
 	}
 	

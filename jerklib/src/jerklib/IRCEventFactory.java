@@ -21,6 +21,7 @@ import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.ChannelListEvent;
 import jerklib.events.InviteEvent;
+import jerklib.events.WhoisEvent;
 import jerklib.events.impl.JoinCompleteEventImpl;
 import jerklib.events.impl.JoinEventImpl;
 import jerklib.events.impl.KickEventImpl;
@@ -39,6 +40,7 @@ import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.ConnectionCompleteEventImpl;
 import jerklib.events.impl.ChannelListEventImpl;
 import jerklib.events.impl.InviteEventImpl;
+import jerklib.events.impl.WhoisEventImpl;
 
 
 class IRCEventFactory
@@ -70,6 +72,20 @@ class IRCEventFactory
 	  }
 	  return null;
 	}
+	
+	
+	static WhoisEvent whois(String data , Session session)
+	{
+		//"<nick> <user> <host> * :<real name>"
+		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s(\\S+)\\s(\\S+)\\s(\\S+).*?:(.*)$");
+		Matcher m = p.matcher(data);
+		if(m.matches())
+		{
+			return new WhoisEventImpl(m.group(1),m.group(4) , m.group(2) , m.group(3) , session);
+		}
+		return null;
+	}
+	
 	
 	/* end of names :irc.newcommunity.tummy.com 366 SwingBot #test :End of NAMES list */
 	static NickListEvent nickList(String data , Connection con)

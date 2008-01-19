@@ -24,7 +24,10 @@
 
 package jerklib;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,7 +40,10 @@ import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
+import jerklib.events.WhoisEvent;
 import jerklib.events.impl.TopicEventImpl;
+import jerklib.events.impl.WhoisEventImpl;
+import jerklib.util.Pair;
 
 /**
  * InternalEventParser is the first place IRCEvents are sent. Here they are
@@ -58,9 +64,9 @@ public class InternalEventParser
 
 	private Map<Channel, TopicEvent> topicMap = new HashMap<Channel, TopicEvent>();
 
-	// /private Map<Pair<String, Connection> , WhoisEvent> whoisMap = new
-	// HashMap<Pair<String,Connection>, WhoisEvent>();
-
+	//private Map<Pair<String, Connection> , WhoisEvent> whoisMap = new HashMap<Pair<String,Connection>, WhoisEvent>();
+	private WhoisEventImpl we;
+	
 	public InternalEventParser(ConnectionManager manager)
 	{
 		this.manager = manager;
@@ -84,6 +90,75 @@ public class InternalEventParser
 		else
 		{
 			System.out.println(data);
+		}
+	}
+	
+	/*
+	:kubrick.freenode.net 311 scripy mohadib n=fran unaffiliated/mohadib * :fran
+	:kubrick.freenode.net 319 scripy mohadib :#jerklib 
+	:kubrick.freenode.net 312 scripy mohadib irc.freenode.net :http://freenode.net/
+	:kubrick.freenode.net 320 scripy mohadib :is identified to services 
+	:kubrick.freenode.net 318 scripy mohadib :End of /WHOIS list. */
+	private void whois(String data , Session session , int numeric)
+	{
+		switch(numeric)
+		{
+			case 311:
+			{
+				//"<nick> <user> <host> * :<real name>"
+				we = (WhoisEventImpl)IRCEventFactory.whois(data, session);
+				break;
+			}
+			case 319:
+			{
+				//"<nick> :{[@|+]<channel><space>}"
+				//:kubrick.freenode.net 319 scripy mohadib :@#jerklib
+				//kubrick.freenode.net 319 scripy mohadib :@#jerklib ##swing
+				Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s\\S+\\s:(.*)$");
+				Matcher m = p.matcher(data);
+				if(we != null && m.matches())
+				{
+					List<String> chanNames = Arrays.asList(m.group(1).split("\\s+"));
+					we.setChannelNamesList(chanNames);
+				}
+				break;
+			}
+			//"<nick> <server> :<server info>"
+			//:kubrick.freenode.net 312 scripy mohadib irc.freenode.net :http://freenode.net/
+			case 312:
+			{
+				Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s\\S+\\s(\\S+)\\s:(.*)$");
+				Matcher m = p.matcher(data);
+				if(we != null && m.matches())
+				{
+					we.setWhoisServer(m.group(1));
+					we.setWhoisServerInfo(m.group(2));
+				}
+				break;
+			}
+			//not in RFC1459
+			//:kubrick.freenode.net 320 scripy mohadib :is identified to services 
+			case 320:
+			{
+				Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s(\\S+)\\s:(.*)$");
+				Matcher m = p.matcher(data);
+				if(m.matches())
+				{
+					//System.out.println("nick idented: " + m.group(1) + " " + m.group(2));
+				}
+				break;
+			}
+			case 318:
+			{
+				//end of whois - fireevent
+				if(we != null)
+				{
+					manager.addToRelayList(we);
+					we = null;
+				}
+				break;
+			}
+			default:System.out.println(data);
 		}
 	}
 
@@ -123,40 +198,37 @@ public class InternalEventParser
 			{
 				switch (Integer.parseInt(m.group(1)))
 				{
-				case 001:
-					connectionComplete(data, con, event);
-					return;
-				case 321:// beginning of /names
-				case 322:// the channel listings
-				case 323:
-					chanList(data, con);
-					return;
-				case 332:
-					firstPartOfTopic(data, con);
-					return;
-				case 333:
-					secondPartOfTopic(data, con);
-					return;
-				case 353:
-					namesLine(data, con);
-					return;
-				case 366:
-					manager.addToRelayList(IRCEventFactory.nickList(data, con));
-					return;
-				case 372: // motd
-				case 375: // motd
-				case 376:
-					manager.addToRelayList(IRCEventFactory.motd(data, con));
-					return;
-				case 433:
-					nick(data, con, event.getSession());
-					return;
-				default:
-					manager.addToRelayList(event);
+					case 001:connectionComplete(data, con, event);break;
+					case 311:
+					case 312:
+					case 318:
+					case 319:
+					case 320:whois(data, manager.getSessionFor(con), Integer.parseInt(m.group(1)));break;
+					case 321:// beginning of /names
+					case 322:// the channel listings
+					case 323:chanList(data, con);break;
+					case 332:firstPartOfTopic(data, con);break;
+					case 333:secondPartOfTopic(data, con);break;
+					case 353:namesLine(data, con);break;
+					case 366:manager.addToRelayList(IRCEventFactory.nickList(data, con));break;
+					case 372: // motd
+					case 375: // motd
+					case 376:manager.addToRelayList(IRCEventFactory.motd(data, con));break;
+					case 433:nick(data, con, event.getSession());break;
+					default:manager.addToRelayList(event);
 				}
+				return;
 			}
 		}
 
+		
+		/*
+		:kubrick.freenode.net 311 scripy mohadib n=fran unaffiliated/mohadib * :fran
+		:kubrick.freenode.net 319 scripy mohadib :#jerklib 
+		:kubrick.freenode.net 312 scripy mohadib irc.freenode.net :http://freenode.net/
+		:kubrick.freenode.net 320 scripy mohadib :is identified to services 
+		:kubrick.freenode.net 318 scripy mohadib :End of /WHOIS list. */
+		
 		/*
 		 * PERSON QUIT :Xolt!brad@c-67-165-231-230.hsd1.co.comcast.net QUIT
 		 * :"Deleted" :james_so!~me@213-152-46-35.dsl.eclipse.net.uk QUIT :Read
@@ -389,7 +461,6 @@ public class InternalEventParser
 		 */
 		if (data.matches(":.+?\\s+001\\s+.+?\\s+:.*$"))
 		{
-			manager.addToRelayList(event);
 			manager.addToRelayList(IRCEventFactory.readyToJoin(data, con));
 			ConnectionCompleteEvent ccEvent = IRCEventFactory.connectionComplete(data, con);
 			con.setHostName(ccEvent.getActualHostName());

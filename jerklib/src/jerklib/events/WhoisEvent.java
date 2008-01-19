@@ -2,7 +2,6 @@
 
 import java.util.List;
 
-import jerklib.Channel;
 
 public interface WhoisEvent extends IRCEvent
 {
@@ -14,9 +13,11 @@ public interface WhoisEvent extends IRCEvent
 	
 	public String getRealName();
 	
-	public List<Channel> getChannelList();
+	public List<String> getChannelNames();
 	
 	public String whoisServer();
+	
+	public String whoisServerInfo();
 	
 	public boolean isAnOperator();
 	
