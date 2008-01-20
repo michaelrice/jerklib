@@ -24,7 +24,7 @@
 
     <taskdef resource="svntask.properties" classpathref="project.classpath"/>
     <target name="update" depends="init" description="Update your current tree to the latest revision from subversion.">
-        <echo message="updating ${ant.project.name} from subversion"/>
+        <echo message="Updating ${ant.project.name} from subversion"/>
         <svn>
             <update dir="."/>
         </svn>
