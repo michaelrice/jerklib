@@ -8,6 +8,11 @@
     <property name="dist" location="dist"/>
     <property prefix="svn" file="svn.properties"/>
     <property prefix="build" file="build.properties"/>
+    <path id="project.classpath">
+        <fileset dir="lib">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
 
     <target name="init">
         <mkdir dir="${build}"/>
@@ -16,6 +21,14 @@
         <exec executable="svn" output="svn.properties">
             <arg value="info"/>
         </exec>
+    </target>
+
+    <taskdef resource="svntask.properties" classpathref="project.classpath"/>
+    <target name="update" depends="init">
+        <echo message="updating ${ant.project.name} from subversion"/>
+        <svn>
+            <update dir="."/>
+        </svn>
     </target>
 
     <target name="javadoc" depends="init">
@@ -58,5 +71,3 @@
         <delete file="svn.properties"/>
     </target>
 </project>
-
-
