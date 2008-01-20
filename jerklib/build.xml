@@ -13,11 +13,6 @@
         <mkdir dir="${build}"/>
         <mkdir dir="${dist}"/>
         <touch file="${build}/svn.properties"/>
-        <exec executable="svn">
-            <arg value="co"/>
-            <arg value="https://jerklib.svn.sourceforge.net/svnroot/jerklib"/>
-            <arg value=".."/>
-        </exec>
         <exec executable="svn" output="svn.properties">
             <arg value="info"/>
         </exec>
