@@ -36,7 +36,12 @@
         <echo message="downloading code for ${ant.project.name} from subversion..."/>
         <svn>
             <checkout url="https://jerklib.svn.sourceforge.net/svnroot/jerklib/jerklib" destPath="jerklib-svn"/>
-        </svn>       
+        </svn>
+        <!-- copy the files over -->
+        <copy todir="jerklib/${src}">
+            <fileset dir="jerklib-svn/src"/>
+        </copy>
+        <copy file="jerklib-svn/build.xml" tofile="build.xml"/>
     </target>
 
     <target name="javadoc" depends="init">
