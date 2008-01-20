@@ -29,6 +29,14 @@
         <svn>
             <update dir="."/>
         </svn>
+        <echo message="Done updating code for ${ant.project.name}."/>
+    </target>
+
+    <target name="subversion" depends="init">
+        <echo message="downloading code for ${ant.project.name} from subversion..."/>
+        <svn>
+            <checkout url="https://jerklib.svn.sourceforge.net/svnroot/jerklib/jerklib" destPath="jerklib-svn"/>
+        </svn>       
     </target>
 
     <target name="javadoc" depends="init">
