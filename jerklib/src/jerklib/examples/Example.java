@@ -60,7 +60,6 @@ public class Example implements IRCEventListener
 			@Override
 			public void run()
 			{
-				System.out.println("Hook Called");
 				session.close("Bye");
 			}
 		});

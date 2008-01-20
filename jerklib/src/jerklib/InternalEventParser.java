@@ -219,6 +219,7 @@ public class InternalEventParser
 					case 372://motd
 					case 375://motd
 					case 376:manager.addToRelayList(IRCEventFactory.motd(data, con));break;
+					case 433:nick(data, con, event.getSession());break;
 					case 401:
 					case 402:
 					case 403:
@@ -236,8 +237,7 @@ public class InternalEventParser
 					case 423:
 					case 424:
 					case 431:
-					case 432:manager.addToRelayList(IRCEventFactory.numericError(data, con, Integer.parseInt(m.group(1))));break;
-					case 433:nick(data, con, event.getSession());break;
+					case 432:
 					case 436:
 					case 441:
 					case 442:
