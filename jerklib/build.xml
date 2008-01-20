@@ -17,7 +17,6 @@
     <target name="init">
         <mkdir dir="${build}"/>
         <mkdir dir="${dist}"/>
-        <touch file="svn.properties"/>
         <exec executable="svn" output="svn.properties">
             <arg value="info"/>
         </exec>
