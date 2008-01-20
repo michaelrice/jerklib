@@ -38,7 +38,7 @@
             <checkout url="https://jerklib.svn.sourceforge.net/svnroot/jerklib/jerklib" destPath="jerklib-svn"/>
         </svn>
         <!-- copy the files over -->
-        <copy todir="jerklib/${src}">
+        <copy todir="${src}">
             <fileset dir="jerklib-svn/src"/>
         </copy>
         <copy file="jerklib-svn/build.xml" tofile="build.xml"/>
