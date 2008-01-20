@@ -7,7 +7,7 @@
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>
     <property prefix="svn" file="build/svn.properties"/>
-    <property file="build.properties" prefix="build"/>
+    <property prefix="build" file="build.properties" />
 
 
     <target name="init">
