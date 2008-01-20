@@ -8,6 +8,7 @@
     <property name="dist" location="dist"/>
     <property prefix="svn" file="svn.properties"/>
     <property prefix="build" file="build.properties"/>
+
     <path id="project.classpath">
         <fileset dir="lib">
             <include name="**/*.jar"/>
