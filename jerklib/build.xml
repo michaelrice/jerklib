@@ -7,17 +7,15 @@
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>
     <property prefix="svn" file="svn.properties"/>
-    <property prefix="build" file="build.properties" />
-    
+    <property prefix="build" file="build.properties"/>
+
     <target name="init">
         <mkdir dir="${build}"/>
         <mkdir dir="${dist}"/>
-        <touch file="${build}/svn.properties"/>
+        <touch file="svn.properties"/>
         <exec executable="svn" output="svn.properties">
             <arg value="info"/>
         </exec>
-
-
     </target>
 
     <target name="javadoc" depends="init">
@@ -34,6 +32,8 @@
 
     </target>
 
+    <target name="rebuild" depends="clean, dist"/>
+
     <target name="compile" depends="init"
             description="compile">
         <javac srcdir="${src}" destdir="${build}"/>
@@ -41,7 +41,7 @@
         <echo file="${src}/jerklib/JerkLib.Properties" message="version=${build.version}+${svn.Revision}"/>
     </target>
 
-    <target name="dist" depends="compile"
+    <target name="dist" depends="clean,compile"
             description="Create the jar">
         <jar jarfile="${dist}/jerklib.jar" basedir="${build}"/>
     </target>
@@ -55,6 +55,7 @@
             description="clean up">
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
+        <delete file="svn.properties"/>
     </target>
 </project>
 
