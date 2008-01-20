@@ -1,0 +1,14 @@
+Jerklib is an event-driven IRC library that can be used to write an IRC bot/client.
+https://sourceforge.net/projects/jerklib/
+
+You can use Apache Ant (http://ant.apache.org) to download the current subversion code.
+or to update your current subversion tree to the latest revision.
+
+Typing 'ant subversion' (without single quotes) will download the current code, and copy it over to your downloaded tree,
+like a source archive. 
+
+Typing 'ant update' (again, without single quotes) will update your code to the current revision
+if you already checked out a copy of the code from subversion.
+
+To compile the code just type: ant dist
+
