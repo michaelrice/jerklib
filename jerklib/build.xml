@@ -24,7 +24,7 @@
     </target>
 
     <taskdef resource="svntask.properties" classpathref="project.classpath"/>
-    <target name="update" depends="init">
+    <target name="update" depends="init" description="Update your current tree to the latest revision from subversion.">
         <echo message="updating ${ant.project.name} from subversion"/>
         <svn>
             <update dir="."/>
@@ -32,7 +32,7 @@
         <echo message="Done updating code for ${ant.project.name}."/>
     </target>
 
-    <target name="subversion" depends="init">
+    <target name="subversion" depends="init" description="Download code from subversion if you have a source archive.">
         <echo message="downloading code for ${ant.project.name} from subversion..."/>
         <svn>
             <checkout url="https://jerklib.svn.sourceforge.net/svnroot/jerklib/jerklib" destPath="jerklib-svn"/>
