@@ -41,6 +41,7 @@ public interface JoinEvent extends IRCEvent {
      * @return Nick of who joined channel
      */
 	public String getWho();
+    
 
     /**
      * return the username in the user's hostmask
