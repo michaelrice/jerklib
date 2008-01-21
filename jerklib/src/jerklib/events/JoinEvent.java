@@ -41,6 +41,12 @@ public interface JoinEvent extends IRCEvent {
      * @return Nick of who joined channel
      */
 	public String getWho();
+
+    /**
+     * Get the key (password) of the channel.
+     * @return the channel key
+     */
+    public String getPass();
     
 
     /**
