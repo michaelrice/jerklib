@@ -11,24 +11,28 @@ public class JoinEventImpl implements JoinEvent
 {
 
 	private final Type type = IRCEvent.Type.JOIN;
-	private final String rawEventData, who, channelName;
+	private final String rawEventData, who, channelName,hostName,username;
 	private final Session session;
 	private final Channel chan;
 	private String passwd;
-	
+
 	public JoinEventImpl
 	(
 			String rawEventData, 
 			Session session, 
-			String who, 
-			String channelName, 
+			String who,
+            String username,
+            String hostName,
+            String channelName,
 			Channel chan
 	)
 	{
 		this.rawEventData = rawEventData;
 		this.session = session;
 		this.who = who;
-		this.channelName = channelName;
+        this.username = username;
+        this.hostName = hostName;
+        this.channelName = channelName;
 		this.chan = chan;
 	}
 
@@ -36,8 +40,10 @@ public class JoinEventImpl implements JoinEvent
 	(
 			String rawEventData, 
 			Session session, 
-			String who, 
-			String channelName,
+			String who,
+            String username,
+            String hostName,
+            String channelName,
 			String passwd,
 			Channel chan
 	)
@@ -45,7 +51,9 @@ public class JoinEventImpl implements JoinEvent
 		this.rawEventData = rawEventData;
 		this.session = session;
 		this.who = who;
-		this.channelName = channelName;
+        this.username = username;
+        this.hostName = hostName;
+        this.channelName = channelName;
 		this.chan = chan;
 		this.passwd = passwd;
 	}
@@ -60,7 +68,12 @@ public class JoinEventImpl implements JoinEvent
 		return who;
 	}
 
-	public final String getChannelName()
+    public String getHostName()
+    {
+        return hostName;
+    }
+
+    public final String getChannelName()
 	{
 		return channelName;
 	}
@@ -90,5 +103,8 @@ public class JoinEventImpl implements JoinEvent
 	{
 		return rawEventData;
 	}
-	
+
+    public String getUserName() {
+        return username;
+    }
 }

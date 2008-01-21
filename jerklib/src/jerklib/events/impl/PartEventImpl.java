@@ -11,11 +11,11 @@ public class PartEventImpl implements PartEvent
 {
 
 	private final Type type = IRCEvent.Type.PART;
-	private final String rawEventData, channelName, who, partMessage;
+	private final String rawEventData, channelName, who, partMessage,userName,hostName;
 	private final Session session;
 	private final Channel channel;
 
-	public PartEventImpl(String rawEventData,Session session, String who, String channelName, Channel channel,
+	public PartEventImpl(String rawEventData,Session session, String who, String user, String host, String channelName, Channel channel,
 			String partMessage)
 	{
 		this.rawEventData = rawEventData;
@@ -23,7 +23,9 @@ public class PartEventImpl implements PartEvent
 		this.channelName = channelName;
 		this.channel = channel;
 		this.who = who;
-		this.partMessage = partMessage;
+        this.userName = user;
+        this.hostName = host;
+        this.partMessage = partMessage;
 	}
 
 	public final String getWho()
@@ -31,7 +33,17 @@ public class PartEventImpl implements PartEvent
 		return who;
 	}
 
-	public final String getChannelName()
+    public String getHostName()
+    {
+        return hostName;
+    }
+
+    public String getUserName()
+    {
+        return userName;
+    }
+
+    public final String getChannelName()
 	{
 		return channelName;
 	}

@@ -391,10 +391,10 @@ class IRCEventFactory
     }
     return null;
   }
-  
-  
+
+ // :r0bby!n=wakawaka@guifications/user/r0bby JOIN :#jerkli
   static JoinEvent regularJoin(String data , Connection con){
-    Pattern p = Pattern.compile("^:(.*?)\\!.*?\\s+JOIN\\s+:?(#.*)$");
+    Pattern p = Pattern.compile("^:(.+?)!(.+?)@(.+?)\\s+JOIN\\s+:(.*)$");
     Matcher m = p.matcher(data);
     if (m.matches()) 
     {
@@ -403,8 +403,10 @@ class IRCEventFactory
             data, 
             myManager.getSessionFor(con),
             m.group(1).trim(), // nick
-            m.group(2).toLowerCase().trim(), // channel name
-            con.getChannel(m.group(2).toLowerCase().trim()) // channel
+            m.group(2).trim(), // user name
+            m.group(3).toLowerCase().trim(), // host
+            con.getChannel(m.group(4)).getName(), // channel name    
+            con.getChannel(m.group(4).toLowerCase().trim()) // channel
         );
       return joinEvent;
     }
@@ -438,10 +440,10 @@ class IRCEventFactory
   	return new JoinCompleteEventImpl(data ,myManager.getSessionFor(con), channel);
   }
   
-  
+  //:r0bby!n=wakawaka@guifications/user/r0bby PART #jerklib :"FOO"
   static PartEvent part(String data  , Connection con)
   {
-    Pattern p = Pattern.compile("^:(.+?)\\!.*?\\s+PART\\s+(\\S+)\\s*:?(.*)$");
+    Pattern p = Pattern.compile("^:(.+?)!(.+?)@(.+?)\\s+PART\\s+(.+?)\\s+:(.*)$");
     Matcher m = p.matcher(data);
     if (m.matches()) {
       PartEvent partEvent = new PartEventImpl
@@ -449,9 +451,11 @@ class IRCEventFactory
           data, 
           myManager.getSessionFor(con),
           m.group(1).trim(), // who
-          m.group(2).toLowerCase().trim(), // channel name
-          con.getChannel(m.group(2).toLowerCase().trim()),// channel
-          m.group(3) // part message
+          m.group(2).trim(), // username
+          m.group(3).trim(), // host name
+          con.getChannel(m.group(4)).getName(), // channel name
+          con.getChannel(m.group(4)),
+          m.group(5) // part message
       );
      
       return partEvent;

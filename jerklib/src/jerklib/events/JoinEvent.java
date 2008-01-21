@@ -34,13 +34,25 @@ import jerklib.Channel;
  *
  */
 public interface JoinEvent extends IRCEvent {
-  
-	/**
-   * returns the nick of who joined the channel
-   * 
-	 * @return Nick of who joined channel
-	 */
+
+    /**
+     * returns the nick of who joined the channel
+     *
+     * @return Nick of who joined channel
+     */
 	public String getWho();
+
+    /**
+     * return the username in the user's hostmask
+     * @return username of the user
+     */
+    public String getUserName(); 
+
+    /**
+     * returns the hostname of the person who joined the channel
+     * @return hostname of the person who joined
+     */
+    public String getHostName();
 	
   /**
    * returns the name of the channel joined to cause this event
@@ -56,4 +68,5 @@ public interface JoinEvent extends IRCEvent {
    * @see Channel
    */
   public Channel getChannel();
+
 }
