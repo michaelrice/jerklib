@@ -3,9 +3,9 @@
     	Jerklib is event-driven IRC Library that can be used to write IRC Bots/clients.
     </description>
 
+		<property name="build" location="build"/>
     <property name="src" location="src"/>
     <property name="bin" location="bin"/>
-    <property prefix="svn" file="svn.properties"/>
     <property prefix="build" file="build.properties"/>
 
     <path id="project.classpath">
@@ -13,67 +13,42 @@
     </path>
 
     <target name="init">
+    		<mkdir dir="${build}"/>
         <mkdir dir="${src}"/>
         <mkdir dir="${bin}"/>
-        <exec executable="svn" output="svn.properties">
-            <arg value="info"/>
-        </exec>
     </target>
 
     <taskdef resource="svntask.properties" classpathref="project.classpath"/>
-	
-    <target name="update" depends="init" description="Update your current tree to the latest revision from subversion.">
-        <echo message="Updating ${ant.project.name} from subversion"/>
-        <svn>
-            <update dir="."/>
-        </svn>
-        <echo message="Done updating code for ${ant.project.name}."/>
-    </target>
 
     <target name="get" depends="init" description="Download code from subversion repo">
         <echo message="Downloading code for ${ant.project.name} from subversion"/>
         <svn>
-            <checkout url="https://jerklib.svn.sourceforge.net/svnroot/jerklib/jerklib" destPath="src"/>
+            <checkout url="https://jerklib.svn.sourceforge.net/svnroot/jerklib/jerklib/src" destPath="src"/>
         </svn>
+      	<exec executable="svn" output="svn.properties" dir="src">
+          	<arg value="info"/>
+        </exec>
     </target>
 
-    <target name="javadoc" depends="init">
-        <javadoc access="public" author="true" classpath="."
-                 destdir="${dist}/docs" nodeprecated="false"
-                 nodeprecatedlist="false"
-                 noindex="false" nonavbar="false" notree="false"
-                 windowtitle="Jerklib API">
-            <fileset dir="${src}/jerklib" includes="**/*.java"/>
-
-            <link href="file://${dist}/docs/"/>
-            <link href="http://java.sun.com/javase/6/docs/api/"/>
-        </javadoc>
-
-    </target>
-
-    <target name="rebuild" depends="clean, dist"/>
-
-    <target name="compile" depends="init"
-            description="compile">
-        <javac srcdir="${src}" destdir="${build}"/>
-        <echo file="${build}/jerklib/JerkLib.Properties" message="version=${build.version}+${svn.Revision}"/>
-        <echo file="${src}/jerklib/JerkLib.Properties" message="version=${build.version}+${svn.Revision}"/>
-    </target>
-
-    <target name="dist" depends="clean,compile"
-            description="Create the jar">
-        <jar jarfile="${bin}/jerklib.jar" basedir="${build}"/>
-    </target>
-
-    <target name="run" depends="dist">
-        <java classpath="${bin}/jerklib.jar" classname="jerklib.examples.jerkbot2.Jerkbot"
-              fork="true" spawn="true"/>
-    </target>
-
-    <target name="clean"
-            description="clean up">
-        <delete dir="${build}"/>
-        <delete dir="${dist}"/>
-        <delete file="svn.properties"/>
-    </target>
+	
+  	<target name="compile" depends="init,get" description="compile">
+      <javac srcdir="${src}" destdir="${build}"/>
+  		<property prefix="svn" file="svn.properties"/>
+      <echo file="${build}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}"/>
+      <echo file="${src}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}"/>
+  	</target>
+	
+  	<target name="dist" depends="init,get,compile" description="Create the jar">
+      <jar jarfile="${bin}/jerklib.jar" basedir="${build}"/>		
+  	</target>
+	
+  	<target name="clean" description="clean up">
+      <delete dir="${build}"/>
+  	</target>
+	
+		<target name="all" depends="init,get,compile,dist,clean" description="checkout,compile,jar,clean">
+		</target>
+		
+		
+	
 </project>
