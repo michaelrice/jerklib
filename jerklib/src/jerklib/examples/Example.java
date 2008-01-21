@@ -1,5 +1,8 @@
 package jerklib.examples;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import jerklib.ConnectionManager;
 import jerklib.ProfileImpl;
 import jerklib.Session;
@@ -8,6 +11,7 @@ import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.NumericErrorEvent;
 import jerklib.events.QuitEvent;
+import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
 
 /**
@@ -17,12 +21,14 @@ import jerklib.events.listeners.IRCEventListener;
 public class Example implements IRCEventListener
 {
 	private ConnectionManager manager;
-
+	private Map<Type, IrcRunnable> stratMap = new HashMap<Type, IrcRunnable>();
 	/**
 	 * A simple example that demonstrates how to use JerkLib
 	 */
 	public Example()
 	{
+		initStratMap();
+		
 		/* ConnectionManager takes a Profile to use for new connections. The profile
 		 * will contain the users nick , real name , alt. nick 1 and. alt nick 2	
 		 */
@@ -78,49 +84,96 @@ public class Example implements IRCEventListener
 	 */
 	public void recieveEvent(IRCEvent e)
 	{
-		/* default event - not reconized or ignored by jerklib */
-		if(e.getType() == IRCEvent.Type.DEFAULT)
+		IrcRunnable r = stratMap.get(e.getType());
+		if(r!=null)
 		{
-			/* raw data is the raw text message received from an IRC server */
-			System.err.println(e.getRawEventData());
+			r.run(e);
 		}
-		else if(e.getType() == IRCEvent.Type.READY_TO_JOIN)
+		else
 		{
-			/* whois someone */
-			e.getSession().whois("mohadib");
-			
-			/* join a channel */
-			e.getSession().joinChannel("#jerklib");
-		}
-		else if(e.getType() == IRCEvent.Type.JOIN_COMPLETE)
-		{
-			JoinCompleteEvent jce = (JoinCompleteEvent)e;
-			if(jce.getChannel().equals("#jerklib"))
-			{
-				/* say hello and version number */
-				jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
-			}
-		}
-		else if(e.getType() == IRCEvent.Type.CHANNEL_MESSAGE)
-		{
-			/* some speaks in a channel */
-			ChannelMsgEvent cme = (ChannelMsgEvent)e;
-			System.out.println("<" + cme.getNick() + ">" + cme.getMessage());
-		}
-		else if(e.getType() == IRCEvent.Type.ERROR)
-		{
-			/* some error occured */
-			NumericErrorEvent ne = (NumericErrorEvent) e;
-			System.out.println(ne.getErrorType() + " " + ne.getNumeric() + " " + ne.getErrorMsg());
-		}
-		else if(e.getType() == IRCEvent.Type.QUIT)
-		{
-			/* someone quit */
-			QuitEvent qe = (QuitEvent)e;
-			System.out.println("User quit:" + qe.getWho() + ":" + qe.getQuitMessage());
+			System.out.println(e.getRawEventData());
 		}
 	}
 
+	private void initStratMap()
+	{
+		stratMap.put(Type.CHANNEL_MESSAGE, new IrcRunnable()
+		{
+			@Override
+			public void run(IRCEvent e)
+			{
+				/* some speaks in a channel */
+				ChannelMsgEvent cme = (ChannelMsgEvent)e;
+				System.out.println("<" + cme.getNick() + ">" + cme.getMessage());
+			}
+		});
+		
+		stratMap.put(Type.DEFAULT, new IrcRunnable()
+		{
+			@Override
+			public void run(IRCEvent e)
+			{
+				/* raw data is the raw text message received from an IRC server */
+				System.err.println(e.getRawEventData());
+			}
+		});
+		
+		stratMap.put(Type.READY_TO_JOIN, new IrcRunnable()
+		{
+			@Override
+			public void run(IRCEvent e)
+			{
+				/* whois someone */
+				e.getSession().whois("mohadib");
+				
+				/* join a channel */
+				e.getSession().joinChannel("#jerklib");
+			}
+		});
+		
+		stratMap.put(Type.JOIN_COMPLETE, new IrcRunnable()
+		{
+			@Override
+			public void run(IRCEvent e)
+			{
+				JoinCompleteEvent jce = (JoinCompleteEvent)e;
+				if(jce.getChannel().getName().equals("#jerklib"))
+				{
+					/* say hello and version number */
+					jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
+				}
+			}
+		});
+		
+		stratMap.put(Type.ERROR ,new IrcRunnable()
+		{
+			@Override
+			public void run(IRCEvent e)
+			{
+				/* some error occured */
+				NumericErrorEvent ne = (NumericErrorEvent) e;
+				System.out.println(ne.getErrorType() + " " + ne.getNumeric() + " " + ne.getErrorMsg());
+			}
+		});
+		
+		stratMap.put(Type.QUIT ,new IrcRunnable()
+		{
+			@Override
+			public void run(IRCEvent e)
+			{
+				/* someone quit */
+				QuitEvent qe = (QuitEvent)e;
+				System.out.println("User quit:" + qe.getWho() + ":" + qe.getQuitMessage());
+			}
+		});
+		
+	}
+	
+	private interface IrcRunnable
+	{
+		public void run(IRCEvent e);
+	}
+	
 	public static void main(String[] args)
 	{
 		new Example();
