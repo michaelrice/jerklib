@@ -5,9 +5,6 @@ import java.util.List;
 
 import jerklib.events.listeners.IRCEventListener;
 
-
-
-
 /**
  * 
  * Session is the main way to interact with the connected server

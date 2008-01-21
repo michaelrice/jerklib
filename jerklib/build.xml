@@ -1,24 +1,19 @@
 <project name="jerklib" default="dist" basedir=".">
     <description>
-        Jerklib is event-driven IRC Library that can be used to write IRC Bots/clients.
+    	Jerklib is event-driven IRC Library that can be used to write IRC Bots/clients.
     </description>
 
     <property name="src" location="src"/>
-    <property name="build" location="build"/>
-    <property name="dist" location="dist"/>
     <property name="bin" location="bin"/>
     <property prefix="svn" file="svn.properties"/>
     <property prefix="build" file="build.properties"/>
 
     <path id="project.classpath">
-        <fileset dir="lib">
-            <include name="**/*.jar"/>
-        </fileset>
+        <fileset dir="lib"><include name="**/*.jar"/></fileset>
     </path>
 
     <target name="init">
-        <mkdir dir="${build}"/>
-        <mkdir dir="${dist}"/>
+        <mkdir dir="${src}"/>
         <mkdir dir="${bin}"/>
         <exec executable="svn" output="svn.properties">
             <arg value="info"/>
@@ -26,6 +21,7 @@
     </target>
 
     <taskdef resource="svntask.properties" classpathref="project.classpath"/>
+	
     <target name="update" depends="init" description="Update your current tree to the latest revision from subversion.">
         <echo message="Updating ${ant.project.name} from subversion"/>
         <svn>
@@ -34,10 +30,10 @@
         <echo message="Done updating code for ${ant.project.name}."/>
     </target>
 
-    <target name="subversion" depends="init" description="Download code from subversion if you have a source archive.">
-        <echo message="downloading code for ${ant.project.name} from subversion..."/>
+    <target name="get" depends="init" description="Download code from subversion repo">
+        <echo message="Downloading code for ${ant.project.name} from subversion"/>
         <svn>
-            <checkout url="https://jerklib.svn.sourceforge.net/svnroot/jerklib/jerklib" destPath="jerklib-svn"/>
+            <checkout url="https://jerklib.svn.sourceforge.net/svnroot/jerklib/jerklib" destPath="src"/>
         </svn>
     </target>
 
