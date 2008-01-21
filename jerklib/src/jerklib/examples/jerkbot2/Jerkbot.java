@@ -3,9 +3,13 @@ package jerklib.examples.jerkbot2;
 import jerklib.ConnectionManager;
 import jerklib.Profile;
 import jerklib.ProfileImpl;
+import jerklib.Channel;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
+import jerklib.events.JoinEvent;
+import jerklib.events.PartEvent;
+import jerklib.events.QuitEvent;
 import jerklib.examples.jerkbot2.operations.BotOperation;
 import jerklib.examples.jerkbot2.operations.ChannelManagerOperation;
 import jerklib.examples.jerkbot2.operations.QuitOperation;
@@ -33,7 +37,8 @@ public class Jerkbot implements IRCEventListener {
      * @param port   the port of the server to connect to.
      */
     public Jerkbot(String nick, String login, String server, int port) {
-        Profile profile = new ProfileImpl(login, nick, nick+new Random().nextInt(42), nick+ new Random().nextInt(42));
+        Profile profile = new ProfileImpl(login, nick, nick+new Random().nextInt(42),
+                nick+ new Random().nextInt(42));
         manager = new ConnectionManager(profile);
         manager.requestConnection(server, port, profile).addIRCEventListener(this);
     }
@@ -59,7 +64,19 @@ public class Jerkbot implements IRCEventListener {
             JoinCompleteEvent event = (JoinCompleteEvent) e;
             event.getChannel().say("Hai 2u");
             event.getChannel().say("I am running jerklib version "+ConnectionManager.getVersion());
- 
+        } else if(e.getType() == IRCEvent.Type.JOIN) {
+            JoinEvent event = (JoinEvent)e;
+            e.getSession().channelSay(event.getChannel().getName(),"Hey "+event.getWho()+
+                    " your hostname is "+event.getHostName());
+            System.out.println(event.getHostName());
+        } else if(e instanceof QuitEvent) {
+            QuitEvent event = (QuitEvent)e;
+            System.out.println("Who: "+event.getWho());
+            System.out.println("User Name: "+event.getUserName());
+            System.out.println("Host Name: "+event.getHostName());
+            System.out.println("Quit Msg: "+event.getQuitMessage());
+            for(Channel c : event.getChannelList())
+               System.out.println("Channel List:"+c.getName());
 
         }
     }

@@ -13,20 +13,30 @@ public class QuitEventImpl implements QuitEvent
 {
 
 	private final Type type = IRCEvent.Type.QUIT;
-	private final String rawEventData, who, msg;
+	private final String rawEventData, who, msg,userName,hostName;
 	private final Session session;
 	private final List<Channel> chanList;
 
-	public QuitEventImpl(String rawEventData,Session session, String who, String msg, List<Channel> chanList)
+	public QuitEventImpl(String rawEventData,Session session, String who, String userName, String hostName, String msg, List<Channel> chanList)
 	{
 		this.rawEventData = rawEventData;
 		this.who = who;
-		this.session = session;
+        this.userName = userName;
+        this.hostName = hostName;
+        this.session = session;
 		this.msg = msg;
 		this.chanList = chanList;
 	}
 
-	public final String getWho()
+    public String getHostName() {
+        return hostName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public final String getWho()
 	{
 		return who;
 	}
