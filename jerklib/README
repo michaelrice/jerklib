@@ -12,6 +12,5 @@ java -cp jerklib.jar jerklib.examples.jerkbot2.jerkbot
 Another example of a bot:
 java -cp jerklib.jar jerklib.examples.jerkbot.jerkbot
 
-
 Optionally you can run example 2 with ant: 
 ant run
