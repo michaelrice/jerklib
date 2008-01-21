@@ -18,18 +18,30 @@ public interface KickEvent extends IRCEvent
 	 * @return nick 
 	 */
 	public String byWho();
-	
-	/**
+
+    /**
+     * Get the username from the hostmask of the kicker (the person doing the kicking)
+     * @return the username
+     */
+    public String getUserName();
+
+    /**
+     * get the host name of the kicker (the person doing the kicking)
+     * @return the hostname
+     */
+    public String getHostName();
+
+    /**
 	 * Gets the kick message
 	 * @return message
 	 */
-	public String message();
+	public String getMessage();
 	
 	/**
 	 * Gets the nick of who was kicked
 	 * @return who was kicked
 	 */
-	public String who();
+	public String getWho();
 	
 	
 	/**

@@ -9,7 +9,7 @@ import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.PartEvent;
-import jerklib.events.QuitEvent;
+import jerklib.events.KickEvent;
 import jerklib.examples.jerkbot2.operations.BotOperation;
 import jerklib.examples.jerkbot2.operations.ChannelManagerOperation;
 import jerklib.examples.jerkbot2.operations.QuitOperation;
@@ -60,6 +60,7 @@ public class Jerkbot implements IRCEventListener {
         }
         if (e.getType() == IRCEvent.Type.CONNECT_COMPLETE) {
             e.getSession().joinChannel("#jerklib");
+            e.getSession().joinChannel("#jerklib2");
         } else if (e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
             JoinCompleteEvent event = (JoinCompleteEvent) e;
             event.getChannel().say("Hai 2u");
@@ -69,14 +70,14 @@ public class Jerkbot implements IRCEventListener {
             e.getSession().channelSay(event.getChannel().getName(),"Hey "+event.getWho()+
                     " your hostname is "+event.getHostName());
             System.out.println(event.getHostName());
-        } else if(e instanceof QuitEvent) {
-            QuitEvent event = (QuitEvent)e;
-            System.out.println("Who: "+event.getWho());
+        } else if(e instanceof KickEvent) {
+            KickEvent event = (KickEvent)e;
+            System.out.println("By Who: "+event.byWho());
             System.out.println("User Name: "+event.getUserName());
             System.out.println("Host Name: "+event.getHostName());
-            System.out.println("Quit Msg: "+event.getQuitMessage());
-            for(Channel c : event.getChannelList())
-               System.out.println("Channel List:"+c.getName());
+            System.out.println("Victim: "+event.getWho());
+            System.out.println("Kick Msg: "+event.getMessage());
+            System.out.println("Channel: "+event.getChannel().getName());
 
         }
     }

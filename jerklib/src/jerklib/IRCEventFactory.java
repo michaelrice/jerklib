@@ -169,10 +169,10 @@ class IRCEventFactory
 		return null;
 	}
 	
-	/* KICK :mohadib!~mohadib@67.41.102.162 KICK #test scab :bye! */
-	static KickEvent kick(String data , Connection con)
+	/* :mohadib!~mohadib@67.41.102.162 KICK #test scab :bye! */
+    static KickEvent kick(String data , Connection con)
 	{
-		Pattern p = Pattern.compile("^:(.*?)\\!\\S+\\s+KICK\\s+(\\S+)\\s+(\\S+)\\s+:?(.*)");
+		Pattern p = Pattern.compile("^:(.+?)!(.+?)@(.+?)\\s+KICK\\s+(.+?)\\s+(.+?)\\s+:(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
@@ -180,10 +180,12 @@ class IRCEventFactory
 			(
 				data,
 				myManager.getSessionFor(con),
-				m.group(1),
-				m.group(3),
-				m.group(4),
-				con.getChannel(m.group(2))
+				m.group(1), // byWho
+                m.group(2), // username
+                m.group(3), // host name
+				m.group(5),// victim
+                m.group(6), // message
+                con.getChannel(m.group(4))
 			);
 			return ke;
 		}

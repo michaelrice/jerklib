@@ -8,7 +8,7 @@ public class KickEventImpl implements KickEvent
 {
 
 	private final Type type = Type.KICK_EVENT;
-	private final String byWho,who,message,rawEventData;
+	private final String byWho,who,message,rawEventData,userName,hostName;
 	private final Channel channel;
 	private final Session session;
 	
@@ -18,7 +18,9 @@ public class KickEventImpl implements KickEvent
 		String rawEventData,
 		Session session,
 		String byWho,
-		String who,
+        String userName,
+        String hostName,
+        String who,
 		String message,
 		Channel channel
 	)
@@ -26,7 +28,9 @@ public class KickEventImpl implements KickEvent
 		this.rawEventData = rawEventData;
 		this.session = session;
 		this.byWho = byWho;
-		this.who = who;
+        this.userName = userName;
+        this.hostName = hostName;
+        this.who = who;
 		this.message = message;
 		this.channel = channel;
 	}
@@ -38,13 +42,23 @@ public class KickEventImpl implements KickEvent
 	}
 
 	@Override
-	public String who()
+	public String getWho()
 	{
 		return who;
 	}
 
-	@Override
-	public String message() 
+    @Override
+    public String getHostName() {
+        return hostName;
+    }
+
+    @Override
+    public String getUserName() {
+        return userName;
+    }
+
+    @Override
+	public String getMessage() 
 	{
 		return message;
 	}

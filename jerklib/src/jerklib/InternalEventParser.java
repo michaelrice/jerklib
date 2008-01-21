@@ -389,12 +389,12 @@ public class InternalEventParser
 		{
 			KickEvent ke = IRCEventFactory.kick(data, con);
 
-			if (!((ChannelImpl)ke.getChannel()).removeNick(ke.who()))
+			if (!((ChannelImpl)ke.getChannel()).removeNick(ke.getWho()))
 			{
-				System.out.println("COULD NOT REMOVE NICK " + ke.who() + " from channel " + ke.getChannel().getName());
+				System.out.println("COULD NOT REMOVE NICK " + ke.getWho() + " from channel " + ke.getChannel().getName());
 			}
 
-			if (ke.who().equals(nick))
+			if (ke.getWho().equals(nick))
 			{
 				con.removeChannel(ke.getChannel());
 				if (manager.getSessionFor(con).isRejoinOnKick()) con.join(ke.getChannel().getName());
