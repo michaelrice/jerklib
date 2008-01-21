@@ -38,7 +38,7 @@
       <echo file="${src}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}"/>
   	</target>
 	
-  	<target name="dist" depends="init,get,compile" description="Create the jar">
+  	<target name="jar" depends="init,get,compile" description="Create the jar">
       <jar jarfile="${bin}/jerklib.jar" basedir="${build}"/>		
   	</target>
 	
@@ -54,6 +54,8 @@
       </javadoc>
   	</target>
 	
-		<target name="all" depends="init,get,compile,dist,clean,javadoc" description="checkout,compile,jar,clean"></target>
+		<target name="all" depends="init,get,compile,jar,clean,javadoc" description="checkout,compile,jar,clean,make docs"></target>
+		
+		<target name="dist" depends="init,get,compile,jar,clean" description="checkout,compile,jar,clean"></target>
 	
 </project>
