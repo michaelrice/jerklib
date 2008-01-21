@@ -372,10 +372,10 @@ class IRCEventFactory
     );
   }
   
-  
+  //:r0bby__!n=wakawaka@cpe-24-164-167-171.hvc.res.rr.com QUIT :Client Quit
   static QuitEvent quit(String data , Connection con)
   {
-    Pattern pattern = Pattern.compile("^:(.*?)\\!.*?\\s+QUIT\\s+:(.*)$");
+    Pattern pattern = Pattern.compile("^:(.+?)!(.+?)@(.+?)\\s+QUIT\\s+:(.*)$");
     Matcher matcher = pattern.matcher(data);
     if (matcher.matches()) {
       List<Channel> chanList = con.removeNickFromAllChannels(matcher.group(1));
@@ -384,7 +384,9 @@ class IRCEventFactory
             data, 
             myManager.getSessionFor(con),
             matcher.group(1).trim(), // who
-            matcher.group(2), // msg
+            matcher.group(2), // username
+            matcher.group(3), // hostName
+            matcher.group(4), // message    
             chanList
         );
       return quitEvent;
