@@ -12,15 +12,21 @@ public class AwayEventImpl implements AwayEvent {
     private final Session session;
 
     private Type type;
+    private final EventType eventType;
 
-    public AwayEventImpl(String awayMessage, boolean away, boolean you, String nick, String ownNick, String rawEventData, Session session) {
+    public AwayEventImpl(String awayMessage, EventType eventType, boolean away, boolean you, String nick, String ownNick, String rawEventData, Session session) {
         this.awayMessage = awayMessage;
+        this.eventType = eventType;
         isAway = away;
         isYou = you;
         this.nick = nick;
         this.ownNick = ownNick;
         this.rawEventData = rawEventData;
         this.session = session;
+    }
+
+    public EventType getEventType() {
+        return eventType;
     }
 
     public String getAwayMessage() {
