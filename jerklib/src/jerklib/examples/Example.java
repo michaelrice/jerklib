@@ -104,7 +104,7 @@ public class Example implements IRCEventListener
                     @Override
                     public void run(IRCEvent e)
                     {
-                        /* someone speaks in a channel */
+                        /* someone invites us to a channel */
                         InviteEvent event = (InviteEvent)e;
                         System.out.print(event.getNick()+"!"+event.getUserName()+"@");
                         System.out.print(event.getHostName()+" invited us to "+event.getChannel()+"\n");
