@@ -13,5 +13,3 @@ java -cp jerklib.jar jerklib.examples.Example
 An example of a bot:
 java -cp jerklib.jar jerklib.examples.jerkbot2.jerkbot
 
-Another example of a bot:
-java -cp jerklib.jar jerklib.examples.jerkbot.jerkbot
