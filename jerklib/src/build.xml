@@ -30,7 +30,9 @@
 		
   	<target name="javadoc">
   	 	<mkdir dir="${doc}"/>
-      <javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="jerklib.events.listeners,jerklib.util,jerklib.events" source="1.6" sourcefiles="jerklib/Channel.java,jerklib/WriteRequestImpl.java,jerklib/WriteRequest.java,jerklib/Connection.java,jerklib/ProfileImpl.java,jerklib/ConnectionState.java,jerklib/ConnectionManager.java,jerklib/Profile.java,jerklib/RequestedConnectionImpl.java,jerklib/Session.java,jerklib/RequestedConnection.java" sourcepath="jerklib" splitindex="true" use="true" version="true">
+      <javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="jerklib.events.listeners,jerklib.util,jerklib.events" source="1.6" 
+      sourcepath="jerklib" splitindex="true" use="true" version="true">
+      	<fileset dir="jerklib" includes="**/*.java"/>
           <link href="http://java.sun.com/javase/6/docs/api/"/>
       </javadoc>
   	</target>
