@@ -184,7 +184,7 @@ class IRCEventFactory
                 m.group(2), // username
                 m.group(3), // host name
 				m.group(5),// victim
-                m.group(6), // message
+                m.group(4), // message
                 con.getChannel(m.group(4))
 			);
 			return ke;
@@ -525,11 +525,11 @@ class IRCEventFactory
   //:r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2
   static InviteEvent invitedToChan(String data, Connection con) 
   {
-      Pattern p = Pattern.compile("^:(.+?)!.*\\sINVITE\\s.*\\s:(.+?)$");
+      Pattern p = Pattern.compile("^:(.+?)!(.+?)@(.+?)\\s+INVITE.+?:(.*)$");
       Matcher m = p.matcher(data);
       if(m.matches()) 
       {
-        return new InviteEventImpl(m.group(2),m.group(1),data,myManager.getSessionFor(con));
+        return new InviteEventImpl(m.group(4),m.group(1),m.group(2),m.group(3),data,myManager.getSessionFor(con));
       }
       return null;
   }

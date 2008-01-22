@@ -11,6 +11,7 @@ import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.NumericErrorEvent;
 import jerklib.events.QuitEvent;
+import jerklib.events.InviteEvent;
 import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
 
@@ -97,7 +98,20 @@ public class Example implements IRCEventListener
 
 	private void initStratMap()
 	{
-		stratMap.put(Type.CHANNEL_MESSAGE, new IrcRunnable()
+
+        stratMap.put(Type.INVITE_EVENT, new IrcRunnable()
+                {
+                    @Override
+                    public void run(IRCEvent e)
+                    {
+                        /* someone speaks in a channel */
+                        InviteEvent event = (InviteEvent)e;
+                        System.out.print(event.getNick()+"!"+event.getUserName()+"@");
+                        System.out.print(event.getHostName()+" invited us to "+event.getChannel()+"\n");
+                    }
+                });
+
+        stratMap.put(Type.CHANNEL_MESSAGE, new IrcRunnable()
 		{
 			@Override
 			public void run(IRCEvent e)
