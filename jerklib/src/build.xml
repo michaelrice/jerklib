@@ -4,7 +4,7 @@
     </description>
 
 		<property name="build" location="build"/>
-    <property name="src" location="src"/>
+    <property name="src" location="jerklib"/>
     <property name="bin" location="bin"/>
 		<property name="doc" location="doc"/>
 
