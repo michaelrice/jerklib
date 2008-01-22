@@ -5,13 +5,15 @@ import jerklib.events.IRCEvent;
 import jerklib.Session;
 
 public class InviteEventImpl implements InviteEvent {
-    private final String nick,channel,rawEventData;
+    private final String nick,channel,rawEventData,userName,hostName;
     private Type type = IRCEvent.Type.INVITE_EVENT;
     private Session session;
 
-    public InviteEventImpl(String channel, String nick, String rawEventData, Session session){
+    public InviteEventImpl(String channel, String nick, String userName, String hostName, String rawEventData, Session session){
         this.channel = channel;
         this.nick = nick;
+        this.userName = userName;
+        this.hostName = hostName;
         this.rawEventData = rawEventData;
         this.session = session;
     }
@@ -43,6 +45,14 @@ public class InviteEventImpl implements InviteEvent {
      */
     public String getNick() {
         return nick;
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     /**
