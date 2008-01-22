@@ -1,63 +1,67 @@
 <project name="jerklib" default="all" basedir=".">
-    <description>
-    	Jerklib is event-driven IRC Library that can be used to write IRC Bots/clients.
-    </description>
+	<description>
+   	Jerklib is event-driven IRC Library that can be used to write IRC Bots/clients.
+  </description>
 
-		<property name="build" location="build"/>
-    <property name="src" location="src"/>
-    <property name="release" location="release"/>
-		<property name="doc" location="doc"/>
-    <property prefix="build" file="build.properties"/>
+	<property name="build" location="build" />
+	<property name="src" location="src" />
+	<property name="release" location="release" />
+	<property name="doc" location="doc" />
+	<property prefix="build" file="build.properties" />
 
-    <path id="project.classpath">
-        <fileset dir="lib"><include name="**/*.jar"/></fileset>
-    </path>
+	<path id="project.classpath">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
 
-    <target name="init">
-    		<mkdir dir="${build}"/>
-        <mkdir dir="${src}"/>
-        <mkdir dir="${release}"/>
-    </target>
+	<target name="init">
+		<mkdir dir="${build}" />
+		<mkdir dir="${src}" />
+		<mkdir dir="${release}" />
+	</target>
 
-    <taskdef resource="svntask.properties" classpathref="project.classpath"/>
+	<taskdef resource="svntask.properties" classpathref="project.classpath" />
 
-    <target name="get" depends="init" description="Download code from subversion repo">
-        <echo message="Downloading code for ${ant.project.name} from subversion"/>
-        <svn>
-            <checkout url="https://jerklib.svn.sourceforge.net/svnroot/jerklib/jerklib/src" destPath="src"/>
-        </svn>
-      	<exec executable="svn" output="svn.properties" dir="src">
-          	<arg value="info"/>
-        </exec>
-    </target>
-	
-  	<target name="compile" depends="init,get" description="compile">
-      <javac srcdir="${src}" destdir="${build}"/>
-  		<property prefix="svn" file="svn.properties"/>
-      <echo file="${build}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}"/>
-      <echo file="${src}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}"/>
-  		<copy file="${src}/README" todir="${build}"/>
-  	</target>
-	
-  	<target name="jar" depends="init,get,compile" description="Create the jar">
-      <jar jarfile="${release}/jerklib.jar" basedir="${build}"/>
-  		<jar jarfile="${release}/jerklib_src.jar" basedir="${src}"/>
-  	</target>
-	
-  	<target name="clean" description="clean up">
-      <delete dir="${build}"/>
-  		<delete file="svn.properties"/>
-  	</target>
-		
-  	<target name="javadoc">
-  	 	<mkdir dir="${doc}"/>
-      <javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="jerklib.events.listeners,jerklib.util,jerklib.events" source="1.6" sourcefiles="src/jerklib/Channel.java,src/jerklib/WriteRequestImpl.java,src/jerklib/WriteRequest.java,src/jerklib/Connection.java,src/jerklib/ProfileImpl.java,src/jerklib/ConnectionState.java,src/jerklib/ConnectionManager.java,src/jerklib/Profile.java,src/jerklib/RequestedConnectionImpl.java,src/jerklib/Session.java,src/jerklib/RequestedConnection.java" sourcepath="src" splitindex="true" use="true" version="true">
-          <link href="http://java.sun.com/javase/6/docs/api/"/>
-      </javadoc>
-  	</target>
-	
-		<target name="all" depends="init,get,compile,jar,clean,javadoc" description="checkout,compile,jar,clean,make docs"></target>
-		
-		<target name="dist" depends="init,get,compile,jar,clean" description="checkout,compile,jar,clean"></target>
-	
+	<target name="get" depends="init" description="Download code from subversion repo">
+		<echo message="Downloading code for ${ant.project.name} from subversion" />
+		<svn>
+			<checkout url="https://jerklib.svn.sourceforge.net/svnroot/jerklib/jerklib/src" destPath="src" />
+		</svn>
+		<exec executable="svn" output="svn.properties" dir="src">
+			<arg value="info" />
+		</exec>
+	</target>
+
+	<target name="compile" depends="init,get" description="compile">
+		<javac srcdir="${src}" destdir="${build}" />
+		<property prefix="svn" file="svn.properties" />
+		<echo file="${build}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}" />
+		<echo file="${src}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}" />
+		<copy file="${src}/README" todir="${build}" />
+	</target>
+
+	<target name="jar" depends="init,get,compile" description="Create the jar">
+		<jar jarfile="${release}/jerklib.jar" basedir="${build}" />
+		<jar jarfile="${release}/jerklib_src.jar" basedir="${src}" />
+	</target>
+
+	<target name="clean" description="clean up">
+		<delete dir="${build}" />
+		<delete file="svn.properties" />
+	</target>
+
+	<target name="javadoc">
+		<mkdir dir="${doc}" />
+		<javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="jerklib.events.listeners,jerklib.util,jerklib.events" source="1.6" sourcefiles="src/jerklib/Channel.java,src/jerklib/WriteRequestImpl.java,src/jerklib/WriteRequest.java,src/jerklib/Connection.java,src/jerklib/ProfileImpl.java,src/jerklib/ConnectionState.java,src/jerklib/ConnectionManager.java,src/jerklib/Profile.java,src/jerklib/RequestedConnectionImpl.java,src/jerklib/Session.java,src/jerklib/RequestedConnection.java" sourcepath="src" splitindex="true" use="true" version="true">
+			<link href="http://java.sun.com/javase/6/docs/api/" />
+		</javadoc>
+	</target>
+
+	<target name="all" depends="init,get,compile,jar,clean,javadoc" description="checkout,compile,jar,clean,make docs">
+	</target>
+
+	<target name="dist" depends="init,get,compile,jar,clean" description="checkout,compile,jar,clean">
+	</target>
+
 </project>
