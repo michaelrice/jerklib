@@ -55,8 +55,8 @@ import jerklib.events.impl.WhowasEventImpl;
 class IRCEventFactory
 {
   
-	static private ConnectionManager myManager;
-	static private 	Map<Integer, ErrorType>numericErrorMap;
+	private static  ConnectionManager myManager;
+	private static	Map<Integer, ErrorType>numericErrorMap;
 	static void setManager(ConnectionManager manager)
 	{
 		myManager = manager;
