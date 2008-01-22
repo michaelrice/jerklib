@@ -17,7 +17,7 @@
   	<target name="compile" depends="init" description="compile">
       <javac srcdir="${src}" destdir="${build}"/>
       <echo file="${build}/jerklib/JerkLib.Properties" message="version=custom"/>
-      <echo file="${src}/jerklib/JerkLib.Properties" message="version=custom"/>
+      <echo file="${src}/JerkLib.Properties" message="version=custom"/>
   	</target>
 	
   	<target name="dist" depends="init,compile" description="Create the jar">
