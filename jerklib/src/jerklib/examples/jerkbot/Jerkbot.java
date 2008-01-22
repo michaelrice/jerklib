@@ -1,18 +1,16 @@
-package jerklib.examples.jerkbot2;
+package jerklib.examples.jerkbot;
 
 import jerklib.ConnectionManager;
 import jerklib.Profile;
 import jerklib.ProfileImpl;
-import jerklib.Channel;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.JoinEvent;
-import jerklib.events.PartEvent;
 import jerklib.events.KickEvent;
-import jerklib.examples.jerkbot2.operations.BotOperation;
-import jerklib.examples.jerkbot2.operations.ChannelManagerOperation;
-import jerklib.examples.jerkbot2.operations.QuitOperation;
+import jerklib.examples.jerkbot.operations.BotOperation;
+import jerklib.examples.jerkbot.operations.ChannelManagerOperation;
+import jerklib.examples.jerkbot.operations.QuitOperation;
 
 import java.util.List;
 import java.util.LinkedList;
