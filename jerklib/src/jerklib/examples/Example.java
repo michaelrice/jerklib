@@ -71,10 +71,6 @@ public class Example implements IRCEventListener
 			}
 		});
 		
-		/*
-		 * Prints out JerkLib version
-		 */
-		System.out.println(ConnectionManager.getVersion());
 	}
 
 	
@@ -128,7 +124,7 @@ public class Example implements IRCEventListener
 			public void run(IRCEvent e)
 			{
 				/* raw data is the raw text message received from an IRC server */
-				System.err.println(e.getRawEventData());
+				System.out.println(e.getRawEventData());
 			}
 		});
 		
