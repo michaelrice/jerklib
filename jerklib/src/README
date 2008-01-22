@@ -1,6 +1,6 @@
 Jerklib is an event-driven IRC library that can be used to write an IRC bot/client.
 Author: Jason Davis - mohadib@openactive.org
-Big thanks to Robert O'Conner for all the hard work! 
+Big thanks to Robert O'Connor <robby.oconnor@gmail.com> for all the hard work!
 
 SF Project Page: https://sourceforge.net/projects/jerklib/
 HomePage: http://jerklib.sourceforge.net
