@@ -13,7 +13,7 @@ import java.util.Map;
 import jerklib.Session.State;
 import jerklib.events.IRCEvent;
 import jerklib.events.listeners.WriteRequestListener;
-//test
+
 
 class Connection
 {
