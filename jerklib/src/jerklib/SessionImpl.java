@@ -503,9 +503,8 @@ public class SessionImpl implements Session
 	}
 
     /**
-     * This method returns the last message used when the user set themselves away.
-     * @see Session#getPreviousAwayMsg()
-     * @return the last away message used.
+     * (non-Javadoc)
+     * @see jerklib.Session#getPreviousAwayMsg() 
      */
     @Override
     public String getPreviousAwayMsg() {
