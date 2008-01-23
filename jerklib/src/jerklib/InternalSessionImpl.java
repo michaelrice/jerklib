@@ -11,14 +11,12 @@ class InternalSessionImpl implements Session , InternalSession
 {
 
 	final private Session session;
-    final String previousAwayMsg;
     private Connection con;
 	private long lastRetry = -1;
 	
 	InternalSessionImpl(Session session)
 	{
-		this.session = session;
-        this.previousAwayMsg = session.getPreviousAwayMsg();
+		this.session = session;        
     }
 	
 	
@@ -323,10 +321,6 @@ class InternalSessionImpl implements Session , InternalSession
 		session.getServerVersion(hostPattern);
 	}
 
-    @Override
-    public String getPreviousAwayMsg() {
-        return previousAwayMsg;
-    }
 }
 
 

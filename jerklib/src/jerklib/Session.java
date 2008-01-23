@@ -295,11 +295,5 @@ public interface Session extends ProfileUpdateable
      * @see Connection#unSetAway()
      */
     public void unsetAway();
-
-    /**
-     * Get the last away message used.     *
-     * @return the away message
-     */
-    public String getPreviousAwayMsg(); 
-	
+ 	
 }

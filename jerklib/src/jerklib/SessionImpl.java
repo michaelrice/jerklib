@@ -27,7 +27,6 @@ public class SessionImpl implements Session
 	private Profile tmpProfile; 
 	private boolean profileUpdating;
     private boolean isAway;
-    private String previousAwayMsg;
     private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
 
 	
@@ -412,9 +411,7 @@ public class SessionImpl implements Session
      */
     @Override
     public void setAway(String message) {    
-    	isAway = true;
-        // track the previous away message
-        previousAwayMsg = message;        
+    	isAway = true;                
         con.setAway(message);
     }
 
@@ -502,12 +499,4 @@ public class SessionImpl implements Session
 		return Collections.unmodifiableCollection(listenerList);
 	}
 
-    /**
-     * (non-Javadoc)
-     * @see jerklib.Session#getPreviousAwayMsg() 
-     */
-    @Override
-    public String getPreviousAwayMsg() {
-        return previousAwayMsg;
-    }
 }
