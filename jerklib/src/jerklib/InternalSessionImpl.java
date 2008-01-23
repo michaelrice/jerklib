@@ -146,8 +146,7 @@ class InternalSessionImpl implements Session , InternalSession
 		session.sayPrivate(nick, msg);
 	}
 
-    public void setAway(String message) {
-        if(session == null) System.out.println("Foo");
+    public void setAway(String message) {        
         session.setAway(message);
     }
 
