@@ -192,8 +192,18 @@ class Connection
 		return false;
 	}
 
-	
-	void getServerVersion()
+    void setAway(String message) {
+        WriteRequest req = new WriteRequestImpl("AWAY :"+message + "\r\n",this);
+        writeRequests.add(req);
+    }
+
+    void unSetAway() {
+        WriteRequest req = new WriteRequestImpl("AWAY\r\n",this);
+        writeRequests.add(req);
+    }
+
+
+    void getServerVersion()
 	{
 		WriteRequest req = new WriteRequestImpl("VERSION " + actualHostName + "\r\n" , this);
 		addWriteRequest(req);

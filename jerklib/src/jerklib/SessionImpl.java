@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 
 import jerklib.events.listeners.IRCEventListener;
+import jerklib.events.impl.AwayEventImpl;
+import jerklib.events.AwayEvent;
 
 
 /**
@@ -24,13 +26,15 @@ public class SessionImpl implements Session
 	private final RequestedConnection rCon;
 	private Profile tmpProfile; 
 	private boolean profileUpdating;
-	private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>(); 
+    private boolean isAway;
+    private String previousAwayMsg;
+    private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
 
 	
 	SessionImpl(RequestedConnection rCon)
 	{
 		this.rCon = rCon;
-	}
+    }
 
 	void setConnection(Connection con)
 	{
@@ -73,7 +77,13 @@ public class SessionImpl implements Session
 		return new ArrayList<Channel>();
 	}
 
-	/* (non-Javadoc)
+    public boolean isAway() {
+        return isAway;
+    }
+
+    
+
+    /* (non-Javadoc)
 	 * @see jerklib.Session#isConnected()
 	 */
 	public boolean isConnected()
@@ -395,8 +405,33 @@ public class SessionImpl implements Session
 	{
 		con.whois(nick);
 	}
-	
-	/* (non-Javadoc)
+
+    /**
+     * (non-Javadoc)
+     * @see Session#setAway(java.lang.String)
+     */
+    @Override
+    public void setAway(String message) {    
+    	isAway = true;
+        // track the previous away message
+        previousAwayMsg = message;        
+        con.setAway(message);
+    }
+
+    /**
+     * (non-Javadoc)
+     * @see Session#unsetAway()
+     */
+    @Override
+    public void unsetAway() {
+        /* if we're not away let's not bother even delegating */
+        if(isAway) {
+            con.unSetAway();
+            isAway = false;
+        }
+    }
+
+    /* (non-Javadoc)
 	 * @see jerklib.Session#whowas(java.lang.String)
 	 */
 	public void whowas(String nick)
@@ -466,5 +501,13 @@ public class SessionImpl implements Session
 	{
 		return Collections.unmodifiableCollection(listenerList);
 	}
-	
+
+    /**
+     * This method returns the last message used when the user set themselves away.
+     * @return the last away message used.
+     */
+    @Override
+    public String getPreviousAwayMsg() {
+        return previousAwayMsg;
+    }
 }

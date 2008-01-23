@@ -11,13 +11,15 @@ class InternalSessionImpl implements Session , InternalSession
 {
 
 	final private Session session;
-	private Connection con;
+    final String previousAwayMsg;
+    private Connection con;
 	private long lastRetry = -1;
 	
 	InternalSessionImpl(Session session)
 	{
 		this.session = session;
-	}
+        this.previousAwayMsg = session.getPreviousAwayMsg();
+    }
 	
 	
 	public Session getSession()
@@ -144,7 +146,16 @@ class InternalSessionImpl implements Session , InternalSession
 		session.sayPrivate(nick, msg);
 	}
 
-	public void channelSay(String channelName, String msg)
+    public void setAway(String message) {
+        if(session == null) System.out.println("Foo");
+        session.setAway(message);
+    }
+
+    public void unsetAway() {
+        session.unsetAway();
+    }
+
+    public void channelSay(String channelName, String msg)
 	{
 		session.channelSay(channelName, msg);
 	}
@@ -312,6 +323,11 @@ class InternalSessionImpl implements Session , InternalSession
 	{
 		session.getServerVersion(hostPattern);
 	}
+
+    @Override
+    public String getPreviousAwayMsg() {
+        return previousAwayMsg;
+    }
 }
 
 

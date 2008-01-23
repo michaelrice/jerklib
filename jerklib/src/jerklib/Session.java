@@ -282,5 +282,24 @@ public interface Session extends ProfileUpdateable
 	 * @see IRCEventListener
 	 */
 	public Collection<IRCEventListener> getIRCEventListeners();
+
+    /**
+     * Set yourself away.
+     * @see Connection#setAway(java.lang.String)
+     * @param message
+     */
+    public void setAway(String message);
+
+    /**
+     * unset yourself away.
+     * @see Connection#unSetAway()
+     */
+    public void unsetAway();
+
+    /**
+     * Get the last away message used.     *
+     * @return the away message
+     */
+    public String getPreviousAwayMsg(); 
 	
 }
