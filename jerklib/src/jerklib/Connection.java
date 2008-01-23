@@ -301,7 +301,7 @@ class Connection
 
 		if (!tmpStr.endsWith("\r\n"))
 		{
-			// sence string did not end with \r\n we need to
+			// sinch string did not end with \r\n we need to
 			// append the last element in strSplit to a stringbuffer
 			// for next read and set flag to indicate we have a fragment waiting
 			stringBuff.append(last); 
