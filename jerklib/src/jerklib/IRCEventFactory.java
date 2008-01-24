@@ -27,6 +27,7 @@ import jerklib.events.ChannelListEvent;
 import jerklib.events.InviteEvent;
 import jerklib.events.WhoisEvent;
 import jerklib.events.WhowasEvent;
+import jerklib.events.AwayEvent;
 import jerklib.events.NumericErrorEvent.ErrorType;
 import jerklib.events.impl.JoinCompleteEventImpl;
 import jerklib.events.impl.JoinEventImpl;
@@ -50,6 +51,7 @@ import jerklib.events.impl.ChannelListEventImpl;
 import jerklib.events.impl.InviteEventImpl;
 import jerklib.events.impl.WhoisEventImpl;
 import jerklib.events.impl.WhowasEventImpl;
+import jerklib.events.impl.AwayEventImpl;
 
 
 class IRCEventFactory
@@ -57,7 +59,8 @@ class IRCEventFactory
   
 	private static  ConnectionManager myManager;
 	private static	Map<Integer, ErrorType>numericErrorMap;
-	static void setManager(ConnectionManager manager)
+    private static Map<Integer,AwayEvent> awayNumericMap = new HashMap<Integer,AwayEvent>();
+    static void setManager(ConnectionManager manager)
 	{
 		myManager = manager;
 		initNumericErrorMap();
@@ -281,7 +284,46 @@ class IRCEventFactory
 	}
 	return null;
   }
-  
+
+
+  //:card.freenode.net 301 r0bby_ r0bby :foo
+  static AwayEvent ReceivedAwayMsg(String data, Connection con) {
+      Pattern p = Pattern.compile("^:\\S+\\s(\\d{3}).+?\\s+(.+?):(.*)$");
+      Matcher m = p.matcher(data);
+
+      if (m.matches()) {
+          awayNumericMap.put(301, new
+                  AwayEventImpl(m.group(3), AwayEvent.EventType.USER_IS_AWAY, true, false, m.group(2), data, myManager.getSessionFor(con)));
+
+          return awayNumericMap.get(Integer.parseInt(m.group(1)));
+      }
+      return null;
+  }
+    //:leguin.freenode.net 306 r0bby_ :You have been marked as being away
+    static AwayEvent wentAway(String data, Connection con) {
+        Matcher m = Pattern.compile("^:.+?\\s+(\\d{3})\\s+.+?:.*$").matcher(data);
+        if (m.matches()) {
+            awayNumericMap.put(306, new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.WENT_AWAY, true, true,
+                    myManager.getDefaultProfile().getActualNick(), data));
+            
+            return awayNumericMap.get(Integer.parseInt(m.group(1)));
+        }
+        return null;
+
+    }
+
+    //:leguin.freenode.net 305 r0bby_ :You are no longer marked as being away
+    static AwayEvent returnedFromAway(String data, Connection con) {
+        Matcher m = Pattern.compile("^:.+?\\s+(\\d{3})\\s+.+?:.*$").matcher(data);
+        if (m.matches()) {
+            awayNumericMap.put(305, new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.RETURNED_FROM_AWAY, false, true,
+                    myManager.getDefaultProfile().getActualNick(), data));
+            return awayNumericMap.get(Integer.parseInt(m.group(1)));
+
+
+        }
+        return null;
+    }
   static MotdEvent motd(String data ,Connection con)
   {
     Pattern p = Pattern.compile(":(.*?)\\s+(\\d+)\\s+(\\Q" + con.getProfile().getActualNick() + "\\E)\\s+:(.*)$");

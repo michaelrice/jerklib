@@ -68,6 +68,7 @@ public interface IRCEvent
     CHANNEL_LIST_EVENT,
     INVITE_EVENT,
     SERVER_VERSION_EVENT,
+    AWAY_EVENT,
     ERROR
   }
 

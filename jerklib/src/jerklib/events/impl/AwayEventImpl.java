@@ -12,17 +12,28 @@ public class AwayEventImpl implements AwayEvent {
 
     private final Session session;
 
-    private Type type;
+    private Type type = IRCEvent.Type.AWAY_EVENT;
 
     private EventType eventType;
 
-    public AwayEventImpl(String awayMessage, boolean away, boolean you, String nick,String rawEventData, Session session) {
+    public AwayEventImpl(String awayMessage, EventType eventType, boolean away, boolean you, String nick, String rawEventData, Session session) {
         this.awayMessage = awayMessage;
+        this.eventType = eventType;
         isAway = away;
         isYou = you;
         this.nick = nick;
         this.rawEventData = rawEventData;
         this.session = session;
+    }
+
+    public AwayEventImpl(Session session, EventType eventType, boolean away, boolean you, String nick, String rawEventData) {
+        this.awayMessage = ""; 
+        this.session = session;
+        this.eventType = eventType;
+        isAway = away;
+        isYou = you;
+        this.nick = nick;
+        this.rawEventData = rawEventData;
     }
 
     public String getAwayMessage() {
@@ -56,4 +67,5 @@ public class AwayEventImpl implements AwayEvent {
     public EventType getEventType() {
         return eventType;
     }
+    
 }

@@ -4,10 +4,10 @@ public interface AwayEvent extends IRCEvent {
 
 
     /**
-     * an enum to determine the type of event that was fired.
-     * WENT_AWAY is when we went go away
-     * RETURNED_FROM_AWAY is when we return from an away state
-     * USER_IS_AWAY is when a remote user goes away other than us
+     * An enum to determine the type of event that was fired.
+     * <br>WENT_AWAY is when we went go away.<br>
+     * RETURNED_FROM_AWAY is when we return from an away state.<br>
+     * USER_IS_AWAY is when a remote user goes away other than us.<br>
      */
     public static enum EventType {
         WENT_AWAY,
@@ -29,8 +29,8 @@ public interface AwayEvent extends IRCEvent {
 
 
     /**
-     * The away message.
-     * @return the away message.
+     * One caveat about this method is that if you are returning from away, it will return an empty String.
+     * @return the away message
      */
     public String getAwayMessage();
 
