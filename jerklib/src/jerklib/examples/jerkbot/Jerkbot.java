@@ -9,10 +9,8 @@ import jerklib.events.JoinCompleteEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
 import jerklib.events.AwayEvent;
-import jerklib.events.PrivateMsgEvent;
-import jerklib.events.ChannelMsgEvent;
 import jerklib.examples.jerkbot.operations.BotOperation;
-import jerklib.examples.jerkbot.operations.ChannelManagerOperation;
+import jerklib.examples.jerkbot.operations.ListUserOperation;
 import jerklib.examples.jerkbot.operations.QuitOperation;
 import jerklib.examples.jerkbot.operations.SayOperation;
 import jerklib.examples.jerkbot.operations.JoinOperation;
@@ -51,12 +49,11 @@ public class Jerkbot implements IRCEventListener {
 
     public void loadOperations() {
         operations.add(new QuitOperation("abc123"));
-        operations.add(new ChannelManagerOperation());
+        operations.add(new ListUserOperation());
         operations.add(new SayOperation());
         operations.add(new JoinOperation());
         operations.add(new PartOperation());
-        operations.add(new AwayOperation());
-        operations.add(new NickOperation());
+        operations.add(new AwayOperation());        
     }
 
 
