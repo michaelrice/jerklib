@@ -15,7 +15,7 @@ public class SayOperation implements BotOperation {
         if (e instanceof ChannelMsgEvent) {
             ChannelMsgEvent event = (ChannelMsgEvent) e;
             String message = event.getMessage();
-            Matcher m = Pattern.compile("^~say\\s(.*)$").matcher(message);
+            Matcher m = Pattern.compile("^~say\\s+(.*)$").matcher(message);
             if (m.matches()) {
                 e.getSession().channelSay(event.getChannel().getName(), m.group(1));
             }
