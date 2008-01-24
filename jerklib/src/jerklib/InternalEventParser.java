@@ -197,12 +197,21 @@ public class InternalEventParser
 		{
 			Pattern p = Pattern.compile("^:\\S+\\s+(\\d{3})\\s.+$");
 			Matcher m = p.matcher(data);
-			if (m.matches())
-			{
-				switch (Integer.parseInt(m.group(1)))
+			if (m.matches())            
+            {
+                /* check if we set ourselves away or if we returned from away */
+                if(m.group(1).equals("306")) {
+                    manager.addToRelayList(IRCEventFactory.wentAway(data,con));
+                } else if(m.group(1).equals("305")) {
+                    manager.addToRelayList(IRCEventFactory.returnedFromAway(data,con));
+                }
+
+                switch (Integer.parseInt(m.group(1)))
 				{
-					case 001:connectionComplete(data, con, event);break;
-					case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
+
+                    case 001:connectionComplete(data, con, event);break;
+					case 301:manager.addToRelayList(IRCEventFactory.ReceivedAwayMsg(data,con));break;
+                    case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
 					case 311://whois
 					case 312://whois
 					case 318://whois

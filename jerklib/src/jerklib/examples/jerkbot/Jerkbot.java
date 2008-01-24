@@ -8,6 +8,9 @@ import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
+import jerklib.events.AwayEvent;
+import jerklib.events.PrivateMsgEvent;
+import jerklib.events.ChannelMsgEvent;
 import jerklib.examples.jerkbot.operations.BotOperation;
 import jerklib.examples.jerkbot.operations.ChannelManagerOperation;
 import jerklib.examples.jerkbot.operations.QuitOperation;
@@ -57,17 +60,18 @@ public class Jerkbot implements IRCEventListener {
             operation.handleMessage(e);
         }
         if (e.getType() == IRCEvent.Type.CONNECT_COMPLETE) {
+            e.getSession().setAway("I am a bot and you fail at life.");
             e.getSession().joinChannel("#jerklib");
             e.getSession().joinChannel("#jerklib2");
         } else if (e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
             JoinCompleteEvent event = (JoinCompleteEvent) e;
             event.getChannel().say("Hai 2u");
-            event.getChannel().say("I am running jerklib version "+ConnectionManager.getVersion());
+            e.getSession().sayPrivate("r0bby","hi");
+            event.getChannel().say("I am running jerklib version "+ConnectionManager.getVersion());            
         } else if(e.getType() == IRCEvent.Type.JOIN) {
             JoinEvent event = (JoinEvent)e;
             e.getSession().channelSay(event.getChannel().getName(),"Hey "+event.getWho()+
                     " your hostname is "+event.getHostName());
-            System.out.println(event.getHostName());
         } else if(e instanceof KickEvent) {
             KickEvent event = (KickEvent)e;
             System.out.println("By Who: "+event.byWho());
@@ -77,6 +81,22 @@ public class Jerkbot implements IRCEventListener {
             System.out.println("Kick Msg: "+event.getMessage());
             System.out.println("Channel: "+event.getChannel().getName());
 
+        } else if(e instanceof AwayEvent) {
+            AwayEvent event = (AwayEvent)e;
+            System.out.println("Nick: "+event.getNick());
+            System.out.println("Event Type: "+event.getEventType());
+            System.out.println("Is Away: "+event.isAway());
+            System.out.println("Is You: "+event.isYou());
+            System.out.println("Message: "+event.getAwayMessage());
+
+        } else if(e instanceof ChannelMsgEvent) {
+            ChannelMsgEvent event = (ChannelMsgEvent)e;
+            String message = event.getMessage();
+            if(message.startsWith("~away")) {
+                e.getSession().setAway(event.getMessage().substring("~away".length()));
+            }else if(message.startsWith("~return")) {
+                e.getSession().unsetAway();
+            }
         }
     }
 

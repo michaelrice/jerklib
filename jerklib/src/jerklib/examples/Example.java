@@ -114,7 +114,7 @@ public class Example implements IRCEventListener
 			{
 				/* someone speaks in a channel */
 				ChannelMsgEvent cme = (ChannelMsgEvent)e;
-				System.out.println("<" + cme.getNick() + ">" + cme.getMessage());
+                System.out.println("<" + cme.getNick() + ">" + cme.getMessage());
 			}
 		});
 		
@@ -135,8 +135,9 @@ public class Example implements IRCEventListener
 			{
 				/* whois someone */
 				e.getSession().whois("mohadib");
-				
-				/* join a channel */
+                
+
+                /* join a channel */
 				e.getSession().joinChannel("#jerklib");
 			}
 		});
@@ -179,7 +180,7 @@ public class Example implements IRCEventListener
 		
     }
 	
-	private interface IrcRunnable
+	private interface IrcRunnable             
 	{
 		public void run(IRCEvent e);
 	}
