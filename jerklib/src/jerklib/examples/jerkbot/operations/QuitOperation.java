@@ -4,6 +4,9 @@ package jerklib.examples.jerkbot.operations;
 import jerklib.events.IRCEvent;
 import jerklib.events.PrivateMsgEvent;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * This will allow you to make the bot quit via IRC.
  * It illustrates how to use PrivateMsgEvent.
@@ -28,12 +31,10 @@ public class QuitOperation implements BotOperation {
         if(e.getType() == IRCEvent.Type.PRIVATE_MESSAGE) {
             // cast to the real type
             PrivateMsgEvent event = (PrivateMsgEvent)e;
-            String msg = event.getMessage(); // message
-            if(msg.startsWith("~quit")) {
-                if(msg.substring("~quit ".length()).equals(password)) {
-                    e.getSession().close("I was asked to leave");
-                    System.exit(0); 
-                }
+            String message = event.getMessage(); // message
+            Matcher m = Pattern.compile("^~quit\\s(.*)$").matcher(message);
+            if(m.matches()) {
+                e.getSession().close(m.group(1));
             }
 
             
