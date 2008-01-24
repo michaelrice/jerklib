@@ -9,6 +9,7 @@ import jerklib.events.JoinCompleteEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
 import jerklib.events.AwayEvent;
+import jerklib.events.ConnectionCompleteEvent;
 import jerklib.examples.jerkbot.operations.BotOperation;
 import jerklib.examples.jerkbot.operations.ListUserOperation;
 import jerklib.examples.jerkbot.operations.QuitOperation;
@@ -64,15 +65,15 @@ public class Jerkbot implements IRCEventListener {
         for(BotOperation operation : operations) {
             operation.handleMessage(e);
         }
-        if (e.getType() == IRCEvent.Type.CONNECT_COMPLETE) {
+        if (e instanceof ConnectionCompleteEvent) {
             e.getSession().setAway("I am a bot and you fail at life.");
             e.getSession().joinChannel("#jerklib");
             e.getSession().joinChannel("#jerklib2");
-        } else if (e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
+        } else if (e instanceof JoinCompleteEvent) {
             JoinCompleteEvent event = (JoinCompleteEvent) e;
             event.getChannel().say("Hai 2u");           
             event.getChannel().say("I am running jerklib version "+ConnectionManager.getVersion());            
-        } else if(e.getType() == IRCEvent.Type.JOIN) {
+        } else if(e instanceof JoinEvent) {
             JoinEvent event = (JoinEvent)e;
             e.getSession().channelSay(event.getChannel().getName(),"Hey "+event.getWho()+
                     " your hostname is "+event.getHostName());
