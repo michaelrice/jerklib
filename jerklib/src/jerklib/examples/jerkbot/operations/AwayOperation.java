@@ -17,7 +17,7 @@ public class AwayOperation implements BotOperation {
             String message = event.getMessage();
             Matcher m = Pattern.compile("^~away\\s+(.*)$").matcher(message);
             if (m.matches()) {
-                //~away <arg>
+                //~away I'm doing the hokey-pokey! 
                 e.getSession().setAway(m.group(1));
             }else if(message.matches("^~away.*$")) {
                 // ~away with no arguments
