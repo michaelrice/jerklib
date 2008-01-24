@@ -33,9 +33,11 @@ public class QuitOperation implements BotOperation {
             // cast to the real type
             PrivateMsgEvent event = (PrivateMsgEvent) e;
             String message = event.getMessage(); // message
-            Matcher m = Pattern.compile("^~quit\\s(.*)/q $").matcher(message);
+            Matcher m = Pattern.compile("^~quit\\s.*$").matcher(message);
             if (m.matches()) {
-                e.getSession().close(m.group(1));
+                if(m.group(1).equals(password)) {
+                    e.getSession().close(m.group(1));
+                }
             }
 
 

@@ -14,6 +14,9 @@ import jerklib.events.ChannelMsgEvent;
 import jerklib.examples.jerkbot.operations.BotOperation;
 import jerklib.examples.jerkbot.operations.ChannelManagerOperation;
 import jerklib.examples.jerkbot.operations.QuitOperation;
+import jerklib.examples.jerkbot.operations.SayOperation;
+import jerklib.examples.jerkbot.operations.JoinOperation;
+import jerklib.examples.jerkbot.operations.PartOperation;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -39,7 +42,7 @@ public class Jerkbot implements IRCEventListener {
      */
     public Jerkbot(String nick, String login, String server, int port) {
         Profile profile = new ProfileImpl(login, nick, nick+new Random().nextInt(42),
-                nick+ new Random().nextInt(42));
+                nick+ new Random().nextInt(512));
         manager = new ConnectionManager(profile);
         manager.requestConnection(server, port, profile).addIRCEventListener(this);
     }
@@ -47,6 +50,9 @@ public class Jerkbot implements IRCEventListener {
     public void loadOperations() {
         operations.add(new QuitOperation("abc123"));
         operations.add(new ChannelManagerOperation());
+        operations.add(new SayOperation());
+        operations.add(new JoinOperation());
+        operations.add(new PartOperation());
     }
 
 
