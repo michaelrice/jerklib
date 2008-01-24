@@ -16,7 +16,6 @@ import jerklib.examples.jerkbot.operations.SayOperation;
 import jerklib.examples.jerkbot.operations.JoinOperation;
 import jerklib.examples.jerkbot.operations.PartOperation;
 import jerklib.examples.jerkbot.operations.AwayOperation;
-import jerklib.examples.jerkbot.operations.NickOperation;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -27,7 +26,6 @@ import java.util.Random;
  * @author Robert O'Connor <robby.oconnor@gmail.com>
  */
 public class Jerkbot implements IRCEventListener {
-    private ConnectionManager manager;
     private List<BotOperation> operations = new LinkedList<BotOperation>();
 
     /**
@@ -43,7 +41,7 @@ public class Jerkbot implements IRCEventListener {
     public Jerkbot(String nick, String login, String server, int port) {
         Profile profile = new ProfileImpl(login, nick, nick+new Random().nextInt(42),
                 nick+ new Random().nextInt(512));
-        manager = new ConnectionManager(profile);
+        ConnectionManager manager = new ConnectionManager(profile);
         manager.requestConnection(server, port, profile).addIRCEventListener(this);
     }
 
