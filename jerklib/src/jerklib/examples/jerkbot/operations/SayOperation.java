@@ -19,6 +19,11 @@ public class SayOperation implements BotOperation {
             if (m.matches()) {
                 e.getSession().channelSay(event.getChannel().getName(), m.group(1));
             }
+            m = Pattern.compile("^~action\\s+(.*)$").matcher(message);
+            if(m.matches()) {
+                /* how to send an action */
+                e.getSession().channelSay(event.getChannel().getName(),"\001ACTION "+m.group(1));
+            }
 
         }
 
