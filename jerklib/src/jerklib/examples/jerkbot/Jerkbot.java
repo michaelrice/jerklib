@@ -18,6 +18,7 @@ import jerklib.examples.jerkbot.operations.SayOperation;
 import jerklib.examples.jerkbot.operations.JoinOperation;
 import jerklib.examples.jerkbot.operations.PartOperation;
 import jerklib.examples.jerkbot.operations.AwayOperation;
+import jerklib.examples.jerkbot.operations.NickOperation;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -55,6 +56,7 @@ public class Jerkbot implements IRCEventListener {
         operations.add(new JoinOperation());
         operations.add(new PartOperation());
         operations.add(new AwayOperation());
+        operations.add(new NickOperation());
     }
 
 
