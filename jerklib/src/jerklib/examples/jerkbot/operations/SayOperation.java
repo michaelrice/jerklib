@@ -26,7 +26,7 @@ public class SayOperation implements BotOperation {
             }
             m = Pattern.compile("^~action\\s+(.*)$").matcher(message);
             if(m.matches()) {
-                /* how to send an action */
+                /* how to send an action -- this is NOT in the lib itself. */
                 e.getSession().channelSay(event.getChannel().getName(),"\001ACTION "+m.group(1));
             }
             
