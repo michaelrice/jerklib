@@ -17,6 +17,7 @@ import jerklib.examples.jerkbot.operations.QuitOperation;
 import jerklib.examples.jerkbot.operations.SayOperation;
 import jerklib.examples.jerkbot.operations.JoinOperation;
 import jerklib.examples.jerkbot.operations.PartOperation;
+import jerklib.examples.jerkbot.operations.AwayOperation;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -53,6 +54,7 @@ public class Jerkbot implements IRCEventListener {
         operations.add(new SayOperation());
         operations.add(new JoinOperation());
         operations.add(new PartOperation());
+        operations.add(new AwayOperation());
     }
 
 
@@ -94,14 +96,6 @@ public class Jerkbot implements IRCEventListener {
             System.out.println("Is You: "+event.isYou());
             System.out.println("Message: "+event.getAwayMessage());
 
-        } else if(e instanceof ChannelMsgEvent) {
-            ChannelMsgEvent event = (ChannelMsgEvent)e;
-            String message = event.getMessage();
-            if(message.startsWith("~away")) {
-                e.getSession().setAway(event.getMessage().substring("~away".length()));
-            }else if(message.startsWith("~return")) {
-                e.getSession().unsetAway();
-            }
         }
     }
 
