@@ -15,9 +15,11 @@ import java.util.regex.Pattern;
  */
 public class QuitOperation implements BotOperation {
     private String password;
+    private final Pattern p;
 
     public QuitOperation(String password) {
         this.password = password;
+        p = Pattern.compile("^~quit\\s+(.*)$");
     }
 
     public String getPassword() {
@@ -33,7 +35,7 @@ public class QuitOperation implements BotOperation {
             // cast to the real type
             PrivateMsgEvent event = (PrivateMsgEvent) e;
             String message = event.getMessage(); // message
-            Matcher m = Pattern.compile("^~quit\\s+(.*)$").matcher(message);
+            Matcher m = p.matcher(message);
             if (m.matches()) {
                 if(m.group(1).equals(password)) {
                     e.getSession().close(m.group(1));

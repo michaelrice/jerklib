@@ -6,7 +6,16 @@ import jerklib.events.ChannelMsgEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class utilizes the new away functionality in jerklib
+ * @author Robert O'Connor
+ */
 public class AwayOperation implements BotOperation {
+    private final Pattern p;
+    public AwayOperation() {
+        p = Pattern.compile("^~say\\s+(.*)$");
+    }
+
     /**
      * This method is responsible for differentiating between whether
      * or not the bot was addressed.
@@ -15,7 +24,7 @@ public class AwayOperation implements BotOperation {
         if (e instanceof ChannelMsgEvent) {
             ChannelMsgEvent event = (ChannelMsgEvent) e;
             String message = event.getMessage();
-            Matcher m = Pattern.compile("^~away\\s+(.*)$").matcher(message);
+            Matcher m = p.matcher(message);
             if (m.matches()) {
                 //~away I'm doing the hokey-pokey! 
                 e.getSession().setAway(m.group(1));

@@ -7,6 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SayOperation implements BotOperation {
+    private final Pattern p;
+    public SayOperation() {
+        p = Pattern.compile("^~say\\s+(.*)$");
+    }
+
     /**
      * This method is responsible for differentiating between whether
      * or not the bot was addressed.
@@ -15,7 +20,7 @@ public class SayOperation implements BotOperation {
         if (e instanceof ChannelMsgEvent) {
             ChannelMsgEvent event = (ChannelMsgEvent) e;
             String message = event.getMessage();
-            Matcher m = Pattern.compile("^~say\\s+(.*)$").matcher(message);
+            Matcher m = p.matcher(message);
             if (m.matches()) {
                 e.getSession().channelSay(event.getChannel().getName(), m.group(1));
             }
@@ -24,7 +29,7 @@ public class SayOperation implements BotOperation {
                 /* how to send an action */
                 e.getSession().channelSay(event.getChannel().getName(),"\001ACTION "+m.group(1));
             }
-
+            
         }
 
     }

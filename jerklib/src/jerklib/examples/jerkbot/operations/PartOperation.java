@@ -7,6 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PartOperation implements BotOperation {
+    private final Pattern p;
+    public PartOperation() {
+        p = Pattern.compile("^~part\\s+(.*)$");
+    }
+
     /**
      * This method is responsible for differentiating between whether
      * or not the bot was addressed.
@@ -15,7 +20,7 @@ public class PartOperation implements BotOperation {
         if (e instanceof ChannelMsgEvent) {
             ChannelMsgEvent event = (ChannelMsgEvent) e;
             String message = event.getMessage();
-            Matcher m = Pattern.compile("^~part\\s+(.*)$").matcher(message);
+            Matcher m = p.matcher(message);
             if (m.matches()) {
                 e.getSession().partChannel(m.group(1),"I was asked to leave");
             }

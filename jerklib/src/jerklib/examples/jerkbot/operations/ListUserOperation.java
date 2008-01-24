@@ -14,15 +14,16 @@ import java.util.regex.Pattern;
  * @author Robert O'Connor <robby.oconnor@gmail.com>
  */
 public class ListUserOperation implements BotOperation {
-
+    private final Pattern p;
     public ListUserOperation() {
+        p = Pattern.compile("^~users\\s+.*$");
     }
 
     public void handleMessage(IRCEvent e) {
         if (e.getType() == IRCEvent.Type.CHANNEL_MESSAGE) {
             ChannelMsgEvent event = (ChannelMsgEvent) e;
             String message = event.getMessage(); // the message
-            Matcher m = Pattern.compile("^~users.*$").matcher(message);
+            Matcher m = p.matcher(message);
             if (m.matches()) {
                 StringBuilder sb = new StringBuilder();
                 Channel c = event.getChannel();

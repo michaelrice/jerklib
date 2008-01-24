@@ -7,6 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class JoinOperation implements BotOperation {
+    private final Pattern p;
+    public JoinOperation() {
+        p = Pattern.compile("^~join\\s+(.*)$");
+    }
+
     /**
      * This method is responsible for differentiating between whether
      * or not the bot was addressed.
@@ -15,7 +20,7 @@ public class JoinOperation implements BotOperation {
         if (e instanceof ChannelMsgEvent) {
             ChannelMsgEvent event = (ChannelMsgEvent) e;
             String message = event.getMessage();
-            Matcher m = Pattern.compile("^~join\\s+(.*)$").matcher(message);
+            Matcher m = p.matcher(message);
             if (m.matches()) {
                 e.getSession().joinChannel(m.group(1));
             }
