@@ -6,7 +6,7 @@ import jerklib.events.ChannelMsgEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SayOperation implements BotOperation {
+public class PartOperation implements BotOperation {
     /**
      * This method is responsible for differentiating between whether
      * or not the bot was addressed.
@@ -15,12 +15,14 @@ public class SayOperation implements BotOperation {
         if (e instanceof ChannelMsgEvent) {
             ChannelMsgEvent event = (ChannelMsgEvent) e;
             String message = event.getMessage();
-            Matcher m = Pattern.compile("^~say\\s(.*)$").matcher(message);
+            Matcher m = Pattern.compile("^~part\\s+(.*)$").matcher(message);
             if (m.matches()) {
-                e.getSession().channelSay(event.getChannel().getName(), m.group(1));
+                e.getSession().partChannel(m.group(1),"I was asked to leave");
             }
 
         }
 
     }
+
 }
+

@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 /**
  * This will allow you to make the bot quit via IRC.
  * It illustrates how to use PrivateMsgEvent.
+ *
  * @author Robert O'Connor <robby.oconnor@gmail.com>
  */
 public class QuitOperation implements BotOperation {
@@ -28,16 +29,15 @@ public class QuitOperation implements BotOperation {
     }
 
     public void handleMessage(IRCEvent e) {
-        if(e.getType() == IRCEvent.Type.PRIVATE_MESSAGE) {
+        if (e.getType() == IRCEvent.Type.PRIVATE_MESSAGE) {
             // cast to the real type
-            PrivateMsgEvent event = (PrivateMsgEvent)e;
+            PrivateMsgEvent event = (PrivateMsgEvent) e;
             String message = event.getMessage(); // message
-            Matcher m = Pattern.compile("^~quit\\s(.*)$").matcher(message);
-            if(m.matches()) {
+            Matcher m = Pattern.compile("^~quit\\s(.*)/q $").matcher(message);
+            if (m.matches()) {
                 e.getSession().close(m.group(1));
             }
 
-            
 
         }
     }
