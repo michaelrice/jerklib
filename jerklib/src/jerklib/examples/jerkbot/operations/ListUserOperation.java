@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * This plugin illustrates how to use the channel-related events.
- *
+ * This will allow you to list the members of the channel the bot is in.
+ * 
  * @author Robert O'Connor <robby.oconnor@gmail.com>
  */
 public class ListUserOperation implements BotOperation {

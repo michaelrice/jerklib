@@ -6,6 +6,10 @@ import jerklib.events.ChannelMsgEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Allows the bot to join another channel.
+ * @author Robert O'Connor &lt;robby.oconnor@gmail.com&gt;
+ */
 public class JoinOperation implements BotOperation {
     private final Pattern p;
     public JoinOperation() {

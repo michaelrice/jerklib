@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * This will allow you to make the bot quit via IRC.
  * It illustrates how to use PrivateMsgEvent.
  *
- * @author Robert O'Connor <robby.oconnor@gmail.com>
+ * @author Robert O'Connor &lt;robby.oconnor@gmail.com&gt;
  */
 public class QuitOperation implements BotOperation {
     private String password;

@@ -6,6 +6,10 @@ import jerklib.events.ChannelMsgEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Adds the ability to make the bot part the channel. 
+ * @author Robert O'Connor &lt;robby.oconnot@gmail.com&gt;
+ */
 public class PartOperation implements BotOperation {
     private final Pattern p;
     public PartOperation() {

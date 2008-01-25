@@ -6,6 +6,10 @@ import jerklib.events.ChannelMsgEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Allows you to make the bot speak or do an action.
+ * @author Robert O'Connor &lt;robby.oconnor@gmail.com&gt;
+ */
 public class SayOperation implements BotOperation {
     private final Pattern p;
     public SayOperation() {
