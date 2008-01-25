@@ -1,5 +1,18 @@
 package jerklib.events;
 
+/**
+ * <p>
+ *  This is an event that is fired under three conditions:
+ *  <ul>
+ *      <li>Sending a message to a user who is marked as away.</li>
+ *      <li>You mark yourself as away.</li>
+ *      <li>You return from away.</li>
+ * </ul>
+ * You can determine under which circumstance the event was fired by looking at
+ * the {@link EventType}.</p> 
+ * @author Robert O'Connor &lt;robby.oconnor@gmail.com&gt;
+ *
+ */
 public interface AwayEvent extends IRCEvent {
 
 
@@ -16,7 +29,8 @@ public interface AwayEvent extends IRCEvent {
     }
 
     /**
-     * Return the event type.
+     * Return the event type that was fired
+     * @see EventType
      * @return the type of event that was fired.
      */
     public EventType getEventType();
@@ -29,7 +43,7 @@ public interface AwayEvent extends IRCEvent {
 
 
     /**
-     * One caveat about this method is that if you are returning from away, it will return an empty String.
+     * Returns the away message or an empty String if it was you who caused the event to fire. 
      * @return the away message
      */
     public String getAwayMessage();
@@ -42,7 +56,7 @@ public interface AwayEvent extends IRCEvent {
 
     /**
      * Get the nick who fired the event.
-     * @return
+     * @return the nick of the user who caused the event to fire.
      */
     public String getNick();
 

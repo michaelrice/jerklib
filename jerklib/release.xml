@@ -37,7 +37,7 @@
 		<javac srcdir="${src}" destdir="${build}" />
 		<property prefix="svn" file="svn.properties" />
 		<echo file="${build}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}" />
-		<echo file="${src}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}" />
+		<echo file="src/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}" />
 		<copy file="${src}/README" todir="${build}" />
 	</target>
 
