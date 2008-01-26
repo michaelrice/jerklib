@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class ListUserOperation implements BotOperation {
     private final Pattern p;
     public ListUserOperation() {
-        p = Pattern.compile("^~users\\s+.*$");
+        p = Pattern.compile("^~users.*$");
     }
 
     public void handleMessage(IRCEvent e) {
