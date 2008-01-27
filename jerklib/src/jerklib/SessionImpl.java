@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 import jerklib.events.listeners.IRCEventListener;
-import jerklib.events.impl.AwayEventImpl;
-import jerklib.events.AwayEvent;
 
 
 /**

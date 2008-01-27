@@ -132,8 +132,8 @@ public class ChannelImpl implements Channel
 	 */
 	public boolean equals(Object o)
 	{
-		return o == this;
-	}
+        return o instanceof Channel && o == this;
+    }
 	
 }
 
