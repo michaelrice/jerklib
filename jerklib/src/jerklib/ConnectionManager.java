@@ -163,8 +163,9 @@ public class ConnectionManager
 
 	
 	/**
-	 * request a new connection to a host
+	 * request a new connection to a host with the default port of 6667
 	 * @param hostName DNS name of host to connect to
+     * @return the Session for this connection
 	 */
 	public Session requestConnection(String hostName)
 	{
@@ -175,6 +176,7 @@ public class ConnectionManager
 	 * request a new connection to a host
 	 * @param hostName DNS name of host to connect to
 	 * @param port port to use for connection
+     * @return the Session for this connection
 	 */
 	public Session requestConnection(String hostName , int port)
 	{
@@ -186,6 +188,7 @@ public class ConnectionManager
 	 * @param hostName  DNS name of host to connect to
 	 * @param port port to use for connection
 	 * @param profile profile to use for this connection
+     * @return the Session for this connection
 	 */
 	public Session requestConnection(String hostName , int port , Profile profile)
 	{
