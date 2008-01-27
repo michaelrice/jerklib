@@ -26,10 +26,10 @@ public class AwayOperation implements BotOperation {
             String message = event.getMessage();
             Matcher m = p.matcher(message);
             if (m.matches()) {
-                //~away I'm doing the hokey-pokey! 
+                /* ~away I'm doing the hokey-pokey! */
                 e.getSession().setAway(m.group(1));
             }else if(message.matches("^~away.*$")) {
-                // ~away with no arguments
+                /* ~away with no arguments */
                 e.getSession().unsetAway();
             }
 
