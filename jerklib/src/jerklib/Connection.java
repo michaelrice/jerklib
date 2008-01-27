@@ -260,7 +260,7 @@ class Connection
 		{
 			numRead = socChannel.read(readBuffer);
 		}
-		catch (Exception e)
+		catch (IOException e)
 		{
 			e.printStackTrace();
 			conState.setConState(State.DISCONNECTED);
