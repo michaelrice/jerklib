@@ -25,7 +25,7 @@ import java.util.Random;
 /**
  * This an the main class and entry point.
  *
- * @author Robert O'Connor <robby.oconnor@gmail.com>
+ * @author Robert O'Connor &lt;robby.oconnor@gmail.com&gt;
  */
 public class Jerkbot implements IRCEventListener {
     private List<BotOperation> operations = new LinkedList<BotOperation>();
