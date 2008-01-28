@@ -213,8 +213,9 @@ public class InternalEventParser
 					case 301:manager.addToRelayList(IRCEventFactory.ReceivedAwayMsg(data,con));break;
                     case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
 					case 311://whois
-					case 312://whois
-					case 318://whois
+					case 312: //whois
+                    case 317: //TODO: whois (idle time/signon time [bahamut at least]                        
+                    case 318://whois
 					case 319://whois
 					case 320:whois(data, manager.getSessionFor(con), Integer.parseInt(m.group(1)));break;
 					case 321://chanlist
