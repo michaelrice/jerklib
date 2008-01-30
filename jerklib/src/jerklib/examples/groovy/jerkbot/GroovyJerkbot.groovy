@@ -12,14 +12,14 @@ import jerklib.ConnectionManager
 * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor</a>
 */
 class GroovyJerkbot implements IRCEventListener {
-    def ConnectionManager manager;
+    def ConnectionManager manager
 
     GroovyJerkbot(String nick, String username, String hostname, int port) {
        def Profile profile = new ProfileImpl(username, nick, nick + new Random().nextInt(42),
                 nick + new Random().nextInt(512))
        manager = new ConnectionManager(profile)
-        manager.requestConnection(hostname,port).addIRCEventListener(this)
-    }
+       manager.requestConnection(hostname,port).addIRCEventListener(this)
+    }    
 
     public static void main(String[] args) {
         def GroovyJerkbot bot = new GroovyJerkbot("jerkbot","jerkbot","irc.freenode.org",6667)
