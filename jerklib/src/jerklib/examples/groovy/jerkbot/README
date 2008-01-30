@@ -1,3 +1,12 @@
 To run this example, you need to download Groovy from http://groovy.codehaus.org/
 
+1) Set up all the env. variables
+2) change to the src directory
+3) type: groovy -cp bin/jerklib.jar jerklib/examples/groovy/jerkbot/Jerkbot.groovy
+
+Currently the bot does nada, but it was never intended to do anything to begin with.
+This was just to show that it IS possible to write a bot using Groovy!
+
+Questions? r0bby on irc.freenode.org 
+
 
