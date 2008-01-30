@@ -13,3 +13,10 @@ java -cp jerklib.jar jerklib.examples.Example
 An example of a bot:
 java -cp jerklib.jar jerklib.examples.jerkbot.jerkbot
 
+There is a Groovy example (a script written in groovy).
+
+For that you need to have the source handy: 
+
+1) ant jar
+2) type groovy -cp bin/jerklib.jar jerklib/examples/groovy/jerkbot/Jerkbot.groovy
+
