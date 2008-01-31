@@ -1,4 +1,4 @@
-package jerklib.examples.groovy
+package jerklib.examples 
 
 import jerklib.Profile
 import jerklib.ProfileImpl
