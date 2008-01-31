@@ -6,6 +6,7 @@ import jerklib.events.listeners.IRCEventListener
 import jerklib.events.IRCEvent
 import jerklib.events.JoinCompleteEvent
 import jerklib.ConnectionManager
+import jerklib.events.ChannelMsgEvent
 
 /**
 * Created: Jan 29, 2008 11:42:23 PM
@@ -32,6 +33,14 @@ class GroovyJerkbot implements IRCEventListener {
         else if(e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
             def JoinCompleteEvent event = (JoinCompleteEvent)e
             e.getSession().channelSay(event.getChannel().getName(), "Hai 2u")
+        } else if(e.getType() == IRCEvent.Type.CHANNEL_MESSAGE) {
+            ChannelMsgEvent event = (ChannelMsgEvent)e;
+            // groovy has native regex support! 
+            def matcher = event.getMessage() =~ /^~say\s+(.*)$/
+            println(matcher.matches());
+            if(matcher.matches()) {
+                e.getSession().channelSay(event.getChannel().getName(),matcher.group(1));
+            }
         }
 
     }
