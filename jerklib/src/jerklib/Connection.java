@@ -1,6 +1,5 @@
 package jerklib;
 
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
@@ -14,39 +13,36 @@ import jerklib.Session.State;
 import jerklib.events.IRCEvent;
 import jerklib.events.listeners.WriteRequestListener;
 
-
-class Connection
+final class Connection
 {
-	
+
 	/* ConnectionManager for this Connection */
 	private final ConnectionManager manager;
-	
+
 	/* SocketChannel this connection will use for reading/writing */
 	private final SocketChannel socChannel;
-	
+
 	/* A Buffer of write request */
 	private final List<WriteRequest> writeRequests = Collections.synchronizedList(new ArrayList<WriteRequest>());
-	
+
 	/* a Map to index currently joined channels by name */
-	private Map<String, Channel> channelMap = new HashMap<String, Channel>();
-	
+	private final Map<String, Channel> channelMap = new HashMap<String, Channel>();
+
 	/* ByteBuffer for readinging into */
-	private ByteBuffer readBuffer = ByteBuffer.allocate(2048);
-	
-	/* indicates of an event fragment is waiting */
+	private final ByteBuffer readBuffer = ByteBuffer.allocate(2048);
+
+	/* indicates if an event fragment is waiting */
 	private boolean gotFragment;
-	
+
 	/* buffer for event fragments */
-	private  StringBuffer stringBuff = new StringBuffer();
-	
+	private final StringBuffer stringBuff = new StringBuffer();
+
 	/* actual hostname connected to */
 	private String actualHostName;
-	
+
 	/* ConnectionState object to hold state information about connection */
-	private final ConnectionState conState = new ConnectionState(); 
-	
-	
-	
+	private final ConnectionState conState = new ConnectionState();
+
 	Connection(ConnectionManager manager, SocketChannel socChannel)
 	{
 		this.manager = manager;
@@ -57,7 +53,7 @@ class Connection
 	{
 		return manager.getSessionFor(this).getRequestedConnection().getProfile();
 	}
-	
+
 	ConnectionState getConnectionState()
 	{
 		return conState;
@@ -68,57 +64,44 @@ class Connection
 		conState.setConState(connectionState);
 	}
 
-	
 	void setHostName(String name)
 	{
 		manager.getSessionFor(this).setConnectionState(State.CONNECTED);
 		actualHostName = name;
 	}
-	
+
 	String getHostName()
 	{
 		return actualHostName;
 	}
-	
-	void whois(String nick)
+
+	List<Channel> removeNickFromAllChannels(String nick)
 	{
-		addWriteRequest(new WriteRequestImpl("WHOIS " + nick + "\r\n" , this));
-	}
-	
-	void invite(String nick , Channel chan)
-	{
-		addWriteRequest(new WriteRequestImpl("INVITE " + nick + " " + chan.getName() + "\r\n" , this));
-	}
-	
-	List<Channel>  removeNickFromAllChannels(String nick)
-	{
-		List<Channel>returnList = new ArrayList<Channel>();
-		for(Channel chan : channelMap.values())
+		List<Channel> returnList = new ArrayList<Channel>();
+		for (Channel chan : channelMap.values())
 		{
-			if(((ChannelImpl)chan).removeNick(nick))
+			if (((ChannelImpl) chan).removeNick(nick))
 			{
 				returnList.add(chan);
 			}
 		}
 		return returnList;
 	}
-	
-	void nickChanged(String oldNick , String newNick)
+
+	void nickChanged(String oldNick, String newNick)
 	{
 		synchronized (channelMap)
 		{
-			for(Channel chan : channelMap.values())
+			for (Channel chan : channelMap.values())
 			{
-				if(chan.getNicks().contains(oldNick))
+				if (chan.getNicks().contains(oldNick))
 				{
-					((ChannelImpl)chan).nickChanged(oldNick, newNick);
+					((ChannelImpl) chan).nickChanged(oldNick, newNick);
 				}
 			}
 		}
 	}
-	
-	
-	
+
 	void removeChannel(Channel channel)
 	{
 		channelMap.remove(channel.getName());
@@ -129,109 +112,108 @@ class Connection
 		return channelMap.get(name);
 	}
 
-	Collection <Channel> getChannels()
+	Collection<Channel> getChannels()
 	{
 		return Collections.unmodifiableCollection(channelMap.values());
 	}
-	
+
 	void addChannel(Channel channel)
 	{
 		channelMap.put(channel.getName(), channel);
 	}
 
+	void whois(String nick)
+	{
+		addWriteRequest(new WriteRequestImpl("WHOIS " + nick + "\r\n", this));
+	}
+
+	void invite(String nick, Channel chan)
+	{
+		addWriteRequest(new WriteRequestImpl("INVITE " + nick + " " + chan.getName() + "\r\n", this));
+	}
+	
 	void chanList()
 	{
-		addWriteRequest(new WriteRequestImpl("LIST\r\n" , this));
+		addWriteRequest(new WriteRequestImpl("LIST\r\n", this));
 	}
-	
+
 	void chanList(String channel)
 	{
-		addWriteRequest(new WriteRequestImpl("LIST " + channel + "\r\n" , this));
+		addWriteRequest(new WriteRequestImpl("LIST " + channel + "\r\n", this));
 	}
-	
+
 	void whoWas(String nick)
 	{
 		addWriteRequest(new WriteRequestImpl("WHOWAS " + nick + "\r\n", this));
 	}
-	
-	void join(final String channel)
+
+	void join(String channel)
 	{
 		if (!channelMap.containsKey(channel))
 		{
-			WriteRequest request = new WriteRequestImpl("JOIN " + channel + "\r\n", this);
-
-			writeRequests.add(request);
+			writeRequests.add(new WriteRequestImpl("JOIN " + channel + "\r\n", this));
 		}
 	}
 
-	void join(final String channel , String pass)
+	void join(String channel, String pass)
 	{
 		if (!channelMap.containsKey(channel))
 		{
-			WriteRequest request = new WriteRequestImpl("JOIN " + channel + " " + pass + "\r\n", this);
-
-			writeRequests.add(request);
+			writeRequests.add(new WriteRequestImpl("JOIN " + channel + " " + pass + "\r\n", this));
 		}
 	}
-	
-	boolean part(Channel channel , String partMsg)
+
+	boolean part(Channel channel, String partMsg)
 	{
 		return part(channel.getName(), partMsg);
 	}
-	
-	boolean part(String channelName , String partMsg)
+
+	boolean part(String channelName, String partMsg)
 	{
-		if(channelMap.containsKey(channelName))
+		if (channelMap.containsKey(channelName))
 		{
-			WriteRequest request = new WriteRequestImpl( "PART " + channelName + " :" + partMsg + "\r\n",this);
-			
-			writeRequests.add(request);
-			
+			writeRequests.add(new WriteRequestImpl("PART " + channelName + " :" + partMsg + "\r\n", this));
 			return true;
 		}
 		return false;
 	}
 
-    void setAway(String message) {
-        WriteRequest req = new WriteRequestImpl("AWAY :"+message + "\r\n",this);
-        writeRequests.add(req);
-    }
-
-    void unSetAway() {
-        WriteRequest req = new WriteRequestImpl("AWAY\r\n",this);
-        writeRequests.add(req);
-    }
-
-
-    void getServerVersion()
+	void setAway(String message)
 	{
-		WriteRequest req = new WriteRequestImpl("VERSION " + actualHostName + "\r\n" , this);
-		addWriteRequest(req);
+		writeRequests.add(new WriteRequestImpl("AWAY :" + message + "\r\n", this));
 	}
-	
+
+	void unSetAway()
+	{
+		writeRequests.add(new WriteRequestImpl("AWAY\r\n", this));
+	}
+
+	void getServerVersion()
+	{
+		addWriteRequest(new WriteRequestImpl("VERSION " + actualHostName + "\r\n", this));
+	}
+
 	void getServerVersion(String hostPattern)
 	{
-		WriteRequest req = new WriteRequestImpl("VERSION " + hostPattern + "\r\n" , this);
-		addWriteRequest(req);
+		addWriteRequest(new WriteRequestImpl("VERSION " + hostPattern + "\r\n", this));
 	}
-	
+
 	void changeNick(String nick)
 	{
-		WriteRequest request = new WriteRequestImpl("NICK " + nick + "\r\n" , this);
-		writeRequests.add(request);
+		writeRequests.add(new WriteRequestImpl("NICK " + nick + "\r\n", this));
 	}
-	
+
 	void addWriteRequest(WriteRequest request)
 	{
 		writeRequests.add(request);
 	}
-	
+
 	boolean finishConnect() throws IOException
 	{
 		boolean connected = socChannel.finishConnect();
 		if (connected)
 		{
-			 conState.setConState(State.CONNECTED);
+			conState.setConState(State.CONNECTED);
 		}
 		else
 		{
@@ -242,16 +224,19 @@ class Connection
 
 	void login()
 	{
-		WriteRequest request = new WriteRequestImpl("NICK " + getProfile().getActualNick() + "\r\n",this);
-		writeRequests.add(request);
-
-		request = new WriteRequestImpl("USER " + getProfile().getName() + " 0 0 :" + getProfile().getName() + "\r\n",this);
-		writeRequests.add(request);
+		writeRequests.add(new WriteRequestImpl("NICK " + getProfile().getActualNick() + "\r\n", this));
+		writeRequests.add
+		(
+			new WriteRequestImpl
+			(
+				"USER " + getProfile().getName() + " 0 0 :" + getProfile().getName() + "\r\n", this
+			)
+		);
 	}
 
 	int read()
 	{
-		
+
 		readBuffer.clear();
 
 		int numRead = 0;
@@ -266,35 +251,32 @@ class Connection
 			conState.setConState(State.DISCONNECTED);
 		}
 
-		if(numRead == -1)
+		if (numRead == -1)
 		{
 			conState.setConState(State.DISCONNECTED);
 		}
-		
+
 		if (conState.getConState() == State.DISCONNECTED || numRead <= 0) return 0;
 
 		readBuffer.flip();
 
 		String tmpStr = new String(readBuffer.array(), 0, numRead);
 
-		
 		// read did not contain a \r\n
 		if (tmpStr.indexOf("\r\n") == -1)
 		{
 			// append whole thing to buffer and set fragment flag
 			stringBuff.append(tmpStr);
 			gotFragment = true;
-			
-			//now maybe should check to see if i have /r/n in the buffer??
-			
+
 			return numRead;
 		}
 
 		// this read had a \r\n in it
-		
+
 		if (gotFragment)
 		{
-			//prepend fragment to front of current message
+			// prepend fragment to front of current message
 			tmpStr = stringBuff.toString() + tmpStr;
 			stringBuff.delete(0, stringBuff.length());
 			gotFragment = false;
@@ -314,10 +296,8 @@ class Connection
 			// since string did not end with \r\n we need to
 			// append the last element in strSplit to a stringbuffer
 			// for next read and set flag to indicate we have a fragment waiting
-			stringBuff.append(last); 
+			stringBuff.append(last);
 			gotFragment = true;
-			
-			//now maybe should check to see if i have /r/n in the buffer??
 		}
 		else
 		{
@@ -330,8 +310,15 @@ class Connection
 	int doWrites()
 	{
 		int amount = 0;
-
-		for (WriteRequest request : writeRequests)
+		
+		List<WriteRequest> tmpReqs = new ArrayList<WriteRequest>();
+		synchronized (writeRequests)
+		{
+			tmpReqs.addAll(writeRequests);
+			writeRequests.clear();
+		}
+		
+		for (WriteRequest request : tmpReqs)
 		{
 			String data;
 
@@ -362,49 +349,44 @@ class Connection
 				e.printStackTrace();
 				conState.setConState(State.DISCONNECTED);
 			}
-			
-			if(conState.getConState() == Session.State.DISCONNECTED) return amount;
-			
+
+			if (conState.getConState() == Session.State.DISCONNECTED) return amount;
+
 			fireWriteEvent(request);
 		}
-
-		writeRequests.clear();
-
+		
 		return amount;
-
 	}
 
 	void ping()
 	{
-		WriteRequest request = new WriteRequestImpl("PING " + actualHostName + "\r\n" , this );
-		writeRequests.add(request);
+		writeRequests.add(new WriteRequestImpl("PING " + actualHostName + "\r\n", this));
 		conState.pingSent();
 	}
-	
+
 	void pong(IRCEvent event)
 	{
 		conState.gotResponse();
-    String data = event.getRawEventData().substring(event.getRawEventData().lastIndexOf(":") + 1);
-		WriteRequest request = new WriteRequestImpl("PONG " + data + "\r\n" , this );
-		writeRequests.add(request);
+		String data = event.getRawEventData().substring(event.getRawEventData().lastIndexOf(":") + 1);
+		writeRequests.add(new WriteRequestImpl("PONG " + data + "\r\n", this));
 	}
-	
+
 	void gotPong()
 	{
 		conState.gotResponse();
 	}
-	
+
 	void quit(String quitMessage)
 	{
 		try
 		{
-			WriteRequest request = new WriteRequestImpl("QUIT :" + quitMessage + "\r\n" , this);
-			
+			WriteRequest request = new WriteRequestImpl("QUIT :" + quitMessage + "\r\n", this);
+
 			writeRequests.add(request);
-			
-			//clear out write queue 
+
+			// clear out write queue
 			doWrites();
-			
+
 			socChannel.close();
 		}
 		catch (IOException e)
@@ -412,22 +394,18 @@ class Connection
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	private void fireWriteEvent(WriteRequest request)
 	{
-		for(WriteRequestListener listener : manager.getWriteListeners())
+		for (WriteRequestListener listener : manager.getWriteListeners())
 		{
 			listener.receiveEvent(request);
 		}
 	}
-	
+
 	private IRCEvent createDefaultIRCEvent(final String rawData)
 	{
-
-		
 		return
-
 		new IRCEvent()
 		{
 
@@ -459,5 +437,5 @@ class Connection
 			}
 		};
 	}
-	
+
 }
