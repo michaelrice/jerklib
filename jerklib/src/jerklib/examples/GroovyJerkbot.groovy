@@ -35,19 +35,19 @@ class GroovyJerkbot implements IRCEventListener {
             def JoinCompleteEvent event = (JoinCompleteEvent) e
             e.getSession().channelSay(event.getChannel().getName(), "Hai 2u")
         } else if (e.getType() == IRCEvent.Type.CHANNEL_MESSAGE) {
-            ChannelMsgEvent event = (ChannelMsgEvent) e;
+            ChannelMsgEvent event = (ChannelMsgEvent) e
             // what does this is take the channel msg and match it to the pattern ~say foo
             def matcher = event.getMessage() =~ /^~say\s+(.*)$/
             if (matcher.matches()) {
-                e.getSession().channelSay(event.getChannel().getName(), matcher.group(1));
+                e.getSession().channelSay(event.getChannel().getName(), matcher.group(1))
             }else if(event.getMessage() ==~ /^~part.*$/) {
-                e.getSession().partChannel(event.getChannel(),"I was asked to leave");
+                e.getSession().partChannel(event.getChannel(),"I was asked to leave")
             }
 
         } else if (e.getType() == IRCEvent.Type.PRIVATE_MESSAGE) {
-            PrivateMsgEvent event = (PrivateMsgEvent)e;            
+            PrivateMsgEvent event = (PrivateMsgEvent)e            
             if(event.getMessage() ==~ /^~quit.*$/) {
-                e.getSession().close("I was asked to leave."); 
+                e.getSession().close("I was asked to leave.") 
             }
         }
 
