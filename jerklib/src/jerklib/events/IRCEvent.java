@@ -63,6 +63,7 @@ public interface IRCEvent
     MODE_EVENT,
     KICK_EVENT,
     NICK_LIST_EVENT,
+    WHO_EVENT,  
     WHOIS_EVENT,
     WHOWAS_EVENT,
     CHANNEL_LIST_EVENT,
