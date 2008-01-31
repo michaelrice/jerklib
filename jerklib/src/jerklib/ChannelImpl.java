@@ -8,14 +8,14 @@ import jerklib.events.TopicEvent;
 
 
 
-public class ChannelImpl implements Channel
+class ChannelImpl implements Channel
 {
 	private String name;
 	private Connection con;
 	private List<String>users = new ArrayList<String>();
 	private TopicEvent topicEvent;
 	
-	public ChannelImpl(String name , Connection con)
+	ChannelImpl(String name , Connection con)
 	{
 		this.name = name;
 		this.con = con;

@@ -4,7 +4,15 @@ import java.util.List;
 
 
 /**
- * Class that represents and IRC Channel.
+ * Class that represents an IRC Channel. The only way to get an
+ * instance of an implementing class is by joining a channel with one of 
+ * the Session.joinChannel() methods. You will then receive the Channel
+ * object , if join was succesful , in a JoinCompleteEvent. You can 
+ * also get at already joined channels via the Session.
+ * 
+ * @see Session
+ * @see Session#joinChannel(String)
+ * @see Session#joinChannel(String, String)
  * 
  * @author mohadib
  *
