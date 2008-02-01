@@ -113,12 +113,13 @@ class IRCEventFactory
     static WhoEvent who(String data, Connection con) {
         Pattern p = Pattern.compile("^:.+?\\s+352\\s+.+?\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?):(\\d+)\\s+(.+)$");
         Matcher m = p.matcher(data);
-        if(m.matches()) {                      
+        if(m.matches()) {
+            boolean away = m.group(6).charAt(0) == 'G';
             return new WhoEventImpl(
                     m.group(1), // channel
                     Integer.parseInt(m.group(7)), // hop count
                     m.group(3), // hostname
-                    m.group(6).charAt(0), // status indicator
+                    away, // status indicator
                     m.group(5), //nick
                     data, // raw event data
                     m.group(8), // real name

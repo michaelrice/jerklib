@@ -32,7 +32,7 @@ class GroovyJerkbot implements IRCEventListener {
     public void recieveEvent(IRCEvent e) {
         if (e.getType() == IRCEvent.Type.CONNECT_COMPLETE) {
             e.getSession().joinChannel("#jerklib")
-            e.getSession().who("mohadib") 
+            e.getSession().who("mohadib")
         }
         else if (e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
             def JoinCompleteEvent event = (JoinCompleteEvent) e
