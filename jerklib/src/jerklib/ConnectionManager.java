@@ -35,7 +35,7 @@ public class ConnectionManager
 {
 	
 	private static String version = "0.3 or greater";
-	
+	private static String extendedVersion = "";
 	static
 	{
 		Properties props = new Properties();
@@ -51,11 +51,29 @@ public class ConnectionManager
 	}
 	
 	/**
+	 * Jerklib will answer CTCP VERSION requests automatically.
+	 * This method allows users to prepend a string to the version
+	 * rely.
+	 * 
+	 * @param version The version string to use
+	 */
+	public static void setVersionString(String version)
+	{
+		if(version == null) return;
+		extendedVersion = version;
+	}
+	
+	
+	/**
 	 * gets the version string of library
 	 * @return Version string
 	 */
 	public static String getVersion()
 	{
+		if(extendedVersion.length() > 0)
+		{
+			return extendedVersion + " : " + version;
+		}
 		return version;
 	}
 	
