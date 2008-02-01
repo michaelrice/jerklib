@@ -74,7 +74,7 @@ public class WhoEventImpl implements WhoEvent {
      * @return the channel or an empty String
      */
     public String getChannel() {
-        return channel;
+        return channel.equals("*") ? "" : channel;
     }
 
     /**
