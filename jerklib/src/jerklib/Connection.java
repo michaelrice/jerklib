@@ -385,6 +385,12 @@ final class Connection
 	{
 		try
 		{
+			
+			if(quitMessage == null || quitMessage.length() == 0)
+			{
+				quitMessage = ConnectionManager.getVersion();
+			}
+			
 			WriteRequest request = new WriteRequestImpl("QUIT :" + quitMessage + "\r\n", this);
 
 			writeRequests.add(request);
