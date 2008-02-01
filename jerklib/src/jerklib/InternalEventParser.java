@@ -202,15 +202,15 @@ public class InternalEventParser
          switch (Integer.parseInt(m.group(1)))
 				{
 
-          case 001:connectionComplete(data, con, event);break;
+                    case 001:connectionComplete(data, con, event);break;
 					case 301:manager.addToRelayList(IRCEventFactory.ReceivedAwayMsg(data,con));break;
 					case 305:manager.addToRelayList(IRCEventFactory.returnedFromAway(data,con));break;
 					case 306:manager.addToRelayList(IRCEventFactory.wentAway(data,con)); break;
-          case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
+                    case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
 					case 311://whois
 					case 312: //whois
 					case 317: //TODO: whois (idle time/signon time) [bahamut at least]                        
-          case 318://whois
+                    case 318://whois
 					case 319://whois
 					case 320:whois(data, manager.getSessionFor(con), Integer.parseInt(m.group(1)));break;
 					case 321://chanlist
@@ -219,7 +219,8 @@ public class InternalEventParser
 					case 332:firstPartOfTopic(data, con);break;
 					case 333:secondPartOfTopic(data, con);break;
 					case 351:manager.addToRelayList(IRCEventFactory.serverVersion(data, con));break;
-					case 353:namesLine(data, con);break;
+                    case 352:manager.addToRelayList(IRCEventFactory.who(data,con));break;
+                    case 353:namesLine(data, con);break;
 					case 366:manager.addToRelayList(IRCEventFactory.nickList(data, con));break;
 					case 372://motd
 					case 375://motd
