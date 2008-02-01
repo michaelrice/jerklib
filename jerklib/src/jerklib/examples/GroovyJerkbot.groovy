@@ -68,7 +68,7 @@ class GroovyJerkbot implements IRCEventListener {
             println(event.isAway())
             println(e.getRawEventData())
         } else if(e.getType() == IRCEvent.Type.DEFAULT){
-            System.out.println(e.getRawEventData());
+            println(e.getRawEventData());
         }
 
     }
