@@ -198,24 +198,19 @@ public class InternalEventParser
 			Pattern p = Pattern.compile("^:\\S+\\s+(\\d{3})\\s.+$");
 			Matcher m = p.matcher(data);
 			if (m.matches())            
-            {
-                /* check if we set ourselves away or if we returned from away */
-                if(m.group(1).equals("306")) {
-                    manager.addToRelayList(IRCEventFactory.wentAway(data,con));
-                } else if(m.group(1).equals("305")) {
-                    manager.addToRelayList(IRCEventFactory.returnedFromAway(data,con));
-                }
-
-                switch (Integer.parseInt(m.group(1)))
+			{
+         switch (Integer.parseInt(m.group(1)))
 				{
 
-                    case 001:connectionComplete(data, con, event);break;
+          case 001:connectionComplete(data, con, event);break;
 					case 301:manager.addToRelayList(IRCEventFactory.ReceivedAwayMsg(data,con));break;
-                    case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
+					case 305:manager.addToRelayList(IRCEventFactory.returnedFromAway(data,con));break;
+					case 306:manager.addToRelayList(IRCEventFactory.wentAway(data,con)); break;
+          case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
 					case 311://whois
 					case 312: //whois
-                    case 317: //TODO: whois (idle time/signon time) [bahamut at least]                        
-                    case 318://whois
+					case 317: //TODO: whois (idle time/signon time) [bahamut at least]                        
+          case 318://whois
 					case 319://whois
 					case 320:whois(data, manager.getSessionFor(con), Integer.parseInt(m.group(1)));break;
 					case 321://chanlist
