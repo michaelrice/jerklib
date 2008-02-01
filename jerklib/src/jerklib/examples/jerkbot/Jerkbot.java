@@ -103,6 +103,6 @@ public class Jerkbot implements IRCEventListener {
         Jerkbot bot = new Jerkbot("jerkbot", "jerkbot", "irc.freenode.org", 6667);
         bot.loadOperations();
     }
-
-
 }
+
+
