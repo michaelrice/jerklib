@@ -111,7 +111,7 @@ class IRCEventFactory
 
     // :simmons.freenode.net 352 r0bby_ * n=wakawaka guifications/user/r0bby irc.freenode.net r0bby H :0 Robert O'Connor
     static WhoEvent who(String data, Connection con) {
-        Pattern p = Pattern.compile("^:.+?\\s+352\\s+.+?\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s(.+?)\\s(.+?):(\\d+)\\s+(.+)$");
+        Pattern p = Pattern.compile("^:.+?\\s+352\\s+.+?\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?):(\\d+)\\s+(.+)$");
         Matcher m = p.matcher(data);
         if(m.matches()) {
             boolean away = false; // default to non-away (assume we always get 'H')
