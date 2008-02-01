@@ -445,6 +445,13 @@ public class ConnectionManager
 		for(IRCEvent event : events)
 		{
 			Session s = event.getSession();
+			
+			//if session is null , this means the session has been removed or
+			// quit() in Session has been called , but not before a few
+			//events could queue up for that session. So we should continue
+			//to the next event
+			if(s == null) continue;
+			
 			Collection<IRCEventListener> listeners = s.getIRCEventListeners();
 			for(IRCEventListener listener : listeners)
 			{

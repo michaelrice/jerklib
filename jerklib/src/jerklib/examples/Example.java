@@ -67,7 +67,7 @@ public class Example implements IRCEventListener
 			@Override
 			public void run()
 			{
-				session.close("Bye");
+				manager.quit("Bye");
 			}
 		});
 		
@@ -95,19 +95,19 @@ public class Example implements IRCEventListener
 	private void initStratMap()
 	{
 
-        stratMap.put(Type.INVITE_EVENT, new IrcRunnable()
-                {
-                    @Override
-                    public void run(IRCEvent e)
-                    {
-                        /* someone invites us to a channel */
-                        InviteEvent event = (InviteEvent)e;
-                        System.out.print(event.getNick()+"!"+event.getUserName()+"@");
-                        System.out.print(event.getHostName()+" invited us to "+event.getChannel()+"\n");
-                    }
-                });
+    stratMap.put(Type.INVITE_EVENT, new IrcRunnable()
+    {
+    	@Override
+    	public void run(IRCEvent e)
+    	{
+    		/*invited to a channel */
+    		InviteEvent event = (InviteEvent)e;
+    		System.out.print(event.getNick()+"!"+event.getUserName()+"@");
+    		System.out.print(event.getHostName()+" invited us to "+event.getChannel()+"\n");
+    	}
+    });
 
-        stratMap.put(Type.CHANNEL_MESSAGE, new IrcRunnable()
+    stratMap.put(Type.CHANNEL_MESSAGE, new IrcRunnable()
 		{
 			@Override
 			public void run(IRCEvent e)
@@ -135,9 +135,8 @@ public class Example implements IRCEventListener
 			{
 				/* whois someone */
 				e.getSession().whois("mohadib");
-                
 
-                /* join a channel */
+        /* join a channel */
 				e.getSession().joinChannel("#jerklib");
 			}
 		});
