@@ -113,14 +113,12 @@ class IRCEventFactory
     static WhoEvent who(String data, Connection con) {
         Pattern p = Pattern.compile("^:.+?\\s+352\\s+.+?\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?):(\\d+)\\s+(.+)$");
         Matcher m = p.matcher(data);
-        if(m.matches()) {
-            boolean away = false; // default to non-away (assume we always get 'H')
-            if(m.group(6).equals("G")) away = true;
+        if(m.matches()) {                      
             return new WhoEventImpl(
                     m.group(1), // channel
                     Integer.parseInt(m.group(7)), // hop count
                     m.group(3), // hostname
-                    away, // status indicator
+                    m.group(6).charAt(0), // status indicator
                     m.group(5), //nick
                     data, // raw event data
                     m.group(8), // real name
@@ -132,7 +130,7 @@ class IRCEventFactory
         return null;
 
     }
-
+    
     //:kubrick.freenode.net 314 scripy1 ty n=ty 71.237.206.180 * :ty
 	//"<nick> <user> <host> * :<real name>"
 	static WhowasEvent whowas(String data , Connection con)

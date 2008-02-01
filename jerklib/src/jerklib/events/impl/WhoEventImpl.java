@@ -12,13 +12,13 @@ import jerklib.Session;
 public class WhoEventImpl implements WhoEvent {
     private final String nick,userName,realName,hostName,channel,rawEventData;
     private final String serverName;
-    private final boolean isAway;
+    private final char isAway;
     private final int hopCount;
     private final Type type = IRCEvent.Type.WHO_EVENT;
     private final Session session;
 
     public WhoEventImpl(String channel, int hopCount, String hostName,
-                        boolean away, String nick, String rawEventData,
+                        char away, String nick, String rawEventData,
                         String realName, String serverName, Session session, String userName) {
         this.channel = channel;
         this.hopCount = hopCount;
@@ -83,7 +83,8 @@ public class WhoEventImpl implements WhoEvent {
      * @return whether or not the user is away.
      */
     public boolean isAway() {
-        return isAway;
+        return isAway == 'G'; 
+
     }
 
     /**
