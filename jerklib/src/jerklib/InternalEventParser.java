@@ -526,7 +526,7 @@ public class InternalEventParser
 			PrivateMsgEvent pme = IRCEventFactory.privateMsg(data, con, nick);
 			if(pme.getMessage().equals("\001VERSION\001"));
 			{
-				pme.getSession().sayPrivate(pme.getNick(),"\001VERSION " + ConnectionManager.getVersion() + "\001");
+				pme.getSession().rawSay("NOTICE " + pme.getNick() + " :\001VERSION " + ConnectionManager.getVersion() + "\001");
 			}
 			manager.addToRelayList(pme);
 		}
