@@ -11,17 +11,21 @@ import jerklib.Session;
  */
 public class WhoEventImpl implements WhoEvent {
     private final String nick,userName,realName,hostName,channel,rawEventData;
+    private final String serverName;
     private final boolean isAway;
+    private final int hopCount;
     private final Type type = IRCEvent.Type.WHO_EVENT;
     private final Session session;
 
-    public WhoEventImpl(String channel, String hostName, boolean away, String nick, String rawEventData, String realName, Session session, String userName) {
+    public WhoEventImpl(String channel, int hopCount, String hostName, boolean away, String nick, String rawEventData, String realName, String serverName, Session session, String userName) {
         this.channel = channel;
+        this.hopCount = hopCount;
         this.hostName = hostName;
         isAway = away;
         this.nick = nick;
         this.rawEventData = rawEventData;
         this.realName = realName;
+        this.serverName = serverName;
         this.session = session;
         this.userName = userName;
     }
@@ -100,6 +104,10 @@ public class WhoEventImpl implements WhoEvent {
         return rawEventData;
     }
 
+    public int getHopCount() {
+        return hopCount;
+    }
+
     /**
      * Gets session for connection
      *
@@ -107,5 +115,9 @@ public class WhoEventImpl implements WhoEvent {
      */
     public Session getSession() {
         return session;
+    }
+
+    public String getServerName() {
+        return serverName;
     }
 }

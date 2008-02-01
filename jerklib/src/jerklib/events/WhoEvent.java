@@ -5,7 +5,8 @@ package jerklib.events;
  *
  * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor</a>
  */
-public interface WhoEvent extends IRCEvent {
+public interface
+        WhoEvent extends IRCEvent {
     /**
      * Get the nick of the user
      * @return the nick of the user.
@@ -24,6 +25,17 @@ public interface WhoEvent extends IRCEvent {
      */
     public String getHostName();
 
+    /**
+     * Get the server the user is on.
+     * @return the server. 
+     */
+    public String getServerName();
+
+    /**
+     * Returns the number of hops between you and the user.
+     * @return the hop count 
+     */
+    public int getHopCount();
     /**
      * Get the real name of the user.
      * @return the real name
