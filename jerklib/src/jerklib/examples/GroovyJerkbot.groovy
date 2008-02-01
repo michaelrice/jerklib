@@ -45,6 +45,11 @@ class GroovyJerkbot implements IRCEventListener {
                 e.getSession().channelSay(event.getChannel().getName(), matcher.group(1))
             }else if(event.getMessage() ==~ /^~part.*$/) {
                 e.getSession().partChannel(event.getChannel(),"I was asked to leave")
+            } else {
+                def whoMatcher = event.getMessage() =~ /^~who\s+(.*)$/
+                if(whoMatcher.matches()) {
+                    e.getSession().who(whoMatcher.group(1))
+                }
             }
 
         } else if (e.getType() == IRCEvent.Type.PRIVATE_MESSAGE) {
@@ -61,8 +66,7 @@ class GroovyJerkbot implements IRCEventListener {
             System.out.println(event.getServerName())
             System.out.println(event.getHostName())
             System.out.println(event.isAway())
-
-
+            println(e.getRawEventData())
         }
 
     }
