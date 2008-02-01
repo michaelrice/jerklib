@@ -393,6 +393,11 @@ final class Connection
 			doWrites();
 
 			socChannel.close();
+			
+			//need to notify conman so it can
+			//update session cache
+			manager.removeSession(manager.getSessionFor(this));
+			
 		}
 		catch (IOException e)
 		{
