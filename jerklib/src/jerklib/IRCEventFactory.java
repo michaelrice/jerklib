@@ -28,6 +28,7 @@ import jerklib.events.InviteEvent;
 import jerklib.events.WhoisEvent;
 import jerklib.events.WhowasEvent;
 import jerklib.events.AwayEvent;
+import jerklib.events.WhoEvent;
 import jerklib.events.NumericErrorEvent.ErrorType;
 import jerklib.events.impl.JoinCompleteEventImpl;
 import jerklib.events.impl.JoinEventImpl;
@@ -52,6 +53,7 @@ import jerklib.events.impl.InviteEventImpl;
 import jerklib.events.impl.WhoisEventImpl;
 import jerklib.events.impl.WhowasEventImpl;
 import jerklib.events.impl.AwayEventImpl;
+import jerklib.events.impl.WhoEventImpl;
 
 
 class IRCEventFactory
@@ -106,8 +108,32 @@ class IRCEventFactory
 	  }
 	  return null;
 	}
-	
-	//:kubrick.freenode.net 314 scripy1 ty n=ty 71.237.206.180 * :ty
+
+    // :simmons.freenode.net 352 r0bby_ * n=wakawaka guifications/user/r0bby irc.freenode.net r0bby H :0 Robert O'Connor
+    static WhoEvent who(String data, Connection con) {
+        Pattern p = Pattern.compile("^:.+?\\s+352\\s+.+?\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s(.+?)\\s(.+?):(\\d+)\\s+(.+)$");
+        Matcher m = p.matcher(data);
+        if(m.matches()) {
+            boolean away = false; // default to non-away (assume we always get 'H')
+            if(m.group(6).equals("G")) away = true;
+            return new WhoEventImpl(
+                    m.group(1), // channel
+                    Integer.parseInt(m.group(7)), // hop count
+                    m.group(3), // hostname
+                    away, // status indicator
+                    m.group(5), //nick
+                    data, // raw event data
+                    m.group(8), // real name
+                    m.group(4), // server name
+                    myManager.getSessionFor(con), //session
+                    m.group(2)); // username
+
+        }
+        return null;
+
+    }
+
+    //:kubrick.freenode.net 314 scripy1 ty n=ty 71.237.206.180 * :ty
 	//"<nick> <user> <host> * :<real name>"
 	static WhowasEvent whowas(String data , Connection con)
 	{

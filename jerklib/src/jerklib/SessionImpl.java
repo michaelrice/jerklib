@@ -478,8 +478,19 @@ public class SessionImpl implements Session
 	{
 		con.getServerVersion(hostPattern);
 	}
-	
-	/* (non-Javadoc)
+
+    /**
+     * (non-Javadoc)
+     * @see Session#who(java.lang.String)
+     * @param who
+     */
+    @Override
+    public void who(String who) {
+        con.who(who);
+    }
+
+
+    /* (non-Javadoc)
 	 * @see jerklib.Session#addIRCEventListener(jerklib.events.listeners.IRCEventListener)
 	 */
 	@Override

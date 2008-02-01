@@ -37,9 +37,8 @@ public class QuitOperation implements BotOperation {
             String message = event.getMessage(); // message
             Matcher m = p.matcher(message);
             if (m.matches()) {
-                if(m.group(1).equals(password)) {
-                    e.getSession().close(m.group(1));
-                }
+                // note: on freenode their IRCD suppresses quit msgs sometimes.
+                e.getSession().close("I quit");
             }
 
 

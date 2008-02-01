@@ -8,6 +8,7 @@ import jerklib.events.JoinCompleteEvent
 import jerklib.ConnectionManager
 import jerklib.events.ChannelMsgEvent
 import jerklib.events.PrivateMsgEvent
+import jerklib.events.WhoEvent
 
 /**
 * Created: Jan 29, 2008 11:42:23 PM
@@ -21,6 +22,7 @@ class GroovyJerkbot implements IRCEventListener {
                 nick + new Random().nextInt(512))
         manager = new ConnectionManager(profile)
         manager.requestConnection(hostname, port).addIRCEventListener(this)
+
     }
 
     public static void main(String[] args) {
@@ -30,6 +32,7 @@ class GroovyJerkbot implements IRCEventListener {
     public void recieveEvent(IRCEvent e) {
         if (e.getType() == IRCEvent.Type.CONNECT_COMPLETE) {
             e.getSession().joinChannel("#jerklib")
+            e.getSession().who("mohadib"); 
         }
         else if (e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
             def JoinCompleteEvent event = (JoinCompleteEvent) e
@@ -49,6 +52,17 @@ class GroovyJerkbot implements IRCEventListener {
             if(event.getMessage() ==~ /^~quit.*$/) {
                 e.getSession().close("I was asked to leave.") 
             }
+        } else if(e.getType() == IRCEvent.Type.WHO_EVENT) {
+            WhoEvent event = (WhoEvent)e;
+            System.out.println(event.getChannel());
+            System.out.println(event.getNick())
+            System.out.println(event.getUserName());
+            System.out.println(event.getRealName());
+            System.out.println(event.getServerName());
+            System.out.println(event.getHostName());
+            System.out.println(event.isAway());
+
+
         }
 
     }

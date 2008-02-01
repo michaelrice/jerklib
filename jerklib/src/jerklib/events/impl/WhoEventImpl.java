@@ -17,7 +17,9 @@ public class WhoEventImpl implements WhoEvent {
     private final Type type = IRCEvent.Type.WHO_EVENT;
     private final Session session;
 
-    public WhoEventImpl(String channel, int hopCount, String hostName, boolean away, String nick, String rawEventData, String realName, String serverName, Session session, String userName) {
+    public WhoEventImpl(String channel, int hopCount, String hostName,
+                        boolean away, String nick, String rawEventData,
+                        String realName, String serverName, Session session, String userName) {
         this.channel = channel;
         this.hopCount = hopCount;
         this.hostName = hostName;

@@ -270,12 +270,18 @@ class InternalSessionImpl implements Session , InternalSession
 		session.whois(nick);
 	}
 	
-	public void whowas(String nick)
+	@Override
+    public void whowas(String nick)
 	{
 		session.whowas(nick);
 	}
-	
-	@Override
+
+    @Override
+    public void who(String who) {
+        session.who(who);
+    }
+
+    @Override
 	public void mode(Channel channel, String mode) 
 	{
 		session.mode(channel, mode);
