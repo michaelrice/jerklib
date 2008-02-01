@@ -14,10 +14,10 @@ import jerklib.events.WhoEvent
 * Created: Jan 29, 2008 11:42:23 PM
 * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor</a>
 */
-class GroovyIsJerkbot implements IRCEventListener {
+class GroovyJerkbot implements IRCEventListener {
     def ConnectionManager manager
 
-    GroovyIsJerkbot(String nick, String username, String hostname, int port) {
+    GroovyJerkbot(String nick, String username, String hostname, int port) {
         def Profile profile = new ProfileImpl(username, nick, nick + new Random().nextInt(42),
                 nick + new Random().nextInt(512))
         manager = new ConnectionManager(profile)
@@ -26,7 +26,7 @@ class GroovyIsJerkbot implements IRCEventListener {
     }
 
     def static void main(String[] args) {
-        def GroovyIsJerkbot bot = new GroovyIsJerkbot("jerkbot", "jerkbot", "irc.freenode.org", 6667)
+        def GroovyJerkbot bot = new GroovyJerkbot("jerkbot", "jerkbot", "irc.freenode.org", 6667)
     }
 
     def void recieveEvent(IRCEvent e) {
