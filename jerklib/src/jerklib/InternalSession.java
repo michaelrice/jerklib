@@ -3,11 +3,29 @@ package jerklib;
 import java.util.List;
 
 
+
+/**
+ * A pkg access interface that is used internally
+ * to manage Session properties like channels joined
+ * and connection state.
+ * 
+ * @author mohadib
+ * @see Session
+ */
 interface InternalSession extends Session
 {
 	
+	/**
+	 * Gets the proxied Session.
+	 * @return the Session
+	 */
 	Session getSession();
 	
+	
+	/**
+	 * Gets the connection state of this Session
+	 * @return the ConnectionState
+	 */
 	ConnectionState getConnectionState();
 	
 	void setConnectionState(State state);
