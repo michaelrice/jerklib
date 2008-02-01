@@ -25,11 +25,11 @@ class GroovyJerkbot implements IRCEventListener {
 
     }
 
-    static void main(String[] args) {
+    def static void main(String[] args) {
         def GroovyJerkbot bot = new GroovyJerkbot("jerkbot", "jerkbot", "irc.freenode.org", 6667)
     }
 
-    void recieveEvent(IRCEvent e) {
+    def void recieveEvent(IRCEvent e) {
         if (e.getType() == IRCEvent.Type.CONNECT_COMPLETE) {
             e.getSession().joinChannel("#jerklib")
             e.getSession().who("mohadib")
@@ -59,13 +59,13 @@ class GroovyJerkbot implements IRCEventListener {
             }
         } else if(e.getType() == IRCEvent.Type.WHO_EVENT) {
             WhoEvent event = (WhoEvent)e
-            System.out.println(event.getChannel())
-            System.out.println(event.getNick())
-            System.out.println(event.getUserName())
-            System.out.println(event.getRealName())
-            System.out.println(event.getServerName())
-            System.out.println(event.getHostName())
-            System.out.println(event.isAway())
+            println(event.getChannel())
+            println(event.getNick())
+            println(event.getUserName())
+            println(event.getRealName())
+            println(event.getServerName())
+            println(event.getHostName())
+            println(event.isAway())
             println(e.getRawEventData())
         }
 
