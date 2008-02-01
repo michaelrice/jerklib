@@ -36,6 +36,7 @@ import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
 import jerklib.events.NickChangeEvent;
 import jerklib.events.PartEvent;
+import jerklib.events.PrivateMsgEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
@@ -522,7 +523,12 @@ public class InternalEventParser
 		}
 		else
 		{
-			manager.addToRelayList(IRCEventFactory.privateMsg(data, con, nick));
+			PrivateMsgEvent pme = IRCEventFactory.privateMsg(data, con, nick);
+			if(pme.getMessage().equals("\001VERSION\001"));
+			{
+				pme.getSession().sayPrivate(pme.getNick(),"\001VERSION " + ConnectionManager.getVersion() + "\001");
+			}
+			manager.addToRelayList(pme);
 		}
 	}
 

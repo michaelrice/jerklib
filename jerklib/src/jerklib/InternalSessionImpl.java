@@ -7,6 +7,13 @@ import jerklib.events.listeners.IRCEventListener;
 
 
 
+/**
+ * (non-Javadoc)
+ * @see InternalSession
+ * @author mohadib
+ * 
+ *
+ */
 class InternalSessionImpl implements InternalSession
 {
 
