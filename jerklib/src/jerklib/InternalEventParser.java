@@ -57,19 +57,150 @@ import jerklib.events.impl.WhoisEventImpl;
  */
 public class InternalEventParser
 {
-
 	private ConnectionManager manager;
-
 	private Map<Channel, TopicEvent> topicMap = new HashMap<Channel, TopicEvent>();
-
-	//private Map<Pair<String, Connection> , WhoisEvent> whoisMap = new HashMap<Pair<String,Connection>, WhoisEvent>();
 	private WhoisEventImpl we;
+	
 	
 	public InternalEventParser(ConnectionManager manager)
 	{
 		this.manager = manager;
 	}
 
+	/**
+	 * Takes an IRCEvent and tries to parse it into a more specific event then
+	 * redispatch the more specfic event
+	 * 
+	 * @param event
+	 *          <code>IRCEvent</code> the event to parse
+	 * 
+	 */
+	void parseEvent(IRCEvent event)
+	{
+		final Connection con = ((InternalSession) event.getSession()).getConnection();
+		final String data = event.getRawEventData();
+		final String nick = con.getProfile().getActualNick();
+
+		
+		String[] tokens = data.split("\\s+");
+		if(tokens.length > 1)
+		{
+			if(tokens[1].matches("^\\d{3}$"))
+			{
+				numericEvent(data, con, event, Integer.parseInt(tokens[1]));
+			}
+			else
+			{
+				String command = tokens[1];
+				if(command.equals("PRIVMSG"))
+				{
+					privMsg(data, con, nick);
+				}
+				else if(command.equals("QUIT"))
+				{
+					QuitEvent qEvent = IRCEventFactory.quit(data, con);
+					con.removeNickFromAllChannels(qEvent.getWho());
+					manager.addToRelayList(qEvent);
+				}
+				else if(command.equals("JOIN"))
+				{
+					/*
+					 * JOIN COMPLETED must come before 'SOMEONE JOINS A CHANNEL'
+					 * :BILLY42!~BILLY@dhcp64-134-133-42.smh.phx.wayport.net JOIN :#test
+					 * :BILLY42!~BILLY@dhcp64-134-133-42.smh.phx.wayport.net JOIN #test
+					 * :SwingBot!n=SwingBot@207.114.175.81 JOIN :##swing
+					 */
+					Pattern p = Pattern.compile("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?(#.*)$");
+					Matcher m = p.matcher(data);
+					if(m.matches())
+					{
+						Channel channel = new ChannelImpl(m.group(1), con);
+						con.addChannel(channel);
+						manager.getSessionFor(con).addChannelName(channel.getName());
+						manager.addToRelayList(IRCEventFactory.joinCompleted(data, con, nick, channel));
+					}
+					else
+					{
+						JoinEvent jEvent = IRCEventFactory.regularJoin(data, con);
+						((ChannelImpl)jEvent.getChannel()).addNick(jEvent.getWho());
+						manager.addToRelayList(jEvent);
+					}
+				}
+				else if(command.equals("MODE"))
+				{
+					manager.addToRelayList(IRCEventFactory.modeEvent(data, con));
+				}
+				else if(command.equals("PART"))
+				{
+					/*
+					 * PART :tdegruyl!~tdegruyl@c-24-60-127-140.hsd1.ma.comcast.net PART #perl :
+					 * :DrGonzo42069!~raulduke@c-67-171-159-2.hsd1.or.comcast.net PART #debian
+					 * :"Kopete 0.10 : http://kopete.kde.org"
+					 * :mooohadib!~mohadib@63-230-98-87.albq.qwest.net PART #test
+					 */
+					PartEvent pEvent = IRCEventFactory.part(data, con);
+					((ChannelImpl)pEvent.getChannel()).removeNick(pEvent.getWho());
+					manager.addToRelayList(pEvent);
+				}
+				else if(command.equals("NOTICE"))
+				{
+					manager.addToRelayList(IRCEventFactory.notice(data, con));
+				}
+				else if(command.equals("TOPIC"))
+				{
+					Pattern p = Pattern.compile("^.+?TOPIC\\s+(#.+?)\\s+.*$");
+					Matcher m = p.matcher(data);
+					m.matches();
+					event.getSession().rawSay("TOPIC " + m.group(1) + "\r\n");
+				}
+				else if(command.equals("INVITE"))
+				{
+					manager.addToRelayList(IRCEventFactory.invitedToChan(data, con));
+				}
+				else if(command.equals("NICK"))
+				{
+					NickChangeEvent nEvent = IRCEventFactory.nickChange(data, con);
+					con.nickChanged(nEvent.getOldNick(), nEvent.getNewNick());
+					if (nEvent.getOldNick().equals(nick))
+					{
+						event.getSession().updateProfileSuccessfully(true);
+					}
+					manager.addToRelayList(nEvent);
+				}
+				else if(command.equals("KICK"))
+				{
+					KickEvent ke = IRCEventFactory.kick(data, con);
+					if (!((ChannelImpl)ke.getChannel()).removeNick(ke.getWho()))
+					{
+						System.out.println("COULD NOT REMOVE NICK " + ke.getWho() + " from channel " + ke.getChannel().getName());
+					}
+
+					if (ke.getWho().equals(nick))
+					{
+						con.removeChannel(ke.getChannel());
+						if (manager.getSessionFor(con).isRejoinOnKick()) con.join(ke.getChannel().getName());
+					}
+					manager.addToRelayList(ke);
+				}
+				/* PING PONG */
+				else if (data.matches("^PING.*"))
+				{
+					con.pong(event);
+					manager.addToRelayList(event);
+				}
+				else if (data.matches(".*PONG.*"))
+				{
+					con.gotPong();
+					manager.addToRelayList(event);
+				}
+				else 
+				{
+					manager.addToRelayList(event);
+				}
+			}
+		}
+	}
+	
 	/*
 	 * :card.freenode.net 321 r0bby___ Channel :Users Name :card.freenode.net 322
 	 * r0bby___ #jerklib 6 :JerkLib - You know you want it :card.freenode.net 323
@@ -77,20 +208,12 @@ public class InternalEventParser
 	 */
 	private void chanList(String data, Connection con)
 	{
-		if (data.matches("^:\\S+\\s321\\s.+$"))
-		{
-			System.out.println(data);
-		}
-		else if (data.matches("^:\\S+\\s322\\s.*"))
+		if (data.matches("^:\\S+\\s322\\s.*"))
 		{
 			manager.addToRelayList(IRCEventFactory.chanList(data, con));
 		}
-		else
-		{
-			System.out.println(data);
-		}
 	}
-	
+
 	/*
 	:kubrick.freenode.net 311 scripy mohadib n=fran unaffiliated/mohadib * :fran
 	:kubrick.freenode.net 319 scripy mohadib :#jerklib 
@@ -163,8 +286,6 @@ public class InternalEventParser
 			default:System.out.println(data);
 		}
 	}
-
-
 	
 	private void numericEvent(String data ,Connection con ,IRCEvent event,int numeric)
 	{
@@ -241,177 +362,6 @@ public class InternalEventParser
 		}
 	}
 	
-	
-	/**
-	 * Takes an IRCEvent and tries to parse it into a more specific event then
-	 * redispatch the more specfic event
-	 * 
-	 * @param event
-	 *          <code>IRCEvent</code> the event to parse
-	 * 
-	 */
-	void parseEvent(IRCEvent event)
-	{
-		final Connection con = ((InternalSession) event.getSession()).getConnection();
-		final String data = event.getRawEventData().trim();
-		final String nick = con.getProfile().getActualNick();
-		final IRCEvent origEventCopy = event;
-
-		
-		String[] tokens = data.split("\\s+");
-		if(tokens.length > 1)
-		{
-			if(tokens[1].matches("^\\d{3}$"))
-			{
-				numericEvent(data, con, event, Integer.parseInt(tokens[1]));
-			}
-			else
-			{
-				String command = tokens[1];
-				if(command.equals("PRIVMSG"))
-				{
-					privMsg(data, con, nick);
-				}
-				else if(command.equals("QUIT"))
-				{
-					QuitEvent qEvent = IRCEventFactory.quit(data, con);
-					con.removeNickFromAllChannels(qEvent.getWho());
-					manager.addToRelayList(qEvent);
-				}
-				else if(command.equals("JOIN"))
-				{
-					/*
-					 * JOIN COMPLETED must come before 'SOMEONE JOINS A CHANNEL'
-					 * :BILLY42!~BILLY@dhcp64-134-133-42.smh.phx.wayport.net JOIN :#test
-					 * :BILLY42!~BILLY@dhcp64-134-133-42.smh.phx.wayport.net JOIN #test
-					 * :SwingBot!n=SwingBot@207.114.175.81 JOIN :##swing
-					 */
-					Pattern p = Pattern.compile("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?(#.*)$");
-					Matcher m = p.matcher(data);
-					if(m.matches())
-					{
-						Channel channel = new ChannelImpl(m.group(1), con);
-						con.addChannel(channel);
-						manager.getSessionFor(con).addChannelName(channel.getName());
-						manager.addToRelayList(IRCEventFactory.joinCompleted(data, con, nick, channel));
-					}
-					else
-					{
-						JoinEvent jEvent = IRCEventFactory.regularJoin(data, con);
-						((ChannelImpl)jEvent.getChannel()).addNick(jEvent.getWho());
-						manager.addToRelayList(jEvent);
-					}
-				}
-				else if(command.equals("MODE"))
-				{
-					manager.addToRelayList(IRCEventFactory.modeEvent(data, con));
-				}
-			}
-		}
-		
-
-
-
-		else if (data.matches("^:.+?\\!.+?\\s+JOIN\\s+:?#.*$"))
-		{
-			
-		}
-
-		/*
-		 * PART :tdegruyl!~tdegruyl@c-24-60-127-140.hsd1.ma.comcast.net PART #perl :
-		 * :DrGonzo42069!~raulduke@c-67-171-159-2.hsd1.or.comcast.net PART #debian
-		 * :"Kopete 0.10 : http://kopete.kde.org"
-		 * :mooohadib!~mohadib@63-230-98-87.albq.qwest.net PART #test
-		 */
-		else if (data.matches("^:.+?\\!.+?\\s+PART\\s+#.*$"))
-		{
-			PartEvent pEvent = IRCEventFactory.part(data, con);
-
-			((ChannelImpl)pEvent.getChannel()).removeNick(pEvent.getWho());
-
-			event = pEvent;
-		}
-
-		/* Generic NOTICE from server - not a specific usar ... so it seems */
-		else if (data.matches("^NOTICE.+"))
-		{
-			event = IRCEventFactory.notice(data, con);
-		}
-
-		// channel notice - does this actually happen?
-		else if (data.matches("^:.+?\\!.+?\\s+NOTICE\\s+#.+?\\s+:.*$"))
-		{
-			event = IRCEventFactory.notice(data, con);
-		}
-
-		// user notice
-		else if (data.matches("^:.+?\\!.+?\\s+NOTICE\\s+.*?\\s+:.*$"))
-		{
-			event = IRCEventFactory.notice(data, con);
-		}
-
-		// topic changed
-		// :mohadib!n=fran@unaffiliated/mohadib TOPIC #jerklib :Jerklib
-		else if (data.matches("^:.+?\\!\\S+\\s+TOPIC\\s+#.+?\\s+:.*$"))
-		{
-			Pattern p = Pattern.compile("^.+?TOPIC\\s+(#.+?)\\s+.*$");
-			Matcher m = p.matcher(data);
-			m.matches();
-			event.getSession().rawSay("TOPIC " + m.group(1) + "\r\n");
-			return;
-		}
-		// :r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2
-		else if (data.matches("^:.+?!.+\\sINVITE\\s.*\\s:.+?$"))
-		{
-			event = IRCEventFactory.invitedToChan(data, con);
-		}
-
-		/* NICK CHANGE :mohadib!~mohadib@65.19.62.93 NICK :slaps */
-		else if (data.matches("^:.+?\\!.+?\\s+NICK\\s+:.*"))
-		{
-			NickChangeEvent nEvent = IRCEventFactory.nickChange(data, con);
-			con.nickChanged(nEvent.getOldNick(), nEvent.getNewNick());
-			event = nEvent;
-
-			if (nEvent.getOldNick().equals(nick))
-			{
-				event.getSession().updateProfileSuccessfully(true);
-			}
-		}
-
-		/* KICK :mohadib!~mohadib@67.41.102.162 KICK #test scab :bye! */
-		else if (data.matches("^:.+?\\!\\S+\\s+KICK\\s+\\S+\\s+\\S+\\s+:.*$"))
-		{
-			KickEvent ke = IRCEventFactory.kick(data, con);
-
-			if (!((ChannelImpl)ke.getChannel()).removeNick(ke.getWho()))
-			{
-				System.out.println("COULD NOT REMOVE NICK " + ke.getWho() + " from channel " + ke.getChannel().getName());
-			}
-
-			if (ke.getWho().equals(nick))
-			{
-				con.removeChannel(ke.getChannel());
-				if (manager.getSessionFor(con).isRejoinOnKick()) con.join(ke.getChannel().getName());
-			}
-			event = ke;
-		}
-
-		/* PING PONG */
-		else if (data.matches("^PING.*"))
-		{
-			con.pong(event);
-			return;
-		}
-		else if (data.matches(".*PONG.*"))
-		{
-			con.gotPong();
-			return;
-		}
-
-		manager.addToRelayList(event == null ? origEventCopy : event);
-	}
-
 	private void firstPartOfTopic(String data, Connection con)
 	{
 		// FIRST PART TOF TOPPIC;
@@ -503,8 +453,6 @@ public class InternalEventParser
 		}
 	}
 
-	
-	
 	/*
 	 * A Channel Msg :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah
 	 * Private message :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!
@@ -545,8 +493,4 @@ public class InternalEventParser
 			}
 		}
 	}
-
-	
-
-	
 }
