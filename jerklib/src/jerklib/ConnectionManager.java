@@ -316,6 +316,12 @@ public class ConnectionManager
 
 	void addToRelayList(IRCEvent event)
 	{
+		if(event == null)
+		{
+			new Exception().printStackTrace();
+			quit("Null Pointers In my Code??! :(");
+			return;
+		}
 		relayQueue.add(event);
 	}
 	
@@ -350,7 +356,6 @@ public class ConnectionManager
 		
 		dispatchTimer.schedule(dispatchTask, 0 , 200);
 	}
-	
 	
 	private void doNetworkIO()
 	{

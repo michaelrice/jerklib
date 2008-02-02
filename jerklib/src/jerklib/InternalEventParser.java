@@ -108,7 +108,7 @@ public class InternalEventParser
 					Matcher m = p.matcher(data);
 					if(m.matches())
 					{
-						Channel channel = new ChannelImpl(m.group(1), con);
+						Channel channel = new ChannelImpl(m.group(1).toLowerCase(), con);
 						con.addChannel(channel);
 						manager.getSessionFor(con).addChannelName(channel.getName());
 						manager.addToRelayList(IRCEventFactory.joinCompleted(data, con, nick, channel));
@@ -122,7 +122,9 @@ public class InternalEventParser
 				}
 				else if(command.equals("MODE"))
 				{
-					manager.addToRelayList(IRCEventFactory.modeEvent(data, con));
+					manager.addToRelayList(event);
+					//debugging
+					//manager.addToRelayList(IRCEventFactory.modeEvent(data, con));
 				}
 				else if(command.equals("PART"))
 				{
@@ -372,7 +374,7 @@ public class InternalEventParser
 			Pattern p = Pattern.compile(":(.+?)\\s+333\\s+(.+?)\\s+(#.+?)\\s+(\\S+)\\s+(\\S+)$");
 			Matcher m = p.matcher(data);
 			m.matches();
-			ChannelImpl chan = (ChannelImpl) con.getChannel(m.group(3));
+			ChannelImpl chan = (ChannelImpl) con.getChannel(m.group(3).toLowerCase());
 			if (topicMap.containsKey(chan))
 			{
 				TopicEventImpl tEvent = (TopicEventImpl) topicMap.get(chan);
@@ -388,7 +390,7 @@ public class InternalEventParser
 	private void nick(String data, Connection con, Session session)
 	{
 		/* NICK IN USE */
-		if (data.matches(".+?\\s433\\s.+?\\s.+?\\s:?Nickname is already in use.*$"))
+		if (data.matches(".+?\\s433\\s.+?\\s.+?\\s:?*$"))
 		{
 			if (session.isConnected() && session.isProfileUpdating())
 			{
@@ -407,11 +409,8 @@ public class InternalEventParser
 				{
 					newNick = p.getThirdNick();
 				}
-
 				((ProfileImpl)p).setActualNick(newNick);
-
 				session.changeProfile(p);
-
 				manager.addToRelayList(IRCEventFactory.nickInUse(data, con));
 			}
 		}
@@ -457,15 +456,15 @@ public class InternalEventParser
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
-			Channel chan = con.getChannel(m.group(1).toLowerCase().trim());
-			String[] names = m.group(2).trim().split("\\s+");
+			Channel chan = con.getChannel(m.group(1).toLowerCase());
+			String[] names = m.group(2).split("\\s+");
 
 			for (String name : names)
 			{
 				// remove @ and + from front for voice and ops ?
 				if (name != null && name.length() > 0)
 				{
-					((ChannelImpl)chan).addNick(name.toLowerCase().replace("+", "").replace("@", "").trim());
+					((ChannelImpl)chan).addNick(name.toLowerCase().replace("+", "").replace("@", ""));
 				}
 			}
 		}
