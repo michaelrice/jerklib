@@ -59,16 +59,16 @@ class GroovyJerkbot implements IRCEventListener {
             }
         } else if(e.getType() == IRCEvent.Type.WHO_EVENT) {
             WhoEvent event = (WhoEvent)e
-            println(event.getChannel())
-            println(event.getNick())
-            println(event.getUserName())
-            println(event.getRealName())
-            println(event.getServerName())
-            println(event.getHostName())
-            println(event.isAway())
-            println(e.getRawEventData())
+            println event.getChannel()
+            println event.getNick()
+            println event.getUserName()
+            println event.getRealName()
+            println event.getServerName()
+            println event.getHostName()
+            println event.isAway()
+            println e.getRawEventData()
         } else if(e.getType() == IRCEvent.Type.DEFAULT){
-            println(e.getRawEventData());
+            println e.getRawEventData()
         }
 
     }
