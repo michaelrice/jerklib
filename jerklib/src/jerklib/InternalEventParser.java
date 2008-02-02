@@ -52,6 +52,7 @@ import jerklib.events.impl.WhoisEventImpl;
  * stuff depends on this class as well. Like keeping track of nicks in a channel
  * or knowing when a connection is ready to join channels etc.
  * 
+ * Thanks to Gracenotes for the help
  * @author mohadib
  * 
  */
@@ -69,7 +70,7 @@ public class InternalEventParser
 
 	/**
 	 * Takes an IRCEvent and tries to parse it into a more specific event then
-	 * redispatch the more specfic event
+	 * redispatch the more specfic event.
 	 * 
 	 * @param event
 	 *          <code>IRCEvent</code> the event to parse
@@ -80,9 +81,8 @@ public class InternalEventParser
 		final Connection con = ((InternalSession) event.getSession()).getConnection();
 		final String data = event.getRawEventData();
 		final String nick = con.getProfile().getActualNick();
-
-		
 		String[] tokens = data.split("\\s+");
+		
 		if(tokens.length > 1)
 		{
 			if(tokens[1].matches("^\\d{3}$"))
@@ -104,12 +104,6 @@ public class InternalEventParser
 				}
 				else if(command.equals("JOIN"))
 				{
-					/*
-					 * JOIN COMPLETED must come before 'SOMEONE JOINS A CHANNEL'
-					 * :BILLY42!~BILLY@dhcp64-134-133-42.smh.phx.wayport.net JOIN :#test
-					 * :BILLY42!~BILLY@dhcp64-134-133-42.smh.phx.wayport.net JOIN #test
-					 * :SwingBot!n=SwingBot@207.114.175.81 JOIN :##swing
-					 */
 					Pattern p = Pattern.compile("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?(#.*)$");
 					Matcher m = p.matcher(data);
 					if(m.matches())
@@ -132,12 +126,6 @@ public class InternalEventParser
 				}
 				else if(command.equals("PART"))
 				{
-					/*
-					 * PART :tdegruyl!~tdegruyl@c-24-60-127-140.hsd1.ma.comcast.net PART #perl :
-					 * :DrGonzo42069!~raulduke@c-67-171-159-2.hsd1.or.comcast.net PART #debian
-					 * :"Kopete 0.10 : http://kopete.kde.org"
-					 * :mooohadib!~mohadib@63-230-98-87.albq.qwest.net PART #test
-					 */
 					PartEvent pEvent = IRCEventFactory.part(data, con);
 					((ChannelImpl)pEvent.getChannel()).removeNick(pEvent.getWho());
 					manager.addToRelayList(pEvent);
@@ -182,7 +170,6 @@ public class InternalEventParser
 					}
 					manager.addToRelayList(ke);
 				}
-				/* PING PONG */
 				else if (data.matches("^PING.*"))
 				{
 					con.pong(event);
@@ -201,11 +188,6 @@ public class InternalEventParser
 		}
 	}
 	
-	/*
-	 * :card.freenode.net 321 r0bby___ Channel :Users Name :card.freenode.net 322
-	 * r0bby___ #jerklib 6 :JerkLib - You know you want it :card.freenode.net 323
-	 * r0bby___ :End of /LIST
-	 */
 	private void chanList(String data, Connection con)
 	{
 		if (data.matches("^:\\S+\\s322\\s.*"))
@@ -438,7 +420,6 @@ public class InternalEventParser
 
 	private void connectionComplete(String data, Connection con, IRCEvent event)
 	{
-
 		/*
 		 * CONNECTION COMPLETE irc,freenode.net might actually be
 		 * niveen.freenode.net :irc.nmglug.org 001 namnar :Welcome to the nmglug.org
@@ -453,10 +434,6 @@ public class InternalEventParser
 		}
 	}
 
-	/*
-	 * A Channel Msg :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah
-	 * Private message :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!
-	 */
 	private void privMsg(String data, Connection con, String nick)
 	{
 		if (data.matches("^.+?PRIVMSG\\s+#.+$"))
@@ -485,7 +462,7 @@ public class InternalEventParser
 
 			for (String name : names)
 			{
-				// remove @ and + from front for operators ?
+				// remove @ and + from front for voice and ops ?
 				if (name != null && name.length() > 0)
 				{
 					((ChannelImpl)chan).addNick(name.toLowerCase().replace("+", "").replace("@", "").trim());

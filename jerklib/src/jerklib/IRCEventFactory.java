@@ -263,6 +263,10 @@ class IRCEventFactory
 	}
 
 	
+	/*
+	 * A Channel Msg :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah
+	 * Private message :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!
+	 */
   static ChannelMsgEvent channelMsg(String data , Connection con)
   {
     Pattern p = Pattern.compile("^:(.*?)\\!(.*?)@(.*?)\\s+PRIVMSG\\s+(\\S+)\\s+:(.*)$");
@@ -488,7 +492,12 @@ class IRCEventFactory
     return null;
   }
   
-    //:card.freenode.net 322 ronnoco #blender.de 6 :happy new year <- the data we need parse
+    
+  /*
+	 * :card.freenode.net 321 r0bby___ Channel :Users Name :card.freenode.net 322
+	 * r0bby___ #jerklib 6 :JerkLib - You know you want it :card.freenode.net 323
+	 * r0bby___ :End of /LIST
+	 */
     static ChannelListEvent chanList(String data, Connection con) 
     {
     	Pattern p = Pattern.compile("^:\\S+\\s322\\s\\S+\\s(#\\S+)\\s(\\d+)\\s:(.*)$");
@@ -538,7 +547,10 @@ class IRCEventFactory
     return null;
   }
   
-  
+	/*
+	 * A Channel Msg :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah
+	 * Private message :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!
+	 */
   static PrivateMsgEvent privateMsg(String data , Connection con , String nick ){
     Pattern p = Pattern.compile("^:(.+?)\\!(.+?)@(.+?)\\sprivmsg\\s\\Q" + nick + "\\E\\s+:(.*)$", Pattern.CASE_INSENSITIVE);
     Matcher m = p.matcher(data);
@@ -577,6 +589,7 @@ class IRCEventFactory
   }
   
 
+  //niveen.freenode.net :irc.nmglug.org 001 namnar :Welcome to the nmglug.org
   static ConnectionCompleteEvent updateHostName(String data , Connection con , String oldHostName)
   {
     Pattern p = Pattern.compile(":(.*?)\\s+001\\s+\\Q" + con.getProfile().getActualNick() + "\\E\\s+:.*$");
