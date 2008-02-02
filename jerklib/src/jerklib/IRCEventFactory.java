@@ -441,7 +441,11 @@ class IRCEventFactory
     );
   }
   
-  //:r0bby__!n=wakawaka@cpe-24-164-167-171.hvc.res.rr.com QUIT :Client Quit
+  /*:r0bby__!n=wakawaka@cpe-24-164-167-171.hvc.res.rr.com QUIT :Client Quit
+	 * PERSON QUIT :Xolt!brad@c-67-165-231-230.hsd1.co.comcast.net QUIT
+	 * :"Deleted" :james_so!~me@213-152-46-35.dsl.eclipse.net.uk QUIT :Read
+	 * error: 60 (Operation timed out)
+	 */
   static QuitEvent quit(String data , Connection con)
   {
     Pattern pattern = Pattern.compile("^:(.+?)!(.+?)@(.+?)\\s+QUIT\\s+:(.*)$");

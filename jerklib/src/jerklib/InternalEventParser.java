@@ -166,6 +166,82 @@ public class InternalEventParser
 
 
 	
+	private void numericEvent(String data ,Connection con ,IRCEvent event,int numeric)
+	{
+    switch (numeric)
+		{
+			case 001:connectionComplete(data, con, event);break;
+			case 301:manager.addToRelayList(IRCEventFactory.ReceivedAwayMsg(data,con));break;
+			case 305:manager.addToRelayList(IRCEventFactory.returnedFromAway(data,con));break;
+			case 306:manager.addToRelayList(IRCEventFactory.wentAway(data,con)); break;
+			case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
+			case 311://whois
+			case 312: //whois
+			case 317: //TODO: whois (idle time/signon time) [bahamut at least]                        
+			case 318://whois
+			case 319://whois
+			case 320:whois(data, manager.getSessionFor(con), numeric);break;
+			case 321://chanlist
+			case 322://chanlist
+			case 323:chanList(data, con);break;
+			case 332:firstPartOfTopic(data, con);break;
+			case 333:secondPartOfTopic(data, con);break;
+			case 351:manager.addToRelayList(IRCEventFactory.serverVersion(data, con));break;
+			case 352:manager.addToRelayList(IRCEventFactory.who(data,con));break;
+			case 353:namesLine(data, con);break;
+			case 366:manager.addToRelayList(IRCEventFactory.nickList(data, con));break;
+			case 372://motd
+			case 375://motd
+			case 376:manager.addToRelayList(IRCEventFactory.motd(data, con));break;
+			case 433:nick(data, con, event.getSession());break;
+			case 401:
+			case 402:
+			case 403:
+			case 404:
+			case 405:
+			case 406:
+			case 407:
+			case 409:
+			case 411:
+			case 412:
+			case 413:
+			case 414:
+			case 421:
+			case 422:
+			case 423:
+			case 424:
+			case 431:
+			case 432:
+			case 436:
+			case 441:
+			case 442:
+			case 443:
+			case 444:
+			case 445:
+			case 446:
+			case 451:
+			case 461:
+			case 462:
+			case 463:
+			case 464:
+			case 465:
+			case 467:
+			case 471:
+			case 472:
+			case 473:
+			case 474:
+			case 475:
+			case 481:
+			case 482:
+			case 483:
+			case 491:
+			case 501:
+			case 502:manager.addToRelayList(IRCEventFactory.numericError(data, con, numeric));break;
+			default :manager.addToRelayList(event);
+		}
+	}
+	
+	
 	/**
 	 * Takes an IRCEvent and tries to parse it into a more specific event then
 	 * redispatch the more specfic event
@@ -181,152 +257,64 @@ public class InternalEventParser
 		final String nick = con.getProfile().getActualNick();
 		final IRCEvent origEventCopy = event;
 
-		/*
-		 * A Channel Msg :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah
-		 */
-		/*
-		 * Private message :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!
-		 */
-		if (data.matches("^:.+?\\!.+?\\s+PRIVMSG\\s+\\S+\\s+:.*$"))
+		
+		String[] tokens = data.split("\\s+");
+		if(tokens.length > 1)
 		{
-			privMsg(data, con, nick);
-			return;
-		}
-
-		// match numerics OMG INTERNETS?!
-		else if (data.matches("^:\\S+\\s+\\d{3}\\s.+$"))
-		{
-			Pattern p = Pattern.compile("^:\\S+\\s+(\\d{3})\\s.+$");
-			Matcher m = p.matcher(data);
-			if (m.matches())            
+			if(tokens[1].matches("^\\d{3}$"))
 			{
-         switch (Integer.parseInt(m.group(1)))
+				numericEvent(data, con, event, Integer.parseInt(tokens[1]));
+			}
+			else
+			{
+				String command = tokens[1];
+				if(command.equals("PRIVMSG"))
 				{
-
-					case 001:connectionComplete(data, con, event);break;
-					case 301:manager.addToRelayList(IRCEventFactory.ReceivedAwayMsg(data,con));break;
-					case 305:manager.addToRelayList(IRCEventFactory.returnedFromAway(data,con));break;
-					case 306:manager.addToRelayList(IRCEventFactory.wentAway(data,con)); break;
-					case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
-					case 311://whois
-					case 312: //whois
-					case 317: //TODO: whois (idle time/signon time) [bahamut at least]                        
-					case 318://whois
-					case 319://whois
-					case 320:whois(data, manager.getSessionFor(con), Integer.parseInt(m.group(1)));break;
-					case 321://chanlist
-					case 322://chanlist
-					case 323:chanList(data, con);break;
-					case 332:firstPartOfTopic(data, con);break;
-					case 333:secondPartOfTopic(data, con);break;
-					case 351:manager.addToRelayList(IRCEventFactory.serverVersion(data, con));break;
-					case 352:manager.addToRelayList(IRCEventFactory.who(data,con));break;
-					case 353:namesLine(data, con);break;
-					case 366:manager.addToRelayList(IRCEventFactory.nickList(data, con));break;
-					case 372://motd
-					case 375://motd
-					case 376:manager.addToRelayList(IRCEventFactory.motd(data, con));break;
-					case 433:nick(data, con, event.getSession());break;
-					case 401:
-					case 402:
-					case 403:
-					case 404:
-					case 405:
-					case 406:
-					case 407:
-					case 409:
-					case 411:
-					case 412:
-					case 413:
-					case 414:
-					case 421:
-					case 422:
-					case 423:
-					case 424:
-					case 431:
-					case 432:
-					case 436:
-					case 441:
-					case 442:
-					case 443:
-					case 444:
-					case 445:
-					case 446:
-					case 451:
-					case 461:
-					case 462:
-					case 463:
-					case 464:
-					case 465:
-					case 467:
-					case 471:
-					case 472:
-					case 473:
-					case 474:
-					case 475:
-					case 481:
-					case 482:
-					case 483:
-					case 491:
-					case 501:
-					case 502:manager.addToRelayList(IRCEventFactory.numericError(data, con, Integer.parseInt(m.group(1))));break;
-					default :manager.addToRelayList(event);
+					privMsg(data, con, nick);
 				}
-				return;
+				else if(command.equals("QUIT"))
+				{
+					QuitEvent qEvent = IRCEventFactory.quit(data, con);
+					con.removeNickFromAllChannels(qEvent.getWho());
+					manager.addToRelayList(qEvent);
+				}
+				else if(command.equals("JOIN"))
+				{
+					/*
+					 * JOIN COMPLETED must come before 'SOMEONE JOINS A CHANNEL'
+					 * :BILLY42!~BILLY@dhcp64-134-133-42.smh.phx.wayport.net JOIN :#test
+					 * :BILLY42!~BILLY@dhcp64-134-133-42.smh.phx.wayport.net JOIN #test
+					 * :SwingBot!n=SwingBot@207.114.175.81 JOIN :##swing
+					 */
+					Pattern p = Pattern.compile("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?(#.*)$");
+					Matcher m = p.matcher(data);
+					if(m.matches())
+					{
+						Channel channel = new ChannelImpl(m.group(1), con);
+						con.addChannel(channel);
+						manager.getSessionFor(con).addChannelName(channel.getName());
+						manager.addToRelayList(IRCEventFactory.joinCompleted(data, con, nick, channel));
+					}
+					else
+					{
+						JoinEvent jEvent = IRCEventFactory.regularJoin(data, con);
+						((ChannelImpl)jEvent.getChannel()).addNick(jEvent.getWho());
+						manager.addToRelayList(jEvent);
+					}
+				}
+				else if(command.equals("MODE"))
+				{
+					manager.addToRelayList(IRCEventFactory.modeEvent(data, con));
+				}
 			}
 		}
 		
-		/*
-		 * PERSON QUIT :Xolt!brad@c-67-165-231-230.hsd1.co.comcast.net QUIT
-		 * :"Deleted" :james_so!~me@213-152-46-35.dsl.eclipse.net.uk QUIT :Read
-		 * error: 60 (Operation timed out)
-		 */
-		else if (data.matches("^:.+?\\s+QUIT\\s+:.*"))
-		{
-			QuitEvent qEvent = IRCEventFactory.quit(data, con);
-			con.removeNickFromAllChannels(qEvent.getWho());
-			event = qEvent;
-		}
 
-		/*
-		 * JOIN COMPLETED must come before 'SOMEONE JOINS A CHANNEL'
-		 * :BILLY42!~BILLY@dhcp64-134-133-42.smh.phx.wayport.net JOIN :#test
-		 * :BILLY42!~BILLY@dhcp64-134-133-42.smh.phx.wayport.net JOIN #test
-		 * :SwingBot!n=SwingBot@207.114.175.81 JOIN :##swing
-		 */
-		else if (data.matches("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?#.*$"))
-		{
-			Pattern p = Pattern.compile("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?(#.*)$");
-			Matcher m = p.matcher(data);
 
-			m.matches();
 
-			Channel channel = new ChannelImpl(m.group(1), con);
-
-			con.addChannel(channel);
-
-			manager.getSessionFor(con).addChannelName(channel.getName());
-
-			event = IRCEventFactory.joinCompleted(data, con, nick, channel);
-		}
-
-		/* MODE event */
-		else if (data.matches("^:.+?\\!\\S+\\s+MODE\\s+.+$"))
-		{
-			event = IRCEventFactory.modeEvent(data, con);
-		}
-
-		/*
-		 * SOMEONE JOINS A CHANNEL :Yog!~magnus@hades.27b-6.de JOIN :#perl
-		 * :Solaya!~Solaya@cable-134-9.iesy.tv JOIN #bratwurstbude
-		 */
 		else if (data.matches("^:.+?\\!.+?\\s+JOIN\\s+:?#.*$"))
 		{
-			JoinEvent jEvent = IRCEventFactory.regularJoin(data, con);
-
-			((ChannelImpl)jEvent.getChannel()).addNick(jEvent.getWho());
-
-			event = jEvent;
+			
 		}
 
 		/*
@@ -515,6 +503,12 @@ public class InternalEventParser
 		}
 	}
 
+	
+	
+	/*
+	 * A Channel Msg :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah
+	 * Private message :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!
+	 */
 	private void privMsg(String data, Connection con, String nick)
 	{
 		if (data.matches("^.+?PRIVMSG\\s+#.+$"))
