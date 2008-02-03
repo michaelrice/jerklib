@@ -515,6 +515,7 @@ class IRCEventFactory
 		return null;
 	}
 
+	//:raving!n=raving@74.195.43.119 NICK :Sir_Fawnpug
 	static NickChangeEvent nickChange(String data, Connection con)
 	{
 		Pattern p = Pattern.compile("^:(\\S+)\\!.*?\\s+NICK\\s+:(.*)$");
