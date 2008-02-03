@@ -8,7 +8,6 @@ import jerklib.events.JoinCompleteEvent
 import jerklib.ConnectionManager
 import jerklib.events.ChannelMsgEvent
 import jerklib.events.PrivateMsgEvent
-import jerklib.events.WhoEvent
 import jerklib.events.NickChangeEvent
 import jerklib.events.AwayEvent
 
