@@ -220,6 +220,7 @@ public class InternalEventParser
 			}
 			case 319:
 			{
+				System.err.println(data);
 				//"<nick> :{[@|+]<channel><space>}"
 				//:kubrick.freenode.net 319 scripy mohadib :@#jerklib
 				//kubrick.freenode.net 319 scripy mohadib :@#jerklib ##swing
@@ -259,6 +260,18 @@ public class InternalEventParser
 					we.appendRawEventData(data);
 				}
 				break;
+			}
+			//:anthony.freenode.net 317 scripy scripy 2 1202063240 :seconds idle, signon time
+			// from rfc "<nick> <integer> :seconds idle"
+			case 317:
+			{
+				Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s\\S+\\s+(\\d+)\\s+(\\d+)\\s+:.*$");
+				Matcher m = p.matcher(data);
+				if(we != null && m.matches())
+				{
+					we.setSignOnTime(Integer.parseInt(m.group(2)));
+					we.setSecondsIdle(Integer.parseInt(m.group(1)));
+				}
 			}
 			case 318:
 			{

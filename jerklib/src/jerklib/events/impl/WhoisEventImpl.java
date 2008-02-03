@@ -77,21 +77,13 @@ public class WhoisEventImpl implements WhoisEvent
 		return isOp;
 	}
 	
-	public void setIsOp(boolean isOp)
-	{
-		this.isOp = isOp;
-	}
 	
 	@Override
 	public boolean isIdle() 
 	{
-		return isIdle;
+		return secondsIdle > 0;
 	}
 
-	public void setIsIdle(boolean isIdle)
-	{
-		this.isIdle = isIdle;
-	}
 	
 	@Override
 	public long secondsIdle() 
