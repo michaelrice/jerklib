@@ -81,6 +81,8 @@ public class Example implements IRCEventListener
 	 */
 	public void recieveEvent(IRCEvent e)
 	{
+		//using a strategy pattern to handle the events
+		//http://en.wikipedia.org/wiki/Strategy_pattern
 		IrcRunnable r = stratMap.get(e.getType());
 		if(r!=null)
 		{
