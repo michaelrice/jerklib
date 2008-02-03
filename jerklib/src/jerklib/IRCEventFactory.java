@@ -58,8 +58,7 @@ import jerklib.events.impl.WhoEventImpl;
 class IRCEventFactory
 {
 	private static ConnectionManager myManager;
-	private static Map<Integer, ErrorType> numericErrorMap;
-	private static Map<Integer, AwayEvent> awayNumericMap = new HashMap<Integer, AwayEvent>();
+	private static Map<Integer, ErrorType> numericErrorMap;	
 
 	static void setManager(ConnectionManager manager)
 	{
@@ -288,46 +287,25 @@ class IRCEventFactory
 	}
 
 	// :card.freenode.net 301 r0bby_ r0bby :foo
-	static AwayEvent ReceivedAwayMsg(String data, Connection con)
+    // :leguin.freenode.net 306 r0bby_ :You have been marked as being away
+    // :leguin.freenode.net 305 r0bby_ :You are no longer marked as being away
+    static AwayEvent away(String data, Connection con, int numeric)
 	{
 		Pattern p = Pattern.compile("^:\\S+\\s(\\d{3}).+?\\s+(.+?):(.*)$");
 		Matcher m = p.matcher(data);
 
 		if (m.matches())
-		{
-			awayNumericMap.put(301, new AwayEventImpl(m.group(3), AwayEvent.EventType.USER_IS_AWAY, true, false, m.group(2), data, myManager.getSessionFor(con)));
+        {
+            switch(numeric) {
+                case 301:return new AwayEventImpl(m.group(3), AwayEvent.EventType.USER_IS_AWAY, true, false, m.group(2), data, myManager.getSessionFor(con));
+                case 305:return new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.RETURNED_FROM_AWAY, false, true, myManager.getDefaultProfile().getActualNick(), data);
+                case 306:return new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.WENT_AWAY, true, true, myManager.getDefaultProfile().getActualNick(), data);
+                default: // should never reach here.
+            }
 
-			return awayNumericMap.get(Integer.parseInt(m.group(1)));
-		}
+        }
 		return null;
-	}
-
-	// :leguin.freenode.net 306 r0bby_ :You have been marked as being away
-	static AwayEvent wentAway(String data, Connection con)
-	{
-		Matcher m = Pattern.compile("^:.+?\\s+(\\d{3})\\s+.+?:.*$").matcher(data);
-		if (m.matches())
-		{
-			awayNumericMap.put(306, new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.WENT_AWAY, true, true, myManager.getDefaultProfile().getActualNick(), data));
-
-			return awayNumericMap.get(Integer.parseInt(m.group(1)));
-		}
-		return null;
-
-	}
-
-	// :leguin.freenode.net 305 r0bby_ :You are no longer marked as being away
-	static AwayEvent returnedFromAway(String data, Connection con)
-	{
-		Matcher m = Pattern.compile("^:.+?\\s+(\\d{3})\\s+.+?:.*$").matcher(data);
-		if (m.matches())
-		{
-			awayNumericMap.put(305, new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.RETURNED_FROM_AWAY, false, true, myManager.getDefaultProfile().getActualNick(), data));
-			return awayNumericMap.get(Integer.parseInt(m.group(1)));
-
-		}
-		return null;
-	}
+    }
 
 	//:anthony.freenode.net 375 mohadib_ :- anthony.freenode.net Message of the Day -
 	//:anthony.freenode.net 372 mohadib_ :- Welcome to anthony.freenode.net in Irvine, CA, USA!  Thanks to

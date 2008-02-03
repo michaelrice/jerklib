@@ -276,9 +276,9 @@ public class InternalEventParser
     switch (numeric)
 		{
 			case 001:connectionComplete(data, con, event);break;
-			case 301:manager.addToRelayList(IRCEventFactory.ReceivedAwayMsg(data,con));break;
-			case 305:manager.addToRelayList(IRCEventFactory.returnedFromAway(data,con));break;
-			case 306:manager.addToRelayList(IRCEventFactory.wentAway(data,con)); break;
+			case 301:manager.addToRelayList(IRCEventFactory.away(data,con,301));break;
+			case 305:manager.addToRelayList(IRCEventFactory.away(data,con,305));break;
+			case 306:manager.addToRelayList(IRCEventFactory.away(data,con,306)); break;
 			case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
 			case 311://whois
 			case 312: //whois
