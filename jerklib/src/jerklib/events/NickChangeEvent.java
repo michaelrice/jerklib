@@ -46,13 +46,13 @@ public interface NickChangeEvent extends IRCEvent {
     public String getNewNick();
 
     /**
-     * Get the username
+     * Get the username of the user who changed their nick
      * @return username
      */
     public String getUserName();
 
     /**
-     * Get the hostname
+     * Get the hostname of the user who changed their nick
      * @return hostname
      */
     public String getHostName();
