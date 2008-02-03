@@ -302,7 +302,7 @@ public class InternalEventParser
 			case 317://whois                         
 			case 318://whois
 			case 319://whois
-			case 320:whois(data, manager.getSessionFor(con), numeric);break;
+			case 320:whois(data, event.getSession(), numeric);break;
 			case 321://chanlist
 			case 322://chanlist
 			case 323:chanList(data, con);break;

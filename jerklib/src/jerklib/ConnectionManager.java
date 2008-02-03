@@ -17,8 +17,6 @@ import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.sun.jmx.snmp.tasks.TaskServer;
-
 import jerklib.ConnectionState.PingState;
 import jerklib.Session.State;
 import jerklib.events.IRCEvent;
@@ -146,7 +144,7 @@ public class ConnectionManager
 		List<Session> sessions = new ArrayList<Session>(sessionMap.size());
 		for(InternalSession ses : sessionMap.values())
 		{
-			sessions.add(ses.getSession());
+			sessions.add(ses);
 		}
 		return Collections.unmodifiableList(sessions);
 	}
@@ -233,7 +231,7 @@ public class ConnectionManager
 		
 		sessionMap.put(hostName, iSession);
 		
-		return session;
+		return iSession;
 	}
 	
 	/**
@@ -485,9 +483,22 @@ public class ConnectionManager
 			//to the next event
 			if(s == null) continue;
 			
-			Map<Type, List<Task>> tasks = ((SessionImpl)s).getTasks(); 
+			Map<Type, List<Task>> tasks = ((InternalSessionImpl)s).getTasks(); 
 			synchronized (tasks)
 			{
+				for(Iterator<List<Task>>it = tasks.values().iterator(); it.hasNext();)
+				{
+					List<Task> thisTasks = it.next();
+					for(Iterator<Task>x = thisTasks.iterator(); x.hasNext();)
+					{
+						Task rmTask = x.next();
+						if(rmTask.isCanceled())
+						{
+							System.err.println("REMOVED TASK");
+							x.remove();
+						}
+					}
+				}
 				tempTasks.putAll(tasks);
 			}
 			
@@ -508,17 +519,7 @@ public class ConnectionManager
 			
 			for(Task t : typeTasks)
 			{
-				if(t.isCanceled())
-				{
-					synchronized (tasks)
-					{
-						tasks.get(event.getType()).remove(t);
-					}
-				}
-				else
-				{
-					t.recieveEvent(event);
-				}
+				t.recieveEvent(event);
 			}
 			
 			for(IRCEventListener listener : templisteners)
@@ -528,6 +529,7 @@ public class ConnectionManager
 				if(event != null)listener.recieveEvent(event);
 			}
 			templisteners.clear();
+			tempTasks.clear();
 		}
 	}
 	

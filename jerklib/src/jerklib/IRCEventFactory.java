@@ -324,7 +324,6 @@ class IRCEventFactory
 	static NoticeEvent notice(String data, Connection con)
 	{
 		
-		System.err.println(data);
 		
 		// generic notice NOTICE AUTH :*** No identd (auth) response
 		Pattern p = Pattern.compile("^NOTICE\\s+(.*$)$");
