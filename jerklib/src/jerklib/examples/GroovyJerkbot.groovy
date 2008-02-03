@@ -1,4 +1,4 @@
-package jerklib.examples.jerkbot;
+package jerklib.examples.jerkbot
 
 import jerklib.Profile
 import jerklib.ProfileImpl
@@ -43,7 +43,8 @@ class GroovyJerkbot implements IRCEventListener {
             ChannelMsgEvent event = (ChannelMsgEvent) e
             // what does this is take the channel msg and match it to the pattern ~say foo
             def matcher = event.getMessage() =~ /^~say\s+(.*)$/
-            if (matcher.matches()) {
+            if (matcher.matches())
+            {
                 e.getSession().channelSay(event.getChannel().getName(), matcher.group(1))
             }else if(event.getMessage() ==~ /^~part.*$/) {
                 e.getSession().partChannel(event.getChannel(),"I was asked to leave")
