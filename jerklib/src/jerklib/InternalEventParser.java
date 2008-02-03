@@ -182,6 +182,10 @@ public class InternalEventParser
 					con.gotPong();
 					manager.addToRelayList(event);
 				}
+				else if(data.matches("^NOTICE\\s+(.*$)$"))
+				{
+					manager.addToRelayList(IRCEventFactory.notice(data, con));
+				}
 				else 
 				{
 					manager.addToRelayList(event);

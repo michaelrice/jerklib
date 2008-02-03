@@ -291,7 +291,7 @@ class IRCEventFactory
     // :leguin.freenode.net 305 r0bby_ :You are no longer marked as being away
     static AwayEvent away(String data, Connection con, int numeric)
 	{
-		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}.+?\\s+(.+?):(.*)$");
+		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s+(\\S+)\\s:(.*)$");
 		Matcher m = p.matcher(data);
 
 		if (m.matches())
@@ -326,7 +326,7 @@ class IRCEventFactory
 		System.err.println(data);
 		
 		// generic notice NOTICE AUTH :*** No identd (auth) response
-		Pattern p = Pattern.compile("NOTICE\\s+(.*$)");
+		Pattern p = Pattern.compile("^NOTICE\\s+(.*$)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
