@@ -36,7 +36,7 @@ public interface AwayEvent extends IRCEvent {
     public EventType getEventType();
 
     /**
-     * Whether or not we're actually away.
+     * Whether or not you or the user is away. 
      * @return if we're away or not.
      */
     public boolean isAway();
