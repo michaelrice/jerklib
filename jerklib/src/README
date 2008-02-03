@@ -16,7 +16,7 @@ java -cp jerklib.jar jerklib.examples.jerkbot.jerkbot
 
 There is also a Groovy example (a class written in groovy). To use it download
 groovy from http://dist.groovy.codehaus.org/distributions/groovy-binary-1.5.4.zip
-unzip it to whereveer, then set up a GROOVY_HOME env. variable pointing to whereever
+and unzip it to whereveer, then set up a GROOVY_HOME env. variable pointing to whereever
 you unzipped toand put GROOVY_HOME/bin in your PATH.
 
 To use the script you need to have the source handy and type:
