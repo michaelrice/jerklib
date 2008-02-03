@@ -54,7 +54,7 @@ class GroovyJerkbot implements IRCEventListener {
                 }
                 def awayMatcher = event.getMessage() =~ /^~away\s+(.*)$/
                 if(awayMatcher.matches()) {
-                    e.getSession().setAway(m.group(1)); 
+                    e.getSession().setAway(m.group(1))
                 }else {
                     e.getSession().unsetAway()
                 }
@@ -74,11 +74,11 @@ class GroovyJerkbot implements IRCEventListener {
             println e.getRawEventData()
         } else {
             if (e.getType() == IRCEvent.Type.AWAY_EVENT) {
-                AwayEvent event = (AwayEvent)e;
-                println "Nick: "+event.getNick();
-                println "Event Type: "+event.getEventType();
-                println "Us?: "+event.isYou();
-                println "Away?: "+event.isAway();
+                AwayEvent event = (AwayEvent)e
+                println "Nick: "+event.getNick()
+                println "Event Type: "+event.getEventType()
+                println "Us?: "+event.isYou()
+                println "Away?: "+event.isAway()
 
             }
         }
