@@ -312,12 +312,12 @@ class IRCEventFactory
 	//:anthony.freenode.net 376 mohadib_ :End of /MOTD command.
 	static MotdEvent motd(String data, Connection con)
 	{
-		Pattern p = Pattern.compile(":(\\S+)\\s+(\\d+)\\s+(\\Q" + con.getProfile().getActualNick() + "\\E)\\s+:(.*)$");
+		Pattern p = Pattern.compile(":(\\S+)\\s+\\d+\\s+(\\Q" + con.getProfile().getActualNick() + "\\E)\\s+:(.*)$");
 		Matcher m = p.matcher(data);
 
 		if (!m.matches()) return null;
 
-		return new MotdEventImpl(data, myManager.getSessionFor(con), m.group(4));
+		return new MotdEventImpl(data, myManager.getSessionFor(con), m.group(3) , m.group(1));
 	}
 
 	static NoticeEvent notice(String data, Connection con)

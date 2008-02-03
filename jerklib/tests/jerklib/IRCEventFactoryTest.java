@@ -159,6 +159,7 @@ public class IRCEventFactoryTest extends TestCase
 		MotdEvent me = IRCEventFactory.motd(":anthony.freenode.net 375 DIBLET1 :- anthony.freenode.net Message of the Day -", con);
 		assertNotNull(me);
 		assertEquals("- anthony.freenode.net Message of the Day -", me.getMotdLine());
+		assertEquals("anthony.freenode.net", me.getHostName());
 		
 		me = IRCEventFactory.motd(":anthony.freenode.net 372 DIBLET1 :- Welcome to anthony.freenode.net in Irvine, CA, USA!  Thanks to", con);
 		assertNotNull(me);

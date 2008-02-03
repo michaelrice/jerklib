@@ -39,4 +39,11 @@ public interface MotdEvent extends IRCEvent {
    */
   public String getMotdLine();
   
+  
+  /**
+   * returns name of host this event originated from
+   * @return hostname
+   */
+  public String getHostName();
+  
 }
