@@ -286,26 +286,27 @@ class IRCEventFactory
 		return null;
 	}
 
-	// :card.freenode.net 301 r0bby_ r0bby :foo
+	
     // :leguin.freenode.net 306 r0bby_ :You have been marked as being away
     // :leguin.freenode.net 305 r0bby_ :You are no longer marked as being away
-    static AwayEvent away(String data, Connection con, int numeric)
+  static AwayEvent away(String data, Connection con, int numeric)
 	{
 		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s+(\\S+)\\s:(.*)$");
 		Matcher m = p.matcher(data);
-
 		if (m.matches())
-        {
-            switch(numeric) {
-                case 301:return new AwayEventImpl(m.group(2), AwayEvent.EventType.USER_IS_AWAY, true, false, m.group(1), data, myManager.getSessionFor(con));
-                case 305:return new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.RETURNED_FROM_AWAY, false, true, myManager.getDefaultProfile().getActualNick(), data);
-                case 306:return new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.WENT_AWAY, true, true, myManager.getDefaultProfile().getActualNick(), data);
-                default: // should never reach here.
-            }
-
-        }
-		return null;
-    }
+		{
+			switch(numeric) 
+			{
+				case 305:return new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.RETURNED_FROM_AWAY, false, true, myManager.getDefaultProfile().getActualNick(), data);	
+				case 306:return new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.WENT_AWAY, true, true, myManager.getDefaultProfile().getActualNick(), data);
+      }
+		}
+	// :card.freenode.net 301 r0bby_ r0bby :foo
+		p = Pattern.compile("^:\\S+\\s+\\d{3}\\s+\\S+\\s+(\\S+)\\s+:(.*)$");
+		m = p.matcher(data);
+		m.matches();
+		return new AwayEventImpl(m.group(2), AwayEvent.EventType.USER_IS_AWAY, true, false, m.group(1), data, myManager.getSessionFor(con));
+   }
 
 	//:anthony.freenode.net 375 mohadib_ :- anthony.freenode.net Message of the Day -
 	//:anthony.freenode.net 372 mohadib_ :- Welcome to anthony.freenode.net in Irvine, CA, USA!  Thanks to

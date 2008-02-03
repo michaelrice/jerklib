@@ -33,7 +33,7 @@ public class Example implements IRCEventListener
 		/* ConnectionManager takes a Profile to use for new connections. The profile
 		 * will contain the users nick , real name , alt. nick 1 and. alt nick 2	
 		 */
-		manager = new ConnectionManager(new ProfileImpl("scripy", "scripy", "scripy1", "scrippy2"));
+		manager = new ConnectionManager(new ProfileImpl("scripy", "scripyasas", "scripy1", "scrippy2"));
 
 		/*
 		 * One instance of ConnectionManager can connect to many IRC networks.
@@ -90,7 +90,7 @@ public class Example implements IRCEventListener
 		}
 		else
 		{
-			System.out.println(e.getRawEventData());
+			System.out.println(e.getType() + "<>" + e.getRawEventData());
 		}
 	}
 
