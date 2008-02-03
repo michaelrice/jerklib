@@ -152,7 +152,7 @@ public class Example implements IRCEventListener
 				if(jce.getChannel().getName().equals("#jerklib"))
 				{
 					/* say hello and version number */
-					jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
+					jce.getChannel().say("Hello from Jerklib - " + ConnectionManager.getVersion());
 				}
 			}
 		});
