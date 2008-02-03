@@ -100,6 +100,8 @@ public class IRCEventFactoryTest extends TestCase
 		assertNotNull(nce);
 		assertEquals("Sir_Fawnpug", nce.getNewNick());
 		assertEquals("raving", nce.getOldNick());
+		assertEquals("n=raving", nce.getUserName());
+		assertEquals("74.195.43.119", nce.getHostName());
 		
 		PartEvent pe = IRCEventFactory.part(":r0bby!n=wakawaka@guifications/user/r0bby PART #test :FOO", con);
 		assertNotNull(pe);
