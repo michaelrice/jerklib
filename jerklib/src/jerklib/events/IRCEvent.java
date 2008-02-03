@@ -45,16 +45,64 @@ public interface IRCEvent
    */
   public enum Type 
   {
-    TOPIC,PRIVATE_MESSAGE , 
-    CHANNEL_MESSAGE, 
-    NOTICE, 
+    /**
+     *Topic event - channel topic event
+     */
+    TOPIC,
+    
+    /**
+     * Private message event - msg not sent to channel 
+     */
+    PRIVATE_MESSAGE ,
+    
+    /**
+     *Channel message event - msg sent to a channel 
+     */
+    CHANNEL_MESSAGE,
+    
+    /**
+     *Server notice event 
+     */
+    NOTICE,
+    
+    /**
+     * Message of the day event
+     */
     MOTD, 
+    
+    /**
+     * Default event - unreconized or ignored by JerkLib 
+     */
     DEFAULT, 
+    
+    /**
+     *Quit Event - when someone quits from a server 
+     */
     QUIT, 
+    
+    /**
+     *Part event - someone parts a channel 
+     */
     PART, 
+    
+    /**
+     *Join event - someone joins a channel 
+     */
     JOIN, 
-    NICK_CHANGE, 
+    
+    /**
+     * Nick change event - someones nick changed
+     */
+    NICK_CHANGE,
+    
+    /**
+     * Nick in use event - The nick JerkLib is tring to use is in use
+     */
     NICK_IN_USE,
+    
+    /**
+     *unused 
+     */
     EXCEPTION, 
     CONNECT_COMPLETE, 
     UPDATE_HOST_NAME, 
