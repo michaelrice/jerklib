@@ -322,7 +322,9 @@ class IRCEventFactory
 
 	static NoticeEvent notice(String data, Connection con)
 	{
-
+		
+		System.err.println(data);
+		
 		// generic notice NOTICE AUTH :*** No identd (auth) response
 		Pattern p = Pattern.compile("NOTICE\\s+(.*$)");
 		Matcher m = p.matcher(data);
@@ -352,8 +354,18 @@ class IRCEventFactory
 
 			return ne;
 		}
+		
+		
+		//user notice but from the server - user notice means to a user as opposed a channel
+		//:anthony.freenode.net NOTICE mohadib_ :NickServ set your hostname to "unaffiliated/mohadib"
+		p = Pattern.compile("^:(\\S+)\\s+NOTICE\\s+(\\S+)\\s+:(.*)$");
+		m = p.matcher(data);
+		if (m.matches())
+		{
+			NoticeEvent ne = new NoticeEventImpl(data, myManager.getSessionFor(con), "user", m.group(3), m.group(2), m.group(1), null);
 
-
+			return ne;
+		}
 
 		return null;
 	}
