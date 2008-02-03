@@ -329,6 +329,9 @@ class IRCEventFactory
 		return null;
 	}
 
+	//:anthony.freenode.net 375 mohadib_ :- anthony.freenode.net Message of the Day -
+	//:anthony.freenode.net 372 mohadib_ :- Welcome to anthony.freenode.net in Irvine, CA, USA!  Thanks to
+	//:anthony.freenode.net 376 mohadib_ :End of /MOTD command.
 	static MotdEvent motd(String data, Connection con)
 	{
 		Pattern p = Pattern.compile(":(\\S+)\\s+(\\d+)\\s+(\\Q" + con.getProfile().getActualNick() + "\\E)\\s+:(.*)$");
@@ -342,7 +345,7 @@ class IRCEventFactory
 	static NoticeEvent notice(String data, Connection con)
 	{
 
-		// generic notice
+		// generic notice NOTICE AUTH :*** No identd (auth) response
 		Pattern p = Pattern.compile("NOTICE\\s+(.*$)");
 		Matcher m = p.matcher(data);
 		if (m.matches())
@@ -351,8 +354,18 @@ class IRCEventFactory
 
 			return noticeEvent;
 		}
+		
+		// channel notice :DIBLET!n=fran@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #jerklib :test
+		p = Pattern.compile("^:(.*?)\\!.*?\\s+NOTICE\\s+(#.*?)\\s+:(.*)$");
+		m = p.matcher(data);
+		if (m.matches())
+		{
+			NoticeEvent ne = new NoticeEventImpl(data, myManager.getSessionFor(con), "channel", m.group(3), "", m.group(1), con.getChannel(m.group(2).toLowerCase()));
 
-		// user notice
+			return ne;
+		}
+
+		// user notice :NickServ!NickServ@services. NOTICE mohadib_ :This nickname is owned by someone else
 		p = Pattern.compile("^:(.*?)\\!.*?\\s+NOTICE\\s+(.*?)\\s+:(.*)$");
 		m = p.matcher(data);
 		if (m.matches())
@@ -362,15 +375,7 @@ class IRCEventFactory
 			return ne;
 		}
 
-		// channel notice
-		p = Pattern.compile("^:(.*?)\\!.*?\\s+NOTICE\\s+(#.*?)\\s+:(.*)$");
-		m = p.matcher(data);
-		if (m.matches())
-		{
-			NoticeEvent ne = new NoticeEventImpl(data, myManager.getSessionFor(con), "channel", m.group(3), "", m.group(1), con.getChannel(m.group(2).toLowerCase()));
 
-			return ne;
-		}
 
 		return null;
 	}
@@ -407,7 +412,7 @@ class IRCEventFactory
 		return null;
 	}
 
-	// :r0bby!n=wakawaka@guifications/user/r0bby JOIN :#jerkli
+	// :r0bby!n=wakawaka@guifications/user/r0bby JOIN :#jerklib
 	static JoinEvent regularJoin(String data, Connection con)
 	{
 		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+JOIN\\s+:(\\S+)$");
@@ -443,9 +448,7 @@ class IRCEventFactory
 
 	//TODO change this to use channel names , not objects
 	/*
-	 * :card.freenode.net 321 r0bby___ Channel :Users Name :card.freenode.net 322
-	 * r0bby___ #jerklib 6 :JerkLib - You know you want it :card.freenode.net 323
-	 * r0bby___ :End of /LIST
+	 * :anthony.freenode.net 322 mohadib_ #jerklib 5 :JerkLib IRC Library - https://sourceforge.net/projects/jerklib
 	 */
 	static ChannelListEvent chanList(String data, Connection con)
 	{
