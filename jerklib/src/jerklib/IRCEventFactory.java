@@ -521,9 +521,9 @@ class IRCEventFactory
 				myManager.getSessionFor(con), 
 				m.group(1), // old
 				m.group(4), // new nick
-                m.group(3), // hostname
-                m.group(2) // username    
-            );
+				m.group(3), // hostname
+				m.group(2) // username    
+			);
 			return nickChangeEvent;
 		}
 		return null;
