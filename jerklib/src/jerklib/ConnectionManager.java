@@ -154,8 +154,10 @@ public class ConnectionManager
 	 */
 	public Session getSession(String name)
 	{
-		if(sessionMap.containsKey(name)) return sessionMap.get(name).getSession();
-		return null;
+		//if(sessionMap.containsKey(name)) return sessionMap.get(name).getSession();
+		//returning actual InternalSession to make testing easier
+		return sessionMap.get(name);
+		
 	}
 
 	/**

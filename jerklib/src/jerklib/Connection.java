@@ -163,12 +163,12 @@ final class Connection
 		}
 	}
 
-    void who(String who) {
-        writeRequests.add(new WriteRequestImpl("WHO "+who+"\r\n",this));        
-    }
+  void who(String who) 
+  {
+  	writeRequests.add(new WriteRequestImpl("WHO "+who+"\r\n",this));        
+  }
 
-
-    boolean part(Channel channel, String partMsg)
+  boolean part(Channel channel, String partMsg)
 	{
 		return part(channel.getName(), partMsg);
 	}

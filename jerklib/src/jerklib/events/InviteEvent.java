@@ -29,8 +29,8 @@ public interface InviteEvent extends IRCEvent
     public String getHostName();
 
     /**
-     * Gets the channel to which we were invited to
+     * Gets the channel name to which we were invited to
      * @return the channel we were invited to.
      */
-    public String getChannel();
+    public String getChannelName();
 }

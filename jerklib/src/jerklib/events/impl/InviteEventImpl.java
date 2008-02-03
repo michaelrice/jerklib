@@ -34,7 +34,7 @@ public class InviteEventImpl implements InviteEvent {
      *
      * @return the channel we were invited to.
      */
-    public String getChannel() {
+    public String getChannelName() {
         return channel;
     }
 

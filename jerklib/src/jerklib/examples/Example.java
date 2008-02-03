@@ -103,7 +103,7 @@ public class Example implements IRCEventListener
     		/*invited to a channel */
     		InviteEvent event = (InviteEvent)e;
     		System.out.print(event.getNick()+"!"+event.getUserName()+"@");
-    		System.out.print(event.getHostName()+" invited us to "+event.getChannel()+"\n");
+    		System.out.print(event.getHostName()+" invited us to "+event.getChannelName()+"\n");
     	}
     });
 

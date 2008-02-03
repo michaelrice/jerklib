@@ -145,7 +145,7 @@ public class InternalEventParser
 				}
 				else if(command.equals("INVITE"))
 				{
-					manager.addToRelayList(IRCEventFactory.invitedToChan(data, con));
+					manager.addToRelayList(IRCEventFactory.invite(data, con));
 				}
 				else if(command.equals("NICK"))
 				{
@@ -390,7 +390,8 @@ public class InternalEventParser
 	private void nick(String data, Connection con, Session session)
 	{
 		/* NICK IN USE */
-		if (data.matches(".+?\\s433\\s.+?\\s.+?\\s:?*$"))
+		//:simmons.freenode.net 433 * fran :Nickname is already in use.
+		if (data.matches(":\\S+\\s433\\s.+?\\s\\S+\\s:?.*$"))
 		{
 			if (session.isConnected() && session.isProfileUpdating())
 			{

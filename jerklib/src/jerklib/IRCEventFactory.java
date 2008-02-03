@@ -189,7 +189,7 @@ class IRCEventFactory
 				m.group(2), // username
 				m.group(3), // host name
 				m.group(5),// victim
-				m.group(4), // message
+				m.group(6), // message
 				con.getChannel(m.group(4).toLowerCase())
 			);
 			return ke;
@@ -533,7 +533,7 @@ class IRCEventFactory
 		return null;
 	}
 
-	// niveen.freenode.net :irc.nmglug.org 001 namnar :Welcome to the nmglug.org
+	//:irc.nmglug.org 001 namnar :Welcome to the nmglug.org
 	static ConnectionCompleteEvent updateHostName(String data, Connection con, String oldHostName)
 	{
 		Pattern p = Pattern.compile(":(\\S+)\\s+001\\s+\\Q" + con.getProfile().getActualNick() + "\\E\\s+:.*$");
@@ -553,7 +553,7 @@ class IRCEventFactory
 	}
 
 	// :r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2
-	static InviteEvent invitedToChan(String data, Connection con)
+	static InviteEvent invite(String data, Connection con)
 	{
 		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+INVITE.+?:(.*)$");
 		Matcher m = p.matcher(data);
