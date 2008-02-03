@@ -5,8 +5,10 @@ import jerklib.events.listeners.IRCEventListener;
 
 public class TaskImpl implements Task
 {
-	private final IRCEventListener l;
+	private IRCEventListener l;
 	private boolean cancel;
+	
+	public TaskImpl(){}
 	
 	public TaskImpl(IRCEventListener l)
 	{

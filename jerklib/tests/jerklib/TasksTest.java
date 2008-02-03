@@ -19,7 +19,7 @@ public class TasksTest extends TestCase {
 
         conMan = new ConnectionManager
         (
-                new ProfileImpl
+               	new ProfileImpl
                 (
                     "DIBLET",
                     "DIBLET1",

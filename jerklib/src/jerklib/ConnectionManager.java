@@ -494,7 +494,6 @@ public class ConnectionManager
 						Task rmTask = x.next();
 						if(rmTask.isCanceled())
 						{
-							System.err.println("REMOVED TASK");
 							x.remove();
 						}
 					}
@@ -511,13 +510,16 @@ public class ConnectionManager
 			
 			List<Task> typeTasks = tempTasks.get(event.getType());
 			if(typeTasks == null) typeTasks = new ArrayList<Task>();
+			
+			List<Task> taskCopy = new ArrayList<Task>(typeTasks);
+			
 			List<Task>nullTasks = tempTasks.get(null);
 			if(nullTasks != null)
 			{
-				typeTasks.addAll(nullTasks);
+				taskCopy.addAll(nullTasks);
 			}
 			
-			for(Task t : typeTasks)
+			for(Task t : taskCopy)
 			{
 				t.recieveEvent(event);
 			}
