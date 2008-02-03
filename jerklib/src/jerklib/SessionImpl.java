@@ -4,9 +4,13 @@ package jerklib;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
+import jerklib.tasks.Task;
 
 
 /**
@@ -24,9 +28,9 @@ public class SessionImpl implements Session
 	private final RequestedConnection rCon;
 	private Profile tmpProfile; 
 	private boolean profileUpdating;
-    private boolean isAway;
-    private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
-
+  private boolean isAway;
+  private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
+  private final Map<Type, List<Task>>taskMap = new HashMap<Type, List<Task>>();
 	
 	SessionImpl(RequestedConnection rCon)
 	{
@@ -499,6 +503,12 @@ public class SessionImpl implements Session
 		listenerList.add(listener);
 	}
 	
+	@Override
+	public void removeIRCEventListener(IRCEventListener listener)
+	{
+		listenerList.remove(listener);
+	}
+	
 	/* (non-Javadoc)
 	 * @see jerklib.Session#getIRCEventListeners()
 	 */
@@ -508,4 +518,34 @@ public class SessionImpl implements Session
 		return Collections.unmodifiableCollection(listenerList);
 	}
 
+	@Override
+	public void onEvent(Task task)
+	{
+		// null means task should be notified of all Events
+		onEvent(task , null);
+	}
+	
+	@Override
+	public void onEvent(Task task, Type type)
+	{
+		synchronized (taskMap)
+		{
+			if(!taskMap.containsKey(type))
+			{
+				List<Task>tasks = new ArrayList<Task>();
+				tasks.add(task);
+				taskMap.put(type, tasks);
+			}
+			else
+			{
+				taskMap.get(type).add(task);
+			}
+		}
+	}
+	
+	Map<Type, List<Task>> getTasks()
+	{
+		return taskMap;
+	}
+	
 }

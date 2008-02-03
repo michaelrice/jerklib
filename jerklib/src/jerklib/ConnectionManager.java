@@ -16,11 +16,16 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import com.sun.jmx.snmp.tasks.TaskServer;
+
 import jerklib.ConnectionState.PingState;
 import jerklib.Session.State;
 import jerklib.events.IRCEvent;
+import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.events.listeners.WriteRequestListener;
+import jerklib.tasks.Task;
 
 
 /**
@@ -456,8 +461,9 @@ public class ConnectionManager
 	
 	private void relayEvents()
 	{
-		
 		List<IRCEvent> events = new ArrayList<IRCEvent>();
+		List<IRCEventListener>templisteners = new ArrayList<IRCEventListener>();
+		Map<Type, List<Task>>tempTasks = new HashMap<Type, List<Task>>();
 		
 		synchronized (relayQueue)
 		{
@@ -465,6 +471,8 @@ public class ConnectionManager
 			events.addAll(relayQueue);
 			relayQueue.clear();
 		}
+		
+
 		
 
 		for(IRCEvent event : events)
@@ -477,11 +485,49 @@ public class ConnectionManager
 			//to the next event
 			if(s == null) continue;
 			
-			Collection<IRCEventListener> listeners = s.getIRCEventListeners();
-			for(IRCEventListener listener : listeners)
+			Map<Type, List<Task>> tasks = ((SessionImpl)s).getTasks(); 
+			synchronized (tasks)
 			{
-				listener.recieveEvent(event);
+				tempTasks.putAll(tasks);
 			}
+			
+			Collection<IRCEventListener> listeners = s.getIRCEventListeners();
+			synchronized (listeners)
+			{
+				if(listeners.isEmpty())return;
+				templisteners.addAll(listeners);
+			}
+			
+			List<Task> typeTasks = tempTasks.get(event.getType());
+			if(typeTasks == null) typeTasks = new ArrayList<Task>();
+			List<Task>nullTasks = tempTasks.get(null);
+			if(nullTasks != null)
+			{
+				typeTasks.addAll(nullTasks);
+			}
+			
+			for(Task t : typeTasks)
+			{
+				if(t.isCanceled())
+				{
+					synchronized (tasks)
+					{
+						tasks.get(event.getType()).remove(t);
+					}
+				}
+				else
+				{
+					t.recieveEvent(event);
+				}
+			}
+			
+			for(IRCEventListener listener : templisteners)
+			{
+				//tasks above might do something stupid like set
+				//event to null...
+				if(event != null)listener.recieveEvent(event);
+			}
+			templisteners.clear();
 		}
 	}
 	

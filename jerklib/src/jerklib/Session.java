@@ -3,7 +3,9 @@ package jerklib;
 import java.util.Collection;
 import java.util.List;
 
+import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
+import jerklib.tasks.Task;
 
 /**
  * Session is the main way to interact with the connected server
@@ -298,6 +300,8 @@ public interface Session extends ProfileUpdateable {
      */
     public void addIRCEventListener(IRCEventListener listener);
 
+    public void removeIRCEventListener(IRCEventListener listener);
+    
     /**
      * Returns the list of IRCEventListeners registered with this Session
      *
@@ -327,6 +331,12 @@ public interface Session extends ProfileUpdateable {
      * @see Connection#who(java.lang.String) 
      */
     public void who(String who);
- 	
+ 
+    
+    
+    public void onEvent(Task task);
+    
+    public void onEvent(Task task , Type type);
+    
 }
 

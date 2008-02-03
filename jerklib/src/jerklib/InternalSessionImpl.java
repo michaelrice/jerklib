@@ -2,8 +2,11 @@ package jerklib;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
+import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
+import jerklib.tasks.Task;
 
 
 
@@ -270,6 +273,12 @@ class InternalSessionImpl implements InternalSession
 	{
 		session.addIRCEventListener(listener);
 	}
+	
+	@Override
+	public void removeIRCEventListener(IRCEventListener listener)
+	{
+		session.removeIRCEventListener(listener);
+	}
 
 	@Override
 	public Collection<IRCEventListener> getIRCEventListeners()
@@ -366,6 +375,22 @@ class InternalSessionImpl implements InternalSession
 		session.getServerVersion(hostPattern);
 	}
 
+	@Override
+	public void onEvent(Task task)
+	{
+		session.onEvent(task);
+	}
+	
+	@Override
+	public void onEvent(Task task, Type type)
+	{
+		session.onEvent(task, type);
+	}
+	
+	Map<Type, List<Task>> getTasks()
+	{
+		return ((SessionImpl)session).getTasks();
+	}
 }
 
 
