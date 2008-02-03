@@ -518,7 +518,7 @@ class IRCEventFactory
 	//:raving!n=raving@74.195.43.119 NICK :Sir_Fawnpug
 	static NickChangeEvent nickChange(String data, Connection con)
 	{
-		Pattern p = Pattern.compile("^:(\\S+)\\!.*?\\s+NICK\\s+:(.*)$");
+		Pattern p = Pattern.compile("^:(\\S+)!(\\S+)@(\\S+)\\s+NICK\\s+:(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
@@ -527,8 +527,10 @@ class IRCEventFactory
 				data, 
 				myManager.getSessionFor(con), 
 				m.group(1), // old
-				m.group(2) // new nick
-			);
+				m.group(4), // new nick
+                m.group(3), // hostname
+                m.group(2) // username    
+            );
 			return nickChangeEvent;
 		}
 		return null;
@@ -570,7 +572,7 @@ class IRCEventFactory
 		numericErrorMap.put(403, ErrorType.ERR_NOSUCHCHANNEL);
 		numericErrorMap.put(404, ErrorType.ERR_CANNOTSENDTOCHAN);
 		numericErrorMap.put(405, ErrorType.ERR_TOOMANYCHANNELS);
-		numericErrorMap.put(406, ErrorType.ERR_WASNOSUCHNICK);
+	numericErrorMap.put(406, ErrorType.ERR_WASNOSUCHNICK);
 		numericErrorMap.put(407, ErrorType.ERR_TOOMANYTARGETS);
 		numericErrorMap.put(409, ErrorType.ERR_NOORIGIN);
 		numericErrorMap.put(411, ErrorType.ERR_NORECIPIENT);
