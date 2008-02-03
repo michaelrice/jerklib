@@ -9,6 +9,8 @@ import jerklib.ConnectionManager
 import jerklib.events.ChannelMsgEvent
 import jerklib.events.PrivateMsgEvent
 import jerklib.events.WhoEvent
+import jerklib.events.NickChangeEvent
+import jerklib.events.AwayEvent
 
 /**
 * Created: Jan 29, 2008 11:42:23 PM
@@ -33,6 +35,7 @@ class GroovyJerkbot implements IRCEventListener {
         if (e.getType() == IRCEvent.Type.CONNECT_COMPLETE) {
             e.getSession().joinChannel("#jerklib")
             e.getSession().who("mohadib")
+            e.getSession().setAway("FUCK!")
         }
         else if (e.getType() == IRCEvent.Type.JOIN_COMPLETE) {
             def JoinCompleteEvent event = (JoinCompleteEvent) e
@@ -50,6 +53,12 @@ class GroovyJerkbot implements IRCEventListener {
                 if(whoMatcher.matches()) {
                     e.getSession().who(whoMatcher.group(1))
                 }
+                def awayMatcher = event.getMessage() =~ /^~away\s+(.*)$/
+                if(awayMatcher.matches()) {
+                    e.getSession().setAway(m.group(1)); 
+                }else {
+                    e.getSession().unsetAway()
+                }
             }
 
         } else if (e.getType() == IRCEvent.Type.PRIVATE_MESSAGE) {
@@ -57,18 +66,22 @@ class GroovyJerkbot implements IRCEventListener {
             if(event.getMessage() ==~ /^~quit.*$/) {
                 e.getSession().close("I was asked to leave.")
             }
-        } else if(e.getType() == IRCEvent.Type.WHO_EVENT) {
-            WhoEvent event = (WhoEvent)e
-            println event.getChannel()
-            println event.getNick()
+        } else if (e.getType() == IRCEvent.Type.NICK_CHANGE) {
+            NickChangeEvent event = (NickChangeEvent) e
+            println event.getOldNick()
+            println event.getNewNick()
             println event.getUserName()
-            println event.getRealName()
-            println event.getServerName()
             println event.getHostName()
-            println event.isAway()
             println e.getRawEventData()
-        } else if(e.getType() == IRCEvent.Type.DEFAULT){
-            println e.getRawEventData()
+        } else {
+            if (e.getType() == IRCEvent.Type.AWAY_EVENT) {
+                AwayEvent event = (AwayEvent)e;
+                println "Nick: "+event.getNick();
+                println "Event Type: "+event.getEventType();
+                println "Us?: "+event.isYou();
+                println "Away?: "+event.isAway();
+
+            }
         }
 
     }
