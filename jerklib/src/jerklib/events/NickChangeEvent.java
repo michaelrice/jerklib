@@ -26,23 +26,34 @@ package jerklib.events;
 
 /**
  * NickChangeIRCEvent is created when someone in a channel changes their nick
- * 
- * @author mohadib
  *
+ * @author mohadib
  */
 public interface NickChangeEvent extends IRCEvent {
-	
-  /**
-   * Returns the previous nick of the user before the change
-   * 
-   * @return Old nick for user.
-   */
-  public String getOldNick();
-  
-  /**
-   * getNewNick() returns the new nick of the user
-   * 
-   * @return New nick for user
-   */
-  public String getNewNick();
+
+    /**
+     * Returns the previous nick of the user before the change
+     *
+     * @return Old nick for user.
+     */
+    public String getOldNick();
+
+    /**
+     * getNewNick() returns the new nick of the user
+     *
+     * @return New nick for user
+     */
+    public String getNewNick();
+
+    /**
+     * Get the username
+     * @return username
+     */
+    public String getUserName();
+
+    /**
+     * Get the hostname
+     * @return hostname
+     */
+    public String getHostName();
 }
