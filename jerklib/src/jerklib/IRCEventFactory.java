@@ -291,13 +291,13 @@ class IRCEventFactory
     // :leguin.freenode.net 305 r0bby_ :You are no longer marked as being away
     static AwayEvent away(String data, Connection con, int numeric)
 	{
-		Pattern p = Pattern.compile("^:\\S+\\s(\\d{3}).+?\\s+(.+?):(.*)$");
+		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}.+?\\s+(.+?):(.*)$");
 		Matcher m = p.matcher(data);
 
 		if (m.matches())
         {
             switch(numeric) {
-                case 301:return new AwayEventImpl(m.group(3), AwayEvent.EventType.USER_IS_AWAY, true, false, m.group(2), data, myManager.getSessionFor(con));
+                case 301:return new AwayEventImpl(m.group(2), AwayEvent.EventType.USER_IS_AWAY, true, false, m.group(1), data, myManager.getSessionFor(con));
                 case 305:return new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.RETURNED_FROM_AWAY, false, true, myManager.getDefaultProfile().getActualNick(), data);
                 case 306:return new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.WENT_AWAY, true, true, myManager.getDefaultProfile().getActualNick(), data);
                 default: // should never reach here.
@@ -553,7 +553,7 @@ class IRCEventFactory
 		numericErrorMap.put(403, ErrorType.ERR_NOSUCHCHANNEL);
 		numericErrorMap.put(404, ErrorType.ERR_CANNOTSENDTOCHAN);
 		numericErrorMap.put(405, ErrorType.ERR_TOOMANYCHANNELS);
-	numericErrorMap.put(406, ErrorType.ERR_WASNOSUCHNICK);
+		numericErrorMap.put(406, ErrorType.ERR_WASNOSUCHNICK);
 		numericErrorMap.put(407, ErrorType.ERR_TOOMANYTARGETS);
 		numericErrorMap.put(409, ErrorType.ERR_NOORIGIN);
 		numericErrorMap.put(411, ErrorType.ERR_NORECIPIENT);
