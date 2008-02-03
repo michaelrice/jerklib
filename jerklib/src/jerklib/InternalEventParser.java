@@ -447,9 +447,13 @@ public class InternalEventParser
 		else
 		{
 			PrivateMsgEvent pme = IRCEventFactory.privateMsg(data, con, nick);
-			if(pme.getMessage().equals("\001VERSION\001"));
+			if(pme.getMessage().equals("\u0001VERSION\u0001"))
 			{
 				pme.getSession().rawSay("NOTICE " + pme.getNick() + " :\001VERSION " + ConnectionManager.getVersion() + "\001\r\n");
+			}
+			else if(pme.getMessage().equals("\u0001PING\u0001"))
+			{
+				pme.getSession().rawSay("NOTICE " + pme.getNick() + " :\001PING \001\r\n");
 			}
 			manager.addToRelayList(pme);
 		}
