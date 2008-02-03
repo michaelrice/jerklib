@@ -293,13 +293,13 @@ public class InternalEventParser
     switch (numeric)
 		{
 			case 001:connectionComplete(data, con, event);break;
-			case 301:manager.addToRelayList(IRCEventFactory.away(data,con,301));break;
-			case 305:manager.addToRelayList(IRCEventFactory.away(data,con,305));break;
-			case 306:manager.addToRelayList(IRCEventFactory.away(data,con,306)); break;
+			case 301:manager.addToRelayList(IRCEventFactory.away(data,con,numeric));break;
+			case 305:manager.addToRelayList(IRCEventFactory.away(data,con,numeric));break;
+			case 306:manager.addToRelayList(IRCEventFactory.away(data,con,numeric)); break;
 			case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
 			case 311://whois
-			case 312: //whois
-			case 317: //TODO: whois (idle time/signon time) [bahamut at least]                        
+			case 312://whois
+			case 317://whois                         
 			case 318://whois
 			case 319://whois
 			case 320:whois(data, manager.getSessionFor(con), numeric);break;
