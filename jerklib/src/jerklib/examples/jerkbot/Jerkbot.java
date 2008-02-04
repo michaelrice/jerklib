@@ -3,6 +3,8 @@ package jerklib.examples.jerkbot;
 import jerklib.ConnectionManager;
 import jerklib.Profile;
 import jerklib.ProfileImpl;
+import jerklib.tasks.Task;
+import jerklib.tasks.TaskImpl;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
@@ -10,6 +12,7 @@ import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
 import jerklib.events.AwayEvent;
 import jerklib.events.ConnectionCompleteEvent;
+import jerklib.events.NoticeEvent;
 import jerklib.examples.jerkbot.operations.BotOperation;
 import jerklib.examples.jerkbot.operations.ListUserOperation;
 import jerklib.examples.jerkbot.operations.QuitOperation;
@@ -29,6 +32,7 @@ import java.util.Random;
  */
 public class Jerkbot implements IRCEventListener {
     private List<BotOperation> operations = new LinkedList<BotOperation>();
+    private Task authTask;
 
     /**
      * This is used to actually connect the bot to the network.
@@ -45,6 +49,26 @@ public class Jerkbot implements IRCEventListener {
                 nick + new Random().nextInt(512));
         ConnectionManager manager = new ConnectionManager(profile);
         manager.requestConnection(server, port, profile).addIRCEventListener(this);
+        authTask = new TaskImpl(new IRCEventListener() {
+            /**
+             * recieveEvent() - receive IRCEvents
+             *
+             * @param e <code>IRCEvent<code> the event
+             */
+            public void recieveEvent(IRCEvent e) {
+                NoticeEvent ne = (NoticeEvent)e;
+					if(ne.getNoticeType().equals("user") && ne.byWho().equalsIgnoreCase("NickServ"))
+					{
+						if(ne.getNoticeMessage().startsWith("Password accepted"))
+						{
+							e.getSession().joinChannel("#jerklib");
+						}
+					}
+            }
+        });
+
+
+
     }
 
     public void loadOperations() {
@@ -67,10 +91,9 @@ public class Jerkbot implements IRCEventListener {
             operation.handleMessage(e);
         }
         if (e instanceof ConnectionCompleteEvent) {
+            e.getSession().onEvent(authTask, IRCEvent.Type.NOTICE);
+            e.getSession().sayPrivate("nickserv", "ident letmein");
             e.getSession().setAway("I am a bot and you fail at life.");
-            e.getSession().joinChannel("#jerklib");
-            e.getSession().joinChannel("#jerklib2");
-            e.getSession().joinChannel("#gayetc");
         } else if (e instanceof JoinCompleteEvent) {
             JoinCompleteEvent event = (JoinCompleteEvent) e;
             event.getChannel().say("Hai 2u");
