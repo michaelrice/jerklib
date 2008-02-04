@@ -33,6 +33,15 @@ import jerklib.events.listeners.IRCEventListener;
  */
 public interface Task extends IRCEventListener
 {
+	/**
+	 * Causes task to no longer be notified of IRCEvents.
+	 * If task is already running , it will finish and 
+	 * never run again.
+	 */
 	public void cancel();
+	
+	/**
+	 * @return true if cancel() has been called else false
+	 */
 	public boolean isCanceled();
 }
