@@ -65,19 +65,16 @@ public class NoticeEventImpl implements NoticeEvent
 		return rawEventData;
 	}
 
-	@Override
 	public String byWho() 
 	{
 		return byWho;
 	}
 
-	@Override
 	public Channel getChannel() 
 	{
 		return channel;
 	}
 
-	@Override
 	public String toWho() 
 	{
 		return toWho;

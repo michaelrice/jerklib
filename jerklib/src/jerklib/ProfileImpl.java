@@ -30,7 +30,6 @@ public class ProfileImpl implements Profile
 	/* (non-Javadoc)
 	 * @see jerklib.Profile#getName()
 	 */
-	@Override
 	public String getName()
 	{
 		return name;
@@ -39,7 +38,6 @@ public class ProfileImpl implements Profile
 	/* (non-Javadoc)
 	 * @see jerklib.Profile#getFirstNick()
 	 */
-	@Override
 	public String getFirstNick()
 	{
 		return firstNick;
@@ -48,7 +46,6 @@ public class ProfileImpl implements Profile
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
-	@Override
 	public int hashCode()
 	{
 		return (name + actualNick).hashCode();
@@ -57,7 +54,6 @@ public class ProfileImpl implements Profile
 	/* (non-Javadoc)
 	 * @see jerklib.Profile#getSecondNick()
 	 */
-	@Override
 	public String getSecondNick() 
 	{
 		return secondNick;
@@ -66,7 +62,6 @@ public class ProfileImpl implements Profile
 	/* (non-Javadoc)
 	 * @see jerklib.Profile#getThirdNick()
 	 */
-	@Override
 	public String getThirdNick() 
 	{
 		return thirdNick;
@@ -75,7 +70,6 @@ public class ProfileImpl implements Profile
 	/* (non-Javadoc)
 	 * @see jerklib.Profile#getActualNick()
 	 */
-	@Override
 	public String getActualNick() 
 	{
 		return actualNick;

@@ -28,37 +28,31 @@ public class NumericEventImpl implements NumericErrorEvent
 		this.numeric = numeric;
 	}
 
-	@Override
 	public String getErrorMsg()
 	{
 		return errMsg;
 	}
 
-	@Override
 	public ErrorType getErrorType()
 	{
 		return errorType;
 	}
 
-	@Override
 	public int getNumeric()
 	{
 		return numeric;
 	}
 
-	@Override
 	public String getRawEventData()
 	{
 		return rawEventData;
 	}
 
-	@Override
 	public Session getSession()
 	{
 		return session;
 	}
 
-	@Override
 	public Type getType()
 	{
 		return type;

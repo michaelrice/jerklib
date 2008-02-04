@@ -37,7 +37,6 @@ public class TaskImpl implements Task
 	/* (non-Javadoc)
 	 * @see jerklib.tasks.Task#cancel()
 	 */
-	@Override
 	public void cancel()
 	{
 		cancel = true;
@@ -46,7 +45,6 @@ public class TaskImpl implements Task
 	/* (non-Javadoc)
 	 * @see jerklib.tasks.Task#isCanceled()
 	 */
-	@Override
 	public boolean isCanceled()
 	{
 		return cancel;
@@ -55,7 +53,6 @@ public class TaskImpl implements Task
 	/* (non-Javadoc)
 	 * @see jerklib.events.listeners.IRCEventListener#receiveEvent(jerklib.events.IRCEvent)
 	 */
-	@Override
 	public void receiveEvent(IRCEvent e)
 	{
 		l.receiveEvent(e);

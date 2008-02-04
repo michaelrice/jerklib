@@ -29,43 +29,36 @@ public class WhowasEventImpl implements WhowasEvent
 		this.session = session;
 	}
 
-	@Override
 	public String getHostName()
 	{
 		return hostName;
 	}
 
-	@Override
 	public String getNick()
 	{
 		return nick;
 	}
 
-	@Override
 	public String getRealName()
 	{
 		return realName;
 	}
 
-	@Override
 	public String getUserName()
 	{
 		return userName;
 	}
 
-	@Override
 	public String getRawEventData()
 	{
 		return rawEventData;
 	}
 
-	@Override
 	public Session getSession()
 	{
 		return session;
 	}
 
-	@Override
 	public Type getType()
 	{
 		return type;

@@ -24,30 +24,24 @@ public class NickInUseEventImpl implements NickInUseEvent
 		this.session = session;
 	}
 
-	@Override
 	public String getInUseNick() 
 	{
 		return inUseNick;
 	}
 
-	@Override
 	public String getRawEventData() 
 	{
 		return rawEventData;
 	}
 
-	@Override
 	public Session getSession() 
 	{
 		return session;
 	}
 
-	@Override
 	public Type getType() 
 	{
 		return type;
 	}
-	
-
 
 }

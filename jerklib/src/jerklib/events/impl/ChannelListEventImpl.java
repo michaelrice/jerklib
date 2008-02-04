@@ -28,14 +28,12 @@ public class ChannelListEventImpl implements ChannelListEvent
 		this.numUsers = numUsers;
 	}
 
-	@Override
 	public String getChannelName()
 	{
 		return channelName;
 	}
 	
 	
-	@Override
 	public int getNumberOfUser()
 	{
 		return numUsers;

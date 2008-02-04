@@ -99,7 +99,6 @@ public class Example implements IRCEventListener
 
     stratMap.put(Type.INVITE_EVENT, new IrcRunnable()
     {
-    	@Override
     	public void run(IRCEvent e)
     	{
     		/*invited to a channel */
@@ -111,7 +110,6 @@ public class Example implements IRCEventListener
 
     stratMap.put(Type.CHANNEL_MESSAGE, new IrcRunnable()
 		{
-			@Override
 			public void run(IRCEvent e)
 			{
 				/* someone speaks in a channel */
@@ -122,7 +120,6 @@ public class Example implements IRCEventListener
 		
 		stratMap.put(Type.DEFAULT, new IrcRunnable()
 		{
-			@Override
 			public void run(IRCEvent e)
 			{
 				/* raw data is the raw text message received from an IRC server */
@@ -132,7 +129,6 @@ public class Example implements IRCEventListener
 		
 		stratMap.put(Type.READY_TO_JOIN, new IrcRunnable()
 		{
-			@Override
 			public void run(IRCEvent e)
 			{
 				/* whois someone */
@@ -145,7 +141,6 @@ public class Example implements IRCEventListener
 		
 		stratMap.put(Type.JOIN_COMPLETE, new IrcRunnable()
 		{
-			@Override
 			public void run(IRCEvent e)
 			{
 				JoinCompleteEvent jce = (JoinCompleteEvent)e;
@@ -159,7 +154,6 @@ public class Example implements IRCEventListener
 		
 		stratMap.put(Type.ERROR ,new IrcRunnable()
 		{
-			@Override
 			public void run(IRCEvent e)
 			{
 				/* some error occured */
@@ -170,7 +164,6 @@ public class Example implements IRCEventListener
 		
 		stratMap.put(Type.QUIT ,new IrcRunnable()
 		{
-			@Override
 			public void run(IRCEvent e)
 			{
 				/* someone quit */

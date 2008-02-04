@@ -143,7 +143,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#joinChannel(java.lang.String, java.lang.String)
 	 */
-	@Override
 	public void joinChannel(String channelName, String pass)
 	{
     if (!channelNames.contains(channelName))
@@ -239,7 +238,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#getNick()
 	 */
-	@Override
 	public String getNick() 
 	{
 		return getRequestedConnection().getProfile().getActualNick();
@@ -248,7 +246,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#changeProfile(jerklib.Profile)
 	 */
-	@Override
 	public void changeProfile(Profile profile) 
 	{
 		tmpProfile = profile;
@@ -256,7 +253,6 @@ public class SessionImpl implements Session
 		con.changeNick(tmpProfile.getActualNick());
 	}
 	
-	@Override
 	public void updateProfileSuccessfully(boolean success)
 	{
 		if(success)
@@ -271,13 +267,11 @@ public class SessionImpl implements Session
 		profileUpdating = false;
 	}
 	
-	@Override
 	public boolean isProfileUpdating() 
 	{
 		return profileUpdating;
 	}
 
-	@Override
 	public String getConnectedHostName() 
 	{
 		return con.getHostName();
@@ -286,7 +280,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#rawSay(java.lang.String)
 	 */
-	@Override
 	public void rawSay(String data) 
 	{
 		con.addWriteRequest(new WriteRequestImpl(data , con));
@@ -295,7 +288,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#kick(java.lang.String, java.lang.String, jerklib.Channel)
 	 */
-	@Override
 	public void kick(String userName, String reason , Channel channel)
 	{
 		//todo throw event
@@ -315,7 +307,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#op(java.lang.String, jerklib.Channel)
 	 */
-	@Override
 	public void op(String userName, Channel channel) 
 	{
 		//todo throw event
@@ -331,7 +322,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#deop(java.lang.String, jerklib.Channel)
 	 */
-	@Override
 	public void deop(String userName, Channel channel) 
 	{
 		//todo throw event
@@ -347,7 +337,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#voice(java.lang.String, jerklib.Channel)
 	 */
-	@Override
 	public void voice(String userName, Channel channel) 
 	{
 		if(!channel.getNicks().contains(userName))
@@ -363,7 +352,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#deVoice(java.lang.String, jerklib.Channel)
 	 */
-	@Override
 	public void deVoice(String userName, Channel channel) 
 	{
 		if(!channel.getNicks().contains(userName))
@@ -378,7 +366,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#mode(java.lang.String, jerklib.Channel, java.lang.String)
 	 */
-	@Override
 	public void mode(String userName, Channel channel, String mode) 
 	{
 		if(!channel.getNicks().contains(userName))
@@ -393,7 +380,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#mode(jerklib.Channel, java.lang.String)
 	 */
-	@Override
 	public void mode(Channel channel, String mode) 
 	{
 		rawSay("MODE " + channel.getName() + " " + mode + "\r\n");
@@ -411,7 +397,6 @@ public class SessionImpl implements Session
      * (non-Javadoc)
      * @see Session#setAway(java.lang.String)
      */
-    @Override
     public void setAway(String message) {    
     	isAway = true;                
         con.setAway(message);
@@ -421,7 +406,6 @@ public class SessionImpl implements Session
      * (non-Javadoc)
      * @see Session#unsetAway()
      */
-    @Override
     public void unsetAway() {
         /* if we're not away let's not bother even delegating */
         if(isAway) {
@@ -441,7 +425,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#channelList()
 	 */
-	@Override
 	public void channelList()
 	{
 		con.chanList();
@@ -450,7 +433,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#channelList(java.lang.String)
 	 */
-	@Override
 	public void channelList(String channel)
 	{
 		con.chanList(channel);
@@ -459,7 +441,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#invite(java.lang.String, jerklib.Channel)
 	 */
-	@Override
 	public void invite(String nick, Channel chan)
 	{
 		con.invite(nick, chan);
@@ -468,7 +449,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#getServerVersion()
 	 */
-	@Override
 	public void getServerVersion()
 	{
 		con.getServerVersion();
@@ -477,7 +457,6 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#getServerVersion(java.lang.String)
 	 */
-	@Override
 	public void getServerVersion(String hostPattern)
 	{
 		con.getServerVersion(hostPattern);
@@ -488,7 +467,6 @@ public class SessionImpl implements Session
      * @see Session#who(java.lang.String)
      * @param who
      */
-    @Override
     public void who(String who) {
         con.who(who);
     }
@@ -497,13 +475,11 @@ public class SessionImpl implements Session
     /* (non-Javadoc)
 	 * @see jerklib.Session#addIRCEventListener(jerklib.events.listeners.IRCEventListener)
 	 */
-	@Override
 	public void addIRCEventListener(IRCEventListener listener) 
 	{
 		listenerList.add(listener);
 	}
 	
-	@Override
 	public void removeIRCEventListener(IRCEventListener listener)
 	{
 		listenerList.remove(listener);
@@ -512,20 +488,17 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#getIRCEventListeners()
 	 */
-	@Override
 	public Collection<IRCEventListener> getIRCEventListeners() 
 	{
 		return Collections.unmodifiableCollection(listenerList);
 	}
 
-	@Override
 	public void onEvent(Task task)
 	{
 		// null means task should be notified of all Events
 		onEvent(task , null);
 	}
 	
-	@Override
 	public void onEvent(Task task, Type type)
 	{
 		synchronized (taskMap)

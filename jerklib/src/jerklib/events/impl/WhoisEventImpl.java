@@ -12,7 +12,7 @@ public class WhoisEventImpl implements WhoisEvent
 	private final Session session;
 	private String whoisServer,whoisServerInfo,rawEventData;
 	private List<String> channelNames;
-	private boolean isOp , isIdle;
+	private boolean isOp;
 	private long secondsIdle;
 	private int signOnTime;
 	
@@ -36,7 +36,6 @@ public class WhoisEventImpl implements WhoisEvent
 		this.rawEventData = rawEventData;
 	}
 	
-	@Override
 	public List<String> getChannelNames() 
 	{
 		return channelNames;
@@ -47,45 +46,38 @@ public class WhoisEventImpl implements WhoisEvent
 		channelNames = chanNames;
 	}
 	
-	@Override
 	public String getHost() 
 	{
 		return host;
 	}
 
-	@Override
 	public String getUser() 
 	{
 		return user;
 	}
 
-	@Override
 	public String getRealName() 
 	{
 		return realName;
 	}
 	
-	@Override
 	public String getNick() 
 	{
 		return nick;
 	}
 
-	@Override
 	public boolean isAnOperator() 
 	{
 		return isOp;
 	}
 	
 	
-	@Override
 	public boolean isIdle() 
 	{
 		return secondsIdle > 0;
 	}
 
 	
-	@Override
 	public long secondsIdle() 
 	{
 		return secondsIdle;
@@ -96,7 +88,6 @@ public class WhoisEventImpl implements WhoisEvent
 		this.secondsIdle = secondsIdle();
 	}
 	
-	@Override
 	public int signOnTime() 
 	{
 		return signOnTime;
@@ -107,7 +98,6 @@ public class WhoisEventImpl implements WhoisEvent
 		this.signOnTime = signOnTime;
 	}
 
-	@Override
 	public String whoisServer() 
 	{
 		return whoisServer;
@@ -118,7 +108,6 @@ public class WhoisEventImpl implements WhoisEvent
 		this.whoisServer = whoisServer;
 	}
 	
-	@Override
 	public String whoisServerInfo()
 	{
 		return whoisServerInfo;
@@ -129,7 +118,6 @@ public class WhoisEventImpl implements WhoisEvent
 		this.whoisServerInfo = whoisServerInfo;
 	}
 	
-	@Override
 	public String getRawEventData() 
 	{
 		return rawEventData;
@@ -140,13 +128,11 @@ public class WhoisEventImpl implements WhoisEvent
 		this.rawEventData += "\r\n" + rawEventData;
 	}
 	
-	@Override
 	public Session getSession() 
 	{
 		return session;
 	}
 
-	@Override
 	public Type getType() 
 	{
 		return type;

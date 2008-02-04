@@ -30,31 +30,26 @@ public class NickListEventImpl implements NickListEvent
 		
 	}
 	
-	@Override
 	public Channel getChannel() 
 	{
 		return channel;
 	}
 
-	@Override
 	public List<String> getNicks() 
 	{
 		return nicks;
 	}
 
-	@Override
 	public String getRawEventData() 
 	{
 		return rawEventData;
 	}
 
-	@Override
 	public Session getSession() 
 	{
 		return session;
 	}
 
-	@Override
 	public Type getType() 
 	{
 		return type;

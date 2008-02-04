@@ -28,43 +28,36 @@ public class ServerVersionEventImpl implements ServerVersionEvent
 		this.session = session;
 	}
 
-	@Override
 	public String getComment()
 	{
 		return comment;
 	}
 
-	@Override
 	public String getHostName()
 	{
 		return hostName;
 	}
 
-	@Override
 	public String getVersion()
 	{
 		return version;
 	}
 
-	@Override
 	public String getdebugLevel()
 	{
 		return debugLevel;
 	}
 
-	@Override
 	public String getRawEventData()
 	{
 		return rawEventData;
 	}
 
-	@Override
 	public Session getSession()
 	{
 		return session;
 	}
 
-	@Override
 	public Type getType()
 	{
 		return type;
