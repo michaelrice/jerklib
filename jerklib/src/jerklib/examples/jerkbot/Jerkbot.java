@@ -57,7 +57,11 @@ public class Jerkbot implements IRCEventListener {
              */
             public void recieveEvent(IRCEvent e) {
                 NoticeEvent ne = (NoticeEvent)e;
-					if(ne.getNoticeType().equals("user") && ne.byWho().equalsIgnoreCase("NickServ"))
+                /**
+                 * This simply waits until you succelssfully
+                 * auth with nickserv before joining the channel.
+                 */
+                    if(ne.getNoticeType().equals("user") && ne.byWho().equalsIgnoreCase("NickServ"))
 					{
 						if(ne.getNoticeMessage().startsWith("Password accepted"))
 						{
@@ -92,6 +96,7 @@ public class Jerkbot implements IRCEventListener {
         }
         if (e instanceof ConnectionCompleteEvent) {
             e.getSession().onEvent(authTask, IRCEvent.Type.NOTICE);
+            /* password is hard-coded */ 
             e.getSession().sayPrivate("nickserv", "ident letmein");
             e.getSession().setAway("I am a bot and you fail at life.");
         } else if (e instanceof JoinCompleteEvent) {
