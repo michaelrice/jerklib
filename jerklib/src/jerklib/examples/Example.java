@@ -37,9 +37,11 @@ public class Example implements IRCEventListener
 	}
 	
 	/*
-	 * This method is for implementing  IRCEventListener.
+	 * This method is for implementing an IRCEventListener.
 	 * This method will be called anytime Jerklib parses an
-	 * event from an IRC server
+	 * event from the Session its attached to. All events are 
+	 * sent as IRCEvents. You can check its actually type and 
+	 * cast it to a more specific type.
 	 */
 	public void receiveEvent(IRCEvent e)
 	{
@@ -47,7 +49,7 @@ public class Example implements IRCEventListener
 		{
 			/* someone speaks in a channel */
 			ChannelMsgEvent cme = (ChannelMsgEvent)e;
-			System.out.println("<" + cme.getNick() + ">" + cme.getMessage());
+			System.out.println(cme.getChannel().getName() + " <" + cme.getNick() + ">" + cme.getMessage());
 		}
 		else if(e.getType() == Type.CONNECT_COMPLETE)
 		{
