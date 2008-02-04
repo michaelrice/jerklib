@@ -98,6 +98,7 @@ public class Jerkbot implements IRCEventListener {
             JoinCompleteEvent event = (JoinCompleteEvent) e;
             event.getChannel().say("Hai 2u");
             event.getChannel().say("I am running jerklib version " + ConnectionManager.getVersion());
+            authTask.cancel();
         } else if (e instanceof JoinEvent) {
             JoinEvent event = (JoinEvent) e;
             e.getSession().channelSay(event.getChannel().getName(), "Hey " + event.getWho() +
