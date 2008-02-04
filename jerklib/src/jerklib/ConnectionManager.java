@@ -465,12 +465,9 @@ public class ConnectionManager
 		
 		synchronized (relayQueue)
 		{
-			if(relayQueue.isEmpty()) return;
 			events.addAll(relayQueue);
 			relayQueue.clear();
 		}
-		
-
 		
 
 		for(IRCEvent event : events)
@@ -504,7 +501,6 @@ public class ConnectionManager
 			Collection<IRCEventListener> listeners = s.getIRCEventListeners();
 			synchronized (listeners)
 			{
-				if(listeners.isEmpty())return;
 				templisteners.addAll(listeners);
 			}
 			
