@@ -30,6 +30,8 @@ package jerklib.events;
  * to 'irc.freenode.net' we might actually connect to kornbluf.freenode.net 
  * or some other host. This event will have the real hosts name.
  * 
+ * After receiving this event a Session is ready to join channels
+ * 
  * @author mohadib
  *
  */

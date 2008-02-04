@@ -44,7 +44,6 @@ import jerklib.events.impl.PartEventImpl;
 import jerklib.events.impl.ChannelMsgEventImpl;
 import jerklib.events.impl.PrivateMessageEventImpl;
 import jerklib.events.impl.QuitEventImpl;
-import jerklib.events.impl.ReadyToJoinEventImpl;
 import jerklib.events.impl.ServerVersionEventImpl;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.ConnectionCompleteEventImpl;
@@ -392,11 +391,6 @@ class IRCEventFactory
 		}
 
 		return null;
-	}
-
-	static ReadyToJoinEventImpl readyToJoin(String data, Connection con)
-	{
-		return new ReadyToJoinEventImpl(data, myManager.getSessionFor(con));
 	}
 
 	/*

@@ -443,7 +443,6 @@ public class InternalEventParser
 		 */
 		if (data.matches(":.+?\\s+001\\s+.+?\\s+:.*$"))
 		{
-			manager.addToRelayList(IRCEventFactory.readyToJoin(data, con));
 			ConnectionCompleteEvent ccEvent = IRCEventFactory.connectionComplete(data, con);
 			con.setHostName(ccEvent.getActualHostName());
 			manager.addToRelayList(ccEvent);
