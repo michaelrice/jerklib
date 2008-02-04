@@ -15,6 +15,7 @@ import jerklib.events.listeners.IRCEventListener;
  * run again.
  * 
  * example:
+ * <pre>
  *  session.onEvent(new TaskImpl()
  *  {
  *    public void recieveEvent(IRCEvent e)
@@ -23,6 +24,7 @@ import jerklib.events.listeners.IRCEventListener;
  *			System.out.println("<" + cme.getNick() + ">" + cme.getMessage());
  *		}
  *	} , Type.CHANNEL_MESSAGE);
+ * </pre>
  * 
  * That will add a task to be notified of only CHANNEL_MESSAGE events.
  * 
