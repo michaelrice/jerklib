@@ -220,9 +220,10 @@ class IRCEventFactory
 
 	// :mohadib!n=fran@unaffiliated/mohadib MODE #jerklib +b scripy!*@*
 	// :mohadib!n=fran@unaffiliated/mohadib MODE #jerklib -m
+	// :services. MODE scripy :+e
 	static ModeEvent modeEvent(String data, Connection con)
 	{
-		Pattern p = Pattern.compile("^:(\\S+)\\!\\S+\\s+MODE\\s+(\\S+)\\s+(\\S+)\\s*(\\S*)");
+		Pattern p = Pattern.compile("^:(\\S+)\\s+MODE\\s+(\\S+)\\s+(\\S+)\\s*$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
@@ -231,12 +232,35 @@ class IRCEventFactory
 				data, 
 				myManager.getSessionFor(con), 
 				m.group(3), 
+				m.group(2), 
+				m.group(1),
+				null
+			);
+			return me;
+		}
+		
+		p = Pattern.compile("^:(\\S+)\\s+MODE\\s+(\\S+)\\s+(\\S+)(?:\\s+(\\S+)\\s*)?");
+		m = p.matcher(data);
+		if (m.matches())
+		{
+			System.out.println("MATCHEDDDDDDDDDd");
+			String user = m.group(1);
+			if(user.indexOf("!") != -1)
+			{
+				user = user.split("!")[0];
+			}
+			ModeEvent me = new ModeEventImpl
+			(
+				data, 
+				myManager.getSessionFor(con), 
+				m.group(3), 
 				m.group(4), 
-				m.group(1), 
+				user, 
 				con.getChannel(m.group(2).toLowerCase())
 			);
 			return me;
 		}
+
 		return null;
 	}
 

@@ -122,9 +122,8 @@ public class InternalEventParser
 				}
 				else if(command.equals("MODE"))
 				{
-					manager.addToRelayList(event);
 					//debugging
-					//manager.addToRelayList(IRCEventFactory.modeEvent(data, con));
+					manager.addToRelayList(IRCEventFactory.modeEvent(data, con));
 				}
 				else if(command.equals("PART"))
 				{
