@@ -79,7 +79,7 @@ public class Example implements IRCEventListener
 	 * This method will be called anytime Jerklib parses and
 	 * event from an IRC server
 	 */
-	public void recieveEvent(IRCEvent e)
+	public void receiveEvent(IRCEvent e)
 	{
 		//using a strategy pattern to handle the events
 		//http://en.wikipedia.org/wiki/Strategy_pattern

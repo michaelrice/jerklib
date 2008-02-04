@@ -11,6 +11,8 @@ import jerklib.events.PrivateMsgEvent
 import jerklib.events.NickChangeEvent
 import jerklib.events.AwayEvent
 
+
+
 /**
 * Created: Jan 29, 2008 11:42:23 PM
 * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor</a>
@@ -22,15 +24,17 @@ class GroovyJerkbot implements IRCEventListener {
         def Profile profile = new ProfileImpl(username, nick, nick + new Random().nextInt(42),
                 nick + new Random().nextInt(512))
         manager = new ConnectionManager(profile)
-        manager.requestConnection(hostname, port).addIRCEventListener(this)
+        manager.requestConnection(hostname, port).addIRCEventListener(this) 
 
     }
 
+   
     def static void main(String[] args) {
         def GroovyJerkbot bot = new GroovyJerkbot("jerkbot", "jerkbot", "irc.freenode.org", 6667)
     }
-
-    def void recieveEvent(IRCEvent e) {
+                            
+    @Override
+    def void receiveEvent(IRCEvent e) {
         if (e.getType() == IRCEvent.Type.CONNECT_COMPLETE) {
             e.getSession().joinChannel("#jerklib")
             e.getSession().who("mohadib")

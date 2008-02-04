@@ -53,11 +53,11 @@ public class TaskImpl implements Task
 	}
 
 	/* (non-Javadoc)
-	 * @see jerklib.events.listeners.IRCEventListener#recieveEvent(jerklib.events.IRCEvent)
+	 * @see jerklib.events.listeners.IRCEventListener#receiveEvent(jerklib.events.IRCEvent)
 	 */
 	@Override
-	public void recieveEvent(IRCEvent e)
+	public void receiveEvent(IRCEvent e)
 	{
-		l.recieveEvent(e);
+		l.receiveEvent(e);
 	}
 }

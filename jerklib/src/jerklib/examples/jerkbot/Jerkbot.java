@@ -55,7 +55,7 @@ public class Jerkbot implements IRCEventListener {
              *
              * @param e <code>IRCEvent<code> the event
              */
-            public void recieveEvent(IRCEvent e) {
+            public void receiveEvent(IRCEvent e) {
                 NoticeEvent ne = (NoticeEvent)e;
                 /**
                  * This simply waits until you succelssfully
@@ -90,7 +90,7 @@ public class Jerkbot implements IRCEventListener {
      *
      * @param e the event we receieved.
      */
-    public void recieveEvent(IRCEvent e) {
+    public void receiveEvent(IRCEvent e) {
         for (BotOperation operation : operations) {
             operation.handleMessage(e);
         }

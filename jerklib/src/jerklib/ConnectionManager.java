@@ -521,14 +521,14 @@ public class ConnectionManager
 			
 			for(Task t : taskCopy)
 			{
-				t.recieveEvent(event);
+				t.receiveEvent(event);
 			}
 			
 			for(IRCEventListener listener : templisteners)
 			{
 				//tasks above might do something stupid like set
 				//event to null...
-				if(event != null)listener.recieveEvent(event);
+				if(event != null)listener.receiveEvent(event);
 			}
 			templisteners.clear();
 			tempTasks.clear();

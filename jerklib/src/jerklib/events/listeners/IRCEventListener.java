@@ -39,5 +39,5 @@ public interface IRCEventListener {
    * 
 	 * @param e <code>IRCEvent<code> the event
 	 */
-	public void recieveEvent(IRCEvent e);
+	public void receiveEvent(IRCEvent e);
 }
