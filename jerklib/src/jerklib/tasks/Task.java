@@ -12,8 +12,6 @@ public abstract class Task implements IRCEventListener
 	private boolean canceled;
 	private String name;
 	
-	private Task(){}
-	
 	public void setName(String name)
 	{
 		this.name = name;
