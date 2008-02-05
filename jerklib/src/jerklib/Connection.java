@@ -338,6 +338,7 @@ final class Connection
 			else
 			{
 				data = request.getMessage();
+				if(!data.endsWith("\r\n")) data+= "\r\n";
 			}
 
 			byte[] dataArray = data.getBytes();

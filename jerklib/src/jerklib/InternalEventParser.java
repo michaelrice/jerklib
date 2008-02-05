@@ -413,9 +413,9 @@ public class InternalEventParser
 			{
 				session.updateProfileSuccessfully(false);
 			}
-			else
-			{
-				Profile p = session.getRequestedConnection().getProfile();
+
+			
+			Profile p = session.getRequestedConnection().getProfile();
 				String aNick = p.getActualNick();
 				String newNick = p.getFirstNick() + (Math.random() * 100);
 				if (aNick.equals(p.getFirstNick()))
@@ -429,7 +429,6 @@ public class InternalEventParser
 				((ProfileImpl)p).setActualNick(newNick);
 				session.changeProfile(p);
 				manager.addToRelayList(IRCEventFactory.nickInUse(data, con));
-			}
 		}
 
 	}
