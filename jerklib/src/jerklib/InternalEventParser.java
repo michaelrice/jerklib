@@ -441,7 +441,7 @@ public class InternalEventParser
 		 * niveen.freenode.net :irc.nmglug.org 001 namnar :Welcome to the nmglug.org
 		 * Internet Relay Chat Network namnar
 		 */
-		if (data.matches(":.+?\\s+001\\s+.+?\\s+:.*$"))
+		if (data.matches("^:.+?\\s+001\\s+.+?\\s+:.*$"))
 		{
 			ConnectionCompleteEvent ccEvent = IRCEventFactory.connectionComplete(data, con);
 			con.setHostName(ccEvent.getActualHostName());

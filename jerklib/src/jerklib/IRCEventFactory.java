@@ -393,6 +393,13 @@ class IRCEventFactory
 		return null;
 	}
 
+	//TODO
+	//:anthony.freenode.net 391 scripy anthony.freenode.net :Monday February 4 2008 -- 18:02:31 -08:00
+	static void ServerTimeEvent()
+	{
+		
+	}
+	
 	/*
 	 * :r0bby__!n=wakawaka@cpe-24-164-167-171.hvc.res.rr.com QUIT :Client Quit
 	 * PERSON QUIT :Xolt!brad@c-67-165-231-230.hsd1.co.comcast.net QUIT :"Deleted"
