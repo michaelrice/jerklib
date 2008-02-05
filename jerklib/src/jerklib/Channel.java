@@ -31,8 +31,8 @@ public interface Channel
 	 * Says something in the channel
 	 * 
 	 * @param s what to say
-	 * @see Session#channelSay(String, String)
-	 * @see Session#rawSay(String)
+	 * @see Session#sayChannel(String, String)
+	 * @see Session#sayRaw(String)
 	 */
 	void say(String s);
 		

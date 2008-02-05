@@ -78,6 +78,7 @@ class IRCEventFactory
 
 	static ConnectionCompleteEvent connectionComplete(String data, Connection con)
 	{
+		System.out.println("DATA:" + data + " " + con.getProfile().getActualNick());
 		Pattern p = Pattern.compile(":(\\S+)\\s+001\\s+\\Q" + con.getProfile().getActualNick() + "\\E\\s+:.*$");
 		Matcher m = p.matcher(data);
 		if (m.matches())

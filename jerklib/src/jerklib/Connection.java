@@ -242,6 +242,8 @@ final class Connection
 	int read()
 	{
 
+		if(conState.getConState() == State.DISCONNECTED)return -1;
+		
 		readBuffer.clear();
 
 		int numRead = 0;

@@ -205,16 +205,9 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#channelSay(java.lang.String, java.lang.String)
 	 */
-	public void channelSay(String channelName, String msg)
+	public void sayChannel(String channelName, String msg)
 	{
-		if (con == null)
-		{
-			con.addWriteRequest(new WriteRequestImpl(msg, channelName, rCon.getHostName()));
-		}
-		else
-		{
-			con.addWriteRequest(new WriteRequestImpl(msg, con.getChannel(channelName), con));
-		}
+		con.addWriteRequest(new WriteRequestImpl(msg, con.getChannel(channelName), con));
 	}
 
 	/* (non-Javadoc)
@@ -280,7 +273,7 @@ public class SessionImpl implements Session
 	/* (non-Javadoc)
 	 * @see jerklib.Session#rawSay(java.lang.String)
 	 */
-	public void rawSay(String data) 
+	public void sayRaw(String data) 
 	{
 		con.addWriteRequest(new WriteRequestImpl(data , con));
 	}
@@ -301,7 +294,7 @@ public class SessionImpl implements Session
 		{
 			reason = getNick();
 		}
-		rawSay("KICK " + channel.getName() + " " + userName + " :" + reason + "\r\n");
+		sayRaw("KICK " + channel.getName() + " " + userName + " :" + reason + "\r\n");
 	}
 	
 	/* (non-Javadoc)
@@ -316,7 +309,7 @@ public class SessionImpl implements Session
 			return;
 		}
 		
-		rawSay("MODE " + channel.getName() + " +o " + userName + "\r\n");
+		sayRaw("MODE " + channel.getName() + " +o " + userName + "\r\n");
 	}
 	
 	/* (non-Javadoc)
@@ -331,7 +324,7 @@ public class SessionImpl implements Session
 			return;
 		}
 		
-		rawSay("MODE " + channel.getName() + " -o " + userName + "\r\n");
+		sayRaw("MODE " + channel.getName() + " -o " + userName + "\r\n");
 	}
 	
 	/* (non-Javadoc)
@@ -345,7 +338,7 @@ public class SessionImpl implements Session
 			return;
 		}
 		
-		rawSay("MODE " + channel.getName() + " +v " + userName + "\r\n");
+		sayRaw("MODE " + channel.getName() + " +v " + userName + "\r\n");
 	}
 	
 	
@@ -360,7 +353,7 @@ public class SessionImpl implements Session
 			return;
 		}
 		
-		rawSay("MODE " + channel.getName() + " -v " + userName + "\r\n");
+		sayRaw("MODE " + channel.getName() + " -v " + userName + "\r\n");
 	}
 	
 	/* (non-Javadoc)
@@ -374,7 +367,7 @@ public class SessionImpl implements Session
 			return;
 		}
 		
-		rawSay("MODE " + channel.getName() + " " + mode + " " + userName + "\r\n");
+		sayRaw("MODE " + channel.getName() + " " + mode + " " + userName + "\r\n");
 	}
 	
 	/* (non-Javadoc)
@@ -382,7 +375,7 @@ public class SessionImpl implements Session
 	 */
 	public void mode(Channel channel, String mode) 
 	{
-		rawSay("MODE " + channel.getName() + " " + mode + "\r\n");
+		sayRaw("MODE " + channel.getName() + " " + mode + "\r\n");
 	}
 	
 	/* (non-Javadoc)

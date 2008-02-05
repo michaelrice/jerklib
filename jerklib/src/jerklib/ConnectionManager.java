@@ -601,6 +601,7 @@ public class ConnectionManager
     
     sChannel.configureBlocking(false);
 
+    System.out.println("DNS START");
     sChannel.connect
     (
     		new InetSocketAddress
@@ -609,11 +610,13 @@ public class ConnectionManager
     				session.getRequestedConnection().getPort()
     		)
     );
+    System.out.println("DNS STOP");
     
     sChannel.register(selector , sChannel.validOps());
     
+    System.err.println("Calling Connect");
     Connection con = new Connection(this , sChannel);
-    
+    System.err.println("Connect Called");
     session.setConnection(con);
     
     socChanMap.put(sChannel, session);

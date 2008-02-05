@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -140,7 +141,7 @@ public class InternalEventParser
 					Pattern p = Pattern.compile("^.+?TOPIC\\s+(#.+?)\\s+.*$");
 					Matcher m = p.matcher(data);
 					m.matches();
-					event.getSession().rawSay("TOPIC " + m.group(1) + "\r\n");
+					event.getSession().sayRaw("TOPIC " + m.group(1) + "\r\n");
 				}
 				else if(command.equals("INVITE"))
 				{
@@ -403,6 +404,7 @@ public class InternalEventParser
 		}
 	}
 
+	Random rand = new Random();
 	private void nick(String data, Connection con, Session session)
 	{
 		/* NICK IN USE */
@@ -417,7 +419,7 @@ public class InternalEventParser
 			
 			Profile p = session.getRequestedConnection().getProfile();
 				String aNick = p.getActualNick();
-				String newNick = p.getFirstNick() + (Math.random() * 100);
+				String newNick = p.getFirstNick() + rand.nextInt(100) ;
 				if (aNick.equals(p.getFirstNick()))
 				{
 					newNick = p.getSecondNick();
@@ -459,11 +461,11 @@ public class InternalEventParser
 			PrivateMsgEvent pme = IRCEventFactory.privateMsg(data, con, nick);
 			if(pme.getMessage().equals("\u0001VERSION\u0001"))
 			{
-				pme.getSession().rawSay("NOTICE " + pme.getNick() + " :\001VERSION " + ConnectionManager.getVersion() + "\001\r\n");
+				pme.getSession().sayRaw("NOTICE " + pme.getNick() + " :\001VERSION " + ConnectionManager.getVersion() + "\001\r\n");
 			}
 			else if(pme.getMessage().equals("\u0001PING\u0001"))
 			{
-				pme.getSession().rawSay("NOTICE " + pme.getNick() + " :\001PING \001\r\n");
+				pme.getSession().sayRaw("NOTICE " + pme.getNick() + " :\001PING \001\r\n");
 			}
 			manager.addToRelayList(pme);
 		}

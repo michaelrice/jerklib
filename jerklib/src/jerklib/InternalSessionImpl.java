@@ -161,9 +161,9 @@ class InternalSessionImpl implements InternalSession
 		session.unsetAway();
 	}
 
-	public void channelSay(String channelName, String msg)
+	public void sayChannel(String channelName, String msg)
 	{
-		session.channelSay(channelName, msg);
+		session.sayChannel(channelName, msg);
 	}
 
 	public void setRejoinOnKick(boolean rejoin)
@@ -222,9 +222,9 @@ class InternalSessionImpl implements InternalSession
 	}
 
 
-	public void rawSay(String data)
+	public void sayRaw(String data)
 	{
-		session.rawSay(data);
+		session.sayRaw(data);
 
 	}
 

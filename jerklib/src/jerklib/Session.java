@@ -211,7 +211,7 @@ public interface Session extends ProfileUpdateable {
      *
      * @param data raw string to send
      */
-    public void rawSay(String data);
+    public void sayRaw(String data);
 
     /**
      * Sends a private message to a user
@@ -228,7 +228,7 @@ public interface Session extends ProfileUpdateable {
      * @param msg         msg to send
      * @see Channel#say(String)
      */
-    public void channelSay(String channelName, String msg);
+    public void sayChannel(String channelName, String msg);
 
     /**
      * Change the profile - Change nick
