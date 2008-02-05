@@ -35,8 +35,14 @@ public interface Channel
 	 * @see Session#sayRaw(String)
 	 */
 	void say(String s);
-		
-	/**
+
+    /**
+     * Send a notice to the channel as a whole.
+     * @param s what to say. 
+     */
+    void notice(String s);
+
+    /**
 	 * gets a list of nicks in the channel
 	 * 
 	 * @return list of nicks in channel

@@ -72,9 +72,11 @@ public class WriteRequestImpl implements WriteRequest
 		this.con = con;
 		this.nick = null;
 	}
-	
 
-	public WriteRequestImpl(String message, Connection con)
+
+
+
+    public WriteRequestImpl(String message, Connection con)
 	{
 		this.type = Type.RAW_MSG;
 		this.message = message;
@@ -94,7 +96,6 @@ public class WriteRequestImpl implements WriteRequest
 		this.nick = null;
 	}
 
-	
 	public Type getType()
 	{
 		return type;

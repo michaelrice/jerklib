@@ -78,6 +78,10 @@ class ChannelImpl implements Channel
 	{
 		con.addWriteRequest(new WriteRequestImpl(message , this , con));
 	}
+
+    public void notice(String message) {
+        con.notice(getName(),message);
+    }
     
 
 
