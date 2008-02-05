@@ -63,7 +63,7 @@ public class JoinEventImpl implements JoinEvent
 		return passwd;
 	}
 	
-	public final String getWho()
+	public final String getNick()
 	{
 		return who;
 	}

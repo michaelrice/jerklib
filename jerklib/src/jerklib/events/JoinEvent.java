@@ -40,7 +40,7 @@ public interface JoinEvent extends IRCEvent {
      *
      * @return Nick of who joined channel
      */
-	public String getWho();
+	public String getNick();
 
     
     /**

@@ -327,6 +327,21 @@ public interface Session extends ProfileUpdateable
      */
     public void unsetAway();
 
+    
+    
+    /**
+     *Any tasks submited to onConnect will run
+     *as soon as a Session begins. This is useful
+     *for identifying your nick or other pre "joining"
+     *tasks that need doing. Like all Tasks this one
+     *will be continue to be used until cancel() is called
+     *on the task
+     *
+     *@see Task
+     *@param Task task to run
+     */
+    public void onConnect(Task task);
+    
     /**
      * WHO a user.
      * @param who user's nick or a channel.

@@ -168,9 +168,10 @@ class InternalSessionImpl implements InternalSession
 		session.sayChannel(channelName, msg);
 	}
 
-    public void notice(String target, String msg) {
-        session.notice(target,msg);
-    }
+	public void notice(String target, String msg) 
+  {
+		session.notice(target,msg);
+  }
 
     public void setRejoinOnKick(boolean rejoin)
 	{
@@ -233,6 +234,7 @@ class InternalSessionImpl implements InternalSession
 		session.sayRaw(data);
 
 	}
+
     
     public void kick(String userName, String reason, Channel channel)
 	{

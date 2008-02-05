@@ -119,7 +119,7 @@ public class IRCEventFactoryTest extends TestCase
 		
 		JoinEvent je = IRCEventFactory.regularJoin(":r0bby!n=wakawaka@guifications/user/r0bby JOIN :#test", con);
 		assertNotNull(je);
-		assertEquals("r0bby", je.getWho());
+		assertEquals("r0bby", je.getNick());
 		assertEquals("n=wakawaka" , je.getUserName());
 		assertEquals("guifications/user/r0bby", je.getHostName());
 		assertEquals("#test", je.getChannelName());
