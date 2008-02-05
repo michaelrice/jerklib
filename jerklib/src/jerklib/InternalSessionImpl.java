@@ -233,7 +233,6 @@ class InternalSessionImpl implements InternalSession
 		session.sayRaw(data);
 
 	}
-
     
     public void kick(String userName, String reason, Channel channel)
 	{
