@@ -234,7 +234,8 @@ class InternalSessionImpl implements InternalSession
 
 	}
 
-	public void kick(String userName, String reason, Channel channel)
+    
+    public void kick(String userName, String reason, Channel channel)
 	{
 		session.kick(userName, reason, channel);
 	}

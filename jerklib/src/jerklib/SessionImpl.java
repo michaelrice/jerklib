@@ -510,8 +510,12 @@ public class SessionImpl implements Session
 			}
 		}
 	}
-	
-	Map<Type, List<Task>> getTasks()
+
+    public void notice(String target, String message) {
+        con.notice(target,message);
+    }
+
+    Map<Type, List<Task>> getTasks()
 	{
 		return taskMap;
 	}

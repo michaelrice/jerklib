@@ -334,7 +334,7 @@ public interface Session extends ProfileUpdateable
      */
     public void who(String who);
  
-    
+    public void notice(String target, String message); 
     
     public void onEvent(Task task);
     
