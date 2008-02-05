@@ -1,7 +1,7 @@
 package jerklib.events;
 
 /**
- * Created: Jan 31, 2008 6:19:28 PM
+ * This is fired when the lib gets a reply from a WHO request. 
  *
  * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor</a>
  */
