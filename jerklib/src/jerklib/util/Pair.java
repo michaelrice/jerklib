@@ -1,11 +1,11 @@
 package jerklib.util;
 
-public class Pair<T,E> 
+public class Pair<A,B>
 {
-	public final T first;
-	public final E second;
+	public final A first;
+	public final B second;
 	
-	public Pair(T first , E second)
+	public Pair(A first , B second)
 	{
 		this.first = first;
 		this.second = second;
@@ -13,11 +13,11 @@ public class Pair<T,E>
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean equals(Object obj) 
+	public boolean equals(Object obj)
 	{
 		if(obj instanceof Pair && obj.hashCode() == hashCode())
 		{
-			Pair<T, E> other = (Pair<T, E>)obj;
+			Pair<A, B> other = (Pair<A, B>)obj;
 			return other.first.equals(first) &&
 				other.second.equals(second);
 		}
@@ -25,7 +25,7 @@ public class Pair<T,E>
 	}
 	
 	@Override
-	public int hashCode() 
+	public int hashCode()
 	{
 		return first.hashCode() ^ 42 ^ second.hashCode();
 	}
