@@ -4,7 +4,7 @@ package jerklib.util;
 
 /**
  * 
- * to use:
+ * To use:
  *  cme.getChannel().say(Colors.BLUE + "HELLLLO");
  *  <br>
  *  Will say hello in blue
