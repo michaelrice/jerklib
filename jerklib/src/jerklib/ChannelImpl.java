@@ -27,8 +27,7 @@ class ChannelImpl implements Channel
 	 */
 	public String getTopic()
 	{
-		if(topicEvent != null) return topicEvent.getTopic();
-		return "";
+		return topicEvent != null ? topicEvent.getTopic() : "";
 	}
 	
 	/* (non-Javadoc)
@@ -45,9 +44,8 @@ class ChannelImpl implements Channel
 	 */
 	public String getTopicSetTime()
 	{
-		if(topicEvent != null) return topicEvent.getSetWhen();
-		return "";
-	}
+	    return topicEvent != null ? topicEvent.getSetWhen() : "";
+    }
 	
 	/* (non-Javadoc)
 	 * @see jerklib.Channel#setTopic(java.lang.String)
