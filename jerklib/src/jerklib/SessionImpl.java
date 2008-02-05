@@ -513,5 +513,8 @@ public class SessionImpl implements Session
 	{
 		return taskMap;
 	}
-	
+
+    public void notice(String target, String msg) {
+        con.notice(target,msg);
+    }
 }

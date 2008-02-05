@@ -331,7 +331,14 @@ public interface Session extends ProfileUpdateable {
      * @see Connection#who(java.lang.String) 
      */
     public void who(String who);
- 
+
+    /**
+     * Sends a NOTICE to the target.
+     * @param target
+     * @param msg
+     */
+    public void notice(String target, String msg); 
+
     
     
     public void onEvent(Task task);

@@ -166,7 +166,11 @@ class InternalSessionImpl implements InternalSession
 		session.sayChannel(channelName, msg);
 	}
 
-	public void setRejoinOnKick(boolean rejoin)
+    public void notice(String target, String msg) {
+        session.notice(target,msg);
+    }
+
+    public void setRejoinOnKick(boolean rejoin)
 	{
 		session.setRejoinOnKick(rejoin);
 	}

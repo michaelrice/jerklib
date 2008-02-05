@@ -50,7 +50,7 @@ public class Example implements IRCEventListener
 			/* someone speaks in a channel */
 			ChannelMsgEvent cme = (ChannelMsgEvent)e;
 			System.out.println(cme.getChannel().getName() + " <" + cme.getNick() + ">" + cme.getMessage());
-		}
+        }
 		else if(e.getType() == Type.CONNECT_COMPLETE)
 		{
 			/* connection to server is complete */
@@ -63,7 +63,8 @@ public class Example implements IRCEventListener
 			{
 				/* say hello and version number */
 				jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
-			}
+                e.getSession().notice(jce.getChannel().getName(), "Hello from Jerklib "+ConnectionManager.getVersion()); 
+            }
 		}
 	}
 	

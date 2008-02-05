@@ -163,6 +163,9 @@ final class Connection
 		}
 	}
 
+ void notice(String target, String msg) {
+     writeRequests.add(new WriteRequestImpl("NOTICE "+target+" :"+msg+"\r\n",this));
+ }
   void who(String who) 
   {
   	writeRequests.add(new WriteRequestImpl("WHO "+who+"\r\n",this));        
