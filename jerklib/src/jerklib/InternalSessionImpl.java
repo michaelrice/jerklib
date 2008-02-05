@@ -66,10 +66,12 @@ class InternalSessionImpl implements InternalSession
 
 	public void rejoinChannels()
 	{
+		System.out.println("REJOIN CALLED");
 		if(con != null && session.isRejoinOnReconnect())
 		{
 			for(String name : session.getChannelNames())
 			{
+				System.out.println("CHANNAME:" + name);
 				con.join(name);
 			}
 		}

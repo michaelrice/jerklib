@@ -44,7 +44,7 @@ class ConnectionState
 	{
 		long current = System.currentTimeMillis();
 		
-		if(current - lastResponse > 500000)
+		if(current - lastResponse > 300000)
 		{
 			conState = State.DISCONNECTED;
 			return PingState.NEED_TO_RECONNECT;

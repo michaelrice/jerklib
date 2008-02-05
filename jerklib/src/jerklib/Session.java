@@ -16,14 +16,16 @@ import jerklib.tasks.Task;
  * @see IRCEventListener
  * @see Channel
  */
-public interface Session extends ProfileUpdateable {
+public interface Session extends ProfileUpdateable 
+{
 
     /**
      * Enum to represent connection state
      *
      * @author mohadib
      */
-    enum State {
+    enum State 
+    {
         CONNECTED,
         CONNECTING,
         HALF_CONNECTED,
@@ -331,14 +333,7 @@ public interface Session extends ProfileUpdateable {
      * @see Connection#who(java.lang.String) 
      */
     public void who(String who);
-
-    /**
-     * Sends a NOTICE to the target.
-     * @param target
-     * @param msg
-     */
-    public void notice(String target, String msg); 
-
+ 
     
     
     public void onEvent(Task task);

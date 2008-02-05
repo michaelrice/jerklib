@@ -226,7 +226,7 @@ public class ConnectionManager
 		
 		if(sessionMap.containsValue(iSession))
 		{
-			throw new IllegalArgumentException("Allready connected to " + hostName + " on same port with same profile");
+			throw new IllegalArgumentException("Already connected to " + hostName + " on same port with same profile");
 		}
 		
 		sessionMap.put(hostName, iSession);
@@ -375,7 +375,10 @@ public class ConnectionManager
 					
 					it.remove();
 					
-					if(!key.isValid()) continue;
+					if(!key.isValid())
+					{
+						continue;
+					}
 					
 					if(key.isReadable())
 					{
@@ -411,7 +414,10 @@ public class ConnectionManager
 				{
 					session.setConnectionState(Session.State.HALF_CONNECTED);
 					session.getConnection().login();
-					if(session.isRejoinOnReconnect())session.rejoinChannels();
+					if(session.isRejoinOnReconnect())
+					{
+						session.rejoinChannels();
+					}
 				}
 				else
 				{
@@ -422,6 +428,7 @@ public class ConnectionManager
 			{
 				session.setConnectionState(State.DISCONNECTED);
 				key.cancel();
+				e.printStackTrace();
 			}
 		}
 	}
@@ -434,7 +441,10 @@ public class ConnectionManager
 			{
 				ConnectionState state = session.getConnectionState();
 				
-				if(state == null || state.getConState() != State.CONNECTED) continue; //not connected yet
+				if(state == null || state.getConState() != State.CONNECTED)
+				{
+					continue;
+				}
 				
 				if(state.getPingState() == PingState.NEED_TO_PING)
 				{
@@ -517,7 +527,17 @@ public class ConnectionManager
 			
 			for(Task t : taskCopy)
 			{
-				t.receiveEvent(event);
+				//could put code here to catch exceptions caused
+				//by lib users , this would keep the lib from crashing
+				//for outside reasons.
+				try
+				{
+					t.receiveEvent(event);
+				}catch (Exception e) 
+				{
+					System.err.println("jerklib:Cought Client Exception");
+					e.printStackTrace();
+				}
 			}
 			
 			for(IRCEventListener listener : templisteners)
@@ -601,26 +621,25 @@ public class ConnectionManager
     
     sChannel.configureBlocking(false);
 
-    System.out.println("DNS START");
+    
+    InetSocketAddress isa = new InetSocketAddress
+		(
+				session.getRequestedConnection().getHostName(),  
+				session.getRequestedConnection().getPort()
+		);
+    
+    
     sChannel.connect
     (
-    		new InetSocketAddress
-    		(
-    				session.getRequestedConnection().getHostName(),  
-    				session.getRequestedConnection().getPort()
-    		)
+    		isa
     );
-    System.out.println("DNS STOP");
     
     sChannel.register(selector , sChannel.validOps());
     
-    System.err.println("Calling Connect");
     Connection con = new Connection(this , sChannel);
-    System.err.println("Connect Called");
     session.setConnection(con);
     
     socChanMap.put(sChannel, session);
-    
 	}
 }
 

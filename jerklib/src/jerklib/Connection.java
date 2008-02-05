@@ -153,6 +153,10 @@ final class Connection
 		{
 			writeRequests.add(new WriteRequestImpl("JOIN " + channel + "\r\n", this));
 		}
+		else
+		{
+			System.err.println("CHAN NAME ALLREADY IN MAP " + channel);
+		}
 	}
 
 	void join(String channel, String pass)
@@ -245,7 +249,12 @@ final class Connection
 	int read()
 	{
 
-		if(conState.getConState() == State.DISCONNECTED)return -1;
+		if(conState.getConState() == State.DISCONNECTED || !socChannel.isConnected())
+		{
+			System.err.println(conState.getConState());
+			return -1;
+		}
+		
 		
 		readBuffer.clear();
 
@@ -255,7 +264,7 @@ final class Connection
 		{
 			numRead = socChannel.read(readBuffer);
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			conState.setConState(State.DISCONNECTED);

@@ -129,6 +129,9 @@ public class InternalEventParser
 				else if(command.equals("PART"))
 				{
 					PartEvent pEvent = IRCEventFactory.part(data, con);
+					System.err.println(data);
+					System.err.println("HERE " + pEvent.getChannel() == null);
+					
 					((ChannelImpl)pEvent.getChannel()).removeNick(pEvent.getWho());
 					manager.addToRelayList(pEvent);
 				}

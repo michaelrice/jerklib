@@ -130,14 +130,16 @@ public class SessionImpl implements Session
 	public void joinChannel(String channelName)
 	{
 
-    if (!channelNames.contains(channelName))
+    if (!channelNames.contains(channelName) && con!= null)
 		{
 			channelNames.add(channelName);
-			if (con != null)
-			{
-				con.join(channelName);
-			}
+			con.join(channelName);
 		}
+    else
+    {
+    	new Exception().printStackTrace();
+    	System.err.println("Channel in list already " + channelName);
+    }
 	}
 
 	/* (non-Javadoc)
@@ -513,8 +515,5 @@ public class SessionImpl implements Session
 	{
 		return taskMap;
 	}
-
-    public void notice(String target, String msg) {
-        con.notice(target,msg);
-    }
+	
 }
