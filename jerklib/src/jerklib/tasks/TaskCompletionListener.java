@@ -1,6 +1,6 @@
 package jerklib.tasks;
 
-public interface TaskCompletionListener<T>
+public interface TaskCompletionListener
 {
-	public void taskComplete(T result);
+	public void taskComplete(Object result);
 }

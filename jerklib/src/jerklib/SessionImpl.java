@@ -520,4 +520,8 @@ public class SessionImpl implements Session
 		return taskMap;
 	}
 	
+    public void onConnect(Task task)
+    {
+    }
+    
 }

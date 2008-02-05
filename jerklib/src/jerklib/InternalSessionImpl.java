@@ -345,6 +345,11 @@ class InternalSessionImpl implements InternalSession
 	{
 		return ((SessionImpl)session).getTasks();
 	}
+	
+	public void onConnect(Task task)
+	{
+		session.onConnect(task);
+	}
 }
 
 
