@@ -35,8 +35,7 @@ class ChannelImpl implements Channel
 	 */
 	public String getTopicSetter()
 	{
-		if(topicEvent != null) return topicEvent.getSetBy();
-		return "";
+	    return topicEvent != null ? topicEvent.getSetBy() : "";
 	}
 	
 	/* (non-Javadoc)
@@ -79,9 +78,10 @@ class ChannelImpl implements Channel
 	{
 		con.addWriteRequest(new WriteRequestImpl(message , this , con));
 	}
-	
-	
-	public void addNick(String nick)
+    
+
+
+    public void addNick(String nick)
 	{
 		if(!users.contains(nick))
 		{
