@@ -12,7 +12,7 @@ package jerklib.util;
  * @author mohadib
  *	
  */
-public final class Colors
+public class Colors
 {
 
   /**
