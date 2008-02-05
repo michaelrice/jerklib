@@ -63,7 +63,8 @@ public class Example implements IRCEventListener
 			{
 				/* say hello and version number */
 				jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
-                e.getSession().notice(jce.getChannel().getName(), "Hello from Jerklib "+ConnectionManager.getVersion()); 
+                jce.getChannel().notice("HAI 2u ");
+                e.getSession().notice(jce.getChannel().getName(), "Hello from Jerklib "+ConnectionManager.getVersion());
             }
 		}
 	}
