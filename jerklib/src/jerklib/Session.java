@@ -62,10 +62,6 @@ public interface Session extends ProfileUpdateable
      */
     public boolean isRejoinOnKick();
 
-    /**
-     * @return true if should rejoin channels on reconnect , else false
-     */
-    public boolean isRejoinOnReconnect();
 
     /**
      * Sets whether channels should be rejoined when kicked
@@ -73,13 +69,6 @@ public interface Session extends ProfileUpdateable
      * @param rejoin true if should rejoin , else false
      */
     public void setRejoinOnKick(boolean rejoin);
-
-    /**
-     * Sets weather channels should be rejoined on reconnect
-     *
-     * @param rejoin true if should rejoin else false
-     */
-    public void setRejoinOnReconnect(boolean rejoin);
 
 
     /**
@@ -328,21 +317,7 @@ public interface Session extends ProfileUpdateable
     public void unsetAway();
 
     
-    
-    /**
-     * JerkLib allows the binding of one task to 
-     * the CONNECTION_COMPLETE event. This is useful for
-     * identing. JerkLib will run this task everytime
-     * it connects or reconnects to a server. If Jerklib
-     * is set to auto rejoin it will wait for this task
-     * to call task.taskComplete(object) before rejoining
-     * channels.
-     *
-     *@see Task
-     *@param Task task to run
-     */
-    public void onConnect(Task task);
-    
+
     /**
      * WHO a user.
      * @param who user's nick or a channel.

@@ -11,7 +11,6 @@ import java.util.Map;
 import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.tasks.Task;
-import jerklib.tasks.TaskCompletionListener;
 
 /**
  * @author mohadib
@@ -31,23 +30,10 @@ public class SessionImpl implements Session
 	private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
 	private final Map<Type, List<Task>> taskMap = new HashMap<Type, List<Task>>();
 	private long lastRetry = -1;
-	private Task onConnectTask;
-	private final TaskCompletionListener tcl;
 	
 	SessionImpl(RequestedConnection rCon)
 	{
 		this.rCon = rCon;
-		
-		tcl = new TaskCompletionListener()
-		{
-			public void taskComplete(Object result)
-			{
-				if(rejoinOnConnect)
-				{
-					SessionImpl.this.rejoinChannelsNow();
-				}
-			}
-		};
 	}
 
 	void setConnection(Connection con)
@@ -125,16 +111,6 @@ public class SessionImpl implements Session
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jerklib.Session#isRejoinOnReconnect()
-	 */
-	public boolean isRejoinOnReconnect()
-	{
-		return rejoinOnConnect;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see jerklib.Session#setRejoinOnKick(boolean)
 	 */
 	public void setRejoinOnKick(boolean rejoin)
@@ -142,15 +118,6 @@ public class SessionImpl implements Session
 		rejoinOnKick = rejoin;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see jerklib.Session#setRejoinOnReconnect(boolean)
-	 */
-	public void setRejoinOnReconnect(boolean rejoin)
-	{
-		rejoinOnConnect = rejoin;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -620,31 +587,6 @@ public class SessionImpl implements Session
 		}
 	}
 
-	public void onConnect(Task task)
-	{
-		if(onConnectTask != null && onConnectTask.getTaskListeners().contains(tcl))
-		{
-			onConnectTask.removeTaskListener(tcl);
-		}
-		
-		
-		this.onConnectTask = task;
-		if(!onConnectTask.getTaskListeners().contains(tcl))
-		{
-			onConnectTask.addTaskListener(tcl);
-		}
-		
-		onEvent(task);
-	}
-
-	
-	
-	
-	Task getOnConnectTask()
-	{
-		return onConnectTask;
-	}
-	
 	
 	void addChannelName(String name)
 	{
@@ -670,23 +612,6 @@ public class SessionImpl implements Session
 		return lastRetry;
 	}
 
-	void rejoinChannels()
-	{
-		if(onConnectTask == null)
-		{
-			rejoinChannelsNow();
-		}
-		//else we should be waiting on the onConnectTask
-	}
-	
-	private void rejoinChannelsNow()
-	{
-		for(String s : channelNames)
-		{
-			con.join(s);
-		}
-	}
-
 	void retried()
 	{
 		lastRetry = System.currentTimeMillis();
@@ -694,7 +619,14 @@ public class SessionImpl implements Session
 
 	void setConnectionState(State state)
 	{
-		if (con != null) con.setConnectionState(state);
+		if (con != null)
+		{
+			if(state == State.DISCONNECTED)
+			{
+				channelNames.clear();
+			}
+			con.setConnectionState(state);
+		}
 	}
 
 }

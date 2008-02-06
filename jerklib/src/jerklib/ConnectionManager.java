@@ -413,10 +413,6 @@ public class ConnectionManager
 				{
 					session.setConnectionState(Session.State.HALF_CONNECTED);
 					session.getConnection().login();
-					if(session.isRejoinOnReconnect())
-					{
-						session.rejoinChannels();
-					}
 				}
 				else
 				{
