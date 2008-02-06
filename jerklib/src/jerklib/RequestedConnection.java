@@ -2,7 +2,7 @@ package jerklib;
 
 
 
-public class RequestedConnectionImpl implements RequestedConnection
+public class RequestedConnection
 {
 
 	private final String hostName;
@@ -10,7 +10,7 @@ public class RequestedConnectionImpl implements RequestedConnection
 	private Profile profile;
 	private final long requestedTime = System.currentTimeMillis();
 	
-	public RequestedConnectionImpl(String hostName , int port , Profile profile)
+	public RequestedConnection(String hostName , int port , Profile profile)
 	{
 		this.hostName = hostName;
 		this.port = port;
