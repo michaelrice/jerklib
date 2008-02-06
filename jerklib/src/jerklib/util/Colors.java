@@ -1,8 +1,9 @@
 package jerklib.util;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Collections;
 
 
 /**
@@ -118,9 +119,8 @@ public final class Colors
   public static final String LIGHT_GRAY = "\u000315";
 
   
-  public static final List<String> colorList = new ArrayList<String>();
+  private static final List<String>colorList = new ArrayList<String>();
 
-  @SuppressWarnings({"unchecked"})
   static
   {
   	colorList.add(Colors.BLACK);
@@ -143,5 +143,14 @@ public final class Colors
   	colorList.add(Colors.WHITE);
   	colorList.add(Colors.YELLOW);
   }
+
+    /**
+     * Returns the list of all available colors.
+     * @return a list of all colors available
+     */
+  public static List<String> getColorsList() {
+      return Collections.unmodifiableList(colorList);
+  }
+
   
 }
