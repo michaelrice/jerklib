@@ -1,4 +1,4 @@
-package jerklib;
+package jerklib.events.listeners;
 
 public interface NickChangeListener 
 {
