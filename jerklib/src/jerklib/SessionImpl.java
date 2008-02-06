@@ -231,7 +231,7 @@ public class SessionImpl implements Session
 	{
 		if (con != null && isConnected())
 		{
-			con.addWriteRequest(new WriteRequestImpl(msg, con, nick));
+			con.addWriteRequest(new WriteRequest(msg, con, nick));
 		}
 		else
 		{
@@ -246,7 +246,7 @@ public class SessionImpl implements Session
 	 */
 	public void sayChannel(String channelName, String msg)
 	{
-		con.addWriteRequest(new WriteRequestImpl(msg, con.getChannel(channelName), con));
+		con.addWriteRequest(new WriteRequest(msg, con.getChannel(channelName), con));
 	}
 
 	/*
@@ -322,7 +322,7 @@ public class SessionImpl implements Session
 	 */
 	public void sayRaw(String data)
 	{
-		con.addWriteRequest(new WriteRequestImpl(data, con));
+		con.addWriteRequest(new WriteRequest(data, con));
 	}
 
 	/*

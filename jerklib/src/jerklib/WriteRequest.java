@@ -11,7 +11,7 @@ package jerklib;
  * @author mohadib
  * 
  */
-public class WriteRequestImpl implements WriteRequest
+public class WriteRequest
 {
 
 	private final Type type;
@@ -32,7 +32,7 @@ public class WriteRequestImpl implements WriteRequest
 		CHANNEL_MSG, PRIVATE_MSG, RAW_MSG
 	};
 	
-	public WriteRequestImpl(String message, Connection con, String nick)
+	public WriteRequest(String message, Connection con, String nick)
 	{
 		this.type = Type.PRIVATE_MSG;
 		this.message = message;
@@ -43,7 +43,7 @@ public class WriteRequestImpl implements WriteRequest
 
 	
 	
-	public WriteRequestImpl(String message, Channel channel, Connection con)
+	public WriteRequest(String message, Channel channel, Connection con)
 	{
 		this.type = Type.CHANNEL_MSG;
 		this.message = message;
@@ -53,7 +53,7 @@ public class WriteRequestImpl implements WriteRequest
 		this.nick = null;
 	}
 	
-	public WriteRequestImpl(String message, Channel channel, String hostName)
+	public WriteRequest(String message, Channel channel, String hostName)
 	{
 		this.type = Type.CHANNEL_MSG;
 		this.message = message;
@@ -64,7 +64,7 @@ public class WriteRequestImpl implements WriteRequest
 		this.nick = null;
 	}
 	
-	public WriteRequestImpl(String message, String channelName, String hostName)
+	public WriteRequest(String message, String channelName, String hostName)
 	{
 		this.type = Type.CHANNEL_MSG;
 		this.message = message;
@@ -76,7 +76,7 @@ public class WriteRequestImpl implements WriteRequest
 	}
 	
 	
-	public WriteRequestImpl(String message, String channelName, Connection con)
+	public WriteRequest(String message, String channelName, Connection con)
 	{
 		this.type = Type.CHANNEL_MSG;
 		this.message = message;
@@ -89,7 +89,7 @@ public class WriteRequestImpl implements WriteRequest
 
 
 
-    public WriteRequestImpl(String message, Connection con)
+    public WriteRequest(String message, Connection con)
 	{
 		this.type = Type.RAW_MSG;
 		this.message = message;
@@ -99,7 +99,7 @@ public class WriteRequestImpl implements WriteRequest
 	}
 	
 	
-	public WriteRequestImpl(String message, String hostName)
+	public WriteRequest(String message, String hostName)
 	{
 		this.type = Type.RAW_MSG;
 		this.message = message;

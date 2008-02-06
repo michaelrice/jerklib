@@ -124,34 +124,34 @@ final class Connection
 
 	void whois(String nick)
 	{
-		addWriteRequest(new WriteRequestImpl("WHOIS " + nick + "\r\n", this));
+		addWriteRequest(new WriteRequest("WHOIS " + nick + "\r\n", this));
 	}
 
 	void invite(String nick, Channel chan)
 	{
-		addWriteRequest(new WriteRequestImpl("INVITE " + nick + " " + chan.getName() + "\r\n", this));
+		addWriteRequest(new WriteRequest("INVITE " + nick + " " + chan.getName() + "\r\n", this));
 	}
 	
 	void chanList()
 	{
-		addWriteRequest(new WriteRequestImpl("LIST\r\n", this));
+		addWriteRequest(new WriteRequest("LIST\r\n", this));
 	}
 
 	void chanList(String channel)
 	{
-		addWriteRequest(new WriteRequestImpl("LIST " + channel + "\r\n", this));
+		addWriteRequest(new WriteRequest("LIST " + channel + "\r\n", this));
 	}
 
 	void whoWas(String nick)
 	{
-		addWriteRequest(new WriteRequestImpl("WHOWAS " + nick + "\r\n", this));
+		addWriteRequest(new WriteRequest("WHOWAS " + nick + "\r\n", this));
 	}
 
 	void join(String channel)
 	{
 		if (!channelMap.containsKey(channel))
 		{
-			writeRequests.add(new WriteRequestImpl("JOIN " + channel + "\r\n", this));
+			writeRequests.add(new WriteRequest("JOIN " + channel + "\r\n", this));
 		}
 		else
 		{
@@ -163,16 +163,16 @@ final class Connection
 	{
 		if (!channelMap.containsKey(channel))
 		{
-			writeRequests.add(new WriteRequestImpl("JOIN " + channel + " " + pass + "\r\n", this));
+			writeRequests.add(new WriteRequest("JOIN " + channel + " " + pass + "\r\n", this));
 		}
 	}
 
  void notice(String target, String msg) {
-     writeRequests.add(new WriteRequestImpl("NOTICE "+target+" :"+msg+"\r\n",this));
+     writeRequests.add(new WriteRequest("NOTICE "+target+" :"+msg+"\r\n",this));
  }
   void who(String who) 
   {
-  	writeRequests.add(new WriteRequestImpl("WHO "+who+"\r\n",this));        
+  	writeRequests.add(new WriteRequest("WHO "+who+"\r\n",this));        
   }
 
   boolean part(Channel channel, String partMsg)
@@ -184,7 +184,7 @@ final class Connection
 	{
 		if (channelMap.containsKey(channelName))
 		{
-			writeRequests.add(new WriteRequestImpl("PART " + channelName + " :" + partMsg + "\r\n", this));
+			writeRequests.add(new WriteRequest("PART " + channelName + " :" + partMsg + "\r\n", this));
 			return true;
 		}
 		return false;
@@ -192,27 +192,27 @@ final class Connection
 
 	void setAway(String message)
 	{
-		writeRequests.add(new WriteRequestImpl("AWAY :" + message + "\r\n", this));
+		writeRequests.add(new WriteRequest("AWAY :" + message + "\r\n", this));
 	}
 
 	void unSetAway()
 	{
-		writeRequests.add(new WriteRequestImpl("AWAY\r\n", this));
+		writeRequests.add(new WriteRequest("AWAY\r\n", this));
 	}
 
 	void getServerVersion()
 	{
-		addWriteRequest(new WriteRequestImpl("VERSION " + actualHostName + "\r\n", this));
+		addWriteRequest(new WriteRequest("VERSION " + actualHostName + "\r\n", this));
 	}
 
 	void getServerVersion(String hostPattern)
 	{
-		addWriteRequest(new WriteRequestImpl("VERSION " + hostPattern + "\r\n", this));
+		addWriteRequest(new WriteRequest("VERSION " + hostPattern + "\r\n", this));
 	}
 
 	void changeNick(String nick)
 	{
-		writeRequests.add(new WriteRequestImpl("NICK " + nick + "\r\n", this));
+		writeRequests.add(new WriteRequest("NICK " + nick + "\r\n", this));
 	}
 
 	void addWriteRequest(WriteRequest request)
@@ -236,10 +236,10 @@ final class Connection
 
 	void login()
 	{
-		writeRequests.add(new WriteRequestImpl("NICK " + getProfile().getActualNick() + "\r\n", this));
+		writeRequests.add(new WriteRequest("NICK " + getProfile().getActualNick() + "\r\n", this));
 		writeRequests.add
 		(
-			new WriteRequestImpl
+			new WriteRequest
 			(
 				"USER " + getProfile().getName() + " 0 0 :" + getProfile().getName() + "\r\n", this
 			)
@@ -380,7 +380,7 @@ final class Connection
 
 	void ping()
 	{
-		writeRequests.add(new WriteRequestImpl("PING " + actualHostName + "\r\n", this));
+		writeRequests.add(new WriteRequest("PING " + actualHostName + "\r\n", this));
 		conState.pingSent();
 	}
 
@@ -388,7 +388,7 @@ final class Connection
 	{
 		conState.gotResponse();
 		String data = event.getRawEventData().substring(event.getRawEventData().lastIndexOf(":") + 1);
-		writeRequests.add(new WriteRequestImpl("PONG " + data + "\r\n", this));
+		writeRequests.add(new WriteRequest("PONG " + data + "\r\n", this));
 	}
 
 	void gotPong()
@@ -406,7 +406,7 @@ final class Connection
 				quitMessage = ConnectionManager.getVersion();
 			}
 			
-			WriteRequest request = new WriteRequestImpl("QUIT :" + quitMessage + "\r\n", this);
+			WriteRequest request = new WriteRequest("QUIT :" + quitMessage + "\r\n", this);
 
 			writeRequests.add(request);
 

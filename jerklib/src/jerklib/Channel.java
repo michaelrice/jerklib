@@ -53,7 +53,7 @@ public class Channel
 	{
 		con.addWriteRequest
 		(
-			new WriteRequestImpl("TOPIC " + name + " :" + topic + "\r\n", con)
+			new WriteRequest("TOPIC " + name + " :" + topic + "\r\n", con)
 		);
 	}
 	
@@ -76,7 +76,7 @@ public class Channel
 	 */
 	public void say(String message)
 	{
-		con.addWriteRequest(new WriteRequestImpl(message , this , con));
+		con.addWriteRequest(new WriteRequest(message , this , con));
 	}
 
     public void notice(String message) {
