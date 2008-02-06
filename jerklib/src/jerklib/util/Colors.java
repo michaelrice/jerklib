@@ -119,7 +119,7 @@ public final class Colors
   public static final String LIGHT_GRAY = "\u000315";
 
   
-  public static final List<String>colorList = new ArrayList<String>();
+  public static final List<String> colorList = new ArrayList<String>();
   
   static
   {
