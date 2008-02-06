@@ -119,7 +119,8 @@ public final class Colors
 
   
   public static final List<String> colorList = new ArrayList<String>();
-  
+
+  @SuppressWarnings({"unchecked"})
   static
   {
   	colorList.add(Colors.BLACK);
