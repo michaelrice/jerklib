@@ -12,7 +12,7 @@ public class Channel
 {
 	private String name;
 	private Connection con;
-	private List<String>users = new ArrayList<String>();
+	private List<String> users = new ArrayList<String>();
 	private TopicEvent topicEvent;
 	
 	Channel(String name , Connection con)
