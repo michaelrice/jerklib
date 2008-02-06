@@ -1,5 +1,9 @@
 package jerklib.util;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 /**
@@ -114,4 +118,30 @@ public final class Colors
    */
   public static final String LIGHT_GRAY = "\u000315";
 
+  
+  public static final List<String>colorList = new ArrayList<String>();
+  
+  static
+  {
+  	colorList.add(Colors.BLACK);
+  	colorList.add(Colors.BLUE);
+  	colorList.add(Colors.BOLD);
+  	colorList.add(Colors.BROWN);
+  	colorList.add(Colors.CYAN);
+  	colorList.add(Colors.DARK_BLUE);
+  	colorList.add(Colors.DARK_GRAY);
+  	colorList.add(Colors.DARK_GREEN);
+  	colorList.add(Colors.GREEN);
+  	colorList.add(Colors.LIGHT_GRAY);
+  	colorList.add(Colors.MAGENTA);
+  	colorList.add(Colors.NORMAL);
+  	colorList.add(Colors.OLIVE);
+  	colorList.add(Colors.PURPLE);
+  	colorList.add(Colors.RED);
+  	colorList.add(Colors.TEAL);
+  	colorList.add(Colors.UNDERLINE);
+  	colorList.add(Colors.WHITE);
+  	colorList.add(Colors.YELLOW);
+  }
+  
 }
