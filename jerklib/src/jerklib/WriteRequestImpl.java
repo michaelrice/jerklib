@@ -2,10 +2,14 @@ package jerklib;
 
 
 
-
 /**
+ * IRCWriteRequest - this is sent to an IRCConnection whenever a 'write' needs
+ * to happen. There are 3 types of IRCWriteRequests. PRIV_MSG , DIRECT_MSG ,
+ * RAW_MSG (from the Type enum). RAW_MSG is used when you need direct access to
+ * the IRC stream , else PRIV_MSG or DIRECT_MSG should be used.
+ * 
  * @author mohadib
- *
+ * 
  */
 public class WriteRequestImpl implements WriteRequest
 {
@@ -17,7 +21,16 @@ public class WriteRequestImpl implements WriteRequest
 	private String channelName;
 	private String connectionName;
 	
-	
+	/**
+	 * Type enum is used to determine type. It is returned from getType() PRIV_MSG
+	 * is a standard msg to an IRC channel. DIRECT_MSG is msg sent directly to
+	 * another user (not in a channel). RAW_MSG when direct access to the IRC
+	 * stream is needed.
+	 */
+	public enum Type
+	{
+		CHANNEL_MSG, PRIVATE_MSG, RAW_MSG
+	};
 	
 	public WriteRequestImpl(String message, Connection con, String nick)
 	{
