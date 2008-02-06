@@ -60,6 +60,4 @@ public class RequestedConnectionImpl implements RequestedConnection
 		this.profile = profile;
 	}
 	
-	
-	
 }

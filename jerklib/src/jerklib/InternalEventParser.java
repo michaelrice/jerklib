@@ -79,7 +79,7 @@ public class InternalEventParser
 	 */
 	void parseEvent(IRCEvent event)
 	{
-		final Connection con = ((InternalSession) event.getSession()).getConnection();
+		final Connection con = ((SessionImpl)event.getSession()).getConnection();
 		final String data = event.getRawEventData();
 		final String nick = con.getProfile().getActualNick();
 		String[] tokens = data.split("\\s+");

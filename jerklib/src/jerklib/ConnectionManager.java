@@ -81,8 +81,8 @@ public class ConnectionManager
 	}
 	
 	/* maps to index sessions by name and socketchannel */
-	private final Map<String, InternalSession> sessionMap = Collections.synchronizedMap(new HashMap<String, InternalSession>());
-	private final Map<SocketChannel , InternalSession> socChanMap = Collections.synchronizedMap(new HashMap<SocketChannel, InternalSession>());
+	private final Map<String, SessionImpl> sessionMap = Collections.synchronizedMap(new HashMap<String, SessionImpl>());
+	private final Map<SocketChannel ,SessionImpl> socChanMap = Collections.synchronizedMap(new HashMap<SocketChannel, SessionImpl>());
 	
 	/* event listener lists */
 	private final List<WriteRequestListener> writeListeners = Collections.synchronizedList(new ArrayList<WriteRequestListener>(1));
@@ -142,7 +142,7 @@ public class ConnectionManager
 	public List<Session> getSessions()
 	{
 		List<Session> sessions = new ArrayList<Session>(sessionMap.size());
-		for(InternalSession ses : sessionMap.values())
+		for(Session ses : sessionMap.values())
 		{
 			sessions.add(ses);
 		}
@@ -220,18 +220,17 @@ public class ConnectionManager
 			throw new IllegalArgumentException("Duplicate hostnames are not allowed");
 		}
 
-		RequestedConnection rCon = new RequestedConnectionImpl(hostName , port , profile);
-		Session session = new SessionImpl(rCon);
-		InternalSession iSession = new InternalSessionImpl(session);
+		RequestedConnection rCon = new RequestedConnection(hostName , port , profile);
+		SessionImpl session = new SessionImpl(rCon);
 		
-		if(sessionMap.containsValue(iSession))
+		if(sessionMap.containsValue(session))
 		{
 			throw new IllegalArgumentException("Already connected to " + hostName + " on same port with same profile");
 		}
 		
-		sessionMap.put(hostName, iSession);
+		sessionMap.put(hostName, session);
 		
-		return iSession;
+		return session;
 	}
 	
 	/**
@@ -246,7 +245,7 @@ public class ConnectionManager
 		
 		dispatchTimer.cancel();
 		
-		for(InternalSession session : sessionMap.values())
+		for(Session session : sessionMap.values())
 		{
 			session.close(quitMsg);
 		}
@@ -292,10 +291,10 @@ public class ConnectionManager
 		this.defaultProfile = profile;
 	}
 	
-	void removeSession(InternalSession session)
+	void removeSession(Session session)
 	{
 		sessionMap.remove(session.getRequestedConnection().getHostName());
-		for(Iterator<InternalSession>it = socChanMap.values().iterator(); it.hasNext();)
+		for(Iterator<SessionImpl>it = socChanMap.values().iterator(); it.hasNext();)
 		{
 			if(it.next().equals(session))
 			{
@@ -305,9 +304,9 @@ public class ConnectionManager
 		}
 	}
 	
-	InternalSession getSessionFor(Connection con)
+	SessionImpl getSessionFor(Connection con)
 	{
-		for(InternalSession session : sessionMap.values())
+		for(SessionImpl session : sessionMap.values())
 		{
 			if(session.getConnection() == con) return session;
 		}
@@ -404,7 +403,7 @@ public class ConnectionManager
 	private void finishConnection(SelectionKey key)
 	{
 		SocketChannel chan = (SocketChannel)key.channel();
-		InternalSession session = socChanMap.get(chan);
+		SessionImpl session = socChanMap.get(chan);
 		
 		if(chan.isConnectionPending())
 		{
@@ -437,7 +436,7 @@ public class ConnectionManager
 	{
 		synchronized (sessionMap)
 		{
-			for(InternalSession session : sessionMap.values())
+			for(SessionImpl session : sessionMap.values())
 			{
 				ConnectionState state = session.getConnectionState();
 				
@@ -490,7 +489,7 @@ public class ConnectionManager
 			//to the next event
 			if(s == null) continue;
 			
-			Map<Type, List<Task>> tasks = ((InternalSessionImpl)s).getTasks(); 
+			Map<Type, List<Task>> tasks = ((SessionImpl)s).getTasks(); 
 			synchronized (tasks)
 			{
 				for(Iterator<List<Task>>it = tasks.values().iterator(); it.hasNext();)
@@ -582,7 +581,7 @@ public class ConnectionManager
 	{
 		synchronized (sessionMap)
 		{
-			for(InternalSession session : sessionMap.values())
+			for(SessionImpl session : sessionMap.values())
 			{
 				if(session.getConnectionState() == null || 
 						session.getConnectionState().getConState() == Session.State.DISCONNECTED)
@@ -615,7 +614,7 @@ public class ConnectionManager
 		}
 	}
 	
-	private void connect(InternalSession session) throws IOException
+	private void connect(SessionImpl session) throws IOException
 	{
     SocketChannel sChannel = SocketChannel.open();
     

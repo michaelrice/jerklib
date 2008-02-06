@@ -330,12 +330,13 @@ public interface Session extends ProfileUpdateable
     
     
     /**
-     *Any tasks submited to onConnect will run
-     *as soon as a Session begins. This is useful
-     *for identifying your nick or other pre "joining"
-     *tasks that need doing. Like all Tasks this one
-     *will be continue to be used until cancel() is called
-     *on the task
+     * JerkLib allows the binding of one task to 
+     * the CONNECTION_COMPLETE event. This is useful for
+     * identing. JerkLib will run this task everytime
+     * it connects or reconnects to a server. If Jerklib
+     * is set to auto rejoin it will wait for this task
+     * to call task.taskComplete(object) before rejoining
+     * channels.
      *
      *@see Task
      *@param Task task to run

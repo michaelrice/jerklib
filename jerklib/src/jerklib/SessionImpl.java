@@ -31,7 +31,8 @@ public class SessionImpl implements Session
   private boolean isAway;
   private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
   private final Map<Type, List<Task>>taskMap = new HashMap<Type, List<Task>>();
-	
+  private long lastRetry = -1;
+  
 	SessionImpl(RequestedConnection rCon)
 	{
 		this.rCon = rCon;
@@ -41,8 +42,6 @@ public class SessionImpl implements Session
 	{
 		this.con = con;
 	}
-
-
 
 	/* (non-Javadoc)
 	 * @see jerklib.Session#getRequestedConnection()
@@ -78,11 +77,10 @@ public class SessionImpl implements Session
 		return new ArrayList<Channel>();
 	}
 
-    public boolean isAway() {
-        return isAway;
-    }
-
-    
+	public boolean isAway() 
+	{
+		return isAway;
+	}
 
     /* (non-Javadoc)
 	 * @see jerklib.Session#isConnected()
@@ -252,7 +250,7 @@ public class SessionImpl implements Session
 	{
 		if(success)
 		{
-			((RequestedConnectionImpl)rCon).setProfile(tmpProfile);
+			((RequestedConnection)rCon).setProfile(tmpProfile);
 		}
 		else
 		{
@@ -342,7 +340,6 @@ public class SessionImpl implements Session
 		
 		sayRaw("MODE " + channel.getName() + " +v " + userName + "\r\n");
 	}
-	
 	
 	/* (non-Javadoc)
 	 * @see jerklib.Session#deVoice(java.lang.String, jerklib.Channel)
@@ -511,17 +508,59 @@ public class SessionImpl implements Session
 		}
 	}
 
-    public void notice(String target, String message) {
-        con.notice(target,message);
-    }
+	public void notice(String target, String message) 
+	{
+		con.notice(target,message);
+	}
 
     Map<Type, List<Task>> getTasks()
 	{
 		return taskMap;
 	}
 	
+    Task onConnectTask = null;
     public void onConnect(Task task)
     {
+    	this.onConnectTask = task;
     }
+
+		void addChannelName(String name)
+		{
+			if(!channelNames.contains(name))
+			{
+				channelNames.add(name);
+			}
+		}
+
+		Connection getConnection()
+		{
+			return con;
+		}
+
+		ConnectionState getConnectionState()
+		{
+			if(con == null) return null;
+			else return con.getConnectionState();
+		}
+
+		long getLastRetry()
+		{
+			return lastRetry;
+		}
+
+
+		void rejoinChannels()
+		{
+		}
+
+		void retried()
+		{
+			lastRetry = System.currentTimeMillis();
+		}
+
+		void setConnectionState(State state)
+		{
+			if(con != null) con.setConnectionState(state);
+		}
     
 }

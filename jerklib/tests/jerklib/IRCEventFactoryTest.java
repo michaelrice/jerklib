@@ -55,7 +55,7 @@ public class IRCEventFactoryTest extends TestCase
 	
 	public void testParseEvent()
 	{
-		Connection con = ((InternalSession)session).getConnection();
+		Connection con = ((SessionImpl)session).getConnection();
 		con.addChannel(new ChannelImpl("#test",con ));
 		((ChannelImpl)con.getChannel("#test")).addNick("mohadib");
 		
