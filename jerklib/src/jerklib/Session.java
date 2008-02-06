@@ -356,5 +356,7 @@ public interface Session extends ProfileUpdateable
     
     public void onEvent(Task task , Type type);
     
+    public void removeTask(Task t);
+    
 }
 
