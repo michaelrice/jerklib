@@ -8,14 +8,14 @@ import jerklib.events.TopicEvent;
 
 
 
-class ChannelImpl implements Channel
+public class Channel
 {
 	private String name;
 	private Connection con;
 	private List<String>users = new ArrayList<String>();
 	private TopicEvent topicEvent;
 	
-	ChannelImpl(String name , Connection con)
+	Channel(String name , Connection con)
 	{
 		this.name = name;
 		this.con = con;
@@ -85,7 +85,7 @@ class ChannelImpl implements Channel
     
 
 
-    public void addNick(String nick)
+  void addNick(String nick)
 	{
 		if(!users.contains(nick))
 		{
@@ -93,12 +93,12 @@ class ChannelImpl implements Channel
 		}
 	}
 	
-	public boolean removeNick(String nick)
+	boolean removeNick(String nick)
 	{
 		return users.remove(nick);
 	}
 
-	public void nickChanged(String oldNick, String newNick)
+	void nickChanged(String oldNick, String newNick)
 	{
 		users.remove(oldNick);
 		users.add(newNick);

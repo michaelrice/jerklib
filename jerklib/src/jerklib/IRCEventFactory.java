@@ -472,7 +472,7 @@ class IRCEventFactory
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
-			Channel channel = new ChannelImpl(m.group(1), con);
+			Channel channel = new Channel(m.group(1), con);
 			channel.setTopic(m.group(3));
 			return new ChannelListEventImpl(data, m.group(1), m.group(3), Integer.parseInt(m.group(2)), myManager.getSessionFor(con));
 		}

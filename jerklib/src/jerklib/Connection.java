@@ -80,7 +80,7 @@ final class Connection
 		List<Channel> returnList = new ArrayList<Channel>();
 		for (Channel chan : channelMap.values())
 		{
-			if (((ChannelImpl) chan).removeNick(nick))
+			if (((Channel) chan).removeNick(nick))
 			{
 				returnList.add(chan);
 			}
@@ -96,7 +96,7 @@ final class Connection
 			{
 				if (chan.getNicks().contains(oldNick))
 				{
-					((ChannelImpl) chan).nickChanged(oldNick, newNick);
+					((Channel) chan).nickChanged(oldNick, newNick);
 				}
 			}
 		}

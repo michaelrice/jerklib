@@ -109,7 +109,7 @@ public class InternalEventParser
 					Matcher m = p.matcher(data);
 					if(m.matches())
 					{
-						Channel channel = new ChannelImpl(m.group(1).toLowerCase(), con);
+						Channel channel = new Channel(m.group(1).toLowerCase(), con);
 						con.addChannel(channel);
 						manager.getSessionFor(con).addChannelName(channel.getName());
 						manager.addToRelayList(IRCEventFactory.joinCompleted(data, con, nick, channel));
@@ -117,7 +117,7 @@ public class InternalEventParser
 					else
 					{
 						JoinEvent jEvent = IRCEventFactory.regularJoin(data, con);
-						((ChannelImpl)jEvent.getChannel()).addNick(jEvent.getNick());
+						jEvent.getChannel().addNick(jEvent.getNick());
 						manager.addToRelayList(jEvent);
 					}
 				}
@@ -132,7 +132,7 @@ public class InternalEventParser
 					System.err.println(data);
 					System.err.println("HERE " + pEvent.getChannel() == null);
 					
-					((ChannelImpl)pEvent.getChannel()).removeNick(pEvent.getWho());
+					((Channel)pEvent.getChannel()).removeNick(pEvent.getWho());
 					manager.addToRelayList(pEvent);
 				}
 				else if(command.equals("NOTICE"))
@@ -163,7 +163,7 @@ public class InternalEventParser
 				else if(command.equals("KICK"))
 				{
 					KickEvent ke = IRCEventFactory.kick(data, con);
-					if (!((ChannelImpl)ke.getChannel()).removeNick(ke.getWho()))
+					if (!((Channel)ke.getChannel()).removeNick(ke.getWho()))
 					{
 						System.out.println("COULD NOT REMOVE NICK " + ke.getWho() + " from channel " + ke.getChannel().getName());
 					}
@@ -394,7 +394,7 @@ public class InternalEventParser
 			Pattern p = Pattern.compile(":(.+?)\\s+333\\s+(.+?)\\s+(#.+?)\\s+(\\S+)\\s+(\\S+)$");
 			Matcher m = p.matcher(data);
 			m.matches();
-			ChannelImpl chan = (ChannelImpl) con.getChannel(m.group(3).toLowerCase());
+			Channel chan = (Channel) con.getChannel(m.group(3).toLowerCase());
 			if (topicMap.containsKey(chan))
 			{
 				TopicEventImpl tEvent = (TopicEventImpl) topicMap.get(chan);
@@ -488,7 +488,7 @@ public class InternalEventParser
 				// remove @ and + from front for voice and ops ?
 				if (name != null && name.length() > 0)
 				{
-					((ChannelImpl)chan).addNick(name.toLowerCase().replace("+", "").replace("@", ""));
+					((Channel)chan).addNick(name.toLowerCase().replace("+", "").replace("@", ""));
 				}
 			}
 		}
