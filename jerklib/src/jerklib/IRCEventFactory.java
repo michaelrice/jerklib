@@ -73,9 +73,11 @@ class IRCEventFactory
 		Pattern p = Pattern.compile("^:\\S+\\s351\\s\\S+\\s(\\S+)\\s(\\S+)\\s:(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches()) { return new ServerVersionEventImpl(m.group(3), m.group(2), m.group(1), "", data, myManager.getSessionFor(con)); }
+		debug("SERVER_VERSION", data);
 		return null;
 	}
 
+//:irc.nmglug.org 001 namnar :Welcome to the nmglug.org
 	static ConnectionCompleteEvent connectionComplete(String data, Connection con)
 	{
 		System.out.println("DATA:" + data + " " + con.getProfile().getActualNick());
@@ -94,9 +96,10 @@ class IRCEventFactory
 
 			return e;
 		}
+		debug("CONN_COMPLETE", data);
 		return null;
 	}
-
+	
 	// :simmons.freenode.net 352 r0bby_ * n=wakawaka guifications/user/r0bby
 	// irc.freenode.net r0bby H :0 Robert O'Connor
 	static WhoEvent who(String data, Connection con)
@@ -118,8 +121,8 @@ class IRCEventFactory
 					m.group(2)); // username
 
 		}
+		debug("WHO", data);
 		return null;
-
 	}
 
 	// :kubrick.freenode.net 314 scripy1 ty n=ty 71.237.206.180 * :ty
@@ -129,6 +132,7 @@ class IRCEventFactory
 		Pattern p = Pattern.compile("^:\\S+\\s314\\s\\S+\\s(\\S+)\\s(\\S+)\\s(\\S+).+?:(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches()) { return new WhowasEventImpl(m.group(3), m.group(2), m.group(1), m.group(4), data, myManager.getSessionFor(con)); }
+		debug("WHOWAS", data);
 		return null;
 	}
 
@@ -137,6 +141,7 @@ class IRCEventFactory
 		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches()) { return new NumericEventImpl(m.group(1), data, numericErrorMap.get(numeric), numeric, myManager.getSessionFor(con)); }
+		debug("NUMERIC ERROR", data);
 		return null;
 	}
 
@@ -146,6 +151,7 @@ class IRCEventFactory
 		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s(\\S+)\\s(\\S+)\\s(\\S+).*?:(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches()) { return new WhoisEventImpl(m.group(1), m.group(4), m.group(2), m.group(3), data, session); }
+		debug("WHOIS", data);
 		return null;
 	}
 
@@ -169,7 +175,7 @@ class IRCEventFactory
 			);
 			return nle;
 		}
-
+		debug("NICK_LIST", data);
 		return null;
 	}
 
@@ -193,6 +199,7 @@ class IRCEventFactory
 			);
 			return ke;
 		}
+		debug("KICK", data);
 		return null;
 	}
 
@@ -215,6 +222,7 @@ class IRCEventFactory
 			return topicEvent;
 		}
 
+		debug("TOPIC", data);
 		return null;
 	}
 
@@ -243,7 +251,6 @@ class IRCEventFactory
 		m = p.matcher(data);
 		if (m.matches())
 		{
-			System.out.println("MATCHEDDDDDDDDDd");
 			String user = m.group(1);
 			if(user.indexOf("!") != -1)
 			{
@@ -261,6 +268,7 @@ class IRCEventFactory
 			return me;
 		}
 
+		debug("MODE", data);
 		return null;
 	}
 
@@ -287,7 +295,7 @@ class IRCEventFactory
 
 			return channelMsgEvent;
 		}
-
+		debug("CHANNEL_MSG", data);
 		return null;
 	}
 
@@ -307,6 +315,7 @@ class IRCEventFactory
 
 			return event;
 		}
+		debug("NICK_IN_USE", data);
 		return null;
 	}
 
@@ -340,7 +349,11 @@ class IRCEventFactory
 		Pattern p = Pattern.compile(":(\\S+)\\s+\\d+\\s+(\\Q" + con.getProfile().getActualNick() + "\\E)\\s+:(.*)$");
 		Matcher m = p.matcher(data);
 
-		if (!m.matches()) return null;
+		if (!m.matches())
+		{
+			debug("MOTD", data);
+			return null;
+		}
 
 		return new MotdEventImpl(data, myManager.getSessionFor(con), m.group(3) , m.group(1));
 	}
@@ -390,7 +403,7 @@ class IRCEventFactory
 
 			return ne;
 		}
-
+		debug("NOTICE", data);
 		return null;
 	}
 
@@ -423,7 +436,7 @@ class IRCEventFactory
 				matcher.group(4), // message
 				chanList
 			);
-			return quitEvent;
+			debug("QUIT", data);
 		}
 		return null;
 	}
@@ -459,6 +472,7 @@ class IRCEventFactory
 				e.printStackTrace();
 			}
 		}
+		debug("JOIN_EVENT", data);
 		return null;
 	}
 
@@ -476,6 +490,7 @@ class IRCEventFactory
 			channel.setTopic(m.group(3));
 			return new ChannelListEventImpl(data, m.group(1), m.group(3), Integer.parseInt(m.group(2)), myManager.getSessionFor(con));
 		}
+		debug("CHAN_LIST", data);
 		return null;
 	}
 
@@ -509,6 +524,7 @@ class IRCEventFactory
 		{
 			System.err.println("NO MATCH");
 		}
+		debug("PART", data);
 		return null;
 	}
 
@@ -535,6 +551,7 @@ class IRCEventFactory
 
 			return privateMsg;
 		}
+		debug("PRIVATE_MSG", data);
 		return null;
 	}
 
@@ -556,27 +573,11 @@ class IRCEventFactory
 			);
 			return nickChangeEvent;
 		}
+		debug("NICK_CHANGE", data);
 		return null;
 	}
 
-	//:irc.nmglug.org 001 namnar :Welcome to the nmglug.org
-	static ConnectionCompleteEvent updateHostName(String data, Connection con, String oldHostName)
-	{
-		Pattern p = Pattern.compile(":(\\S+)\\s+001\\s+\\Q" + con.getProfile().getActualNick() + "\\E\\s+:.*$");
-		Matcher m = p.matcher(data);
-		if (m.matches())
-		{
-			ConnectionCompleteEvent e = new ConnectionCompleteEventImpl
-			(
-				data, 
-				m.group(1).toLowerCase(), // new hostname
-				myManager.getSessionFor(con), 
-				oldHostName// old hostname
-			);
-			return e;
-		}
-		return null;
-	}
+
 
 	// :r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2
 	static InviteEvent invite(String data, Connection con)
@@ -584,6 +585,7 @@ class IRCEventFactory
 		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+INVITE.+?:(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches()) { return new InviteEventImpl(m.group(4).toLowerCase(), m.group(1), m.group(2), m.group(3), data, myManager.getSessionFor(con)); }
+		debug("INVITE", data);
 		return null;
 	}
 
@@ -636,4 +638,11 @@ class IRCEventFactory
 		numericErrorMap.put(502, ErrorType.ERR_USERSDONTMATCH);
 	}
 
+	private static void debug(String method , String data)
+	{
+		if(!ConnectionManager.debug) return;
+		System.err.println("Returning null from " + method + " in IRCEventFactory. Offending data:");
+		System.err.println(data);
+	}
+	
 }
