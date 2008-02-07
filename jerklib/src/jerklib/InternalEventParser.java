@@ -37,11 +37,11 @@ import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
 import jerklib.events.NickChangeEvent;
 import jerklib.events.PartEvent;
-import jerklib.events.PrivateMsgEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.MessageEvent;
+import jerklib.events.IRCEvent.Type;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.WhoisEventImpl;
 
@@ -96,7 +96,7 @@ public class InternalEventParser
 				String command = tokens[1];
 				if(command.equals("PRIVMSG"))
 				{
-					privMsg(data, con, nick);
+					message(data, con);
 				}
 				else if(command.equals("QUIT"))
 				{
@@ -125,7 +125,7 @@ public class InternalEventParser
 				else if(command.equals("MODE"))
 				{
 					//debugging
-					manager.addToRelayList(IRCEventFactory.modeEvent(data, con));
+					//manager.addToRelayList(IRCEventFactory.modeEvent(data, con));
 				}
 				else if(command.equals("PART"))
 				{
@@ -454,25 +454,21 @@ public class InternalEventParser
 		}
 	}
 
-	private void privMsg(String data, Connection con, String nick)
+	private void message(String data, Connection con)
 	{
-		if (data.matches("^.+?PRIVMSG\\s+#.+$"))
+		MessageEvent me = IRCEventFactory.privateMsg(data,con);
+		if(me.getType() == Type.PRIVATE_MESSAGE)
 		{
-			manager.addToRelayList(IRCEventFactory.privateMsg(data,con,""));
-		}
-		else
-		{
-			MessageEvent pme = IRCEventFactory.privateMsg(data, con, nick);
-			if(pme.getMessage().equals("\u0001VERSION\u0001"))
+			if(me.getMessage().equals("\u0001VERSION\u0001"))
 			{
-				pme.getSession().sayRaw("NOTICE " + pme.getNick() + " :\001VERSION " + ConnectionManager.getVersion() + "\001\r\n");
+				me.getSession().sayRaw("NOTICE " + me.getNick() + " :\001VERSION " + ConnectionManager.getVersion() + "\001\r\n");
 			}
-			else if(pme.getMessage().equals("\u0001PING\u0001"))
+			else if(me.getMessage().equals("\u0001PING\u0001"))
 			{
-				pme.getSession().sayRaw("NOTICE " + pme.getNick() + " :\001PING \001\r\n");
+				me.getSession().sayRaw("NOTICE " + me.getNick() + " :\001PING \001\r\n");
 			}
-			manager.addToRelayList(pme);
 		}
+		manager.addToRelayList(me);
 	}
 
 	private void namesLine(String data, Connection con)

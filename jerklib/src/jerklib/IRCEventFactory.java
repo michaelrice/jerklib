@@ -1,5 +1,6 @@
 package jerklib;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import jerklib.events.AwayEvent;
 import jerklib.events.WhoEvent;
 import jerklib.events.MessageEvent;
 import jerklib.events.IRCEvent;
+import jerklib.events.IRCEvent.Type;
 import jerklib.events.NumericErrorEvent.ErrorType;
 import jerklib.events.impl.JoinCompleteEventImpl;
 import jerklib.events.impl.JoinEventImpl;
@@ -228,12 +230,15 @@ class IRCEventFactory
 	// :mohadib!n=fran@unaffiliated/mohadib MODE #jerklib +b scripy!*@*
 	// :mohadib!n=fran@unaffiliated/mohadib MODE #jerklib -m
 	// :services. MODE scripy :+e
+	//:r0bby!n=wakawaka@guifications/user/r0bby MODE #jerklib3 +ov scrippy2 scrippy2
+	/*
 	static ModeEvent modeEvent(String data, Connection con)
 	{
 		Pattern p = Pattern.compile("^:(\\S+)\\s+MODE\\s+(\\S+)\\s+(\\S+)\\s*$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
+			List<String>modes = Arrays.asList(mode.)
 			ModeEvent me = new ModeEventImpl
 			(
 				data, 
@@ -270,59 +275,36 @@ class IRCEventFactory
 		debug("MODE", data);
 		return null;
 	}
-
+*/
+	
 	/*
 	 * A Channel Msg :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah
 	 * Private message :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!
 	 */
-    static MessageEvent privateMsg(String data, Connection con, String nick) {
-        if (data.matches("^.+?PRIVMSG\\s+#.+$")) {
-            System.out.println(data.matches("^.+?PRIVMSG\\s+#.+$"));
-            Pattern p = Pattern.compile("^:(\\S+?)\\!(\\S+?)@(\\S+)\\s+PRIVMSG\\s+(\\S+)\\s+:(.*)$");
-            Matcher m = p.matcher(data);
-            if (m.matches()) {
-                MessageEvent channelMsgEvent = new MessageEventImpl
-                        (
-                                con.getChannel(m.group(4).toLowerCase()),
-                                m.group(3),
-                                m.group(5),
-                                m.group(1),
-                                data,
-                                myManager.getSessionFor(con),
-                                IRCEvent.Type.CHANNEL_MESSAGE,
-                                m.group(2)
-
-
-                        );
-                debug("CHANNEL MSG",data);
-                return channelMsgEvent;
-
-            }
-
-        } else {
-            Pattern p = Pattern.compile("^:(\\S+?)\\!(\\S+?)@(\\S+?)\\sprivmsg\\s\\Q" + nick + "\\E\\s+:(.*)$", Pattern.CASE_INSENSITIVE);
-            Matcher m = p.matcher(data);
-            if (m.matches()) {
-                MessageEvent privMsgEvent = new MessageEventImpl
-                        (
-                                null,//channel
-                                m.group(3), // host
-                                m.group(4), //message
-                                m.group(1), //nick
-                                data, // raw event data
-                                myManager.getSessionFor(con), //session
-                                IRCEvent.Type.PRIVATE_MESSAGE,
-                                m.group(2) //username
-
-
-                        );
-                debug("PRIVATE MSG",data); 
-                return privMsgEvent;
-
-
-            }
-        }
-        return null;
+    static MessageEvent privateMsg(String data, Connection con) 
+    {
+    	if(data.matches("^:\\S+\\s+PRIVMSG\\s+\\S+\\s+:.*$"))
+    	{
+    		Pattern p = Pattern.compile("^:(\\S+?)\\!(\\S+?)@(\\S+)\\s+PRIVMSG\\s+(\\S+)\\s+:(.*)$");
+        Matcher m = p.matcher(data);
+        m.matches();
+        String target = m.group(4);
+        return new MessageEventImpl
+        (
+        	target.startsWith("#")?con.getChannel(target.toLowerCase()):null,
+        	m.group(3),
+          m.group(5),
+          m.group(1),
+          data,
+          myManager.getSessionFor(con),
+          target.startsWith("#")?Type.CHANNEL_MESSAGE:Type.PRIVATE_MESSAGE,
+          m.group(2)
+        );
+        
+    	}
+    
+      debug("MESSAGE",data); 
+      return null;
     }
 
     // the_horrible is the nick that is in use

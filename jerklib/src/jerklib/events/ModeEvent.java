@@ -1,5 +1,7 @@
 package jerklib.events;
 
+import java.util.List;
+
 import jerklib.Channel;
 import jerklib.Session;
 
@@ -14,10 +16,10 @@ import jerklib.Session;
 public interface ModeEvent extends IRCEvent 
 {
 	/**
-	 * Get the mode set
-	 * @return mode
+	 * Get the modes set
+	 * @return List with modes
 	 */
-	public String getMode();
+	public List<String> getModes();
 	
 	/**
 	 * Gets who set the mode

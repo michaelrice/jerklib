@@ -1,5 +1,7 @@
 package jerklib.events.impl;
 
+import java.util.List;
+
 import jerklib.Channel;
 import jerklib.Session;
 import jerklib.events.ModeEvent;
@@ -9,14 +11,15 @@ public class ModeEventImpl implements ModeEvent
 
 	private final Type type = Type.MODE_EVENT;
 	private final Session session;
-	private final String rawEventData , mode , user , setBy;
+	private final String rawEventData ,user , setBy;
 	private final Channel channel;
+	private final List<String>modes;
 	
 	public ModeEventImpl
 	(
 		String rawEventData,
 		Session session,
-		String mode,
+		List<String> modes,
 		String user,
 		String setBy,
 		Channel channel
@@ -24,7 +27,7 @@ public class ModeEventImpl implements ModeEvent
 	{
 		this.rawEventData = rawEventData;
 		this.session = session;
-		this.mode = mode;
+		this.modes = modes;
 		this.user = user;
 		this.setBy = setBy;
 		this.channel = channel;
@@ -35,11 +38,11 @@ public class ModeEventImpl implements ModeEvent
 		return channel;
 	}
 
-	public String getMode() 
+	public List<String> getModes()
 	{
-		return mode;
+		return modes;
 	}
-
+	
 	public String getUser() 
 	{
 		return user;

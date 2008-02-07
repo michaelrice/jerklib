@@ -48,7 +48,7 @@ public class Example implements IRCEventListener
 		if(e.getType() == Type.CHANNEL_MESSAGE)
 		{
 			/* someone speaks in a channel */
-			ChannelMsgEvent cme = (ChannelMsgEvent)e;
+			MessageEvent cme = (MessageEvent)e;
 			System.out.println(cme.getChannel().getName() + " <" + cme.getNick() + ">" + cme.getMessage());
         }
 		else if(e.getType() == Type.CONNECT_COMPLETE)
