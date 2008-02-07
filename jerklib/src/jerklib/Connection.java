@@ -80,7 +80,7 @@ final class Connection
 		List<Channel> returnList = new ArrayList<Channel>();
 		for (Channel chan : channelMap.values())
 		{
-			if (((Channel) chan).removeNick(nick))
+			if (chan.removeNick(nick))
 			{
 				returnList.add(chan);
 			}
@@ -96,7 +96,7 @@ final class Connection
 			{
 				if (chan.getNicks().contains(oldNick))
 				{
-					((Channel) chan).nickChanged(oldNick, newNick);
+					chan.nickChanged(oldNick, newNick);
 				}
 			}
 		}
@@ -446,15 +446,10 @@ final class Connection
 			}
 
 			@SuppressWarnings("unused")
+			//TODO this should be in the interface
 			public String getHostName()
 			{
-				return "";
-			}
-
-			@SuppressWarnings("unused")
-			public int getPort()
-			{
-				return 6667;
+				return actualHostName;
 			}
 
 			public String getRawEventData()
