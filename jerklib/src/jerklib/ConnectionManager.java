@@ -37,7 +37,7 @@ import jerklib.tasks.Task;
 public class ConnectionManager
 {
 	
-	static boolean debug;
+	public static boolean debug;
 	private static String version = "0.3 or greater";
 	private static String extendedVersion = "";
 	static
