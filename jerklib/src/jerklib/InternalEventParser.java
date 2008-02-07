@@ -41,6 +41,7 @@ import jerklib.events.PrivateMsgEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
+import jerklib.events.MessageEvent;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.WhoisEventImpl;
 
@@ -457,11 +458,11 @@ public class InternalEventParser
 	{
 		if (data.matches("^.+?PRIVMSG\\s+#.+$"))
 		{
-			manager.addToRelayList(IRCEventFactory.channelMsg(data, con));
+			manager.addToRelayList(IRCEventFactory.privateMsg(data,con,""));
 		}
 		else
 		{
-			PrivateMsgEvent pme = IRCEventFactory.privateMsg(data, con, nick);
+			MessageEvent pme = IRCEventFactory.privateMsg(data, con, nick);
 			if(pme.getMessage().equals("\u0001VERSION\u0001"))
 			{
 				pme.getSession().sayRaw("NOTICE " + pme.getNick() + " :\001VERSION " + ConnectionManager.getVersion() + "\001\r\n");

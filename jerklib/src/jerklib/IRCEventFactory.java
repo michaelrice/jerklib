@@ -17,8 +17,6 @@ import jerklib.events.NickListEvent;
 import jerklib.events.NoticeEvent;
 import jerklib.events.NumericErrorEvent;
 import jerklib.events.PartEvent;
-import jerklib.events.ChannelMsgEvent;
-import jerklib.events.PrivateMsgEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.ServerVersionEvent;
 import jerklib.events.TopicEvent;
@@ -29,6 +27,8 @@ import jerklib.events.WhoisEvent;
 import jerklib.events.WhowasEvent;
 import jerklib.events.AwayEvent;
 import jerklib.events.WhoEvent;
+import jerklib.events.MessageEvent;
+import jerklib.events.IRCEvent;
 import jerklib.events.NumericErrorEvent.ErrorType;
 import jerklib.events.impl.JoinCompleteEventImpl;
 import jerklib.events.impl.JoinEventImpl;
@@ -41,8 +41,6 @@ import jerklib.events.impl.NickListEventImpl;
 import jerklib.events.impl.NoticeEventImpl;
 import jerklib.events.impl.NumericEventImpl;
 import jerklib.events.impl.PartEventImpl;
-import jerklib.events.impl.ChannelMsgEventImpl;
-import jerklib.events.impl.PrivateMessageEventImpl;
 import jerklib.events.impl.QuitEventImpl;
 import jerklib.events.impl.ServerVersionEventImpl;
 import jerklib.events.impl.TopicEventImpl;
@@ -53,6 +51,7 @@ import jerklib.events.impl.WhoisEventImpl;
 import jerklib.events.impl.WhowasEventImpl;
 import jerklib.events.impl.AwayEventImpl;
 import jerklib.events.impl.WhoEventImpl;
+import jerklib.events.impl.MessageEventImpl;
 
 class IRCEventFactory
 {
@@ -276,30 +275,57 @@ class IRCEventFactory
 	 * A Channel Msg :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah
 	 * Private message :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!
 	 */
-	static ChannelMsgEvent channelMsg(String data, Connection con)
-	{
-		Pattern p = Pattern.compile("^:(\\S+?)\\!(\\S+?)@(\\S+)\\s+PRIVMSG\\s+(\\S+)\\s+:(.*)$");
-		Matcher m = p.matcher(data);
-		if (m.matches())
-		{
-			ChannelMsgEvent channelMsgEvent = new ChannelMsgEventImpl
-			(
-					data, 
-					myManager.getSessionFor(con), 
-					con.getChannel(m.group(4).toLowerCase()), // channel
-					m.group(1), // nick
-					m.group(2), // user name
-					m.group(5), // message
-					m.group(3) // nicks host
-			);
+    static MessageEvent privateMsg(String data, Connection con, String nick) {
+        if (data.matches("^.+?PRIVMSG\\s+#.+$")) {
+            System.out.println(data.matches("^.+?PRIVMSG\\s+#.+$"));
+            Pattern p = Pattern.compile("^:(\\S+?)\\!(\\S+?)@(\\S+)\\s+PRIVMSG\\s+(\\S+)\\s+:(.*)$");
+            Matcher m = p.matcher(data);
+            if (m.matches()) {
+                MessageEvent channelMsgEvent = new MessageEventImpl
+                        (
+                                con.getChannel(m.group(4).toLowerCase()),
+                                m.group(3),
+                                m.group(5),
+                                m.group(1),
+                                data,
+                                myManager.getSessionFor(con),
+                                IRCEvent.Type.CHANNEL_MESSAGE,
+                                m.group(2)
 
-			return channelMsgEvent;
-		}
-		debug("CHANNEL_MSG", data);
-		return null;
-	}
 
-	// the_horrible is the nick that is in use
+                        );
+                debug("CHANNEL MSG",data);
+                return channelMsgEvent;
+
+            }
+
+        } else {
+            Pattern p = Pattern.compile("^:(\\S+?)\\!(\\S+?)@(\\S+?)\\sprivmsg\\s\\Q" + nick + "\\E\\s+:(.*)$", Pattern.CASE_INSENSITIVE);
+            Matcher m = p.matcher(data);
+            if (m.matches()) {
+                MessageEvent privMsgEvent = new MessageEventImpl
+                        (
+                                null,//channel
+                                m.group(3), // host
+                                m.group(4), //message
+                                m.group(1), //nick
+                                data, // raw event data
+                                myManager.getSessionFor(con), //session
+                                IRCEvent.Type.PRIVATE_MESSAGE,
+                                m.group(2) //username
+
+
+                        );
+                debug("PRIVATE MSG",data); 
+                return privMsgEvent;
+
+
+            }
+        }
+        return null;
+    }
+
+    // the_horrible is the nick that is in use
 	// fran is the current nickname
 	/* :simmons.freenode.net 433 fran the_horrible :Nickname is already in use. */
 
@@ -528,32 +554,6 @@ class IRCEventFactory
 		return null;
 	}
 
-	/*
-	 * A Channel Msg :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah
-	 * Private message :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!
-	 */
-	static PrivateMsgEvent privateMsg(String data, Connection con, String nick)
-	{
-		Pattern p = Pattern.compile("^:(\\S+?)\\!(\\S+?)@(\\S+?)\\sprivmsg\\s\\Q" + nick + "\\E\\s+:(.*)$", Pattern.CASE_INSENSITIVE);
-		Matcher m = p.matcher(data);
-
-		if (m.matches())
-		{
-			PrivateMsgEvent privateMsg = new PrivateMessageEventImpl
-			(
-				data, 
-				myManager.getSessionFor(con), 
-				m.group(1), // nick
-				m.group(2), // user name
-				m.group(4), // message
-				m.group(3) // nicks host
-			);
-
-			return privateMsg;
-		}
-		debug("PRIVATE_MSG", data);
-		return null;
-	}
 
 	//:raving!n=raving@74.195.43.119 NICK :Sir_Fawnpug
 	static NickChangeEvent nickChange(String data, Connection con)
