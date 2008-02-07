@@ -11,6 +11,7 @@ import jerklib.events.NickInUseEvent;
 import jerklib.events.NoticeEvent;
 import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
+import jerklib.events.MessageEvent;
 import junit.framework.TestCase;
 
 public class IRCEventFactoryTest extends TestCase
@@ -66,8 +67,8 @@ public class IRCEventFactoryTest extends TestCase
 		assertEquals("scab", ke.getWho());
 		assertEquals("bye!", ke.getMessage());
 		
-		/*
-		ChannelMsgEvent cme = IRCEventFactory.channelMsg(":fuknuit!~admin@212.199.146.104 PRIVMSG #test :blah blah", con);
+
+		MessageEvent cme = IRCEventFactory.privateMsg(":fuknuit!~admin@212.199.146.104 PRIVMSG #test :blah blah", con);
 		assertNotNull(cme);
 		assertEquals("fuknuit", cme.getNick());
 		assertEquals("~admin", cme.getUserName());
@@ -76,13 +77,13 @@ public class IRCEventFactoryTest extends TestCase
 		assertEquals("blah blah", cme.getMessage());
 		
 		
-		PrivateMsgEvent pme = IRCEventFactory.privateMsg(":mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!", con, "SwingBot");
+		MessageEvent pme = IRCEventFactory.privateMsg(":mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!", con);
 		assertNotNull(pme);
 		assertEquals("mohadib", pme.getNick());
 		assertEquals("~mohadib", pme.getUserName());
 		assertEquals("67.41.102.162", pme.getHostName());
 		assertEquals("HY!!", pme.getMessage());
-		*/
+		
 		ConnectionCompleteEvent cce = IRCEventFactory.connectionComplete(":irc.nmglug.org 001 DIBLET1 :Welcome to the nmglug.org", con);
 		assertNotNull(cce);
 		assertEquals("irc.nmglug.org", cce.getActualHostName());
