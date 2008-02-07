@@ -1,8 +1,8 @@
 package jerklib.events.impl;
 
 import jerklib.events.MessageEvent;
-import jerklib.events.IRCEvent;
 import static jerklib.events.IRCEvent.Type;
+import jerklib.events.IRCEvent;
 import jerklib.Channel;
 import jerklib.Session;
 
