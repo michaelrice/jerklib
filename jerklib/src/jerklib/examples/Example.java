@@ -51,14 +51,7 @@ public class Example implements IRCEventListener
 			MessageEvent cme = (MessageEvent)e;
 			System.out.println(cme.getChannel().getName() + " <" + cme.getNick() + ">" + cme.getMessage());
         }
-        //IF you want to catch both Channel and private messages
-        if(e instanceof MessageEvent) {
-            MessageEvent me = (MessageEvent)e;
-            System.out.println(me.getChannel().getName() + " <" + me.getNick() + ">" + me.getMessage());
-        }
 
-
-        }
         else if(e.getType() == Type.CONNECT_COMPLETE)
 		{
 			/* connection to server is complete */
