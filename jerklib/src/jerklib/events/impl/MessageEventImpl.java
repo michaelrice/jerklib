@@ -1,6 +1,8 @@
 package jerklib.events.impl;
 
 import jerklib.events.MessageEvent;
+import jerklib.events.IRCEvent;
+import static jerklib.events.IRCEvent.Type;
 import jerklib.Channel;
 import jerklib.Session;
 
@@ -16,7 +18,7 @@ public class MessageEventImpl implements MessageEvent {
     private final Type type;
     private final Session session;
 
-    public MessageEventImpl(Channel channel, String hostName, String message, String nick, String rawEventData, Session session, Type type, String userName) {
+    public MessageEventImpl(Channel channel, String hostName, String message, String nick, String rawEventData, Session session, IRCEvent.Type type, String userName) {
         this.channel = channel;
         this.hostName = hostName;
         this.message = message;
