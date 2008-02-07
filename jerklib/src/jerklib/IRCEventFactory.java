@@ -286,25 +286,25 @@ class IRCEventFactory
     	if(data.matches("^:\\S+\\s+PRIVMSG\\s+\\S+\\s+:.*$"))
     	{
     		Pattern p = Pattern.compile("^:(\\S+?)\\!(\\S+?)@(\\S+)\\s+PRIVMSG\\s+(\\S+)\\s+:(.*)$");
-        Matcher m = p.matcher(data);
-        m.matches();
-        String target = m.group(4);
-        return new MessageEventImpl
-        (
-        	target.startsWith("#")?con.getChannel(target.toLowerCase()):null,
-        	m.group(3),
-          m.group(5),
-          m.group(1),
-          data,
-          myManager.getSessionFor(con),
-          target.startsWith("#")?Type.CHANNEL_MESSAGE:Type.PRIVATE_MESSAGE,
-          m.group(2)
-        );
+            Matcher m = p.matcher(data);
+            m.matches();
+            String target = m.group(4);
+            return new MessageEventImpl
+            (
+        	    target.startsWith("#")?con.getChannel(target.toLowerCase()):null,
+        	    m.group(3),
+                m.group(5),
+                m.group(1),
+                data,
+                myManager.getSessionFor(con),
+                target.startsWith("#")? Type.CHANNEL_MESSAGE :Type.PRIVATE_MESSAGE,
+                m.group(2)
+            );
         
     	}
     
-      debug("MESSAGE",data); 
-      return null;
+        debug("MESSAGE",data);
+        return null;
     }
 
     // the_horrible is the nick that is in use
