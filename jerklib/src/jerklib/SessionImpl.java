@@ -264,10 +264,6 @@ public class SessionImpl implements Session
 		{
 			((RequestedConnection) rCon).setProfile(tmpProfile);
 		}
-		else
-		{
-			System.out.println("UPDATED PROFILE FAILEDDDD!!");
-		}
 		tmpProfile = null;
 		profileUpdating = false;
 	}
