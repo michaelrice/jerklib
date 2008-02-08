@@ -6,24 +6,13 @@
     <property name="build" location="build"/>
     <property name="src" location="jerklib"/>
     <property name="bin" location="bin"/>
-    <property name="doc" location="doc"/>
-
+    
     <target name="init">
         <mkdir dir="${build}"/>
         <mkdir dir="${src}"/>
         <mkdir dir="${bin}"/>
     </target>
-    <taskdef name="groovy"
-             classname="org.codehaus.groovy.ant.Groovy"
-             classpath="../lib/groovy-all-1.5.2.jar"/>
-    <target name="groovy" depends="init,compile">
-        <groovy src="jerklib/examples/GroovyJerkbot.groovy">
-            <classpath>
-               <path location="bin/groovy-all-1.5.2.jar"/>
-            </classpath>
-        </groovy>
-    </target>
-
+   
     <target name="compile" depends="init" description="compile">
         <javac srcdir="${src}" destdir="${build}" target="1.5"/>
         <echo file="${build}/jerklib/JerkLib.Properties" message="version=custom"/>
