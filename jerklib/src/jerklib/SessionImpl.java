@@ -21,7 +21,7 @@ public class SessionImpl implements Session
 {
 
 	private final List<String> channelNames = new ArrayList<String>();
-	private boolean rejoinOnKick = true, rejoinOnConnect = true;
+	private boolean rejoinOnKick = true;
 	private Connection con;
 	private final RequestedConnection rCon;
 	private Profile tmpProfile;
