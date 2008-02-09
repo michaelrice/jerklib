@@ -155,7 +155,7 @@ final class Connection
 		}
 		else
 		{
-			System.err.println("CHAN NAME ALLREADY IN MAP " + channel);
+			System.err.println("CHAN NAME ALREADY IN MAP " + channel);
 		}
 	}
 
