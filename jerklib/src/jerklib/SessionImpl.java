@@ -141,7 +141,7 @@ public class SessionImpl implements Session
 	 */
 	public void joinChannel(String channelName, String pass)
 	{
-		if (!channelNames.contains(channelName))
+		if (!channelNames.contains(channelName.toLowerCase()))
 		{
 			channelNames.add(channelName);
 			if (con != null)
@@ -168,12 +168,8 @@ public class SessionImpl implements Session
 	 */
 	public boolean partChannel(String channelName, String msg)
 	{
-		boolean removed = channelNames.remove(channelName);
-		if (con != null)
-		{
-			con.part(channelName, msg);
-		}
-		return removed;
+		channelNames.remove(channelName.toLowerCase());
+		return con.part(channelName, msg);
 	}
 
 	/*

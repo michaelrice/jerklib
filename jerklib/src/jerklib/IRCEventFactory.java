@@ -504,7 +504,7 @@ class IRCEventFactory
 		return new JoinCompleteEventImpl(data, myManager.getSessionFor(con), channel);
 	}
 	// :fran!~fran@outsiderz-88006847.hsd1.nm.comcast.net PART #jerklib
-	//          :r0bby!n=wakawaka@guifications/user/r0bby PART #jerklib :"FOO"
+	// :r0bby!n=wakawaka@guifications/user/r0bby PART #jerklib :"FOO"
 	static PartEvent part(String data, Connection con)
 	{
 		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+PART\\s+(\\S+?)(?:\\s+:(.*))?$");
