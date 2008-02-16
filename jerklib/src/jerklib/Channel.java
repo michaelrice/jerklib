@@ -3,6 +3,7 @@ package jerklib;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Date;
 
 import jerklib.events.TopicEvent;
 
@@ -41,9 +42,9 @@ public class Channel
 	/* (non-Javadoc)
 	 * @see jerklib.Channel#getTopicSetTime()
 	 */
-	public String getTopicSetTime()
+	public Date getTopicSetTime()
 	{
-	    return topicEvent != null ? topicEvent.getSetWhen() : "";
+	    return topicEvent.getSetWhen();
     }
 	
 	/* (non-Javadoc)
