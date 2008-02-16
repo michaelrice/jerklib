@@ -2,6 +2,8 @@ package jerklib.events;
 
 import jerklib.Channel;
 
+import java.util.Date;
+
 
 /**
  * @author mohadib
@@ -21,12 +23,12 @@ public interface TopicEvent extends IRCEvent
 	 * @return topic setter
 	 */
 	public String getSetBy();
-	
+
 	/**
 	 * Gets when topic was set
 	 * @return when
 	 */
-	public String getSetWhen();
+	public Date getSetWhen();
 	
 	/**
 	 * Gets Channel

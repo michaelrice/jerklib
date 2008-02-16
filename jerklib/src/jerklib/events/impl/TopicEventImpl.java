@@ -4,12 +4,15 @@ import jerklib.Channel;
 import jerklib.Session;
 import jerklib.events.TopicEvent;
 
+import java.util.Date;
+
 
 public class TopicEventImpl implements TopicEvent
 {
 	
-	private String setBy,setWhen,data,hostname;
-	private Session session;
+	private String setBy,data,hostname;
+    private Date setWhen;
+    private Session session;
 	private Channel channel;
 	private StringBuffer buff = new StringBuffer();
 
@@ -48,7 +51,7 @@ public class TopicEventImpl implements TopicEvent
 	
 	public void setSetWhen(String setWhen)
 	{
-		this.setWhen = setWhen;
+		this.setWhen = new Date(1000L * Long.parseLong(setWhen));
 	}
 	
 	public void setSetBy(String setBy)
@@ -61,7 +64,7 @@ public class TopicEventImpl implements TopicEvent
 		return setBy;
 	}
 
-	public String getSetWhen()
+	public Date getSetWhen()
 	{
 		return setWhen;
 	}
