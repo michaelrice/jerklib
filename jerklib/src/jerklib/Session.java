@@ -323,6 +323,8 @@ public interface Session extends ProfileUpdateable
      */
     public void action(String target, String actionText);
 
+    public void ctcp(String target, String message);
+
     
 
     /**

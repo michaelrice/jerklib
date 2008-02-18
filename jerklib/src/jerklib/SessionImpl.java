@@ -226,6 +226,15 @@ public class SessionImpl implements Session
         }
     }
 
+    public void ctcp(String target, String message) {
+        message = message.toUpperCase();
+        if (con != null && isConnected()) {
+            con.addWriteRequest(new WriteRequest("\001"+message+"\001",con,target));
+        } else {
+            new Exception().printStackTrace();
+        }
+    }
+
     /*
 	 * (non-Javadoc)
 	 * 
