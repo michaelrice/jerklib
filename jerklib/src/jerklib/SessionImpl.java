@@ -226,10 +226,14 @@ public class SessionImpl implements Session
         }
     }
 
-    public void ctcp(String target, String message) {
-        message = message.toUpperCase();
+    /**
+     * Send a CTCP Request to target.
+     * @param target user or channel
+     * @param request requested ctcp info ie version, info, etc.
+     */
+    public void ctcp(String target, String request) {
         if (con != null && isConnected()) {
-            con.addWriteRequest(new WriteRequest("\001"+message+"\001",con,target));
+            con.addWriteRequest(new WriteRequest("\001"+request.toUpperCase()+"\001",con,target));
         } else {
             new Exception().printStackTrace();
         }

@@ -16,16 +16,14 @@ import jerklib.tasks.Task;
  * @see IRCEventListener
  * @see Channel
  */
-public interface Session extends ProfileUpdateable 
-{
+public interface Session extends ProfileUpdateable {
 
     /**
      * Enum to represent connection state
      *
      * @author mohadib
      */
-    enum State 
-    {
+    enum State {
         CONNECTED,
         CONNECTING,
         HALF_CONNECTED,
@@ -292,14 +290,14 @@ public interface Session extends ProfileUpdateable
     public void addIRCEventListener(IRCEventListener listener);
 
     public void removeIRCEventListener(IRCEventListener listener);
-    
+
     /**
      * Returns the list of IRCEventListeners registered with this Session
      *
      * @return List of listeners
      * @see IRCEventListener
      */
-	public Collection<IRCEventListener> getIRCEventListeners();
+    public Collection<IRCEventListener> getIRCEventListeners();
 
     /**
      * Set yourself away.
@@ -318,28 +316,35 @@ public interface Session extends ProfileUpdateable
 
     /**
      * Send an action (aka /me) to a channel/user
+     *
      * @param target
      * @param actionText
      */
     public void action(String target, String actionText);
 
-    public void ctcp(String target, String message);
+    /**
+     * Send a CTCP Request to target.
+     *
+     * @param target  user or channel
+     * @param request requested ctcp info ie version, info, etc.
+     */
+    public void ctcp(String target, String request);
 
-    
 
     /**
      * WHO a user.
+     *
      * @param who user's nick or a channel.
-     * @see Connection#who(java.lang.String) 
+     * @see Connection#who(java.lang.String)
      */
     public void who(String who);
- 
-    public void notice(String target, String message); 
-    
+
+    public void notice(String target, String message);
+
     public void onEvent(Task task);
-    
-    public void onEvent(Task task , Type type);
-    
+
+    public void onEvent(Task task, Type type);
+
     public void removeTask(Task t);
     
 }
