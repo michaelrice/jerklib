@@ -202,7 +202,19 @@ public class SessionImpl implements Session
 		}
 	}
 
-	/*
+    /**
+     * Send an action (aka /me) to a channel/user
+     *
+     * @param target
+     * @param actionText
+     */
+    public void action(String target, String actionText) {
+        if(con != null && isConnected()) {
+            con.addWriteRequest(new WriteRequest("\001ACTION "+actionText+"\001",con,target));
+        } else {
+            new Exception().printStackTrace();
+        }
+    }/*
 	 * (non-Javadoc)
 	 * 
 	 * @see jerklib.Session#channelSay(java.lang.String, java.lang.String)
@@ -582,7 +594,8 @@ public class SessionImpl implements Session
 	
 	void addChannelName(String name)
 	{
-		if (!channelNames.contains(name))
+		if (!
+                channelNames.contains(name))
 		{
 			channelNames.add(name);
 		}

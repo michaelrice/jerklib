@@ -316,6 +316,13 @@ public interface Session extends ProfileUpdateable
      */
     public void unsetAway();
 
+    /**
+     * Send an action (aka /me) to a channel/user
+     * @param target
+     * @param actionText
+     */
+    public void action(String target, String actionText);
+
     
 
     /**
