@@ -120,9 +120,17 @@ public class Channel
 	{
 		con.part(this, partMsg);
 	}
-	
-	
-	/* (non-Javadoc)
+
+    /**
+     * Send an action
+     * @param text action text
+     */
+    public void action(String text) {
+      con.addWriteRequest(new WriteRequest("\001ACTION "+text+"\001",this,con));
+    }
+
+
+    /* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	public int hashCode()
