@@ -90,12 +90,14 @@ final class Connection
 
 	void nickChanged(String oldNick, String newNick)
 	{
+		System.out.println("Looking for " + oldNick);
 		synchronized (channelMap)
 		{
 			for (Channel chan : channelMap.values())
 			{
 				if (chan.getNicks().contains(oldNick))
 				{
+					System.err.println("Found nick in " + chan.getName());
 					chan.nickChanged(oldNick, newNick);
 				}
 			}

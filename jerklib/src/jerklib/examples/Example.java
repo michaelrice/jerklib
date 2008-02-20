@@ -55,6 +55,7 @@ public class Example implements IRCEventListener
         else if(e.getType() == Type.CONNECT_COMPLETE)
 		{
 			/* connection to server is complete */
+        	System.out.println("Joining");
 			e.getSession().joinChannel("#jerklib");
 		}
 		else if(e.getType() == Type.JOIN_COMPLETE)
@@ -67,6 +68,10 @@ public class Example implements IRCEventListener
                 jce.getChannel().notice("HAI 2u ");
                 e.getSession().notice(jce.getChannel().getName(), "Hello from Jerklib "+ConnectionManager.getVersion());
             }
+		}
+		else
+		{
+			System.out.println(e.getRawEventData());
 		}
 	}
 	

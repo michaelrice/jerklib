@@ -486,7 +486,7 @@ public class InternalEventParser
 				// remove @ and + from front for voice and ops ?
 				if (name != null && name.length() > 0)
 				{
-					((Channel)chan).addNick(name.toLowerCase().replace("+", "").replace("@", ""));
+					((Channel)chan).addNick(name.replace("+", "").replace("@", ""));
 				}
 			}
 		}
