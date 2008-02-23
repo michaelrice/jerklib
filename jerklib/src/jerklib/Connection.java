@@ -177,10 +177,10 @@ final class Connection
   	writeRequests.add(new WriteRequest("WHO "+who+"\r\n",this));        
   }
 
-  boolean part(Channel channel, String partMsg)
-	{
+  	boolean part(Channel channel, String partMsg)
+  	{
 		return part(channel.getName(), partMsg);
-	}
+  	}
 
 	boolean part(String channelName, String partMsg)
 	{

@@ -130,10 +130,14 @@ public class InternalEventParser
 				else if(command.equals("PART"))
 				{
 					PartEvent pEvent = IRCEventFactory.part(data, con);
-					pEvent.getChannel().removeNick(pEvent.getWho());
+					if(!pEvent.getChannel().removeNick(pEvent.getWho()))
+					{
+						System.out.println("Could NOt remove nick " + pEvent.getWho());
+					}
 					if(pEvent.getWho().equalsIgnoreCase(nick))
 					{
 						con.removeChannel(pEvent.getChannel());
+						manager.getSessionFor(con).removeChannelName(pEvent.getChannelName());
 					}
 					manager.addToRelayList(pEvent);
 				}
@@ -165,7 +169,7 @@ public class InternalEventParser
 				else if(command.equals("KICK"))
 				{
 					KickEvent ke = IRCEventFactory.kick(data, con);
-					if (!((Channel)ke.getChannel()).removeNick(ke.getWho()))
+					if (!ke.getChannel().removeNick(ke.getWho()))
 					{
 						System.out.println("COULD NOT REMOVE NICK " + ke.getWho() + " from channel " + ke.getChannel().getName());
 					}

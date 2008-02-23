@@ -126,11 +126,13 @@ public class SessionImpl implements Session
 	 */
 	public void joinChannel(String channelName)
 	{
-
-		if (!channelNames.contains(channelName) && con != null)
+		if (con != null)
 		{
-			channelNames.add(channelName);
 			con.join(channelName);
+		}
+		else
+		{
+			System.err.println("Could not join " + channelName + " Session is not connected");
 		}
 	}
 
@@ -141,13 +143,13 @@ public class SessionImpl implements Session
 	 */
 	public void joinChannel(String channelName, String pass)
 	{
-		if (!channelNames.contains(channelName.toLowerCase()))
+		if (con != null)
 		{
-			channelNames.add(channelName);
-			if (con != null)
-			{
-				con.join(channelName, pass);
-			}
+			con.join(channelName, pass);
+		}
+		else
+		{
+			System.err.println("Could not join " + channelName + " Session is not connected");
 		}
 	}
 
@@ -168,7 +170,6 @@ public class SessionImpl implements Session
 	 */
 	public boolean partChannel(String channelName, String msg)
 	{
-		channelNames.remove(channelName.toLowerCase());
 		return con.part(channelName, msg);
 	}
 
@@ -609,11 +610,15 @@ public class SessionImpl implements Session
 	
 	void addChannelName(String name)
 	{
-		if (!
-                channelNames.contains(name))
+		if (!channelNames.contains(name))
 		{
 			channelNames.add(name);
 		}
+	}
+	
+	void removeChannelName(String name)
+	{
+		channelNames.remove(name);
 	}
 
 	Connection getConnection()
