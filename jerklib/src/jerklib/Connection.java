@@ -151,22 +151,12 @@ final class Connection
 
 	void join(String channel)
 	{
-		if (!channelMap.containsKey(channel))
-		{
-			writeRequests.add(new WriteRequest("JOIN " + channel + "\r\n", this));
-		}
-		else
-		{
-			System.err.println("CHAN NAME ALREADY IN MAP " + channel);
-		}
+		writeRequests.add(new WriteRequest("JOIN " + channel + "\r\n", this));
 	}
 
 	void join(String channel, String pass)
 	{
-		if (!channelMap.containsKey(channel))
-		{
-			writeRequests.add(new WriteRequest("JOIN " + channel + " " + pass + "\r\n", this));
-		}
+		writeRequests.add(new WriteRequest("JOIN " + channel + " " + pass + "\r\n", this));
 	}
 
  void notice(String target, String msg) {
@@ -184,12 +174,8 @@ final class Connection
 
 	boolean part(String channelName, String partMsg)
 	{
-		if (channelMap.containsKey(channelName))
-		{
-			writeRequests.add(new WriteRequest("PART " + channelName + " :" + partMsg + "\r\n", this));
-			return true;
-		}
-		return false;
+		writeRequests.add(new WriteRequest("PART " + channelName + " :" + partMsg + "\r\n", this));
+		return true;
 	}
 
 	void setAway(String message)
