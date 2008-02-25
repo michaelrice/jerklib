@@ -1,5 +1,5 @@
 Jerklib is an event-driven IRC library that can be used to write an IRC bot/client.
-Author: Jason Davis - mohadib@openactive.org
+Author: Jason Davis <mohadib@openactive.org>
 Big thanks to Robert O'Connor <robby.oconnor@gmail.com> for all the hard work!
 
 If you find a bug or would like a feature added , please let us know!
@@ -12,6 +12,8 @@ SF Project Page: https://sourceforge.net/projects/jerklib/
 HomePage: http://jerklib.sourceforge.net
 Java Docs: http://jerklib.sourceforge.net/doc/
 Tutorial: http://jerklib.sourceforge.net/doc_index.html
+
+To Format topic epoch: new Date(1000L * epoch); 
 
 Install:
 To set up just add jerklib.jar to your classpath
