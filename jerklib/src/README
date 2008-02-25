@@ -19,5 +19,5 @@ To set up just add jerklib.jar to your classpath
 To run the example use the following command:
 java -cp jerklib.jar jerklib.examples.Example
 
-Source code for example: 
+Source code for example:                                                      
 http://jerklib.svn.sourceforge.net/viewvc/jerklib/jerklib/src/jerklib/examples/Example.java?view=markup
