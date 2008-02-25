@@ -13,8 +13,6 @@ HomePage: http://jerklib.sourceforge.net
 Java Docs: http://jerklib.sourceforge.net/doc/
 Tutorial: http://jerklib.sourceforge.net/doc_index.html
 
-To Format topic epoch: new Date(1000L * epoch); 
-
 Install:
 To set up just add jerklib.jar to your classpath
 
