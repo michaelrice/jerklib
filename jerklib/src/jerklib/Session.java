@@ -31,6 +31,9 @@ public interface Session extends ProfileUpdateable {
     }
 
 
+    
+    public ServerInformation getServerInformation();
+    
     /**
      * @return true is connected to server , else false
      */

@@ -2,7 +2,9 @@ package jerklib.examples;
 
 import jerklib.ConnectionManager;
 import jerklib.ProfileImpl;
+import jerklib.ServerInformation;
 import jerklib.Session;
+import jerklib.ServerInformation.ModeType;
 import jerklib.events.*;
 import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
@@ -56,16 +58,33 @@ public class Example implements IRCEventListener
 		{
 			/* connection to server is complete */
         	System.out.println("Joining");
-			e.getSession().joinChannel("#jerklib");
+			e.getSession().joinChannel("#sand-irc");
 		}
+        else if(e.getType() == Type.SERVER_INFORMATION)
+        {
+        	ServerInformationEvent se = (ServerInformationEvent)e;
+        	ServerInformation info = se.getServerInformation();
+			System.err.println("IRCD :" + info.getIrcdString());
+			System.err.println("Name :" + info.getServerName());
+			System.err.println("Case Mapping :" + info.getCaseMapping());
+			System.err.println("Max Chan Name :" + info.getMaxChannelNameLength());
+		
+			for(String mode : info.getModes(ModeType.ALL))
+			{
+				System.err.println("Mode :" + mode);
+			}
+			for(String s : info.getChannelPrefixes())
+			{
+				System.out.println("Prefix:" + s);
+			}
+			
+        }
 		else if(e.getType() == Type.JOIN_COMPLETE)
 		{
 			JoinCompleteEvent jce = (JoinCompleteEvent)e;
-			if(jce.getChannel().getName().equals("#jerklib"))
+			if(jce.getChannel().getName().equals("#sand-irc"))
 			{
 				/* say hello and version number */
-				jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
-                jce.getChannel().notice("HAI 2u ");
                 e.getSession().notice(jce.getChannel().getName(), "Hello from Jerklib "+ConnectionManager.getVersion());
             }
 		}

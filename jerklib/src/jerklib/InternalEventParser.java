@@ -42,6 +42,7 @@ import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.MessageEvent;
 import jerklib.events.IRCEvent.Type;
+import jerklib.events.impl.ServerInformationEventImpl;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.WhoisEventImpl;
 
@@ -297,11 +298,22 @@ public class InternalEventParser
 		}
 	}
 	
+	
+	
+	private void serverInfo(String data , IRCEvent event)
+	{
+		SessionImpl session = (SessionImpl)event.getSession();
+		session.getServerInformation().parseServerInfo(data);
+		ServerInformationEventImpl se = new ServerInformationEventImpl(session , data , session.getServerInformation());
+		manager.addToRelayList(se);
+	}
+	
 	private void numericEvent(String data ,Connection con ,IRCEvent event,int numeric)
 	{
     switch (numeric)
 		{
 			case 001:connectionComplete(data, con, event);break;
+			case 005:serverInfo(data , event);break;
 			case 301:manager.addToRelayList(IRCEventFactory.away(data,con,numeric));break;
 			case 305:manager.addToRelayList(IRCEventFactory.away(data,con,numeric));break;
 			case 306:manager.addToRelayList(IRCEventFactory.away(data,con,numeric)); break;

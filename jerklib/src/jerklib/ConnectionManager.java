@@ -535,9 +535,7 @@ public class ConnectionManager
 			
 			for(IRCEventListener listener : templisteners)
 			{
-				//tasks above might do something stupid like set
-				//event to null...
-				if(event != null)listener.receiveEvent(event);
+				listener.receiveEvent(event);
 			}
 			templisteners.clear();
 			tempTasks.clear();

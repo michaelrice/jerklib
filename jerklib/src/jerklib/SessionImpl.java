@@ -30,6 +30,8 @@ public class SessionImpl implements Session
 	private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
 	private final Map<Type, List<Task>> taskMap = new HashMap<Type, List<Task>>();
 	private long lastRetry = -1;
+	private ServerInformation serverInfo = new ServerInformation();
+	
 	
 	SessionImpl(RequestedConnection rCon)
 	{
@@ -40,6 +42,13 @@ public class SessionImpl implements Session
 	{
 		this.con = con;
 	}
+	
+	
+	public ServerInformation getServerInformation()
+	{
+		return serverInfo;
+	}
+	
 
 	/*
 	 * (non-Javadoc)

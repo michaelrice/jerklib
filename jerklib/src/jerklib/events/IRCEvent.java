@@ -103,7 +103,12 @@ public interface IRCEvent
     /**
      *unused 
      */
-    EXCEPTION, 
+    EXCEPTION,
+    
+    /**
+     * Event spawned from irc numeric 005
+     */
+    SERVER_INFORMATION,
     CONNECT_COMPLETE, 
     UPDATE_HOST_NAME, 
     READY_TO_JOIN, 
