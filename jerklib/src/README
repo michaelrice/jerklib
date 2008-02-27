@@ -7,6 +7,9 @@ https://sourceforge.net/tracker/?group_id=214803
 
 If you need help , vist us on IRC!
 irc.freenode.net  #jerklib
+Our nicks are: 
+Jason Davis: mohadib
+Robert O'Connor: r0bby
 
 SF Project Page: https://sourceforge.net/projects/jerklib/
 HomePage: http://jerklib.sourceforge.net
@@ -21,3 +24,4 @@ java -cp jerklib.jar jerklib.examples.Example
 
 Source code for example:                                                      
 http://jerklib.svn.sourceforge.net/viewvc/jerklib/jerklib/src/jerklib/examples/Example.java?view=markup
+
