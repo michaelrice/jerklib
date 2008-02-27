@@ -24,6 +24,7 @@
 
 package jerklib;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jerklib.ServerInformation.ModeType;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
@@ -125,8 +127,7 @@ public class InternalEventParser
 				}
 				else if(command.equals("MODE"))
 				{
-					//debugging
-					//manager.addToRelayList(IRCEventFactory.modeEvent(data, con));
+					mode(event);
 				}
 				else if(command.equals("PART"))
 				{
@@ -202,6 +203,91 @@ public class InternalEventParser
 				}
 			}
 		}
+	}
+	
+	
+	private void mode(IRCEvent event)
+	{
+		String[] rawTokens = event.getRawEventData().split("\\s+");
+		String[] rawModeTokens = rawTokens[3].split("");
+		String[] modeTokens = new String[rawModeTokens.length -1];
+		System.arraycopy(rawModeTokens, 1, modeTokens, 0,rawModeTokens.length -1);
+		String[] arguments = new String[rawTokens.length -4];
+		System.arraycopy(rawTokens, 4, arguments, 0, arguments.length);
+		
+		
+		Map<String, List<String>> modeMap = new HashMap<String, List<String>>();
+		
+		char action = '+';
+		int argumntOffset = 0;
+		ServerInformation info = event.getSession().getServerInformation();
+		
+		for(String mode : modeTokens)
+		{
+			if(mode.equals("+") || mode.equals("-"))action = mode.charAt(0);
+			else
+			{
+				ModeType type = info.getTypeForMode(mode);
+				//must have an argument on + and -
+				if(type == ModeType.GROUP_A || type == ModeType.GROUP_B)
+				{
+					List<String> modeArgs = modeMap.get(action + mode);
+					if(modeArgs == null) modeArgs = new ArrayList<String>();
+					modeArgs.add(arguments[argumntOffset]);
+					System.err.println("Mode " + action + mode + " " + arguments[argumntOffset] );
+					argumntOffset++;
+					modeMap.put(action + mode , modeArgs);
+				}
+				//must have args on +  : must not have args on -
+				else if(type == ModeType.GROUP_C)
+				{
+					List<String> modeArgs = modeMap.get(action + mode);
+					if(modeArgs == null) modeArgs = new ArrayList<String>();
+					if(action == '-')
+					{
+						if(!modeMap.containsKey(action + mode))
+						{
+							modeMap.put(action + mode, new ArrayList<String>());
+							System.err.println("Mode " + action + mode);
+						}
+					}
+					else
+					{
+						modeArgs.add(arguments[argumntOffset]);
+						System.err.println("Mode " + action + mode + " " + arguments[argumntOffset] );
+						argumntOffset++;
+						modeMap.put(action + mode , modeArgs);
+					}
+				}
+				//no args
+				else if(type ==ModeType.GROUP_D)
+				{
+					modeMap.put(action + mode, new ArrayList<String>());
+					System.err.println("Mode " + action + mode);
+				}
+				else
+				{
+					System.err.println("unreconzied mode " + mode);
+				}
+			}
+		}
+		//update channel object for o and v mode events
+		Channel chan = event.getSession().getChannel(rawModeTokens[2]);
+		
+		for(String nick : modeMap.keySet())
+		{
+			List<String> modes = modeMap.get(nick);
+			for(String mode : modes)
+			{
+				if(mode.matches("[+-][ov]"))
+				{
+					chan.updateUsersMode(nick,mode);
+				}
+			}
+		}
+		
+		//notify with a Mode EVent
+		manager.addToRelayList(event);
 	}
 	
 	private void chanList(String data, Connection con)

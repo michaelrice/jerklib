@@ -49,17 +49,64 @@ public class Example implements IRCEventListener
 	{
 		if(e.getType() == Type.CHANNEL_MESSAGE)
 		{
-			/* someone speaks in a channel */
-			MessageEvent cme = (MessageEvent)e;
-			System.out.println(cme.getChannel().getName() + " <" + cme.getNick() + ">" + cme.getMessage());
-        }
+			
+        	MessageEvent me = (MessageEvent)e;
+        	if(me.getMessage().equals("*server info"))
+        	{
+        		ServerInformation info = e.getSession().getServerInformation();
+        		me.getChannel().say("Name:" + info.getServerName());
+        		me.getChannel().say("IRCD:" + info.getIrcdString());
+        		me.getChannel().say("CaseMapping:" + info.getCaseMapping());
+        		
+        		String modes ="";
 
+    			for(String mode : info.getModes(ModeType.ALL))
+    			{
+    				modes+=mode;
+    			}
+    			me.getChannel().say("Supported Modes:" + modes); 
+        	}
+        	else
+        	{
+        		/* someone speaks in a channel */
+        	//	MessageEvent cme = (MessageEvent)e;
+        	//	System.out.println(cme.getChannel().getName() + " <" + cme.getNick() + ">" + cme.getMessage());
+        	}
+       
+		}
         else if(e.getType() == Type.CONNECT_COMPLETE)
 		{
 			/* connection to server is complete */
         	System.out.println("Joining");
-			e.getSession().joinChannel("#sand-irc");
+			//e.getSession().joinChannel("#sand-irc");
+			e.getSession().joinChannel("#jerklib");
+			//e.getSession().joinChannel("#ubuntu");
+			//e.getSession().joinChannel("#debian");
+			//e.getSession().joinChannel("#perl");
 		}
+        else if(e.getType() == Type.CHANNEL_MESSAGE)
+        {
+        	MessageEvent me = (MessageEvent)e;
+        	if(me.getMessage().equals("*server info"))
+        	{
+        		ServerInformation info = e.getSession().getServerInformation();
+        		me.getChannel().say("Name:" + info.getServerName());
+        		me.getChannel().say("IRCD:" + info.getIrcdString());
+        		me.getChannel().say("CaseMapping:" + info.getCaseMapping());
+        		
+        		String modes ="";
+
+    			for(String mode : info.getModes(ModeType.ALL))
+    			{
+    				modes+=mode;
+    			}
+    			me.getChannel().say("Supported Modes:" + modes); 
+        	}
+        	else
+        	{
+        		System.err.println("NO MATCH " + me.getMessage());
+        	}
+        }
         else if(e.getType() == Type.SERVER_INFORMATION)
         {
         	ServerInformationEvent se = (ServerInformationEvent)e;
@@ -69,10 +116,6 @@ public class Example implements IRCEventListener
 			System.err.println("Case Mapping :" + info.getCaseMapping());
 			System.err.println("Max Chan Name :" + info.getMaxChannelNameLength());
 		
-			for(String mode : info.getModes(ModeType.ALL))
-			{
-				System.err.println("Mode :" + mode);
-			}
 			for(String s : info.getChannelPrefixes())
 			{
 				System.out.println("Prefix:" + s);
@@ -88,10 +131,11 @@ public class Example implements IRCEventListener
                 e.getSession().notice(jce.getChannel().getName(), "Hello from Jerklib "+ConnectionManager.getVersion());
             }
 		}
-		else
+		else if(e.getRawEventData().indexOf("MODE") != -1)
 		{
-			System.out.println(e.getRawEventData());
+			System.err.println("MODE " + e.getRawEventData());
 		}
+
 	}
 	
 	public static void main(String[] args)

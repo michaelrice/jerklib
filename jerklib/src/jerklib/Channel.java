@@ -2,8 +2,10 @@ package jerklib;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Date;
+import java.util.Map;
 
 import jerklib.events.TopicEvent;
 
@@ -13,13 +15,54 @@ public class Channel
 {
 	private String name;
 	private Connection con;
-	private List<String> users = new ArrayList<String>();
+	private Map<String, List<String>> userMap = new HashMap<String, List<String>>();
 	private TopicEvent topicEvent;
 	
 	Channel(String name , Connection con)
 	{
 		this.name = name;
 		this.con = con;
+	}
+	
+	
+	
+	void updateUsersMode(String username , String mode)
+	{
+		List<String>modes = userMap.get(username);
+		if(modes == null) modes = new ArrayList<String>();
+		String modeChar = mode.substring(1);
+		modes.remove("-"+modeChar);
+		modes.remove("+"+modeChar);
+		modes.remove(modeChar);
+		modes.add(mode);
+		userMap.put(username, modes);
+	}
+	
+	public List<String> getUsersModes(String nick)
+	{
+		if(userMap.containsKey(nick))
+		{
+			return userMap.get(nick);
+		}
+		else
+		{
+			return new ArrayList<String>();
+		}
+	}
+	
+	
+	public List<String> getNicksForMode(String mode)
+	{
+		List<String> nicks = new ArrayList<String>();
+		for(String nick : userMap.keySet())
+		{
+			List<String> modes = userMap.get(nick);
+			if(modes != null && modes.contains(mode))
+			{
+				nicks.add(nick);
+			}
+		}
+		return nicks;
 	}
 	
 	
@@ -88,21 +131,21 @@ public class Channel
 
   void addNick(String nick)
 	{
-		if(!users.contains(nick))
-		{
-			users.add(nick);
-		}
+	  if(!userMap.containsKey(nick))
+	  {
+		  userMap.put(nick, null);
+	  }
 	}
 	
 	boolean removeNick(String nick)
 	{
-		return users.remove(nick);
+		return userMap.remove(nick) != null; 
 	}
 
 	void nickChanged(String oldNick, String newNick)
 	{
-		users.remove(oldNick);
-		users.add(newNick);
+		List<String> modes = userMap.remove(oldNick);
+		userMap.put(newNick, modes);
 	}
 	
 	/* (non-Javadoc)
@@ -110,7 +153,7 @@ public class Channel
 	 */
 	public List<String> getNicks()
 	{
-		return Collections.unmodifiableList(users);
+		return new ArrayList<String>(Collections.unmodifiableCollection(userMap.keySet()));
 	}
 	
 	/* (non-Javadoc)
