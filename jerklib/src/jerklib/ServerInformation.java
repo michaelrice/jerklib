@@ -13,7 +13,8 @@ public class ServerInformation
 	private String caseMapping="",ircd="",serverName="";
 	private String[] channelPrefixes,statusPrefixes;
 	private int maxChanNameLen,maxModesPerCommand,maxNickLen,maxSilenceListSize,maxTopicLen;
-	private boolean supportsCNotice,supportsCPrivMsg,supportsBanExceptions,supportsInviteExceptions;
+    private int maxKickLength,maxKeyLength,maxUserLength,maxHostLength;
+    private boolean supportsCNotice,supportsCPrivMsg,supportsBanExceptions,supportsInviteExceptions;
 	private boolean supportsSafeList,supportsStatusNotice,supportsCAPAB,supportsNickPrefixes,supportsSilenceList;
 	private Map<String, Integer> joinLimits = new HashMap<String, Integer>();
 	private Map<String , String> nickPrefixMap = new HashMap<String, String>();
@@ -316,5 +317,20 @@ public class ServerInformation
 	{
 		return maxTopicLen;
 	}
-	
+
+    public int getMaxHostLength() {
+        return maxHostLength;
+    }
+
+    public int getMaxKeyLength() {
+        return maxKeyLength;
+    }
+
+    public int getMaxKickLength() {
+        return maxKickLength;
+    }
+
+    public int getMaxUserLength() {
+        return maxUserLength;
+    }
 }
