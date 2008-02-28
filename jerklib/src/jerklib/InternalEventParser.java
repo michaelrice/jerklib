@@ -37,6 +37,7 @@ import jerklib.ServerInformation.ModeType;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
+import jerklib.events.ModeEvent;
 import jerklib.events.NickChangeEvent;
 import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
@@ -44,6 +45,7 @@ import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.MessageEvent;
 import jerklib.events.IRCEvent.Type;
+import jerklib.events.impl.ModeEventImpl;
 import jerklib.events.impl.ServerInformationEventImpl;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.WhoisEventImpl;
@@ -296,8 +298,20 @@ public class InternalEventParser
 			chan.updateUsersMode(nick, "-o");
 		}
 		
+		
+		
+		ModeEvent me = new ModeEventImpl
+		(
+			event.getRawEventData(),
+			event.getSession(),
+			modeMap,
+			rawTokens[0].substring(1).split("\\!")[0],
+			chan
+		);
+		
+		
 		//notify with a Mode EVent
-		manager.addToRelayList(event);
+		manager.addToRelayList(me);
 	}
 	
 	private void chanList(String data, Connection con)

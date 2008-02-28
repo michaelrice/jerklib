@@ -1,6 +1,7 @@
 package jerklib.events;
 
 import java.util.List;
+import java.util.Map;
 
 import jerklib.Channel;
 import jerklib.Session;
@@ -16,10 +17,13 @@ import jerklib.Session;
 public interface ModeEvent extends IRCEvent 
 {
 	/**
-	 * Get the modes set
-	 * @return List with modes
+	 * Gets a Map where the keys are the modes adjusted by this event.
+	 * The values are a List of users the mode was applied to.The list will be empty
+	 * if the mode did not apply to a user
+	 * 
+	 * @return the map
 	 */
-	public List<String> getModes();
+	public Map<String , List<String>> getModeMap();
 	
 	/**
 	 * Gets who set the mode
@@ -34,11 +38,4 @@ public interface ModeEvent extends IRCEvent
 	 * @see Channel
 	 */
 	public Channel getChannel();
-	
-	/**
-	 * If the mode event adjusted a users mode
-	 * then the User effected will be returned
-	 * @return user 
-	 */
-	public String getUser();
 }

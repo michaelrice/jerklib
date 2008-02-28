@@ -131,11 +131,21 @@ public class Example implements IRCEventListener
                 e.getSession().notice(jce.getChannel().getName(), "Hello from Jerklib "+ConnectionManager.getVersion());
             }
 		}
-		else if(e.getRawEventData().indexOf("MODE") != -1)
+		else if(e.getType() == Type.MODE_EVENT)
 		{
-			System.err.println("MODE " + e.getRawEventData());
+			ModeEvent me = (ModeEvent)e;
+			System.out.println("MODE Set By:" + me.setBy());
+			System.out.println("MODE Channel:" + me.getChannel().getName());
+			for(String mode : me.getModeMap().keySet())
+			{
+				for(String target:me.getModeMap().get(mode))
+				{
+					System.out.println("MODE " + mode + "->" + target);
+				}
+			}
 		}
-
+		
+		
 	}
 	
 	public static void main(String[] args)

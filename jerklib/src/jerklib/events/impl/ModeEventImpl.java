@@ -1,6 +1,7 @@
 package jerklib.events.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import jerklib.Channel;
 import jerklib.Session;
@@ -11,16 +12,15 @@ public class ModeEventImpl implements ModeEvent
 
 	private final Type type = Type.MODE_EVENT;
 	private final Session session;
-	private final String rawEventData ,user , setBy;
+	private final String rawEventData, setBy;
 	private final Channel channel;
-	private final List<String>modes;
+	private final Map<String , List<String>>modes;
 	
 	public ModeEventImpl
 	(
 		String rawEventData,
 		Session session,
-		List<String> modes,
-		String user,
+		Map<String , List<String>> modes,
 		String setBy,
 		Channel channel
 	)
@@ -28,7 +28,6 @@ public class ModeEventImpl implements ModeEvent
 		this.rawEventData = rawEventData;
 		this.session = session;
 		this.modes = modes;
-		this.user = user;
 		this.setBy = setBy;
 		this.channel = channel;
 	}
@@ -38,16 +37,11 @@ public class ModeEventImpl implements ModeEvent
 		return channel;
 	}
 
-	public List<String> getModes()
+	public Map<String, List<String>> getModeMap()
 	{
 		return modes;
 	}
 	
-	public String getUser() 
-	{
-		return user;
-	}
-
 	public String setBy() 
 	{
 		return setBy;
