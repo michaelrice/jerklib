@@ -133,7 +133,18 @@ public class Channel
 	{
 	  if(!userMap.containsKey(nick))
 	  {
-		  userMap.put(nick, null);
+		  List<String> modes = new ArrayList<String>();
+		  if(nick.startsWith("@"))
+		  {
+			  modes.add("+o");
+			  nick = nick.substring(1);
+		  }
+		  if(nick.startsWith("+"))
+		  {
+			  modes.add("+v");
+			  nick = nick.substring(1);
+		  }
+		  userMap.put(nick, modes);
 	  }
 	}
 	

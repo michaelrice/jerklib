@@ -272,18 +272,28 @@ public class InternalEventParser
 			}
 		}
 		//update channel object for o and v mode events
-		Channel chan = event.getSession().getChannel(rawModeTokens[2]);
+		Channel chan = event.getSession().getChannel(rawTokens[2]);
 		
-		for(String nick : modeMap.keySet())
+		List<String> voicedNicks = modeMap.get("+v") == null? new ArrayList<String>():modeMap.get("+v");
+		List<String> opedNicks = modeMap.get("+o") == null? new ArrayList<String>():modeMap.get("+o");
+		List<String> devoicedNicks = modeMap.get("-v") == null? new ArrayList<String>():modeMap.get("-v");
+		List<String> deopedNicks = modeMap.get("-o") == null? new ArrayList<String>():modeMap.get("-o");
+		
+		for(String nick : voicedNicks)
 		{
-			List<String> modes = modeMap.get(nick);
-			for(String mode : modes)
-			{
-				if(mode.matches("[+-][ov]"))
-				{
-					chan.updateUsersMode(nick,mode);
-				}
-			}
+			chan.updateUsersMode(nick, "+v");
+		}
+		for(String nick : opedNicks)
+		{
+			chan.updateUsersMode(nick, "+o");
+		}
+		for(String nick : devoicedNicks)
+		{
+			chan.updateUsersMode(nick, "-v");
+		}
+		for(String nick : deopedNicks)
+		{
+			chan.updateUsersMode(nick, "-o");
 		}
 		
 		//notify with a Mode EVent
@@ -588,7 +598,7 @@ public class InternalEventParser
 				// remove @ and + from front for voice and ops ?
 				if (name != null && name.length() > 0)
 				{
-					((Channel)chan).addNick(name.replace("+", "").replace("@", ""));
+					((Channel)chan).addNick(name);
 				}
 			}
 		}
