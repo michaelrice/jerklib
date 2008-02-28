@@ -208,8 +208,11 @@ public class InternalEventParser
 	}
 	
 	
+	//:mohadib_!n=mohadib@unaffiliated/mohadib MODE #jerklib +o scripyasas
+	//:services. MODE mohadib :+e
 	private void mode(IRCEvent event)
 	{
+		System.out.println(event.getRawEventData());
 		String[] rawTokens = event.getRawEventData().split("\\s+");
 		String[] rawModeTokens = rawTokens[3].split("");
 		String[] modeTokens = new String[rawModeTokens.length -1];
@@ -220,9 +223,28 @@ public class InternalEventParser
 		
 		Map<String, List<String>> modeMap = new HashMap<String, List<String>>();
 		
+		
+		/* see if user mode */
+		ServerInformation info = event.getSession().getServerInformation();
+		String[] channelPrefixes = info.getChannelPrefixes();
+		boolean userMode = true;
+		for(String prefix : channelPrefixes)
+		{
+			if(rawTokens[2].startsWith(prefix))
+			{
+				userMode = false;
+			}
+		}
+		
+		if(userMode)
+		{
+			//do something..
+			return;
+		}
+		
+		
 		char action = '+';
 		int argumntOffset = 0;
-		ServerInformation info = event.getSession().getServerInformation();
 		
 		for(String mode : modeTokens)
 		{
