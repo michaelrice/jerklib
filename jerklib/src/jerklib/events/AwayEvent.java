@@ -10,10 +10,11 @@ package jerklib.events;
  * </ul>
  * You can determine under which circumstance the event was fired by looking at
  * the {@link EventType}.</p> 
- * @author Robert O'Connor &lt;robby.oconnor@gmail.com&gt;
+ * @author <a href="mailto:robby.oconnor@gmail.com>Robert O'Connor<a/>
  *
  */
-public interface AwayEvent extends IRCEvent {
+public interface
+        AwayEvent extends IRCEvent {
 
 
     /**

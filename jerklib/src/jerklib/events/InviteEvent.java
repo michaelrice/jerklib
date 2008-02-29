@@ -4,7 +4,7 @@ package jerklib.events;
 /**
  * Event fired when an Invite message is recieved from server
  * 
- * @author  Robert O'Connor <robby.oconnor@gmail.com>
+ * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor</a>
  *
  */
 public interface InviteEvent extends IRCEvent
