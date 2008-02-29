@@ -1,7 +1,6 @@
 package jerklib;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +11,10 @@ public class ServerInformation
 
 	private String caseMapping="",ircd="",serverName="";
 	private String[] channelPrefixes,statusPrefixes;
-	private int maxChanNameLen,maxModesPerCommand,maxNickLen,maxSilenceListSize,maxTopicLen;
-    private int maxKickLength,maxKeyLength,maxUserLength,maxHostLength;
-    private boolean supportsCNotice,supportsCPrivMsg,supportsBanExceptions,supportsInviteExceptions;
+	private int maxChanNameLen,maxModesPerCommand,maxNickLen,maxSilenceListSize,maxTopicLen,maxAwayLen,maxKickLen;
+	private boolean supportsCNotice,supportsCPrivMsg,supportsBanExceptions,supportsInviteExceptions;
 	private boolean supportsSafeList,supportsStatusNotice,supportsCAPAB,supportsNickPrefixes,supportsSilenceList;
+	private boolean supportsKnock,supportsWhox,supportsWallchops,supportsWallVoices,supportsUserIP,supportsEtrace;
 	private Map<String, Integer> joinLimits = new HashMap<String, Integer>();
 	private Map<String , String> nickPrefixMap = new HashMap<String, String>();
 	private Map<String , ModeType> modeMap = new HashMap<String, ModeType>();
@@ -52,6 +51,10 @@ public class ServerInformation
 	}
 	
 	/*
+	 * :swiftco.wa.us.dal.net 005 r0bby_ NETWORK=DALnet SAFELIST MAXBANS=200 MAXCHANNELS=20 CHANNELLEN=32 KICKLEN=307 NICKLEN=30 TOPICLEN=307 MODES=6 CHANTYPES=# CHANLIMIT=#:20 PREFIX=(ov)@+ STATUSMSG=@+ :are available on this server
+	 * :swiftco.wa.us.dal.net 005 r0bby_ CASEMAPPING=ascii WATCH=128 SILENCE=10 ELIST=cmntu EXCEPTS INVEX CHANMODES=beI,k,jl,cimMnOprRst MAXLIST=b:200,e:100,I:100 TARGMAX=DCCALLOW:,JOIN:,KICK:4,KILL:20,NOTICE:20,PART:,PRIVMSG:20,WHOIS:,WHOWAS: :are available on this server
+	 * :Vancouver.BC.CA.Undernet.org 005 r0bby___ MAXNICKLEN=15 TOPICLEN=160 AWAYLEN=160 KICKLEN=160 CHANNELLEN=200 MAXCHANNELLEN=200 CHANTYPES=#& PREFIX=(ov)@+ STATUSMSG=@+ CHANMODES=b,k,l,imnpstrDd CASEMAPPING=rfc1459 NETWORK=UnderNet :are supported by this server
+	 * :Vancouver.BC.CA.Undernet.org 005 r0bby___ WHOX WALLCHOPS WALLVOICES USERIP CPRIVMSG CNOTICE SILENCE=15 MODES=6 MAXCHANNELS=10 MAXBANS=45 NICKLEN=12 :are supported by this server
 	 * :kubrick.freenode.net 005 BigDaddy IRCD=dancer CAPAB CHANTYPES=# EXCEPTS INVEX CHANMODES=bdeIq,k,lfJD,cgijLmnPQrRstz CHANLIMIT=#:20 PREFIX=(ov)@+ MAXLIST=bdeI:50 MODES=4 STATUSMSG=@ KNOCK NICKLEN=16 :are supported by this server
 	 * :kubrick.freenode.net 005 BigDaddy SAFELIST CASEMAPPING=ascii CHANNELLEN=30 TOPICLEN=450 KICKLEN=450 KEYLEN=23 USERLEN=10 HOSTLEN=63 SILENCE=50 :are supported by this server
 	 */
@@ -77,9 +80,20 @@ public class ServerInformation
 			else if(subTokens[0].equals("SAFELIST")) supportsSafeList = true;
 			else if(subTokens[0].equals("CASEMAPPING")) caseMapping = subTokens[1];
 			else if(subTokens[0].equals("CHANNELLEN")) maxChanNameLen = Integer.parseInt(subTokens[1]);
+			else if(subTokens[0].equals("MAXCHANNELLEN")) maxChanNameLen = Integer.parseInt(subTokens[1]);
 			else if(subTokens[0].equals("TOPICLEN")) maxTopicLen = Integer.parseInt(subTokens[1]);
+			else if(subTokens[0].equals("AWAYLEN")) maxAwayLen = Integer.parseInt(subTokens[1]);
+			else if(subTokens[0].equals("NICKLEN"))maxNickLen = Integer.parseInt(subTokens[1]);
+			else if(subTokens[0].equals("MAXNICKLEN"))maxNickLen = Integer.parseInt(subTokens[1]);
+			else if(subTokens[0].equals("KICKLEN"))maxKickLen = Integer.parseInt(subTokens[1]);
 			else if(subTokens[0].equals("CNOTICE")) supportsCNotice = true;
 			else if(subTokens[0].equals("CPRIVMSG")) supportsCPrivMsg = true;
+			else if(subTokens[0].equals("KNOCK")) supportsKnock = true;
+			else if(subTokens[0].equals("WHOX")) supportsWhox = true;
+			else if(subTokens[0].equals("WALLCHOPS")) supportsWallchops = true;
+			else if(subTokens[0].equals("WALLVOICES")) supportsWallVoices = true;
+			else if(subTokens[0].equals("USERIP")) supportsUserIP = true;
+			else if(subTokens[0].equals("ETRACE")) supportsEtrace = true;
 			else if(subTokens[0].equals("SILENCE"))
 			{
 				if(subTokens.length == 2)
@@ -143,10 +157,7 @@ public class ServerInformation
 				statusPrefixes = new String[tmp.length -1];
 				System.arraycopy(tmp, 1, statusPrefixes, 0, tmp.length -1);
 			}
-			else if(subTokens[0].equals("NICKLEN"))
-			{
-				maxNickLen = Integer.parseInt(subTokens[1]);
-			}
+		
 			else if(subTokens[0].equals("CHANMODES"))
 			{
 				String[] modeGroups = subTokens[1].split(",");
@@ -177,8 +188,6 @@ public class ServerInformation
 	}
 
 	
-	
-	
 	public String[] getModes(ModeType type)
 	{
 		List<String> modesList = new ArrayList<String>();
@@ -197,16 +206,16 @@ public class ServerInformation
 	{
 		return modeMap.get(mode);
 	}
-	
-	
-	public boolean supportsCAPAB()
-	{
-		return supportsCAPAB;
-	}
+
 	
 	public String getServerName()
 	{
 		return serverName;
+	}
+	
+	public String getIrcdString()
+	{
+		return ircd;
 	}
 	
 	/* would generally return ascii, rfc1459, or strict-rfc1459 */
@@ -228,16 +237,10 @@ public class ServerInformation
 		return new String[]{};
 	}
 	
-	/* max length of a channel name */
-	public int getMaxChannelNameLength()
-	{
-		return maxChanNameLen;
-	}
 	
-	/* the prefixes a channel name can start with */
-	public String[] getChannelPrefixes()
+	public boolean supportsCAPAB()
 	{
-		return channelPrefixes;
+		return supportsCAPAB;
 	}
 	
 	public boolean supportsCNotice()
@@ -250,6 +253,20 @@ public class ServerInformation
 		return supportsCPrivMsg;
 	}
 	
+	public boolean supportsWhox()
+	{
+		return supportsWhox;
+	}
+	
+	public boolean supportsWallChops()
+	{
+		return supportsWallchops;
+	}
+	
+	public boolean supportsWallVoices()
+	{
+		return supportsWallVoices;
+	}
 	
 	public boolean supportsBanExceptions()
 	{
@@ -261,16 +278,19 @@ public class ServerInformation
 		return supportsInviteExceptions;
 	}
 	
-	
-	public int getMaxModesPerCommnad()
+	public boolean supportsKnock()
 	{
-		return maxModesPerCommand;
+		return supportsKnock;
 	}
 	
-	
-	public int getMaxNickLength()
+	public boolean supportsUserIp()
 	{
-		return maxNickLen;
+		return supportsUserIP;
+	}
+	
+	public boolean supportsEtrace()
+	{
+		return supportsEtrace;
 	}
 	
 	public boolean supportsSafeList()
@@ -283,21 +303,6 @@ public class ServerInformation
 		return supportsSilenceList;
 	}
 	
-	public int getMaxSilenceListSize()
-	{
-		return maxSilenceListSize;
-	}
-	
-	public String getIrcdString()
-	{
-		return ircd;
-	}
-	
-	public Collection<String> getNickPrefixes()
-	{
-		return nickPrefixMap.values();
-	}
-	
 	public boolean supportsNickPrefxies()
 	{
 		return supportsNickPrefixes;
@@ -308,29 +313,57 @@ public class ServerInformation
 		return supportsStatusNotice;
 	}
 	
-	public String[] getStatusPrefixes()
+	
+	public int getMaxModesPerCommnad()
 	{
-		return statusPrefixes;
+		return maxModesPerCommand;
+	}
+	
+	public int getMaxAwayLength()
+	{
+		return maxAwayLen;
+	}
+	
+	public int getMaxKickLen()
+	{
+		return maxKickLen;
+	}
+	
+	public int getMaxNickLength()
+	{
+		return maxNickLen;
+	}
+	
+	public int getMaxSilenceListSize()
+	{
+		return maxSilenceListSize;
 	}
 	
 	public int getMaxTopicLength()
 	{
 		return maxTopicLen;
 	}
+	
+	public int getMaxChannelNameLength()
+	{
+		return maxChanNameLen;
+	}
+	
+	
+	public List<String> getNickPrefixes()
+	{
+		return new ArrayList<String>(nickPrefixMap.values());
+	}
+	
+	public String[] getStatusPrefixes()
+	{
+		return statusPrefixes;
+	}
+	
+	public String[] getChannelPrefixes()
+	{
+		return channelPrefixes;
+	}
 
-    public int getMaxHostLength() {
-        return maxHostLength;
-    }
-
-    public int getMaxKeyLength() {
-        return maxKeyLength;
-    }
-
-    public int getMaxKickLength() {
-        return maxKickLength;
-    }
-
-    public int getMaxUserLength() {
-        return maxUserLength;
-    }
+	
 }
