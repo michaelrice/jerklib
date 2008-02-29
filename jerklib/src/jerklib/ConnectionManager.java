@@ -381,11 +381,11 @@ public class ConnectionManager
 					{
 						socChanMap.get(key.channel()).getConnection().read();
 					}
-					else if(key.isWritable())
+					if(key.isWritable())
 					{
 						socChanMap.get(key.channel()).getConnection().doWrites();
 					}
-					else if(key.isConnectable())
+					if(key.isConnectable())
 					{
 						finishConnection(key);
 					}
