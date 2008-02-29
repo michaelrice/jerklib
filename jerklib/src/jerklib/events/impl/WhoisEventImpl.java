@@ -1,13 +1,14 @@
 package jerklib.events.impl;
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
+
+import javax.xml.crypto.Data;
 
 import jerklib.Session;
 import jerklib.events.WhoisEvent;
 
-public class
-        WhoisEventImpl implements WhoisEvent
+public class WhoisEventImpl implements WhoisEvent 
 {
 	private final Type type = Type.WHOIS_EVENT;
 	private final String host,user,realName,nick;
@@ -16,7 +17,7 @@ public class
 	private List<String> channelNames;
 	private boolean isOp;
 	private long secondsIdle;
-	private Date signOnTime;
+	private int signOnTime;
 	
 	
 	
@@ -90,15 +91,14 @@ public class
 		this.secondsIdle = secondsIdle();
 	}
 	
-	public Date signOnTime()
+	public Date signOnTime() 
 	{
-		return signOnTime;
+		return new Date(1000L * signOnTime); 
 	}
 	
-
-    public void setSignOnTime(int signOnTime)
+	public void setSignOnTime(int signOnTime)
 	{
-		this.signOnTime = new Date(1000L * signOnTime); 
+		this.signOnTime = signOnTime;
 	}
 
 	public String whoisServer() 

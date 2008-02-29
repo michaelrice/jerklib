@@ -239,7 +239,7 @@ final class Connection
 
 		if(conState.getConState() == State.DISCONNECTED || !socChannel.isConnected())
 		{
-			System.err.println(conState.getConState());
+			System.err.println("?" + conState.getConState());
 			return -1;
 		}
 		
