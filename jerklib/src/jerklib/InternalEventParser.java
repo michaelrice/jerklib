@@ -563,21 +563,23 @@ public class InternalEventParser
 					session.updateProfileSuccessfully(false);
 				}
 				
-				if(con.loggedInSuccessfully()) return;
+				if(!con.loggedInSuccessfully())
+				{
+					Profile p = session.getRequestedConnection().getProfile();
+					String aNick = p.getActualNick();
+					String newNick = p.getFirstNick() + rand.nextInt(100) ;
+					if (aNick.equals(p.getFirstNick()))
+					{
+						newNick = p.getSecondNick();
+					}
+					else if (aNick.equals(p.getSecondNick()))
+					{
+						newNick = p.getThirdNick();
+					}
+					((ProfileImpl)p).setActualNick(newNick);
+					session.changeProfile(p);
+				}
 				
-				Profile p = session.getRequestedConnection().getProfile();
-				String aNick = p.getActualNick();
-				String newNick = p.getFirstNick() + rand.nextInt(100) ;
-				if (aNick.equals(p.getFirstNick()))
-				{
-					newNick = p.getSecondNick();
-				}
-				else if (aNick.equals(p.getSecondNick()))
-				{
-					newNick = p.getThirdNick();
-				}
-				((ProfileImpl)p).setActualNick(newNick);
-				session.changeProfile(p);
 				manager.addToRelayList(IRCEventFactory.nickInUse(data, con));
 		//}
 
