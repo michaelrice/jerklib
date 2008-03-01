@@ -197,7 +197,7 @@ public class Channel
 	 */
 	public boolean equals(Object o)
 	{
-        return o instanceof Channel && o == this;
+        return o == this;
     }
 	
 }

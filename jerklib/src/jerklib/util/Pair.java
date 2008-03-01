@@ -18,8 +18,7 @@ public class Pair<A,B>
 		if(obj instanceof Pair && obj.hashCode() == hashCode())
 		{
 			Pair<A, B> other = (Pair<A, B>)obj;
-			return other.first.equals(first) &&
-				other.second.equals(second);
+			return other.first.equals(first) && other.second.equals(second);
 		}
 		return false;
 	}

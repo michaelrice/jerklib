@@ -10,7 +10,7 @@ public class ServerInformation
 {
 
 	private String caseMapping="",ircd="",serverName="";
-	private String[] channelPrefixes,statusPrefixes;
+	private String[] channelPrefixes,statusPrefixes,channelModes;
 	private int maxChanNameLen,maxModesPerCommand,maxNickLen,maxSilenceListSize,maxTopicLen,maxAwayLen,maxKickLen;
 	private boolean supportsCNotice,supportsCPrivMsg,supportsBanExceptions,supportsInviteExceptions;
 	private boolean supportsSafeList,supportsStatusNotice,supportsCAPAB,supportsNickPrefixes,supportsSilenceList;
@@ -179,6 +179,7 @@ public class ServerInformation
 						modeMap.put(mode, mt);
 					}
 				}
+				channelModes = modeMap.keySet().toArray(new String[modeMap.size()]);
 			}
 			else
 			{
@@ -234,7 +235,7 @@ public class ServerInformation
 	
 	public String[] getSupportedChannelModes()
 	{
-		return new String[]{};
+		return channelModes;
 	}
 	
 	
