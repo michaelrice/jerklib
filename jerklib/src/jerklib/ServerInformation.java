@@ -327,8 +327,12 @@ public class ServerInformation
 	{
 		return supportsWallVoices;
 	}
-	
-	public boolean supportsBanExceptions()
+
+    /**
+     * Get whether or not the server supports ban exemptions
+     * @return whether or not server supports ban exemptions.
+     */
+    public boolean supportsBanExceptions()
 	{
 		return supportsBanExceptions;
 	}
