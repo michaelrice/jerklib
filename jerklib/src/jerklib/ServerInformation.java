@@ -242,8 +242,17 @@ public class ServerInformation
 		return ircd;
 	}
 	
-	/* would generally return ascii, rfc1459, or strict-rfc1459 */
-	public String getCaseMapping()
+    /**
+     * Get the case mapping used by this server.
+     * Will be one of the following
+     * <ul>
+     * <li>ascii</li>
+     * <li>rfc1459</li>
+     * <li>strict-rfc1459</li>
+     * </ul>
+     * @return the case mapping used by the server
+     */
+    public String getCaseMapping()
 	{
 		return caseMapping;
 	}
