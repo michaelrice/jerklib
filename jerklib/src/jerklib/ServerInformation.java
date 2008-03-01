@@ -345,109 +345,194 @@ public class ServerInformation
 	{
 		return supportsInviteExceptions;
 	}
-	
-	public boolean supportsKnock()
+
+
+    /**
+     * Get whether or not KNOCK is supported.
+     * @return whether or not KNOCK is supported
+     */
+    public boolean supportsKnock()
 	{
 		return supportsKnock;
 	}
-	
+
+    /**
+     * Get Whether or not USERIP is supported.
+     * @return whether or not USERIP is supported.
+     */
 	public boolean supportsUserIp()
 	{
 		return supportsUserIP;
 	}
-	
+
+    /**
+     * Get whether or not ETRACE is supported.
+     * @return whether or not ETRACE is supported.
+     */
 	public boolean supportsEtrace()
 	{
 		return supportsEtrace;
 	}
-	
+
+    /**
+     * Get whether or not SAFELIST is supported.
+     * @return whether or not SAFELIST is supported.
+     */
 	public boolean supportsSafeList()
 	{
 		return supportsSafeList;
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public boolean supportsSilenceList()
 	{
 		return supportsSilenceList;
 	}
-	
-	public boolean supportsNickPrefxies()
+
+    /**
+     * Get Whether or not nick prefixes are supported.
+     * @return whether or not nick prefixes are supported. 
+     */
+	public boolean supportsNickPrefixes()
 	{
 		return supportsNickPrefixes;
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public boolean supportsStatusNotices()
 	{
 		return supportsStatusNotice;
 	}
 	
-	
+
+    /**
+     *
+     * @return
+     */
 	public int getMaxModesPerCommnad()
 	{
 		return maxModesPerCommand;
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public int getMaxAwayLength()
 	{
 		return maxAwayLen;
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public int getMaxKickLength()
 	{
 		return maxKickLen;
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public int getMaxNickLength()
 	{
 		return maxNickLen;
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public int getMaxSilenceListSize()
 	{
 		return maxSilenceListSize;
 	}
-	
+
+    /**
+     *
+     * @return
+      */
 	public int getMaxTopicLength()
 	{
 		return maxTopicLen;
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public int getMaxChannelNameLength()
 	{
 		return maxChanNameLen;
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public int getMaxKeyLength()
 	{
 		return maxKeyLen;
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public int getMaxHostLength()
 	{
 		return maxHostLen;
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public int getMaxUserLength()
 	{
 		return maxUserLen;
 	}
 	
-	
+
+    /**
+     *
+     * @return
+     */
 	public List<String> getNickPrefixes()
 	{
 		return new ArrayList<String>(nickPrefixMap.values());
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public Map<String,String> getNickPrefixeMap()
 	{
 		return nickPrefixMap;
-	}
-	
+    }
+
+        /**
+         *
+         * @return
+    	 */
 	public String[] getStatusPrefixes()
 	{
 		return statusPrefixes;
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public String[] getChannelPrefixes()
 	{
 		return channelPrefixes;
