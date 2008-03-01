@@ -300,17 +300,29 @@ public class ServerInformation
 	{
 		return supportsCPrivMsg;
 	}
-	
-	public boolean supportsWhox()
+
+    /**
+     * Get whether or not WHOX is supported,
+     * @return whether or not WHOX is supported.
+     */
+    public boolean supportsWhox()
 	{
 		return supportsWhox;
 	}
-	
+
+    /**
+     * Get if WALLCHOPS is supported.
+     * @return whether or not WALLCHOPS is supported.
+     */
 	public boolean supportsWallChops()
 	{
 		return supportsWallchops;
 	}
-	
+
+    /**
+     * Get whether or not WALLVOICES is supported.
+     * @return whether or not WALLVOICES is supported. 
+     */
 	public boolean supportsWallVoices()
 	{
 		return supportsWallVoices;
