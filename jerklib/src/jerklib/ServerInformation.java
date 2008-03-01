@@ -6,7 +6,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-//http://www.watersprings.org/pub/id/draft-hardy-irc-isupport-00.txt
+/**
+ * This class allows you to probe various pieces of information about the server.
+ * For more information see <a href="http://tools.ietf.org/draft/draft-hardy-irc-isupport/draft-hardy-irc-isupport-00.txt">
+ * this</a> and <a href="http://www.silen.eu.org/usr/irc/005.html">this</a>. These documents will explain all the pieces of information
+ * provided through this class.
+ * @author <a href="mailto:mohadib@openactive.org">Jason Davis</a> 
+ */
 public class ServerInformation 
 {
 
@@ -19,29 +25,44 @@ public class ServerInformation
 	private Map<String, Integer> joinLimits = new HashMap<String, Integer>();
 	private Map<String , String> nickPrefixMap = new LinkedHashMap<String, String>();
 	private Map<String , ModeType> modeMap = new HashMap<String, ModeType>();
-	
-	
-	
-		/*
 
-	o  Type A: Modes that add or remove an address to or from a list.
-      These modes MUST always have a parameter when sent from the server
-      to a client.  A client MAY issue the mode without an argument to
-      obtain the current contents of the list.
 
-   o  Type B: Modes that change a setting on a channel.  These modes
-      MUST always have a parameter.
+    /*
 
-   o  Type C: Modes that change a setting on a channel.  These modes
-      MUST have a parameter when being set, and MUST NOT have a
-      parameter when being unset.
+     o  Type A: Modes that add or remove an address to or from a list.
+       These modes MUST always have a parameter when sent from the server
+       to a client.  A client MAY issue the mode without an argument to
+       obtain the current contents of the list.
 
-   o  Type D: Modes that change a setting on a channel.  These modes
-      MUST NOT have a parameter.
+    o  Type B: Modes that change a setting on a channel.  These modes
+       MUST always have a parameter.
 
-	 */
-	
-	public static enum ModeType
+    o  Type C: Modes that change a setting on a channel.  These modes
+       MUST have a parameter when being set, and MUST NOT have a
+       parameter when being unset.
+
+    o  Type D: Modes that change a setting on a channel.  These modes
+       MUST NOT have a parameter.
+
+     . */
+    /**
+     * <p>
+     * <ul>
+     * <li> Type A: Modes that must add or remove an address to or from a list.
+     *      These modes <b>MUST</b> always have a parameter when sent from the server to a client.
+     *      A client MAY issue the mode without an argment to obtain the current contents of the list.
+     * </li>
+     * <li> Type B: modes that change a setting on a channel. These modes <b>MUST</b> always have a parameter,</li>
+     *
+     * <li>Type C: modes that change a setting on a channel. These modes <b>MUST</b> have a parameter when being set, and <b>MUST NOT</b>
+     *     and mUST NOT have a parameter when being unset.
+     * </li>
+     * <li> Type D: Modes that change a setting on a channel. These modes <b>MUST</b> NOT have a parameter.</li>
+     * </ul>
+     * </p>
+     * . 
+     */
+    public static enum ModeType
 	{
 		GROUP_A,
 		GROUP_B,
