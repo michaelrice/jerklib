@@ -85,16 +85,34 @@ public class InternalEventParser
 	 */
 	void parseEvent(IRCEvent event)
 	{
-		final Connection con = ((SessionImpl)event.getSession()).getConnection();
-		final String data = event.getRawEventData();
-		final String nick = con.getProfile().getActualNick();
+		Connection con = ((SessionImpl)event.getSession()).getConnection();
+		String data = event.getRawEventData();
+		String nick = con.getProfile().getActualNick();
+		Session session = manager.getSessionFor(con);
+		
+		ServerInformation serverInfo = session.getServerInformation();
+		String[] chanPrefixes = serverInfo.getChannelPrefixes();
+		String channelPrefixRegex = "";
+		if(chanPrefixes != null)
+		{
+			for(String prefix : serverInfo.getChannelPrefixes())
+			{
+				channelPrefixRegex += prefix;
+			}
+			//may need to do some quoting
+			channelPrefixRegex = "[" + channelPrefixRegex + "]";
+			System.err.println("CHAN PREFIX REGEX " + channelPrefixRegex);
+		}
+		
+		
+		
 		String[] tokens = data.split("\\s+");
 		
 		if(tokens.length > 1)
 		{
 			if(tokens[1].matches("^\\d{3}$"))
 			{
-				numericEvent(data, con, event, Integer.parseInt(tokens[1]));
+				numericEvent(data, con, event, Integer.parseInt(tokens[1]) , channelPrefixRegex);
 			}
 			else
 			{
@@ -111,7 +129,7 @@ public class InternalEventParser
 				}
 				else if(command.equals("JOIN"))
 				{
-					Pattern p = Pattern.compile("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?(#.*)$");
+					Pattern p = Pattern.compile("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?("+ channelPrefixRegex +".*)$");
 					Matcher m = p.matcher(data);
 					if(m.matches())
 					{
@@ -151,7 +169,7 @@ public class InternalEventParser
 				}
 				else if(command.equals("TOPIC"))
 				{
-					Pattern p = Pattern.compile("^.+?TOPIC\\s+(#.+?)\\s+.*$");
+					Pattern p = Pattern.compile("^.+?TOPIC\\s+(" + channelPrefixRegex + ".+?)\\s+.*$");
 					Matcher m = p.matcher(data);
 					m.matches();
 					event.getSession().sayRaw("TOPIC " + m.group(1) + "\r\n");
@@ -440,7 +458,7 @@ public class InternalEventParser
 		manager.addToRelayList(se);
 	}
 	
-	private void numericEvent(String data ,Connection con ,IRCEvent event,int numeric)
+	private void numericEvent(String data ,Connection con ,IRCEvent event,int numeric , String chanPrefixRegex)
 	{
     switch (numeric)
 		{
@@ -459,11 +477,11 @@ public class InternalEventParser
 			case 321://chanlist
 			case 322://chanlist
 			case 323:chanList(data, con);break;
-			case 332:firstPartOfTopic(data, con);break;
-			case 333:secondPartOfTopic(data, con);break;
+			case 332:firstPartOfTopic(data, con , chanPrefixRegex);break;
+			case 333:secondPartOfTopic(data, con , chanPrefixRegex);break;
 			case 351:manager.addToRelayList(IRCEventFactory.serverVersion(data, con));break;
 			case 352:manager.addToRelayList(IRCEventFactory.who(data,con));break;
-			case 353:namesLine(data, con);break;
+			case 353:namesLine(data, con , chanPrefixRegex);break;
 			case 366:manager.addToRelayList(IRCEventFactory.nickList(data, con));break;
 			case 372://motd
 			case 375://motd
@@ -516,13 +534,13 @@ public class InternalEventParser
 		}
 	}
 	
-	private void firstPartOfTopic(String data, Connection con)
+	private void firstPartOfTopic(String data, Connection con , String channelPrefixRegex)
 	{
 		// FIRST PART TOF TOPPIC;
 		// sterling.freenode.net 332 scrip #test :Welcome to #test - This channel is
 		// for testing only.
-		if (data.matches(":(.+?)\\s+332\\s+(.+?)\\s+(#.+?)\\s+:(.*)$"))
-		{
+		//if (data.matches(":(.+?)\\s+332\\s+(.+?)\\s+(" + channelPrefixRegex +".+?)\\s+:(.*)$"))
+		//{
 			TopicEvent tEvent = IRCEventFactory.topic(data, con);
 			if (topicMap.containsValue(tEvent.getChannel()))
 			{
@@ -532,16 +550,16 @@ public class InternalEventParser
 			{
 				topicMap.put(tEvent.getChannel(), tEvent);
 			}
-		}
+		//}
 	}
 
-	private void secondPartOfTopic(String data, Connection con)
+	private void secondPartOfTopic(String data, Connection con , String channelPrefixRegex)
 	{
 		// 2nd part of topic
 		// :zelazny.freenode.net 333 scrip #test LuX 1159267246
-		if (data.matches(":(.+?)\\s+333\\s+(.+?)\\s+(#.+?)\\s+(\\S+)\\s+(\\S+)$"))
-		{
-			Pattern p = Pattern.compile(":(.+?)\\s+333\\s+(.+?)\\s+(#.+?)\\s+(\\S+)\\s+(\\S+)$");
+		//if (data.matches(":(.+?)\\s+333\\s+(.+?)\\s+("+ channelPrefixRegex+".+?)\\s+(\\S+)\\s+(\\S+)$"))
+		//{
+			Pattern p = Pattern.compile(":(.+?)\\s+333\\s+(.+?)\\s+("+ channelPrefixRegex+ ".+?)\\s+(\\S+)\\s+(\\S+)$");
 			Matcher m = p.matcher(data);
 			m.matches();
 			Channel chan = (Channel) con.getChannel(m.group(3).toLowerCase());
@@ -554,7 +572,7 @@ public class InternalEventParser
 				chan.setTopicEvent(tEvent);
 				manager.addToRelayList(tEvent);
 			}
-		}
+		//}
 	}
 
 	Random rand = new Random();
@@ -562,8 +580,8 @@ public class InternalEventParser
 	{
 		/* NICK IN USE */
 		//:simmons.freenode.net 433 * fran :Nickname is already in use.
-		if (data.matches(":\\S+\\s433\\s.+?\\s\\S+\\s:?.*$"))
-		{
+		//if (data.matches(":\\S+\\s433\\s.+?\\s\\S+\\s:?.*$"))
+		//{
 			if (session.isConnected() && session.isProfileUpdating())
 			{
 				session.updateProfileSuccessfully(false);
@@ -584,7 +602,7 @@ public class InternalEventParser
 				((ProfileImpl)p).setActualNick(newNick);
 				session.changeProfile(p);
 				manager.addToRelayList(IRCEventFactory.nickInUse(data, con));
-		}
+		//}
 
 	}
 
@@ -620,9 +638,9 @@ public class InternalEventParser
 		manager.addToRelayList(me);
 	}
 
-	private void namesLine(String data, Connection con)
+	private void namesLine(String data, Connection con , String channelPrefixRegex)
 	{
-		Pattern p = Pattern.compile("^:(?:.+?)\\s+353\\s+\\S+\\s+(?:=|@)\\s+(#+\\S+)\\s:(.+)$");
+		Pattern p = Pattern.compile("^:(?:.+?)\\s+353\\s+\\S+\\s+(?:=|@)\\s+("+ channelPrefixRegex +"+\\S+)\\s:(.+)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
