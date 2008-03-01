@@ -253,15 +253,19 @@ public class ServerInformation
 		return caseMapping;
 	}
 	
-	/* used to indicate the maximum amount of channels that a client may join
+	/**
+     * Used to indicate the maximum amount of channels that a client may join
 	 * of a given prefix. A commen example prefix would be #
+     * @param prefix the channel prefix
+     * @return the maximum join limit for the given channel prefix
 	 */
 	public int getChannelJoinLimitForPrefix(String prefix)
 	{
 		return joinLimits.get(prefix);
 	}
-	
-	public String[] getSupportedChannelModes()
+
+    
+    public String[] getSupportedChannelModes()
 	{
 		return channelModes;
 	}
