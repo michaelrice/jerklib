@@ -223,13 +223,21 @@ public class ServerInformation
 		return modeMap.get(mode);
 	}
 
-	
-	public String getServerName()
+
+    /**
+     * Get the server name
+     * @return the name of the server
+     */
+    public String getServerName()
 	{
 		return serverName;
 	}
-	
-	public String getIrcdString()
+
+    /**
+     * Get the IRCD String (this will usually be the name of the ircd.
+     * @return the IRCD string.
+     */
+    public String getIrcdString()
 	{
 		return ircd;
 	}
