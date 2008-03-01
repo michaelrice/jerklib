@@ -11,7 +11,7 @@ public class ServerInformation
 
 	private String caseMapping="",ircd="",serverName="";
 	private String[] channelPrefixes,statusPrefixes,channelModes;
-	private int maxChanNameLen,maxModesPerCommand,maxNickLen,maxSilenceListSize,maxTopicLen,maxAwayLen,maxKickLen;
+	private int maxChanNameLen,maxModesPerCommand,maxNickLen,maxSilenceListSize,maxTopicLen,maxAwayLen,maxKickLen,maxKeyLen;
 	private boolean supportsCNotice,supportsCPrivMsg,supportsBanExceptions,supportsInviteExceptions;
 	private boolean supportsSafeList,supportsStatusNotice,supportsCAPAB,supportsNickPrefixes,supportsSilenceList;
 	private boolean supportsKnock,supportsWhox,supportsWallchops,supportsWallVoices,supportsUserIP,supportsEtrace;
@@ -86,7 +86,7 @@ public class ServerInformation
 			else if(subTokens[0].equals("NICKLEN"))maxNickLen = Integer.parseInt(subTokens[1]);
 			else if(subTokens[0].equals("MAXNICKLEN"))maxNickLen = Integer.parseInt(subTokens[1]);
 			else if(subTokens[0].equals("KICKLEN"))maxKickLen = Integer.parseInt(subTokens[1]);
-			else if(subTokens[0].equals("KEYLEN"))maxKickLen = Integer.parseInt(subTokens[1]);
+			else if(subTokens[0].equals("KEYLEN"))maxKeyLen = Integer.parseInt(subTokens[1]);
 			else if(subTokens[0].equals("CNOTICE")) supportsCNotice = true;
 			else if(subTokens[0].equals("CPRIVMSG")) supportsCPrivMsg = true;
 			else if(subTokens[0].equals("KNOCK")) supportsKnock = true;
@@ -326,7 +326,7 @@ public class ServerInformation
 		return maxAwayLen;
 	}
 	
-	public int getMaxKickLen()
+	public int getMaxKickLength()
 	{
 		return maxKickLen;
 	}
@@ -351,6 +351,10 @@ public class ServerInformation
 		return maxChanNameLen;
 	}
 	
+	public int getMaxKeyLength()
+	{
+		return maxKeyLen;
+	}
 	
 	public List<String> getNickPrefixes()
 	{
