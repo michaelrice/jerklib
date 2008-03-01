@@ -211,8 +211,13 @@ public class ServerInformation
 		}
 		return modesList.toArray(new String[modesList.size()]);
 	}
-	
-	
+
+    /**
+     * Get the {@link ModeType} for the given mode.
+     * @param mode the mode
+     * @return the {@link ModeType}.
+     * @see ModeType
+     */
 	public ModeType getTypeForMode(String mode)
 	{
 		return modeMap.get(mode);
