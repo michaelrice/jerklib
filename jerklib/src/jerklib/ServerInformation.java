@@ -402,8 +402,8 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
+     * Get whether or not status notices are supported.
+     * @return whether or not status notices are supported.
      */
 	public boolean supportsStatusNotices()
 	{
@@ -412,8 +412,8 @@ public class ServerInformation
 	
 
     /**
-     *
-     * @return
+     * Get the maximum number of modes per command
+     * @return Maximum of number of modes per command. 
      */
 	public int getMaxModesPerCommnad()
 	{
@@ -512,17 +512,17 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
+     * Get The nickprefixes supported
+     * @return the nick prefixes
      */
-	public Map<String,String> getNickPrefixeMap()
+	public Map<String,String> getNickPrefixMap()
 	{
 		return nickPrefixMap;
     }
 
         /**
-         *
-         * @return
+         * The status prefixes supported
+         * @return the supported status prefixes
     	 */
 	public String[] getStatusPrefixes()
 	{
@@ -530,8 +530,8 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
+     * Get the channel prefixes
+     * @return the channel prefixes supported on the server 
      */
 	public String[] getChannelPrefixes()
 	{
