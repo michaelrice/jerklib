@@ -264,7 +264,10 @@ public class ServerInformation
 		return joinLimits.get(prefix);
 	}
 
-    
+    /**
+     * Retrieve all supported channel modes.
+     * @return the supported channel modes
+     */
     public String[] getSupportedChannelModes()
 	{
 		return channelModes;
