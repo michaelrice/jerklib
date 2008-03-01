@@ -282,8 +282,12 @@ public class ServerInformation
 	{
 		return supportsCAPAB;
 	}
-	
-	public boolean supportsCNotice()
+
+    /**
+     * Get whether or not CNOTICE are supported by the server.
+     * @return whether or not CNOTICE is supported by the server
+     */
+    public boolean supportsCNotice()
 	{
 		return supportsCNotice;
 	}
