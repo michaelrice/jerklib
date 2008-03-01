@@ -291,8 +291,12 @@ public class ServerInformation
 	{
 		return supportsCNotice;
 	}
-	
-	public boolean supportsCPrivMsg()
+
+    /**
+     * Get whether or not the server supports CPRIVMSG
+     * @return whether or not the server supports CPRIVMSG 
+     */
+    public boolean supportsCPrivMsg()
 	{
 		return supportsCPrivMsg;
 	}
