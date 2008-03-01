@@ -272,9 +272,13 @@ public class ServerInformation
 	{
 		return channelModes;
 	}
-	
-	
-	public boolean supportsCAPAB()
+
+
+    /**
+     * Get whether or not the server supports CAPAB
+     * @return whether or not the server support CAPAB 
+     */
+    public boolean supportsCAPAB()
 	{
 		return supportsCAPAB;
 	}
