@@ -329,15 +329,19 @@ public class ServerInformation
 	}
 
     /**
-     * Get whether or not the server supports ban exemptions
-     * @return whether or not server supports ban exemptions.
+     * Get whether or not the server supports ban exceptions
+     * @return whether or not server supports ban exceptions.
      */
     public boolean supportsBanExceptions()
 	{
 		return supportsBanExceptions;
 	}
-	
-	public boolean supportsInviteExceptions()
+
+    /**
+     * Get whether or not Invite Exceptions are supported.
+     * @return whether or not invite are supported.  
+     */
+    public boolean supportsInviteExceptions()
 	{
 		return supportsInviteExceptions;
 	}
