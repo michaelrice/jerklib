@@ -448,8 +448,8 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
+     * get the maximum silence list length
+     * @return max length of the silence list
      */
 	public int getMaxSilenceListSize()
 	{
@@ -466,8 +466,8 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
+     * Get the max channel Name Lengt
+     * @return max channel name length
      */
 	public int getMaxChannelNameLength()
 	{
@@ -475,8 +475,8 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
+     * Get the max channel key length
+     * @return max channel key length
      */
 	public int getMaxKeyLength()
 	{
@@ -484,8 +484,8 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
+     * Get the maximum Hostname length
+     * @return max hostname length
      */
 	public int getMaxHostLength()
 	{
@@ -493,8 +493,8 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
+     * Get the max username length
+     * @return max username length
      */
 	public int getMaxUserLength()
 	{
