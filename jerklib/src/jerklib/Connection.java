@@ -43,12 +43,26 @@ final class Connection
 	/* ConnectionState object to hold state information about connection */
 	private final ConnectionState conState = new ConnectionState();
 
+	private boolean loggedInSuccessfully;
+	
 	Connection(ConnectionManager manager, SocketChannel socChannel)
 	{
 		this.manager = manager;
 		this.socChannel = socChannel;
 	}
 
+	
+	boolean loggedInSuccessfully()
+	{
+		return loggedInSuccessfully;
+	}
+	
+	void loginSuccess()
+	{
+		loggedInSuccessfully = true;
+	}
+	
+	
 	Profile getProfile()
 	{
 		return manager.getSessionFor(this).getRequestedConnection().getProfile();
