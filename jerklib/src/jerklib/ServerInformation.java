@@ -503,8 +503,8 @@ public class ServerInformation
 	
 
     /**
-     *
-     * @return
+     * Get the nickPrefixes.
+     * @return the nick prefixes
      */
 	public List<String> getNickPrefixes()
 	{
