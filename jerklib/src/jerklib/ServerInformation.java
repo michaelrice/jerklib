@@ -26,25 +26,6 @@ public class ServerInformation
 	private Map<String , String> nickPrefixMap = new LinkedHashMap<String, String>();
 	private Map<String , ModeType> modeMap = new HashMap<String, ModeType>();
 
-
-    /*
-
-     o  Type A: Modes that add or remove an address to or from a list.
-       These modes MUST always have a parameter when sent from the server
-       to a client.  A client MAY issue the mode without an argument to
-       obtain the current contents of the list.
-
-    o  Type B: Modes that change a setting on a channel.  These modes
-       MUST always have a parameter.
-
-    o  Type C: Modes that change a setting on a channel.  These modes
-       MUST have a parameter when being set, and MUST NOT have a
-       parameter when being unset.
-
-    o  Type D: Modes that change a setting on a channel.  These modes
-       MUST NOT have a parameter.
-
-     . */
     /**
      * <p>
      * <ul>
@@ -211,8 +192,14 @@ public class ServerInformation
 		}
 	}
 
-	
-	public String[] getModes(ModeType type)
+
+    /**
+     * Get all modes of the given @link{ModeType}.
+     * @param type - the mode type
+     * @see ModeType
+     * @return an array containing all modes of the given type.
+     */
+    public String[] getModes(ModeType type)
 	{
 		List<String> modesList = new ArrayList<String>();
 		for(String key : modeMap.keySet())
