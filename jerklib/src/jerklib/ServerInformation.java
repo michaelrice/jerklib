@@ -86,6 +86,7 @@ public class ServerInformation
 			else if(subTokens[0].equals("NICKLEN"))maxNickLen = Integer.parseInt(subTokens[1]);
 			else if(subTokens[0].equals("MAXNICKLEN"))maxNickLen = Integer.parseInt(subTokens[1]);
 			else if(subTokens[0].equals("KICKLEN"))maxKickLen = Integer.parseInt(subTokens[1]);
+			else if(subTokens[0].equals("KEYLEN"))maxKickLen = Integer.parseInt(subTokens[1]);
 			else if(subTokens[0].equals("CNOTICE")) supportsCNotice = true;
 			else if(subTokens[0].equals("CPRIVMSG")) supportsCPrivMsg = true;
 			else if(subTokens[0].equals("KNOCK")) supportsKnock = true;
