@@ -194,7 +194,7 @@ public class ServerInformation
 
 
     /**
-     * Get all modes of the given @link{ModeType}.
+     * Get all modes of the given {@link ModeType}.
      * @param type - the mode type
      * @see ModeType
      * @return an array containing all modes of the given type.
@@ -243,13 +243,9 @@ public class ServerInformation
 	}
 	
     /**
-     * Get the case mapping used by this server.
-     * Will be one of the following
-     * <ul>
-     * <li>ascii</li>
-     * <li>rfc1459</li>
-     * <li>strict-rfc1459</li>
-     * </ul>
+     * Get the case mapping used by this server.<br>
+     * Will be one of the following: ascii, rfc1459, or strict-rfc1459
+     * 
      * @return the case mapping used by the server
      */
     public String getCaseMapping()
