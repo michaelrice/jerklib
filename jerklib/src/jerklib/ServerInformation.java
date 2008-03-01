@@ -384,8 +384,8 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
+     * Whether or not SILENCE list is supported
+     * @return whether or not the SILENCE list is supported
      */
 	public boolean supportsSilenceList()
 	{
