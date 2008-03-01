@@ -421,8 +421,8 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
+     * Get the maximum away message length
+     * @return  max away message length
      */
 	public int getMaxAwayLength()
 	{
@@ -430,8 +430,8 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
+     * Get max kick message length
+     * @return get the max kick msg length
      */
 	public int getMaxKickLength()
 	{
@@ -439,8 +439,8 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
+     * Get the max nick length.
+     * @return max nick length
      */
 	public int getMaxNickLength()
 	{
@@ -448,7 +448,7 @@ public class ServerInformation
 	}
 
     /**
-     * get the maximum silence list length
+     * Get the maximum silence list length
      * @return max length of the silence list
      */
 	public int getMaxSilenceListSize()
@@ -457,10 +457,10 @@ public class ServerInformation
 	}
 
     /**
-     *
-     * @return
-      */
-	public int getMaxTopicLength()
+     * Get the max topic length
+     * @return max topic length 
+     */
+    public int getMaxTopicLength()
 	{
 		return maxTopicLen;
 	}
@@ -520,10 +520,10 @@ public class ServerInformation
 		return nickPrefixMap;
     }
 
-        /**
-         * The status prefixes supported
-         * @return the supported status prefixes
-    	 */
+    /**
+     * The status prefixes supported
+     * @return the supported status prefixes
+     */
 	public String[] getStatusPrefixes()
 	{
 		return statusPrefixes;
