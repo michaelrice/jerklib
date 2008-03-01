@@ -74,10 +74,9 @@ class IRCEventFactory
 		return null;
 	}
 
-//:irc.nmglug.org 001 namnar :Welcome to the nmglug.org
+	//:irc.nmglug.org 001 namnar :Welcome to the nmglug.org
 	static ConnectionCompleteEvent connectionComplete(String data, Connection con)
 	{
-		System.out.println("DATA:" + data + " " + con.getProfile().getActualNick());
 		Pattern p = Pattern.compile(":(\\S+)\\s+001\\s+\\Q" + con.getProfile().getActualNick() + "\\E\\s+:.*$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
@@ -85,10 +84,10 @@ class IRCEventFactory
 			/* send host name changed event so users of lib can update *records* */
 			ConnectionCompleteEvent e = new ConnectionCompleteEventImpl
 			(
-					data, 
-					m.group(1).toLowerCase(), // new
-					myManager.getSessionFor(con), 
-					con.getHostName() // old hostname
+				data, 
+				m.group(1).toLowerCase(), // new
+				myManager.getSessionFor(con), 
+				con.getHostName() // old hostname
 			);
 
 			return e;
@@ -106,17 +105,19 @@ class IRCEventFactory
 		if (m.matches())
 		{
 			boolean away = m.group(6).charAt(0) == 'G';
-			return new WhoEventImpl(m.group(1), // channel
-					Integer.parseInt(m.group(7)), // hop count
-					m.group(3), // hostname
-					away, // status indicator
-					m.group(5), // nick
-					data, // raw event data
-					m.group(8), // real name
-					m.group(4), // server name
-					myManager.getSessionFor(con), // session
-					m.group(2)); // username
-
+			return new WhoEventImpl
+			(
+				m.group(1), // channel
+				Integer.parseInt(m.group(7)), // hop count
+				m.group(3), // hostname
+				away, // status indicator
+				m.group(5), // nick
+				data, // raw event data
+				m.group(8), // real name
+				m.group(4), // server name
+				myManager.getSessionFor(con), // session
+				m.group(2) // username
+			); 
 		}
 		debug("WHO", data);
 		return null;
@@ -204,7 +205,7 @@ class IRCEventFactory
 	// for testing only.
 	static TopicEvent topic(String data, Connection con)
 	{
-		Pattern p = Pattern.compile(":(\\S+)\\s+332\\s+(\\S+)\\s+(#\\S+)\\s+:(.*)$");
+		Pattern p = Pattern.compile(":(\\S+)\\s+332\\s+(\\S+)\\s+(\\S+)\\s+:(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
@@ -223,61 +224,11 @@ class IRCEventFactory
 		return null;
 	}
 
-	// :mohadib!n=fran@unaffiliated/mohadib MODE #jerklib +b scripy!*@*
-	// :mohadib!n=fran@unaffiliated/mohadib MODE #jerklib -m
-	// :services. MODE scripy :+e
-	//:r0bby!n=wakawaka@guifications/user/r0bby MODE #jerklib3 +ov scrippy2 scrippy2
-	/*
-	static ModeEvent modeEvent(String data, Connection con)
-	{
-		Pattern p = Pattern.compile("^:(\\S+)\\s+MODE\\s+(\\S+)\\s+(\\S+)\\s*$");
-		Matcher m = p.matcher(data);
-		if (m.matches())
-		{
-			List<String>modes = Arrays.asList(mode.)
-			ModeEvent me = new ModeEventImpl
-			(
-				data, 
-				myManager.getSessionFor(con), 
-				m.group(3), 
-				m.group(2), 
-				m.group(1),
-				null
-			);
-			return me;
-		}
-		
-		p = Pattern.compile("^:(\\S+)\\s+MODE\\s+(\\S+)\\s+(\\S+)(?:\\s+(\\S+)\\s*)?");
-		m = p.matcher(data);
-		if (m.matches())
-		{
-			String user = m.group(1);
-			if(user.indexOf("!") != -1)
-			{
-				user = user.split("!")[0];
-			}
-			ModeEvent me = new ModeEventImpl
-			(
-				data, 
-				myManager.getSessionFor(con), 
-				m.group(3), 
-				m.group(4), 
-				user, 
-				con.getChannel(m.group(2).toLowerCase())
-			);
-			return me;
-		}
-
-		debug("MODE", data);
-		return null;
-	}
-*/
-	
 	/*
 	 * A Channel Msg :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah
 	 * Private message :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!
 	 */
-    static MessageEvent privateMsg(String data, Connection con) 
+    static MessageEvent privateMsg(String data, Connection con , String channelPrefixRegex) 
     {
     	if(data.matches("^:\\S+\\s+PRIVMSG\\s+\\S+\\s+:.*$"))
     	{
@@ -287,14 +238,14 @@ class IRCEventFactory
         String target = m.group(4);
         return new MessageEventImpl
         (
-        	target.startsWith("#")?con.getChannel(target.toLowerCase()):null,
+        	target.matches("^"+channelPrefixRegex+"{1}.+")?con.getChannel(target.toLowerCase()):null,
         	m.group(3),
-          m.group(5),
-          m.group(1),
-          data,
-          myManager.getSessionFor(con),
-          target.startsWith("#")?Type.CHANNEL_MESSAGE:Type.PRIVATE_MESSAGE,
-          m.group(2)
+        	m.group(5),
+        	m.group(1),
+        	data,
+        	myManager.getSessionFor(con),
+        	target.matches("^"+channelPrefixRegex+"{1}.+")?Type.CHANNEL_MESSAGE:Type.PRIVATE_MESSAGE,
+        	m.group(2)
         );
         
     	}
@@ -315,18 +266,16 @@ class IRCEventFactory
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
-			NickInUseEvent event = new NickInUseEventImpl(m.group(1), data, myManager.getSessionFor(con));
-
-			return event;
+			return new NickInUseEventImpl(m.group(1), data, myManager.getSessionFor(con));
 		}
 		debug("NICK_IN_USE", data);
 		return null;
 	}
 
 	
-    // :leguin.freenode.net 306 r0bby_ :You have been marked as being away
-    // :leguin.freenode.net 305 r0bby_ :You are no longer marked as being away
-  static AwayEvent away(String data, Connection con, int numeric)
+	// :leguin.freenode.net 306 r0bby_ :You have been marked as being away
+	// :leguin.freenode.net 305 r0bby_ :You are no longer marked as being away
+	static AwayEvent away(String data, Connection con, int numeric)
 	{
 		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s+(\\S+)\\s:(.*)$");
 		Matcher m = p.matcher(data);
@@ -336,9 +285,9 @@ class IRCEventFactory
 			{
 				case 305:return new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.RETURNED_FROM_AWAY, false, true, myManager.getDefaultProfile().getActualNick(), data);	
 				case 306:return new AwayEventImpl(myManager.getSessionFor(con), AwayEvent.EventType.WENT_AWAY, true, true, myManager.getDefaultProfile().getActualNick(), data);
-      }
+			}
 		}
-	// :card.freenode.net 301 r0bby_ r0bby :foo
+		// :card.freenode.net 301 r0bby_ r0bby :foo
 		p = Pattern.compile("^:\\S+\\s+\\d{3}\\s+\\S+\\s+(\\S+)\\s+:(.*)$");
 		m = p.matcher(data);
 		m.matches();
@@ -365,7 +314,6 @@ class IRCEventFactory
 	static NoticeEvent notice(String data, Connection con)
 	{
 		
-		
 		// generic notice NOTICE AUTH :*** No identd (auth) response
 		Pattern p = Pattern.compile("^NOTICE\\s+(.*$)$");
 		Matcher m = p.matcher(data);
@@ -377,7 +325,7 @@ class IRCEventFactory
 		}
 		
 		// channel notice :DIBLET!n=fran@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #jerklib :test
-		p = Pattern.compile("^:(.*?)\\!.*?\\s+NOTICE\\s+(#.*?)\\s+:(.*)$");
+		p = Pattern.compile("^:(.*?)\\!.*?\\s+NOTICE\\s+(.*?)\\s+:(.*)$");
 		m = p.matcher(data);
 		if (m.matches())
 		{
@@ -395,7 +343,6 @@ class IRCEventFactory
 
 			return ne;
 		}
-		
 		
 		//user notice but from the server - user notice means to a user as opposed a channel
 		//:anthony.freenode.net NOTICE mohadib_ :NickServ set your hostname to "unaffiliated/mohadib"
@@ -447,9 +394,10 @@ class IRCEventFactory
 	}
 
 	// :r0bby!n=wakawaka@guifications/user/r0bby JOIN :#jerklib
+	// :mohadib_!~mohadib@68.35.11.181 JOIN &test
 	static JoinEvent regularJoin(String data, Connection con)
 	{
-		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+JOIN\\s+:(\\S+)$");
+		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+JOIN\\s+:?(\\S+)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
@@ -481,18 +429,15 @@ class IRCEventFactory
 		return null;
 	}
 
-	//TODO change this to use channel names , not objects
 	/*
 	 * :anthony.freenode.net 322 mohadib_ #jerklib 5 :JerkLib IRC Library - https://sourceforge.net/projects/jerklib
 	 */
 	static ChannelListEvent chanList(String data, Connection con)
 	{
-		Pattern p = Pattern.compile("^:\\S+\\s322\\s\\S+\\s(#\\S+)\\s(\\d+)\\s:(.*)$");
+		Pattern p = Pattern.compile("^:\\S+\\s322\\s\\S+\\s(\\S+)\\s(\\d+)\\s:(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
-			Channel channel = new Channel(m.group(1), con);
-			channel.setTopic(m.group(3));
 			return new ChannelListEventImpl(data, m.group(1), m.group(3), Integer.parseInt(m.group(2)), myManager.getSessionFor(con));
 		}
 		debug("CHAN_LIST", data);
@@ -503,14 +448,18 @@ class IRCEventFactory
 	{
 		return new JoinCompleteEventImpl(data, myManager.getSessionFor(con), channel);
 	}
+	
 	// :fran!~fran@outsiderz-88006847.hsd1.nm.comcast.net PART #jerklib
 	// :r0bby!n=wakawaka@guifications/user/r0bby PART #jerklib :"FOO"
+	// :mohadib_!~mohadib@68.35.11.181 PART :&test
 	static PartEvent part(String data, Connection con)
 	{
-		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+PART\\s+(\\S+?)(?:\\s+:(.*))?$");
+		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+PART\\s+:?(\\S+?)(?:\\s+:(.*))?$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
+			System.out.println("HERE? " + m.group(4));
+			System.out.println(data);
 			PartEvent partEvent = new PartEventImpl
 			(
 				data, 
@@ -555,8 +504,6 @@ class IRCEventFactory
 		debug("NICK_CHANGE", data);
 		return null;
 	}
-
-
 
 	// :r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2
 	static InviteEvent invite(String data, Connection con)

@@ -119,7 +119,7 @@ public class InternalEventParser
 				String command = tokens[1];
 				if(command.equals("PRIVMSG"))
 				{
-					message(data, con);
+					message(data, con , channelPrefixRegex);
 				}
 				else if(command.equals("QUIT"))
 				{
@@ -621,9 +621,9 @@ public class InternalEventParser
 		}
 	}
 
-	private void message(String data, Connection con)
+	private void message(String data, Connection con , String channelPrefixRegex)
 	{
-		MessageEvent me = IRCEventFactory.privateMsg(data,con);
+		MessageEvent me = IRCEventFactory.privateMsg(data,con , channelPrefixRegex);
 		if(me.getType() == Type.PRIVATE_MESSAGE)
 		{
 			if(me.getMessage().equals("\u0001VERSION\u0001"))
