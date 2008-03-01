@@ -431,9 +431,11 @@ class IRCEventFactory
 
 	/*
 	 * :anthony.freenode.net 322 mohadib_ #jerklib 5 :JerkLib IRC Library - https://sourceforge.net/projects/jerklib
+	 * :irc.nixgeeks.com 321 mohadib Channel :Users  Name
 	 */
 	static ChannelListEvent chanList(String data, Connection con)
 	{
+		System.out.println(data);
 		Pattern p = Pattern.compile("^:\\S+\\s322\\s\\S+\\s(\\S+)\\s(\\d+)\\s:(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())

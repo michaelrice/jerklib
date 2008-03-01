@@ -450,9 +450,9 @@ public class InternalEventParser
 			case 318://whois
 			case 319://whois
 			case 320:whois(data, event.getSession(), numeric);break;
-			case 321://chanlist
-			case 322://chanlist
-			case 323:manager.addToRelayList(IRCEventFactory.chanList(data, con));break;
+			case 321:break;//chanlist
+			case 322:manager.addToRelayList(IRCEventFactory.chanList(data, con));break;
+			case 323:break; //end chan ist
 			case 332:firstPartOfTopic(data, con);break;
 			case 333:secondPartOfTopic(data, con);break;
 			case 351:manager.addToRelayList(IRCEventFactory.serverVersion(data, con));break;
