@@ -2,6 +2,7 @@ package jerklib;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,12 +12,12 @@ public class ServerInformation
 
 	private String caseMapping="",ircd="",serverName="";
 	private String[] channelPrefixes,statusPrefixes,channelModes;
-	private int maxChanNameLen,maxModesPerCommand,maxNickLen,maxSilenceListSize,maxTopicLen,maxAwayLen,maxKickLen,maxKeyLen,maxHostLen;
+	private int maxChanNameLen,maxModesPerCommand,maxNickLen,maxSilenceListSize,maxTopicLen,maxAwayLen,maxKickLen,maxKeyLen,maxHostLen,maxUserLen;
 	private boolean supportsCNotice,supportsCPrivMsg,supportsBanExceptions,supportsInviteExceptions;
 	private boolean supportsSafeList,supportsStatusNotice,supportsCAPAB,supportsNickPrefixes,supportsSilenceList;
 	private boolean supportsKnock,supportsWhox,supportsWallchops,supportsWallVoices,supportsUserIP,supportsEtrace;
 	private Map<String, Integer> joinLimits = new HashMap<String, Integer>();
-	private Map<String , String> nickPrefixMap = new HashMap<String, String>();
+	private Map<String , String> nickPrefixMap = new LinkedHashMap<String, String>();
 	private Map<String , ModeType> modeMap = new HashMap<String, ModeType>();
 	
 	
@@ -51,6 +52,8 @@ public class ServerInformation
 	}
 	
 	/*
+	 * :irc.nixgeeks.com 005 mohadib CMDS=KNOCK,MAP,DCCALLOW,USERIP SAFELIST HCN MAXCHANNELS=20 CHANLIMIT=#:20 MAXLIST=b:60,e:60,I:60 NICKLEN=30 CHANNELLEN=32 TOPICLEN=307 KICKLEN=307 AWAYLEN=307 MAXTARGETS=20 WALLCHOPS :are supported by this server
+	 * :irc.nixgeeks.com 005 mohadib WATCH=128 SILENCE=15 MODES=12 CHANTYPES=# PREFIX=(qaohv)~&@%+ CHANMODES=beI,kfL,lj,psmntirRcOAQKVGCuzNSMTG NETWORK=NixGeeks CASEMAPPING=ascii EXTBAN=~,cqnr ELIST=MNUCT STATUSMSG=~&@%+ EXCEPTS INVEX :are supported by this server
 	 * :swiftco.wa.us.dal.net 005 r0bby_ NETWORK=DALnet SAFELIST MAXBANS=200 MAXCHANNELS=20 CHANNELLEN=32 KICKLEN=307 NICKLEN=30 TOPICLEN=307 MODES=6 CHANTYPES=# CHANLIMIT=#:20 PREFIX=(ov)@+ STATUSMSG=@+ :are available on this server
 	 * :swiftco.wa.us.dal.net 005 r0bby_ CASEMAPPING=ascii WATCH=128 SILENCE=10 ELIST=cmntu EXCEPTS INVEX CHANMODES=beI,k,jl,cimMnOprRst MAXLIST=b:200,e:100,I:100 TARGMAX=DCCALLOW:,JOIN:,KICK:4,KILL:20,NOTICE:20,PART:,PRIVMSG:20,WHOIS:,WHOWAS: :are available on this server
 	 * :Vancouver.BC.CA.Undernet.org 005 r0bby___ MAXNICKLEN=15 TOPICLEN=160 AWAYLEN=160 KICKLEN=160 CHANNELLEN=200 MAXCHANNELLEN=200 CHANTYPES=#& PREFIX=(ov)@+ STATUSMSG=@+ CHANMODES=b,k,l,imnpstrDd CASEMAPPING=rfc1459 NETWORK=UnderNet :are supported by this server
@@ -88,6 +91,7 @@ public class ServerInformation
 			else if(subTokens[0].equals("KICKLEN"))maxKickLen = Integer.parseInt(subTokens[1]);
 			else if(subTokens[0].equals("KEYLEN"))maxKeyLen = Integer.parseInt(subTokens[1]);
 			else if(subTokens[0].equals("HOSTLEN"))maxHostLen = Integer.parseInt(subTokens[1]);
+			else if(subTokens[0].equals("USERLEN"))maxUserLen = Integer.parseInt(subTokens[1]);
 			else if(subTokens[0].equals("CNOTICE")) supportsCNotice = true;
 			else if(subTokens[0].equals("CPRIVMSG")) supportsCPrivMsg = true;
 			else if(subTokens[0].equals("KNOCK")) supportsKnock = true;
@@ -139,10 +143,6 @@ public class ServerInformation
 						nickPrefixMap.put(prefixes[x], modes[x]);
 						modeMap.put(modes[x], ModeType.GROUP_B);
 					}
-				}
-				else
-				{
-					supportsNickPrefixes = false;
 				}
 			}
 			else if(subTokens[0].equals("MODES"))
@@ -362,9 +362,20 @@ public class ServerInformation
 		return maxHostLen;
 	}
 	
+	public int getMaxUserLength()
+	{
+		return maxUserLen;
+	}
+	
+	
 	public List<String> getNickPrefixes()
 	{
 		return new ArrayList<String>(nickPrefixMap.values());
+	}
+	
+	public Map<String,String> getNickPrefixeMap()
+	{
+		return nickPrefixMap;
 	}
 	
 	public String[] getStatusPrefixes()

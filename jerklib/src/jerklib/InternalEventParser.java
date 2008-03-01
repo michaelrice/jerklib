@@ -116,7 +116,7 @@ public class InternalEventParser
 					Matcher m = p.matcher(data);
 					if(m.matches())
 					{
-						Channel channel = new Channel(m.group(1).toLowerCase(), con);
+						Channel channel = new Channel(m.group(1).toLowerCase(), manager.getSessionFor(con));
 						con.addChannel(channel);
 						manager.getSessionFor(con).addChannelName(channel.getName());
 						manager.addToRelayList(IRCEventFactory.joinCompleted(data, con, nick, channel));

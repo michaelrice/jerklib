@@ -15,13 +15,15 @@ public class Channel
 {
 	private String name;
 	private Connection con;
+	private Session session;
 	private Map<String, List<String>> userMap = new HashMap<String, List<String>>();
 	private TopicEvent topicEvent;
 	
-	Channel(String name , Connection con)
+	Channel(String name , Session session)
 	{
 		this.name = name;
-		this.con = con;
+		this.session = session;
+		this.con = ((SessionImpl)session).getConnection();
 	}
 	
 	
@@ -133,15 +135,20 @@ public class Channel
 	{
 	  if(!userMap.containsKey(nick))
 	  {
+		  
+		  ServerInformation info = session.getServerInformation();
+		  Map<String,String> nickPrefixMap = info.getNickPrefixeMap();
 		  List<String> modes = new ArrayList<String>();
-		  if(nick.startsWith("@"))
+		  for(String prefix : nickPrefixMap.keySet())
 		  {
-			  modes.add("+o");
-			  nick = nick.substring(1);
+			  if(nick.startsWith(prefix)) 
+			  {
+				  modes.add(nickPrefixMap.get(prefix));
+			  }
 		  }
-		  if(nick.startsWith("+"))
+		  
+		  if(!modes.isEmpty())
 		  {
-			  modes.add("+v");
 			  nick = nick.substring(1);
 		  }
 		  userMap.put(nick, modes);
