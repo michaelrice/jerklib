@@ -325,7 +325,8 @@ class IRCEventFactory
 		}
 		
 		// channel notice :DIBLET!n=fran@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #jerklib :test
-		p = Pattern.compile("^:(.*?)\\!.*?\\s+NOTICE\\s+(#.*?)\\s+:(.*)$");
+        //TODO: should probably do a similar thing as privmsgs for handling channel prefixes
+        p = Pattern.compile("^:(.*?)\\!.*?\\s+NOTICE\\s+([#|&].*?)\\s+:(.*)$");
 		m = p.matcher(data);
 		if (m.matches())
 		{
