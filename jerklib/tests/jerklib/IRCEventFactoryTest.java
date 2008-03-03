@@ -55,7 +55,7 @@ public class IRCEventFactoryTest extends TestCase
 	public void testParseEvent()
 	{
 		Connection con = ((SessionImpl)session).getConnection();
-		//con.addChannel(new Channel("#test",con ));
+		con.addChannel(new Channel("#test",session ));
 		((Channel)con.getChannel("#test")).addNick("mohadib");
 		
 		KickEvent ke = IRCEventFactory.kick(":mohadib!~mohadib@67.41.102.162 KICK #test scab :bye!", con);
