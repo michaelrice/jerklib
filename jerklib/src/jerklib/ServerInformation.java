@@ -27,7 +27,7 @@ public class ServerInformation
 	private Map<String , ModeType> modeMap = new HashMap<String, ModeType>();
 
     /**
-     * <p>
+      * <p>
      * <ul>
      * <li> Type A: Modes that must add or remove an address to or from a list.
      *      These modes <b>MUST</b> always have a parameter when sent from the server to a client.
