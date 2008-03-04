@@ -233,9 +233,9 @@ class IRCEventFactory
     	if(data.matches("^:\\S+\\s+PRIVMSG\\s+\\S+\\s+:.*$"))
     	{
     		Pattern p = Pattern.compile("^:(\\S+?)\\!(\\S+?)@(\\S+)\\s+PRIVMSG\\s+(\\S+)\\s+:(.*)$");
-        Matcher m = p.matcher(data);
-        m.matches();
-        String target = m.group(4);
+    		Matcher m = p.matcher(data);
+    		m.matches();
+    		String target = m.group(4);
         return new MessageEventImpl
         (
         	target.matches("^"+channelPrefixRegex+"{1}.+")?con.getChannel(target.toLowerCase()):null,
@@ -325,8 +325,7 @@ class IRCEventFactory
 		}
 		
 		// channel notice :DIBLET!n=fran@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #jerklib :test
-        //TODO: should probably do a similar thing as privmsgs for handling channel prefixes        
-        p = Pattern.compile("^:(.*?)\\!.*?\\s+NOTICE\\s+(#.*?)\\s+:(.*)$");
+		p = Pattern.compile("^:(.*?)\\!.*?\\s+NOTICE\\s+(.*?)\\s+:(.*)$");
 		m = p.matcher(data);
 		if (m.matches())
 		{

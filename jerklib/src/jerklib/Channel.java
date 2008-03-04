@@ -18,6 +18,7 @@ public class Channel
 	private Session session;
 	private Map<String, List<String>> userMap = new HashMap<String, List<String>>();
 	private TopicEvent topicEvent;
+	private String modeString = "";
 	
 	Channel(String name , Session session)
 	{
@@ -27,6 +28,15 @@ public class Channel
 	}
 	
 	
+	void setModeString(String mode)
+	{
+		modeString = mode;
+	}
+	
+	public String getModeString()
+	{
+		return modeString; 
+	}
 	
 	void updateUsersMode(String username , String mode)
 	{
@@ -137,13 +147,13 @@ public class Channel
 	  {
 		  
 		  ServerInformation info = session.getServerInformation();
-		  Map<String,String> nickPrefixMap = info.getNickPrefixMap();
+		  Map<String,String> nickPrefixMap = info.getNickPrefixeMap();
 		  List<String> modes = new ArrayList<String>();
 		  for(String prefix : nickPrefixMap.keySet())
 		  {
 			  if(nick.startsWith(prefix)) 
 			  {
-				  modes.add(nickPrefixMap.get(prefix));
+				  modes.add("+"+nickPrefixMap.get(prefix));
 			  }
 		  }
 		  

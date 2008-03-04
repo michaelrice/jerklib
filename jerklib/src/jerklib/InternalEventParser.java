@@ -209,6 +209,29 @@ public class InternalEventParser
 	}
 	
 	
+	//:kubrick.freenode.net 324 mohadib__ #test +mnPzlfJ 101 #flood 1,2 
+	private void channelMode(IRCEvent event)
+	{
+		Pattern p = Pattern.compile("^\\S+\\s+\\S+\\s+\\S+\\s+(\\S+)\\s+(.+)$");
+		Matcher m = p.matcher(event.getRawEventData());
+		m.matches();
+		
+		
+		event.getSession().getChannel(m.group(1)).setModeString(m.group(2));
+		ModeEvent me = new ModeEventImpl
+		(
+			event.getRawEventData(),
+			event.getSession(),
+			null,
+			null,
+			event.getSession().getChannel(m.group(1))
+		);
+		
+		
+		//notify with a Mode EVent
+		manager.addToRelayList(me);
+	}
+	
 	//:mohadib_!n=mohadib@unaffiliated/mohadib MODE #jerklib +o scripyasas
 	//:services. MODE mohadib :+e
 	private void mode(IRCEvent event)
@@ -453,6 +476,7 @@ public class InternalEventParser
 			case 321:break;//chanlist
 			case 322:manager.addToRelayList(IRCEventFactory.chanList(data, con));break;
 			case 323:break; //end chan ist
+			case 324:channelMode(event);break;
 			case 332:firstPartOfTopic(data, con);break;
 			case 333:secondPartOfTopic(data, con);break;
 			case 351:manager.addToRelayList(IRCEventFactory.serverVersion(data, con));break;

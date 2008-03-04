@@ -31,6 +31,7 @@ public interface ModeEvent extends IRCEvent
 	 */
 	public String setBy();
 	
+	
 	/**
 	 * If mode event adjusted a Channel mode
 	 * then the Channel effected will be returned

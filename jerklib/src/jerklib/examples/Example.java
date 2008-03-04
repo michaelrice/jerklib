@@ -22,7 +22,7 @@ public class Example implements IRCEventListener
 		/* ConnectionManager takes a Profile to use for new connections. The profile
 		 * will contain the users nick , real name , alt. nick 1 and. alt nick 2	
 		 */
-		manager = new ConnectionManager(new ProfileImpl("scripy", "scripyasas", "scripy1", "scrippy2"));
+		manager = new ConnectionManager(new ProfileImpl("scripy", "matthew", "matthew_", "matthew__"));
 
 		/*
 		 * One instance of ConnectionManager can connect to many IRC networks.
@@ -79,7 +79,7 @@ public class Example implements IRCEventListener
 			/* connection to server is complete */
         	System.out.println("Joining");
 			//e.getSession().joinChannel("#sand-irc");
-			e.getSession().joinChannel("#jerklib");
+			e.getSession().joinChannel("#sand-irc");
 			//e.getSession().joinChannel("#ubuntu");
 			//e.getSession().joinChannel("#debian");
 			//e.getSession().joinChannel("#perl");
