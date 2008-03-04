@@ -10,7 +10,7 @@ package jerklib.events;
  * </ul>
  * You can determine under which circumstance the event was fired by looking at
  * the {@link EventType}.</p> 
- * @author <a href="mailto:robby.oconnor@gmail.com>Robert O'Connor<a/>
+ * @author <a href="mailto:rob@mybawx.org">Robert O'Connor<a/>
  *
  */
 public interface
