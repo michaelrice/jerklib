@@ -147,7 +147,7 @@ public class Channel
 	  {
 		  
 		  ServerInformation info = session.getServerInformation();
-		  Map<String,String> nickPrefixMap = info.getNickPrefixeMap();
+		  Map<String,String> nickPrefixMap = info.getNickPrefixMap();
 		  List<String> modes = new ArrayList<String>();
 		  for(String prefix : nickPrefixMap.keySet())
 		  {
