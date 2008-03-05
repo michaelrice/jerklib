@@ -20,7 +20,6 @@ import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.ChannelListEvent;
 import jerklib.events.InviteEvent;
-import jerklib.events.UnresolvedHostnameErrorEvent;
 import jerklib.events.WhoisEvent;
 import jerklib.events.WhowasEvent;
 import jerklib.events.AwayEvent;
