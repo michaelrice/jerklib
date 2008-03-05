@@ -6,8 +6,6 @@ import jerklib.events.NumericErrorEvent;
 public class NumericEventImpl implements NumericErrorEvent
 {
 	private final String errMsg,rawEventData;
-	private final ErrorType errorType;
-	private final Type type = Type.ERROR;
 	private final Session session;
 	private final int numeric;
 	
@@ -15,7 +13,6 @@ public class NumericEventImpl implements NumericErrorEvent
 	(
 			String errMsg, 
 			String rawEventData, 
-			ErrorType errorType,
 			int numeric,
 			Session session
 	)
@@ -23,7 +20,6 @@ public class NumericEventImpl implements NumericErrorEvent
 		super();
 		this.errMsg = errMsg;
 		this.rawEventData = rawEventData;
-		this.errorType = errorType;
 		this.session = session;
 		this.numeric = numeric;
 	}
@@ -33,16 +29,16 @@ public class NumericEventImpl implements NumericErrorEvent
 		return errMsg;
 	}
 
-	public ErrorType getErrorType()
-	{
-		return errorType;
-	}
-
 	public int getNumeric()
 	{
 		return numeric;
 	}
-
+	
+	public ErrorType getErrorType() 
+	{
+		return ErrorType.NUMERIC_ERROR;
+	}
+	
 	public String getRawEventData()
 	{
 		return rawEventData;
@@ -55,7 +51,7 @@ public class NumericEventImpl implements NumericErrorEvent
 
 	public Type getType()
 	{
-		return type;
+		return Type.ERROR;
 	}
 
 }

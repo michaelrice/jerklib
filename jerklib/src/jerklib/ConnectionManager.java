@@ -19,8 +19,10 @@ import java.util.TimerTask;
 
 import jerklib.ConnectionState.PingState;
 import jerklib.Session.State;
+import jerklib.events.ErrorEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.IRCEvent.Type;
+import jerklib.events.impl.UnresolvedHostnameErrorEventImpl;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.events.listeners.WriteRequestListener;
 import jerklib.tasks.Task;
@@ -573,8 +575,10 @@ public class ConnectionManager
 	{
 		synchronized (sessionMap)
 		{
-			for(SessionImpl session : sessionMap.values())
+			for(Iterator<SessionImpl>it = sessionMap.values().iterator(); it.hasNext();)
 			{
+				SessionImpl session = it.next();
+				
 				if(session.getConnectionState() == null || 
 						session.getConnectionState().getConState() == Session.State.DISCONNECTED)
 				{
@@ -595,6 +599,16 @@ public class ConnectionManager
 					catch(UnresolvedAddressException e)
 					{
 						session.setConnectionState(Session.State.DISCONNECTED);
+						
+						ErrorEvent error = new UnresolvedHostnameErrorEventImpl
+						(
+							session,
+							e.getMessage(),
+							session.getRequestedConnection().getHostName(),
+							e
+						);
+						addToRelayList(error);
+						it.remove();
 					}
 					catch (IOException e)
 					{
@@ -608,29 +622,25 @@ public class ConnectionManager
 	
 	private void connect(SessionImpl session) throws IOException
 	{
-    SocketChannel sChannel = SocketChannel.open();
+		SocketChannel sChannel = SocketChannel.open();
     
-    sChannel.configureBlocking(false);
-
+		sChannel.configureBlocking(false);
     
-    InetSocketAddress isa = new InetSocketAddress
+		sChannel.connect
 		(
-				session.getRequestedConnection().getHostName(),  
-				session.getRequestedConnection().getPort()
+    		new InetSocketAddress
+    		(
+    				session.getRequestedConnection().getHostName(),  
+    				session.getRequestedConnection().getPort()
+    		)
 		);
     
+		sChannel.register(selector , sChannel.validOps());
     
-    sChannel.connect
-    (
-    		isa
-    );
+		Connection con = new Connection(this , sChannel);
+		session.setConnection(con);
     
-    sChannel.register(selector , sChannel.validOps());
-    
-    Connection con = new Connection(this , sChannel);
-    session.setConnection(con);
-    
-    socChanMap.put(sChannel, session);
+		socChanMap.put(sChannel, session);
 	}
 }
 

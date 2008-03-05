@@ -446,9 +446,7 @@ public class InternalEventParser
 			default:System.out.println(data);
 		}
 	}
-	
-	
-	
+
 	private void serverInfo(String data , IRCEvent event)
 	{
 		SessionImpl session = (SessionImpl)event.getSession();

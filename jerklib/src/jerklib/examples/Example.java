@@ -84,6 +84,11 @@ public class Example implements IRCEventListener
 			//e.getSession().joinChannel("#debian");
 			//e.getSession().joinChannel("#perl");
 		}
+		if(e.getType() == Type.NICK_IN_USE)
+		{
+			NickInUseEvent niu = (NickInUseEvent)e;
+			System.out.println("Nick In Use " + niu.getInUseNick());
+		}
         else if(e.getType() == Type.CHANNEL_MESSAGE)
         {
         	MessageEvent me = (MessageEvent)e;
@@ -122,8 +127,13 @@ public class Example implements IRCEventListener
 			}
 			
         }
+        else if(e.getType() == Type.TOPIC)
+        {
+        	System.out.println("TOPIC EVENT");
+        }
 		else if(e.getType() == Type.JOIN_COMPLETE)
 		{
+			System.out.println("JOIN COMPLETE");
 			JoinCompleteEvent jce = (JoinCompleteEvent)e;
 			if(jce.getChannel().getName().equals("#sand-irc"))
 			{
