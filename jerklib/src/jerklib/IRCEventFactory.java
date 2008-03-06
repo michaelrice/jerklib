@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jerklib.events.CtcpEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
@@ -26,6 +27,7 @@ import jerklib.events.AwayEvent;
 import jerklib.events.WhoEvent;
 import jerklib.events.MessageEvent;
 import jerklib.events.IRCEvent.Type;
+import jerklib.events.impl.CtcpEventImpl;
 import jerklib.events.impl.JoinCompleteEventImpl;
 import jerklib.events.impl.JoinEventImpl;
 import jerklib.events.impl.KickEventImpl;
@@ -250,6 +252,23 @@ class IRCEventFactory
       debug("MESSAGE",data); 
       return null;
     }
+    
+    
+    static CtcpEvent ctcp( MessageEvent event , String ctcpString)
+    {
+    	return new CtcpEventImpl
+    	(
+    			ctcpString,
+    			event.getHostName(),
+    			event.getMessage(),
+    			event.getNick(),
+    			event.getUserName(),
+    			event.getRawEventData(),
+    			event.getChannel(),
+    			event.getSession()
+    	);
+    }
+    
 
     // the_horrible is the nick that is in use
 	// fran is the current nickname

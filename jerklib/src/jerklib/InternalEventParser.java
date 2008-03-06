@@ -637,17 +637,23 @@ public class InternalEventParser
 		}
 		
 		MessageEvent me = IRCEventFactory.privateMsg(data,con , channelPrefixRegex);
-		if(me.getType() == Type.PRIVATE_MESSAGE)
+		
+		String msg = me.getMessage();
+		
+		if(msg.startsWith("\u0001"))
 		{
-			if(me.getMessage().equals("\u0001VERSION\u0001"))
+			String ctcpString = msg.substring(0,msg.length() -1).substring(1);
+			if(ctcpString.equals("VERSION"))
 			{
 				me.getSession().sayRaw("NOTICE " + me.getNick() + " :\001VERSION " + ConnectionManager.getVersion() + "\001\r\n");
 			}
-			else if(me.getMessage().equals("\u0001PING\u0001"))
+			else if(ctcpString.equals("PING"))
 			{
 				me.getSession().sayRaw("NOTICE " + me.getNick() + " :\001PING \001\r\n");
 			}
+			me = IRCEventFactory.ctcp(me, ctcpString);
 		}
+
 		manager.addToRelayList(me);
 	}
 

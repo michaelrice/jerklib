@@ -123,7 +123,8 @@ public interface IRCEvent
     INVITE_EVENT,
     SERVER_VERSION_EVENT,
     AWAY_EVENT,
-    ERROR
+    ERROR,
+    CTCP_EVENT
   }
 
   /**
