@@ -228,12 +228,9 @@ public class SessionImpl implements Session
      * @param target
      * @param actionText
      */
-    public void action(String target, String actionText) {
-        if (con != null && isConnected()) {
-            con.addWriteRequest(new WriteRequest("\001ACTION " + actionText + "\001", con, target));
-        } else {
-            new Exception().printStackTrace();
-        }
+    public void action(String target, String actionText) 
+    {
+    	ctcp(target, actionText);
     }
 
     /**
@@ -241,12 +238,12 @@ public class SessionImpl implements Session
      * @param target user or channel
      * @param request requested ctcp info ie version, info, etc.
      */
-    public void ctcp(String target, String request) {
-        if (con != null && isConnected()) {
+    public void ctcp(String target, String request) 
+    {
+        if (con != null && isConnected()) 
+        {
             con.addWriteRequest(new WriteRequest("\001"+request.toUpperCase()+"\001",con,target));
-        } else {
-            new Exception().printStackTrace();
-        }
+        } 
     }
 
     /*

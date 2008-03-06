@@ -1,6 +1,6 @@
 package jerklib;
 
-public interface ProfileUpdateable 
+interface ProfileUpdateable 
 {
 	void updateProfileSuccessfully(boolean success);
 	
