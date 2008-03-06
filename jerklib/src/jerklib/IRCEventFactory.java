@@ -73,7 +73,8 @@ class IRCEventFactory
 	//:irc.nmglug.org 001 namnar :Welcome to the nmglug.org
 	static ConnectionCompleteEvent connectionComplete(String data, Connection con)
 	{
-		Pattern p = Pattern.compile(":(\\S+)\\s+001\\s+\\Q" + con.getProfile().getActualNick() + "\\E\\s+:.*$");
+		
+		Pattern p = Pattern.compile(":(\\S+)\\s+001\\s+\\S+\\s+:.*$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
@@ -295,7 +296,7 @@ class IRCEventFactory
 	//:anthony.freenode.net 376 mohadib_ :End of /MOTD command.
 	static MotdEvent motd(String data, Connection con)
 	{
-		Pattern p = Pattern.compile(":(\\S+)\\s+\\d+\\s+(\\Q" + con.getProfile().getActualNick() + "\\E)\\s+:(.*)$");
+		Pattern p = Pattern.compile(":(\\S+)\\s+\\d+\\s+(\\S+)\\s+:(.*)$");
 		Matcher m = p.matcher(data);
 
 		if (!m.matches())
