@@ -1,5 +1,6 @@
 package jerklib;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -17,7 +18,7 @@ import jerklib.tasks.Task;
  * @see Session
  * 
  */
-public class SessionImpl implements Session
+public class SessionImpl extends RequestGenerator implements Session
 {
 
 	private final List<String> channelNames = new ArrayList<String>();
@@ -31,7 +32,21 @@ public class SessionImpl implements Session
 	private final Map<Type, List<Task>> taskMap = new HashMap<Type, List<Task>>();
 	private long lastRetry = -1;
 	private ServerInformation serverInfo = new ServerInformation();
+	private State state = State.DISCONNECTED;
 	
+	
+    enum State 
+    {
+        CONNECTED,
+        CONNECTING,
+        HALF_CONNECTED,
+        DISCONNECTED,
+        MARKED_FOR_REMOVAL,
+    	NEED_TO_PING,
+		PING_SENT,
+		NEED_TO_RECONNECT
+    }
+
 	
 	SessionImpl(RequestedConnection rCon)
 	{
@@ -41,6 +56,7 @@ public class SessionImpl implements Session
 	void setConnection(Connection con)
 	{
 		this.con = con;
+		super.setConnection(con);
 	}
 	
 	
@@ -202,7 +218,7 @@ public class SessionImpl implements Session
 	 */
 	public void sayPrivate(String nick, String msg)
 	{
-		if (con != null && isConnected())
+		if (isConnected())
 		{
 			con.addWriteRequest(new WriteRequest(msg, con, nick));
 		}
@@ -632,10 +648,9 @@ public class SessionImpl implements Session
 		return con;
 	}
 
-	ConnectionState getConnectionState()
+	State getSessionState()
 	{
-		if (con == null) return null;
-		else return con.getConnectionState();
+		return state;
 	}
 
 	long getLastRetry()
@@ -648,16 +663,68 @@ public class SessionImpl implements Session
 		lastRetry = System.currentTimeMillis();
 	}
 
-	void setConnectionState(State state)
+	
+	
+	long lastResponse = System.currentTimeMillis();
+	void gotResponse()
 	{
-		if (con != null)
+		lastResponse = System.currentTimeMillis();
+		state = State.CONNECTED;
+	}
+	
+	void pingSent()
+	{
+		state = State.PING_SENT;
+	}
+	
+	void disconnected()
+	{
+		state = State.DISCONNECTED;
+		if(con != null)
 		{
-			if(state == State.DISCONNECTED)
-			{
-				channelNames.clear();
-			}
-			con.setConnectionState(state);
+			con.quit("");
+			con = null;
+			channelNames.clear();
 		}
 	}
+	
+	void connected()
+	{
+		System.out.println("SESSION CONNECTED");
+		state = State.CONNECTED;
+	}
+	
+	void connecting()
+	{
+		state = State.CONNECTING;
+	}
+	
+	void halfConnected()
+	{
+		state = State.HALF_CONNECTED;
+	}
+	
+	void markForRemoval()
+	{
+		state = State.MARKED_FOR_REMOVAL;
+	}
+	
+	
+	State getState()
+	{
+		long current = System.currentTimeMillis();
+		
+		if(current - lastResponse > 300000)
+		{
+			state = State.NEED_TO_RECONNECT;
+		}
+		else if(current - lastResponse > 200000 && state != State.PING_SENT)
+		{
+			state = State.NEED_TO_PING;
+		}
+		
+		return state;
+	}
+	
 
 }

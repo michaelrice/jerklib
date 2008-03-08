@@ -40,15 +40,16 @@ final class Connection
 	/* actual hostname connected to */
 	private String actualHostName;
 
-	/* ConnectionState object to hold state information about connection */
-	private final ConnectionState conState = new ConnectionState();
 
 	private boolean loggedInSuccessfully;
 	
-	Connection(ConnectionManager manager, SocketChannel socChannel)
+	private final SessionImpl session;
+	
+	Connection(ConnectionManager manager, SocketChannel socChannel , SessionImpl session)
 	{
 		this.manager = manager;
 		this.socChannel = socChannel;
+		this.session = session;
 	}
 
 	
@@ -65,22 +66,14 @@ final class Connection
 	
 	Profile getProfile()
 	{
-		return manager.getSessionFor(this).getRequestedConnection().getProfile();
+		return session.getRequestedConnection().getProfile();
 	}
 
-	ConnectionState getConnectionState()
-	{
-		return conState;
-	}
 
-	void setConnectionState(State connectionState)
-	{
-		conState.setConState(connectionState);
-	}
 
 	void setHostName(String name)
 	{
-		manager.getSessionFor(this).setConnectionState(State.CONNECTED);
+		session.connected();
 		actualHostName = name;
 	}
 
@@ -180,18 +173,7 @@ final class Connection
   {
   	writeRequests.add(new WriteRequest("WHO "+who+"\r\n",this));        
   }
-
-  	boolean part(Channel channel, String partMsg)
-  	{
-		return part(channel.getName(), partMsg);
-  	}
-
-	boolean part(String channelName, String partMsg)
-	{
-		writeRequests.add(new WriteRequest("PART " + channelName + " :" + partMsg + "\r\n", this));
-		return true;
-	}
-
+  
 	void setAway(String message)
 	{
 		writeRequests.add(new WriteRequest("AWAY :" + message + "\r\n", this));
@@ -216,6 +198,20 @@ final class Connection
 	{
 		writeRequests.add(new WriteRequest("NICK " + nick + "\r\n", this));
 	}
+  
+
+  	boolean part(Channel channel, String partMsg)
+  	{
+		return part(channel.getName(), partMsg);
+  	}
+
+	boolean part(String channelName, String partMsg)
+	{
+		writeRequests.add(new WriteRequest("PART " + channelName + " :" + partMsg + "\r\n", this));
+		return true;
+	}
+
+
 
 	void addWriteRequest(WriteRequest request)
 	{
@@ -224,16 +220,7 @@ final class Connection
 
 	boolean finishConnect() throws IOException
 	{
-		boolean connected = socChannel.finishConnect();
-		if (connected)
-		{
-			conState.setConState(State.CONNECTED);
-		}
-		else
-		{
-			conState.setConState(State.CONNECTING);
-		}
-		return connected;
+		return socChannel.finishConnect();
 	}
 
 	void login()
@@ -250,10 +237,11 @@ final class Connection
 
 	int read()
 	{
+		System.out.println("READ CALLED");
 
-		if(conState.getConState() == State.DISCONNECTED || !socChannel.isConnected())
+		if(!socChannel.isConnected())
 		{
-			System.err.println("?" + conState.getConState());
+			System.err.println("Read call while sochan.isConnected() == false");
 			return -1;
 		}
 		
@@ -261,7 +249,7 @@ final class Connection
 		readBuffer.clear();
 
 		int numRead = 0;
-
+		
 		try
 		{
 			numRead = socChannel.read(readBuffer);
@@ -269,15 +257,15 @@ final class Connection
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			conState.setConState(State.DISCONNECTED);
+			session.disconnected();
 		}
 
 		if (numRead == -1)
 		{
-			conState.setConState(State.DISCONNECTED);
+			session.disconnected();
 		}
 
-		if (conState.getConState() == State.DISCONNECTED || numRead <= 0) return 0;
+		if (session.getState() == State.DISCONNECTED || numRead <= 0) return 0;
 
 		readBuffer.flip();
 
@@ -369,10 +357,11 @@ final class Connection
 			catch (IOException e)
 			{
 				e.printStackTrace();
-				conState.setConState(State.DISCONNECTED);
+				session.disconnected();
 			}
 
-			if (conState.getConState() == Session.State.DISCONNECTED) return amount;
+			
+			if (session.getState() == State.DISCONNECTED) return amount;
 
 			fireWriteEvent(request);
 		}
@@ -383,19 +372,19 @@ final class Connection
 	void ping()
 	{
 		writeRequests.add(new WriteRequest("PING " + actualHostName + "\r\n", this));
-		conState.pingSent();
+		session.pingSent();
 	}
 
 	void pong(IRCEvent event)
 	{
-		conState.gotResponse();
+		session.gotResponse();
 		String data = event.getRawEventData().substring(event.getRawEventData().lastIndexOf(":") + 1);
 		writeRequests.add(new WriteRequest("PONG " + data + "\r\n", this));
 	}
 
 	void gotPong()
 	{
-		conState.gotResponse();
+		session.gotResponse();
 	}
 
 	void quit(String quitMessage)
@@ -417,7 +406,7 @@ final class Connection
 
 			//need to notify conman so it can
 			//update session cache
-			manager.removeSession(manager.getSessionFor(this));
+			manager.removeSession(session);
 			
 			socChannel.close();
 			
@@ -444,7 +433,7 @@ final class Connection
 
 			public Session getSession()
 			{
-				return manager.getSessionFor(Connection.this);
+				return session;
 			}
 
 			@SuppressWarnings("unused")

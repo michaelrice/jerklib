@@ -17,7 +17,6 @@ import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import jerklib.ConnectionState.PingState;
 import jerklib.Session.State;
 import jerklib.events.ErrorEvent;
 import jerklib.events.IRCEvent;
@@ -411,17 +410,17 @@ public class ConnectionManager
 			{
 				if(session.getConnection().finishConnect())
 				{
-					session.setConnectionState(Session.State.HALF_CONNECTED);
+					session.halfConnected();
 					session.getConnection().login();
 				}
 				else
 				{
-					session.setConnectionState(Session.State.CONNECTING);
+					session.connecting();
 				}
 			}
 			catch (IOException e)
 			{
-				session.setConnectionState(State.DISCONNECTED);
+				session.markForRemoval();
 				key.cancel();
 				e.printStackTrace();
 			}
@@ -432,16 +431,17 @@ public class ConnectionManager
 	{
 		synchronized (sessionMap)
 		{
-			for(SessionImpl session : sessionMap.values())
+			for(Iterator<SessionImpl>it = sessionMap.values().iterator(); it.hasNext();)
 			{
-				ConnectionState state = session.getConnectionState();
+				SessionImpl session = it.next();
 				
-				if(state == null || state.getConState() != State.CONNECTED)
+				State state = session.getSessionState();
+				
+				if(state  == State.MARKED_FOR_REMOVAL)
 				{
-					continue;
+					it.remove();
 				}
-				
-				if(state.getPingState() == PingState.NEED_TO_PING)
+				else if(state == State.NEED_TO_PING)
 				{
 					session.getConnection().ping();
 				}
@@ -579,10 +579,14 @@ public class ConnectionManager
 			{
 				SessionImpl session = it.next();
 				
-				if(session.getConnectionState() == null || 
-						session.getConnectionState().getConState() == Session.State.DISCONNECTED)
+				State state = session.getSessionState();
+				if(state == State.NEED_TO_RECONNECT)
 				{
-					
+					session.disconnected();
+				}
+				
+				if( state == State.DISCONNECTED )
+				{
 					long last = session.getLastRetry();
 					long current = System.currentTimeMillis();
 					if(last > 0 && current - last < 10000)
@@ -598,7 +602,7 @@ public class ConnectionManager
 					}
 					catch(UnresolvedAddressException e)
 					{
-						session.setConnectionState(Session.State.DISCONNECTED);
+						
 						
 						ErrorEvent error = new UnresolvedHostnameErrorEventImpl
 						(
@@ -608,12 +612,11 @@ public class ConnectionManager
 							e
 						);
 						addToRelayList(error);
-						it.remove();
 					}
 					catch (IOException e)
 					{
 						e.printStackTrace();
-						session.setConnectionState(Session.State.DISCONNECTED);
+						session.disconnected();
 					}
 				}
 			}
@@ -637,11 +640,14 @@ public class ConnectionManager
     
 		sChannel.register(selector , sChannel.validOps());
     
-		Connection con = new Connection(this , sChannel);
+		Connection con = new Connection(this , sChannel , session);
 		session.setConnection(con);
     
 		socChanMap.put(sChannel, session);
 	}
+	
+	
+	
 }
 
 

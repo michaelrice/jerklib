@@ -44,7 +44,6 @@ import jerklib.events.QuitEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.MessageEvent;
-import jerklib.events.IRCEvent.Type;
 import jerklib.events.impl.ModeEventImpl;
 import jerklib.events.impl.ServerInformationEventImpl;
 import jerklib.events.impl.TopicEventImpl;
@@ -263,6 +262,40 @@ public class InternalEventParser
 		if(userMode)
 		{
 			//do something..
+			
+			System.out.println("MODE  " + Arrays.toString(modeTokens));
+			
+			//free mode adds a : for some reason
+			if(modeTokens[0].equals(":"))
+			{
+				String[] cleanTokens = new String[modeTokens.length - 1];
+				System.arraycopy(modeTokens, 1, cleanTokens, 0 , modeTokens.length -1);
+				modeTokens = cleanTokens;
+			}
+			
+			char action = '+';
+			List<String>targets = new ArrayList<String>();
+			targets.add(event.getSession().getNick());
+			for(String mode : modeTokens)
+			{
+				if(mode.equals("+") || mode.equals("-"))action = mode.charAt(0);
+				else
+				{
+					modeMap.put(action + mode, targets);
+				}
+			}
+			
+			ModeEvent me = new ModeEventImpl
+			(
+				event.getRawEventData(),
+				event.getSession(),
+				modeMap,
+				rawTokens[0].substring(1).split("\\!")[0],
+				null
+			);
+			
+			manager.addToRelayList(me);
+			
 			return;
 		}
 		
