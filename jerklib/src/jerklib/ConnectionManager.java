@@ -435,7 +435,7 @@ public class ConnectionManager
 			{
 				Session session = it.next();
 				
-				State state = session.getSessionState();
+				State state = session.getState();
 				
 				if(state  == State.MARKED_FOR_REMOVAL)
 				{
@@ -579,7 +579,7 @@ public class ConnectionManager
 			{
 				Session session = it.next();
 				
-				State state = session.getSessionState();
+				State state = session.getState();
 				if(state == State.NEED_TO_RECONNECT)
 				{
 					session.disconnected();

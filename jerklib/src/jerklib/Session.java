@@ -15,25 +15,21 @@ import jerklib.tasks.Task;
 
 /**
  * @author mohadib
- * @see Session
  * 
  */
 public class Session extends RequestGenerator
 {
 
 	private final List<String> channelNames = new ArrayList<String>();
-	private boolean rejoinOnKick = true;
-	private Connection con;
-	private final RequestedConnection rCon;
-	private Profile tmpProfile;
-	private boolean profileUpdating;
-	private boolean isAway;
 	private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
 	private final Map<Type, List<Task>> taskMap = new HashMap<Type, List<Task>>();
-	private long lastRetry = -1;
+	private final RequestedConnection rCon;
+	private Connection con;
+	private boolean rejoinOnKick = true,profileUpdating,isAway;
+	private Profile tmpProfile;
+	private long lastRetry = -1, lastResponse = System.currentTimeMillis();
 	private ServerInformation serverInfo = new ServerInformation();
 	private State state = State.DISCONNECTED;
-	
 	
     enum State 
     {
@@ -47,113 +43,40 @@ public class Session extends RequestGenerator
 		NEED_TO_RECONNECT
     }
 
-	
 	Session(RequestedConnection rCon)
 	{
 		this.rCon = rCon;
 	}
-
-	void setConnection(Connection con)
-	{
-		this.con = con;
-		super.setConnection(con);
-	}
 	
-	public ServerInformation getServerInformation()
-	{
-		return serverInfo;
-	}
+	/* general methods */
 	
-
-	public RequestedConnection getRequestedConnection()
-	{
-		return rCon;
-	}
-
-	public Channel getChannel(String channelName)
-	{
-		if (con != null) { return con.getChannel(channelName); }
-		return null;
-	}
-
-	public List<String> getChannelNames()
-	{
-		return Collections.unmodifiableList(channelNames);
-	}
-
-	public Collection<Channel> getChannels()
-	{
-		if (con != null) { return con.getChannels(); }
-		return new ArrayList<Channel>();
-	}
-
-	public boolean isAway()
-	{
-		return isAway;
-	}
-
-
 	public boolean isConnected()
 	{
 		return state == State.CONNECTED;
 	}
-
 
 	public boolean isRejoinOnKick()
 	{
 		return rejoinOnKick;
 	}
 
-
 	public void setRejoinOnKick(boolean rejoin)
 	{
 		rejoinOnKick = rejoin;
 	}
 
-
-
-
-
-
 	public void close(String quitMessage)
 	{
-		if (con != null && channelNames.size() > 0)
+		if (con != null)
 		{
 			con.quit(quitMessage);
 		}
 	}
 
-
-
-
-
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	public int hashCode()
-	{
-		return rCon.hashCode();
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	public boolean equals(Object o)
-	{
-		if (o instanceof Session && o.hashCode() == hashCode()) { return ((Session) o).getRequestedConnection().equals(rCon); }
-		return false;
-	}
-
-
 	public String getNick()
 	{
 		return getRequestedConnection().getProfile().getActualNick();
 	}
-
 
 	public void changeProfile(Profile profile)
 	{
@@ -162,27 +85,10 @@ public class Session extends RequestGenerator
 		super.changeNick(tmpProfile.getActualNick());
 	}
 
-	public void updateProfileSuccessfully(boolean success)
-	{
-		if (success)
-		{
-			((RequestedConnection) rCon).setProfile(tmpProfile);
-		}
-		tmpProfile = null;
-		profileUpdating = false;
-	}
-
 	public boolean isProfileUpdating()
 	{
 		return profileUpdating;
 	}
-
-	public String getConnectedHostName()
-	{
-		return con.getHostName();
-	}
-
-
 
 	public void kick(String userName, String reason, Channel channel)
 	{
@@ -193,16 +99,16 @@ public class Session extends RequestGenerator
 		super.kick(userName, reason, channel);
 	}
 
-
-
-
+	public boolean isAway()
+	{
+		return isAway;
+	}
 
 	public void setAway(String message)
 	{
 		isAway = true;
 		super.setAway(message);
 	}
-
 
 	public void unsetAway()
 	{
@@ -215,10 +121,25 @@ public class Session extends RequestGenerator
 	}
 
 
+	/* methods to get information about connection and server */
+	
+	public ServerInformation getServerInformation()
+	{
+		return serverInfo;
+	}
+	
+	public RequestedConnection getRequestedConnection()
+	{
+		return rCon;
+	}
 
-
-
-
+	public String getConnectedHostName()
+	{
+		return con.getHostName();
+	}
+	
+	
+	/* methods for adding/removing IRCEventListeners and Tasks */
 
 	public void addIRCEventListener(IRCEventListener listener)
 	{
@@ -281,6 +202,35 @@ public class Session extends RequestGenerator
 	}
 
 	
+	void updateProfileSuccessfully(boolean success)
+	{
+		if (success)
+		{
+			rCon.setProfile(tmpProfile);
+		}
+		tmpProfile = null;
+		profileUpdating = false;
+	}
+	
+	/* Channel methods */
+	
+	public Collection<Channel> getChannels()
+	{
+		if (con != null) { return con.getChannels(); }
+		return new ArrayList<Channel>();
+	}
+	
+	public Channel getChannel(String channelName)
+	{
+		if (con != null) { return con.getChannel(channelName); }
+		return null;
+	}
+
+	public List<String> getChannelNames()
+	{
+		return Collections.unmodifiableList(channelNames);
+	}
+
 	void addChannelName(String name)
 	{
 		if (!channelNames.contains(name))
@@ -293,17 +243,10 @@ public class Session extends RequestGenerator
 	{
 		channelNames.remove(name);
 	}
-
-	Connection getConnection()
-	{
-		return con;
-	}
-
-	State getSessionState()
-	{
-		return state;
-	}
-
+	
+	
+	/* methods to track connection attempts */
+	
 	long getLastRetry()
 	{
 		return lastRetry;
@@ -313,10 +256,23 @@ public class Session extends RequestGenerator
 	{
 		lastRetry = System.currentTimeMillis();
 	}
-
 	
 	
-	long lastResponse = System.currentTimeMillis();
+	/* methods to get/set Connection object */
+	void setConnection(Connection con)
+	{
+		this.con = con;
+		super.setConnection(con);
+	}
+	
+	Connection getConnection()
+	{
+		return con;
+	}
+	
+	
+	/* Methods to get and set the state of the session */
+	
 	void gotResponse()
 	{
 		lastResponse = System.currentTimeMillis();
@@ -335,14 +291,13 @@ public class Session extends RequestGenerator
 		{
 			con.quit("");
 			con = null;
-			channelNames.clear();
 		}
+		channelNames.clear();
 	}
 	
 	void connected()
 	{
-		System.out.println("SESSION CONNECTED");
-		state = State.CONNECTED;
+		gotResponse();
 	}
 	
 	void connecting()
@@ -364,7 +319,7 @@ public class Session extends RequestGenerator
 	{
 		long current = System.currentTimeMillis();
 		
-		if(current - lastResponse > 300000)
+		if(current - lastResponse > 300000 && state == State.NEED_TO_PING)
 		{
 			state = State.NEED_TO_RECONNECT;
 		}
@@ -375,6 +330,17 @@ public class Session extends RequestGenerator
 		
 		return state;
 	}
-	
 
+
+	public int hashCode()
+	{
+		return rCon.hashCode();
+	}
+
+	public boolean equals(Object o)
+	{
+		if (o instanceof Session && o.hashCode() == hashCode()) { return ((Session) o).getRequestedConnection().equals(rCon); }
+		return false;
+	}
+	
 }

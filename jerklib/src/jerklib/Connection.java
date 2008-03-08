@@ -40,7 +40,8 @@ final class Connection
 	/* actual hostname connected to */
 	private String actualHostName;
 
-
+	/* this is used for auto choosing a nick - if we have logged in successfully once 
+	 * a new nick will not be auto chosen in event of NickInUse */
 	private boolean loggedInSuccessfully;
 	
 	private final Session session;
@@ -63,12 +64,10 @@ final class Connection
 		loggedInSuccessfully = true;
 	}
 	
-	
 	Profile getProfile()
 	{
 		return session.getRequestedConnection().getProfile();
 	}
-
 
 	void setHostName(String name)
 	{
