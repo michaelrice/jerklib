@@ -93,4 +93,18 @@ public class ProfileImpl implements Profile
 		}
 		return false;
 	}
+	
+	
+	public Profile clone()
+	{
+		ProfileImpl impl = new ProfileImpl
+		(
+			name,
+			firstNick,
+			secondNick,
+			thirdNick
+		);
+		impl.setActualNick(actualNick);
+		return impl;
+	}
 }

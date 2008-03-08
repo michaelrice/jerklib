@@ -202,7 +202,7 @@ public class ConnectionManager
 	 */
 	public Session requestConnection(String hostName , int port)
 	{
-		return requestConnection(hostName , port , defaultProfile);
+		return requestConnection(hostName , port , defaultProfile.clone());
 	}
 	
 	/**
@@ -322,7 +322,7 @@ public class ConnectionManager
 		if(event == null)
 		{
 			new Exception().printStackTrace();
-			quit("Null Pointers In my Code??! :(");
+			quit("Null Pointers ?? In my Code??! :(");
 			return;
 		}
 		relayQueue.add(event);
@@ -434,7 +434,6 @@ public class ConnectionManager
 			for(Iterator<Session>it = sessionMap.values().iterator(); it.hasNext();)
 			{
 				Session session = it.next();
-				
 				State state = session.getState();
 				
 				if(state  == State.MARKED_FOR_REMOVAL)
@@ -602,8 +601,6 @@ public class ConnectionManager
 					}
 					catch(UnresolvedAddressException e)
 					{
-						
-						
 						ErrorEvent error = new UnresolvedHostnameErrorEventImpl
 						(
 							session,
@@ -612,6 +609,7 @@ public class ConnectionManager
 							e
 						);
 						addToRelayList(error);
+						session.markForRemoval();
 					}
 					catch (IOException e)
 					{

@@ -39,4 +39,8 @@ public interface Profile
 	 * @return the username
 	 */
 	String getName();
+	
+	
+	
+	Profile clone();
 }
