@@ -132,7 +132,7 @@ public class Channel
 	 */
 	public void say(String message)
 	{
-		con.addWriteRequest(new WriteRequest(message , this , con));
+		session.sayChannel(getName(), message);
 	}
 
     public void notice(String message) 
@@ -197,7 +197,8 @@ public class Channel
      * Send an action
      * @param text action text
      */
-    public void action(String text) {
+    public void action(String text) 
+    {
       con.addWriteRequest(new WriteRequest("\001ACTION "+text+"\001",this,con));
     }
 

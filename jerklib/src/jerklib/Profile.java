@@ -41,6 +41,6 @@ public interface Profile
 	String getName();
 	
 	
-	
+	/** @return a copy of this profile */
 	Profile clone();
 }
