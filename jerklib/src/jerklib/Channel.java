@@ -24,7 +24,7 @@ public class Channel
 	{
 		this.name = name;
 		this.session = session;
-		this.con = ((SessionImpl)session).getConnection();
+		this.con = ((Session)session).getConnection();
 	}
 	
 	
@@ -135,8 +135,9 @@ public class Channel
 		con.addWriteRequest(new WriteRequest(message , this , con));
 	}
 
-    public void notice(String message) {
-        con.notice(getName(),message);
+    public void notice(String message) 
+    {
+        session.notice(getName(),message);
     }
     
 
@@ -189,7 +190,7 @@ public class Channel
 	 */
 	public void part(String partMsg)
 	{
-		con.part(this, partMsg);
+		session.part(this, partMsg);
 	}
 
     /**

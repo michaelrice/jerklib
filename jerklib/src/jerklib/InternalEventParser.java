@@ -84,7 +84,7 @@ public class InternalEventParser
 	 */
 	void parseEvent(IRCEvent event)
 	{
-		Connection con = ((SessionImpl)event.getSession()).getConnection();
+		Connection con = ((Session)event.getSession()).getConnection();
 		String data = event.getRawEventData();
 		String nick = con.getProfile().getActualNick();
 		
@@ -181,7 +181,7 @@ public class InternalEventParser
 					if (ke.getWho().equals(nick))
 					{
 						con.removeChannel(ke.getChannel());
-						if (manager.getSessionFor(con).isRejoinOnKick()) con.join(ke.getChannel().getName());
+						if (manager.getSessionFor(con).isRejoinOnKick()) manager.getSessionFor(con).join(ke.getChannel().getName());
 					}
 					manager.addToRelayList(ke);
 				}
@@ -482,7 +482,7 @@ public class InternalEventParser
 
 	private void serverInfo(String data , IRCEvent event)
 	{
-		SessionImpl session = (SessionImpl)event.getSession();
+		Session session = (Session)event.getSession();
 		session.getServerInformation().parseServerInfo(data);
 		ServerInformationEventImpl se = new ServerInformationEventImpl(session , data , session.getServerInformation());
 		manager.addToRelayList(se);

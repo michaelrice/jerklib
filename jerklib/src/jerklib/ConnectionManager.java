@@ -83,8 +83,8 @@ public class ConnectionManager
 	}
 	
 	/* maps to index sessions by name and socketchannel */
-	private final Map<String, SessionImpl> sessionMap = Collections.synchronizedMap(new HashMap<String, SessionImpl>());
-	private final Map<SocketChannel ,SessionImpl> socChanMap = Collections.synchronizedMap(new HashMap<SocketChannel, SessionImpl>());
+	private final Map<String, Session> sessionMap = Collections.synchronizedMap(new HashMap<String, Session>());
+	private final Map<SocketChannel ,Session> socChanMap = Collections.synchronizedMap(new HashMap<SocketChannel, Session>());
 	
 	/* event listener lists */
 	private final List<WriteRequestListener> writeListeners = Collections.synchronizedList(new ArrayList<WriteRequestListener>(1));
@@ -220,7 +220,7 @@ public class ConnectionManager
 		}
 
 		RequestedConnection rCon = new RequestedConnection(hostName , port , profile);
-		SessionImpl session = new SessionImpl(rCon);
+		Session session = new Session(rCon);
 		
 		if(sessionMap.containsValue(session))
 		{
@@ -293,7 +293,7 @@ public class ConnectionManager
 	void removeSession(Session session)
 	{
 		sessionMap.remove(session.getRequestedConnection().getHostName());
-		for(Iterator<SessionImpl>it = socChanMap.values().iterator(); it.hasNext();)
+		for(Iterator<Session>it = socChanMap.values().iterator(); it.hasNext();)
 		{
 			if(it.next().equals(session))
 			{
@@ -303,9 +303,9 @@ public class ConnectionManager
 		}
 	}
 	
-	SessionImpl getSessionFor(Connection con)
+	Session getSessionFor(Connection con)
 	{
-		for(SessionImpl session : sessionMap.values())
+		for(Session session : sessionMap.values())
 		{
 			if(session.getConnection() == con) return session;
 		}
@@ -402,7 +402,7 @@ public class ConnectionManager
 	private void finishConnection(SelectionKey key)
 	{
 		SocketChannel chan = (SocketChannel)key.channel();
-		SessionImpl session = socChanMap.get(chan);
+		Session session = socChanMap.get(chan);
 		
 		if(chan.isConnectionPending())
 		{
@@ -431,9 +431,9 @@ public class ConnectionManager
 	{
 		synchronized (sessionMap)
 		{
-			for(Iterator<SessionImpl>it = sessionMap.values().iterator(); it.hasNext();)
+			for(Iterator<Session>it = sessionMap.values().iterator(); it.hasNext();)
 			{
-				SessionImpl session = it.next();
+				Session session = it.next();
 				
 				State state = session.getSessionState();
 				
@@ -485,7 +485,7 @@ public class ConnectionManager
 			//to the next event
 			if(s == null) continue;
 			
-			Map<Type, List<Task>> tasks = ((SessionImpl)s).getTasks(); 
+			Map<Type, List<Task>> tasks = ((Session)s).getTasks(); 
 			synchronized (tasks)
 			{
 				for(Iterator<List<Task>>it = tasks.values().iterator(); it.hasNext();)
@@ -575,9 +575,9 @@ public class ConnectionManager
 	{
 		synchronized (sessionMap)
 		{
-			for(Iterator<SessionImpl>it = sessionMap.values().iterator(); it.hasNext();)
+			for(Iterator<Session>it = sessionMap.values().iterator(); it.hasNext();)
 			{
-				SessionImpl session = it.next();
+				Session session = it.next();
 				
 				State state = session.getSessionState();
 				if(state == State.NEED_TO_RECONNECT)
@@ -623,7 +623,7 @@ public class ConnectionManager
 		}
 	}
 	
-	private void connect(SessionImpl session) throws IOException
+	private void connect(Session session) throws IOException
 	{
 		SocketChannel sChannel = SocketChannel.open();
     

@@ -43,9 +43,9 @@ final class Connection
 
 	private boolean loggedInSuccessfully;
 	
-	private final SessionImpl session;
+	private final Session session;
 	
-	Connection(ConnectionManager manager, SocketChannel socChannel , SessionImpl session)
+	Connection(ConnectionManager manager, SocketChannel socChannel , Session session)
 	{
 		this.manager = manager;
 		this.socChannel = socChannel;
@@ -68,7 +68,6 @@ final class Connection
 	{
 		return session.getRequestedConnection().getProfile();
 	}
-
 
 
 	void setHostName(String name)
@@ -131,85 +130,9 @@ final class Connection
 		channelMap.put(channel.getName(), channel);
 	}
 
-	void whois(String nick)
-	{
-		addWriteRequest(new WriteRequest("WHOIS " + nick + "\r\n", this));
-	}
 
-	void invite(String nick, Channel chan)
-	{
-		addWriteRequest(new WriteRequest("INVITE " + nick + " " + chan.getName() + "\r\n", this));
-	}
-	
-	void chanList()
-	{
-		addWriteRequest(new WriteRequest("LIST\r\n", this));
-	}
 
-	void chanList(String channel)
-	{
-		addWriteRequest(new WriteRequest("LIST " + channel + "\r\n", this));
-	}
 
-	void whoWas(String nick)
-	{
-		addWriteRequest(new WriteRequest("WHOWAS " + nick + "\r\n", this));
-	}
-
-	void join(String channel)
-	{
-		writeRequests.add(new WriteRequest("JOIN " + channel + "\r\n", this));
-	}
-
-	void join(String channel, String pass)
-	{
-		writeRequests.add(new WriteRequest("JOIN " + channel + " " + pass + "\r\n", this));
-	}
-
- void notice(String target, String msg) {
-     writeRequests.add(new WriteRequest("NOTICE "+target+" :"+msg+"\r\n",this));
- }
-  void who(String who) 
-  {
-  	writeRequests.add(new WriteRequest("WHO "+who+"\r\n",this));        
-  }
-  
-	void setAway(String message)
-	{
-		writeRequests.add(new WriteRequest("AWAY :" + message + "\r\n", this));
-	}
-
-	void unSetAway()
-	{
-		writeRequests.add(new WriteRequest("AWAY\r\n", this));
-	}
-
-	void getServerVersion()
-	{
-		addWriteRequest(new WriteRequest("VERSION " + actualHostName + "\r\n", this));
-	}
-
-	void getServerVersion(String hostPattern)
-	{
-		addWriteRequest(new WriteRequest("VERSION " + hostPattern + "\r\n", this));
-	}
-
-	void changeNick(String nick)
-	{
-		writeRequests.add(new WriteRequest("NICK " + nick + "\r\n", this));
-	}
-  
-
-  	boolean part(Channel channel, String partMsg)
-  	{
-		return part(channel.getName(), partMsg);
-  	}
-
-	boolean part(String channelName, String partMsg)
-	{
-		writeRequests.add(new WriteRequest("PART " + channelName + " :" + partMsg + "\r\n", this));
-		return true;
-	}
 
 
 

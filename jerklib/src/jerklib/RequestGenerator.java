@@ -1,81 +1,163 @@
 package jerklib;
 
-public class RequestGenerator 
+class RequestGenerator 
 {
+	
 	private Connection con;
-
 	void setConnection(Connection con)
 	{
 		this.con = con;
 	}
+
+	RequestGenerator(){}
 	
-	void whois(String nick)
+	public void whois(String nick)
 	{
 		con.addWriteRequest(new WriteRequest("WHOIS " + nick , con));
 	}
 
-	void invite(String nick, Channel chan)
+	public void invite(String nick, Channel chan)
 	{
 		con.addWriteRequest(new WriteRequest("INVITE " + nick + " " + chan.getName() , con));
 	}
 	
-	void chanList()
+	public void chanList()
 	{
 		con.addWriteRequest(new WriteRequest("LIST", con));
 	}
 
-	void chanList(String channel)
+	public void chanList(String channel)
 	{
 		con.addWriteRequest(new WriteRequest("LIST " + channel  , con));
 	}
 
-	void whoWas(String nick)
+	public void whoWas(String nick)
 	{
 		con.addWriteRequest(new WriteRequest("WHOWAS " + nick , con));
 	}
 
-	void join(String channel)
+	public void join(String channel)
 	{
-		con.addWriteRequest(new WriteRequest("JOIN " + channel , con));
+		if(con != null)
+		{
+			con.addWriteRequest(new WriteRequest("JOIN " + channel , con));
+		}
 	}
 
-	void join(String channel, String pass)
+    public void ctcp(String target, String request) 
+    {
+    	if(con != null)
+    	{
+    		con.addWriteRequest(new WriteRequest("\001"+request.toUpperCase()+"\001",con,target));
+    	}
+    }
+	
+	public void join(String channel, String pass)
 	{
-		con.addWriteRequest(new WriteRequest("JOIN " + channel + " " + pass , con));
+		if(con != null)
+		{
+			con.addWriteRequest(new WriteRequest("JOIN " + channel + " " + pass , con));
+		}
 	}
 
-	void notice(String target, String msg) 
+	public void notice(String target, String msg) 
 	{
 	     con.addWriteRequest(new WriteRequest("NOTICE "+target+" :"+msg ,con));
 	}
 	
-	void who(String who) 
+	public void who(String who) 
 	{
 	  	con.addWriteRequest(new WriteRequest("WHO "+who ,con));        
 	}
 	
-	void setAway(String message)
+	public void setAway(String message)
 	{
 		con.addWriteRequest(new WriteRequest("AWAY :" + message , con));
 	}
 	
-	void unSetAway()
+	public void unSetAway()
 	{
 		con.addWriteRequest(new WriteRequest("AWAY", con));
 	}
 
-	void getServerVersion()
+	public void getServerVersion()
 	{
 		con.addWriteRequest(new WriteRequest("VERSION " + con.getHostName() , con));
 	}
 
-	void getServerVersion(String hostPattern)
+	public void getServerVersion(String hostPattern)
 	{
 		con.addWriteRequest(new WriteRequest("VERSION " + hostPattern , con));
 	}
 
-	void changeNick(String nick)
+	public void changeNick(String nick)
 	{
 		con.addWriteRequest(new WriteRequest("NICK " + nick , con));
 	}
+
+	public void mode(Channel channel, String mode)
+	{
+		con.addWriteRequest(new WriteRequest("MODE " + channel.getName() + " " + mode  , con));
+	}
+	
+	public void mode(String userName, Channel channel, String mode)
+	{
+		con.addWriteRequest(new WriteRequest("MODE " + channel.getName() + " " + mode + " " + userName , con));
+	}
+
+	public void deVoice(String userName, Channel channel)
+	{
+		con.addWriteRequest(new WriteRequest("MODE " + channel.getName() + " -v " + userName , con));
+	}
+
+	public void voice(String userName, Channel channel)
+	{
+		con.addWriteRequest(new WriteRequest("MODE " + channel.getName() + " +v " + userName , con));
+	}
+
+	public void op(String userName, Channel channel)
+	{
+		con.addWriteRequest(new WriteRequest("MODE " + channel.getName() + " +o " + userName , con));
+	}
+	
+	public void deop(String userName, Channel channel)
+	{
+		con.addWriteRequest(new WriteRequest("MODE " + channel.getName() + " -o " + userName , con));
+	}
+	
+	public void kick(String userName, String reason, Channel channel)
+	{
+		con.addWriteRequest(new WriteRequest("KICK " + channel.getName() + " " + userName + " :" + reason , con));
+	}
+	
+	public void action(String target, String actionText) 
+    {
+    	ctcp(target, actionText);
+    }
+	
+	public void sayChannel(String channelName, String msg)
+	{
+		con.addWriteRequest(new WriteRequest(msg, con.getChannel(channelName), con));
+	}
+
+	public void sayPrivate(String nick, String msg)
+	{
+		con.addWriteRequest(new WriteRequest(msg, con, nick));
+	}
+	
+  	public void part(Channel channel, String partMsg)
+  	{
+		part(channel.getName(), partMsg);
+  	}
+
+	public void part(String channelName, String partMsg)
+	{
+		con.addWriteRequest(new WriteRequest("PART " + channelName + " :" + partMsg , con));
+	}
+	
+	public void sayRaw(String data)
+	{
+		con.addWriteRequest(new WriteRequest(data, con));
+	}
+
 }

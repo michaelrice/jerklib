@@ -79,7 +79,7 @@ public class Example implements IRCEventListener
 			/* connection to server is complete */
         	System.out.println("Joining");
 			//e.getSession().joinChannel("#sand-irc");
-			e.getSession().joinChannel("#sand-irc");
+			e.getSession().join("#sand-irc");
 			//e.getSession().joinChannel("#ubuntu");
 			//e.getSession().joinChannel("#debian");
 			//e.getSession().joinChannel("#perl");
