@@ -1,5 +1,8 @@
 package jerklib.examples;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 import jerklib.ConnectionManager;
 import jerklib.ProfileImpl;
 import jerklib.ServerInformation;
@@ -15,6 +18,7 @@ import jerklib.events.listeners.IRCEventListener;
  */
 public class Example implements IRCEventListener
 {
+	Logger log=Logger.getLogger(this.getClass().getName());
 	private ConnectionManager manager;
 
 	public Example()
@@ -77,7 +81,7 @@ public class Example implements IRCEventListener
         else if(e.getType() == Type.CONNECT_COMPLETE)
 		{
 			/* connection to server is complete */
-        	System.out.println("Joining");
+			log.info("Joining");
 			//e.getSession().joinChannel("#sand-irc");
 			e.getSession().join("#sand-irc");
 			//e.getSession().joinChannel("#ubuntu");
@@ -87,7 +91,7 @@ public class Example implements IRCEventListener
 		if(e.getType() == Type.NICK_IN_USE)
 		{
 			NickInUseEvent niu = (NickInUseEvent)e;
-			System.out.println("Nick In Use " + niu.getInUseNick());
+			log.info("Nick In Use " + niu.getInUseNick());
 		}
         else if(e.getType() == Type.CHANNEL_MESSAGE)
         {
@@ -123,17 +127,17 @@ public class Example implements IRCEventListener
 		
 			for(String s : info.getChannelPrefixes())
 			{
-				System.out.println("Prefix:" + s);
+				log.info("Prefix:" + s);
 			}
 			
         }
         else if(e.getType() == Type.TOPIC)
         {
-        	System.out.println("TOPIC EVENT");
+        	log.info("TOPIC EVENT");
         }
 		else if(e.getType() == Type.JOIN_COMPLETE)
 		{
-			System.out.println("JOIN COMPLETE");
+			log.info("JOIN COMPLETE");
 			JoinCompleteEvent jce = (JoinCompleteEvent)e;
 			if(jce.getChannel().getName().equals("#sand-irc"))
 			{
@@ -144,13 +148,13 @@ public class Example implements IRCEventListener
 		else if(e.getType() == Type.MODE_EVENT)
 		{
 			ModeEvent me = (ModeEvent)e;
-			System.out.println("MODE Set By:" + me.setBy());
-			System.out.println("MODE Channel:" + me.getChannel().getName());
+			log.info("MODE Set By:" + me.setBy());
+			log.info("MODE Channel:" + me.getChannel().getName());
 			for(String mode : me.getModeMap().keySet())
 			{
 				for(String target:me.getModeMap().get(mode))
 				{
-					System.out.println("MODE " + mode + "->" + target);
+					log.info("MODE " + mode + "->" + target);
 				}
 			}
 		}

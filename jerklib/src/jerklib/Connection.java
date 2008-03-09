@@ -9,12 +9,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import jerklib.Session.State;
 import jerklib.events.IRCEvent;
 import jerklib.events.listeners.WriteRequestListener;
 
 final class Connection
 {
+	Logger log=Logger.getLogger(this.getClass().getName());
 
 	/* ConnectionManager for this Connection */
 	private final ConnectionManager manager;
@@ -95,14 +98,16 @@ final class Connection
 
 	void nickChanged(String oldNick, String newNick)
 	{
-		System.out.println("Looking for " + oldNick);
+		if(log.isLoggable(Level.INFO)) { 
+			log.info("Looking for " + oldNick);
+		}
 		synchronized (channelMap)
 		{
 			for (Channel chan : channelMap.values())
 			{
 				if (chan.getNicks().contains(oldNick))
 				{
-					System.err.println("Found nick in " + chan.getName());
+					log.severe("Found nick in " + chan.getName());
 					chan.nickChanged(oldNick, newNick);
 				}
 			}
@@ -159,11 +164,13 @@ final class Connection
 
 	int read()
 	{
-		System.out.println("READ CALLED");
+		if(log.isLoggable(Level.INFO)) {
+			log.info("READ CALLED");
+		}
 
 		if(!socChannel.isConnected())
 		{
-			System.err.println("Read call while sochan.isConnected() == false");
+			log.severe("Read call while sochan.isConnected() == false");
 			return -1;
 		}
 		

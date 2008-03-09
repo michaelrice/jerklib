@@ -16,6 +16,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 
 import jerklib.Session.State;
 import jerklib.events.ErrorEvent;

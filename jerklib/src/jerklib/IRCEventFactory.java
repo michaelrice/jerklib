@@ -3,6 +3,8 @@ package jerklib;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import jerklib.events.CtcpEvent;
 import jerklib.events.JoinCompleteEvent;
@@ -451,7 +453,9 @@ class IRCEventFactory
 	 */
 	static ChannelListEvent chanList(String data, Connection con)
 	{
-		System.out.println(data);
+		if(log.isLoggable(Level.INFO)) {
+			log.info(data);
+		}
 		Pattern p = Pattern.compile("^:\\S+\\s322\\s\\S+\\s(\\S+)\\s(\\d+)\\s:(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
@@ -476,8 +480,10 @@ class IRCEventFactory
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
-			System.out.println("HERE? " + m.group(4));
-			System.out.println(data);
+			if(log.isLoggable(Level.INFO)) {
+			log.info("HERE? " + m.group(4));
+			log.info(data);
+			}
 			PartEvent partEvent = new PartEventImpl
 			(
 				data, 
@@ -537,8 +543,8 @@ class IRCEventFactory
 	private static void debug(String method , String data)
 	{
 		if(!ConnectionManager.debug) return;
-		System.err.println("Returning null from " + method + " in IRCEventFactory. Offending data:");
-		System.err.println(data);
+		log.info("Returning null from " + method + " in IRCEventFactory. Offending data:");
+		log.info(data);
 	}
-	
+	static Logger log=Logger.getLogger(IRCEventFactory.class.getName());	
 }

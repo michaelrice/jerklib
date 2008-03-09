@@ -32,6 +32,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import jerklib.ServerInformation.ModeType;
 import jerklib.events.IRCEvent;
@@ -67,7 +69,7 @@ public class InternalEventParser
 	private ConnectionManager manager;
 	private Map<Channel, TopicEvent> topicMap = new HashMap<Channel, TopicEvent>();
 	private WhoisEventImpl we;
-	
+	Logger log=Logger.getLogger(this.getClass().getName());	
 	
 	public InternalEventParser(ConnectionManager manager)
 	{
@@ -175,7 +177,7 @@ public class InternalEventParser
 					KickEvent ke = IRCEventFactory.kick(data, con);
 					if (!ke.getChannel().removeNick(ke.getWho()))
 					{
-						System.out.println("COULD NOT REMOVE NICK " + ke.getWho() + " from channel " + ke.getChannel().getName());
+						log.info("COULD NOT REMOVE NICK " + ke.getWho() + " from channel " + ke.getChannel().getName());
 					}
 
 					if (ke.getWho().equals(nick))
@@ -235,7 +237,9 @@ public class InternalEventParser
 	//:services. MODE mohadib :+e
 	private void mode(IRCEvent event)
 	{
-		System.out.println(event.getRawEventData());
+		if(log.isLoggable(Level.FINE)) {
+			log.fine(event.getRawEventData());
+		}
 		String[] rawTokens = event.getRawEventData().split("\\s+");
 		String[] rawModeTokens = rawTokens[3].split("");
 		String[] modeTokens = new String[rawModeTokens.length -1];
@@ -263,7 +267,9 @@ public class InternalEventParser
 		{
 			//do something..
 			
-			System.out.println("MODE  " + Arrays.toString(modeTokens));
+			if(log.isLoggable(Level.INFO)) {
+				log.info("MODE  " + Arrays.toString(modeTokens));
+			}
 			
 			//free mode adds a : for some reason
 			if(modeTokens[0].equals(":"))
@@ -476,7 +482,9 @@ public class InternalEventParser
 				}
 				break;
 			}
-			default:System.out.println(data);
+			default:
+				log.info(data.toString());
+				break;
 		}
 	}
 
