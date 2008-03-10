@@ -35,6 +35,6 @@ public class BaseListenerExample extends BaseListener {
     }
 
     public static void main(String[] args) {
-        new BaseListenerExample();
+        BaseListenerExample ex=new BaseListenerExample();
     }
 }
