@@ -380,8 +380,8 @@ class IRCEventFactory {
       * :irc.nixgeeks.com 321 mohadib Channel :Users  Name
       */
     static ChannelListEvent chanList(String data, Connection con) {
-        if (log.isLoggable(Level.INFO)) {
-            log.info(data);
+        if (log.isLoggable(Level.FINE)) {
+            log.fine(data);
         }
         Pattern p = Pattern.compile("^:\\S+\\s322\\s\\S+\\s(\\S+)\\s(\\d+)\\s:(.*)$");
         Matcher m = p.matcher(data);
@@ -403,9 +403,9 @@ class IRCEventFactory {
         Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+PART\\s+:?(\\S+?)(?:\\s+:(.*))?$");
         Matcher m = p.matcher(data);
         if (m.matches()) {
-            if (log.isLoggable(Level.INFO)) {
-                log.info("HERE? " + m.group(4));
-                log.info(data);
+            if (log.isLoggable(Level.FINE)) {
+                log.fine("HERE? " + m.group(4));
+                log.fine(data);
             }
             PartEvent partEvent = new PartEventImpl
                     (
@@ -421,7 +421,7 @@ class IRCEventFactory {
 
             return partEvent;
         } else {
-            System.err.println("NO MATCH");
+            log.severe("NO MATCH");
         }
         debug("PART", data);
         return null;
