@@ -30,7 +30,11 @@ public class Session extends RequestGenerator
 	private long lastRetry = -1, lastResponse = System.currentTimeMillis();
 	private ServerInformation serverInfo = new ServerInformation();
 	private State state = State.DISCONNECTED;
-	
+
+    public void sayChannel(Channel channel, String msg) {
+        sayChannel(channel.getName(), msg);
+    }
+
     enum State 
     {
         CONNECTED,
