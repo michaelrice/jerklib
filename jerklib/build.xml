@@ -33,36 +33,38 @@
     </target>
 
     <target name="build" depends="prep">
-        <buildnumber />
-        <javac srcdir="${src.java}" classpathref="main.classpath" destdir="${build.java}"/>
-        <javac srcdir="${src.tests}" classpathref="testing.classpath" destdir="${build.tests}"/>
+        <buildnumber/>
+        <javac debug="true" srcdir="${src.java}" classpathref="main.classpath" destdir="${build.java}"/>
+        <javac debug="true" srcdir="${src.tests}" classpathref="testing.classpath" destdir="${build.tests}"/>
     </target>
 
     <target name="clean">
         <delete dir="${build.java}"/>
         <delete dir="${build.tests}"/>
-        <delete dir="${dist}" />
+        <delete dir="${dist}"/>
     </target>
 
     <target name="rebuild" depends="clean, build">
 
     </target>
 
-    <target name="test" depends="build">
+    <target name="test" depends="build, buildprops">
         <testng classpathref="testing.classpath">
             <classfileset dir="${build.tests}" includes="**/*.class"/>
         </testng>
     </target>
 
+    <target name="buildprops">
+        <property prefix="svn" file="svn.properties"/>
+        <property name="svn.Revision" value="unknown"/>
+        <echo message="$svn.Revision"/>
+        <property name="version" value="version=build-${build.number}-r-${svn.Revision}"/>
+        <echo message="${version}"/>
+        <echo file="${build.java}/jerklib/JerkLib.Properties" message="version=${version}"/>
+        <echo file="${src.java}/jerklib/JerkLib.Properties" message="version=${version}"/>
+    </target>
+
     <target name="package" depends="rebuild,test">
-        <!--<property file="svn.properties"/> -->
-        <property prefix="svn" file="svn.properties" />
-        <property name="svn.Revision" value="unknown" />        
-        <echo message="$svn.Revision" />
-        <property name="version" value="version=build-${build.number}-r-${svn.Revision}" />
-        <echo message="${version}" />
-        <echo file="${build.java}/jerklib/JerkLib.Properties" message="version=${version}" />
-		<echo file="${src.java}/jerklib/JerkLib.Properties" message="version=${version}" />
         <jar basedir="${build.java}" destfile="${dist}/jerklib-${DSTAMP}-${TSTAMP}.jar"/>
     </target>
 
@@ -76,6 +78,6 @@
     </target>
 
     <target name="release" depends="refresh,package">
-        <move file="${dist}/jerklib-${DSTAMP}-${TSTAMP}.jar" tofile="jerklib.jar" /> 
+        <move file="${dist}/jerklib-${DSTAMP}-${TSTAMP}.jar" tofile="jerklib.jar"/>
     </target>
 </project>

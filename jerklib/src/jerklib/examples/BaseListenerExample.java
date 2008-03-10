@@ -37,7 +37,8 @@ public class BaseListenerExample extends BaseListener implements Runnable {
             event.getChannel().say("Okay, fine, I'll die");
             try {
                 Thread.sleep(2000);
-            } catch (InterruptedException e) {                
+            } catch (InterruptedException e) {
+                // *nothing*
             }
             System.exit(0);
         }
@@ -50,11 +51,13 @@ public class BaseListenerExample extends BaseListener implements Runnable {
         try {
             Thread.sleep(30000L); // give it the axe in 30!
         } catch (InterruptedException e) {
+            // *nothing*
         }
         ble.sayGoodbye();
         try {
             Thread.sleep(5000); // let the message be written!
         } catch (InterruptedException e) {
+            // *nothing*
         }
         System.exit(0);
     }

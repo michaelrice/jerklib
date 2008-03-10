@@ -1,10 +1,9 @@
 package jerklib.events.impl;
 
-import jerklib.events.MessageEvent;
-import static jerklib.events.IRCEvent.Type;
-import jerklib.events.IRCEvent;
 import jerklib.Channel;
 import jerklib.Session;
+import jerklib.events.IRCEvent;
+import jerklib.events.MessageEvent;
 
 /**
  * Created: Feb 6, 2008 9:50:27 PM
@@ -13,7 +12,7 @@ import jerklib.Session;
  */
 public class MessageEventImpl implements MessageEvent {
 
-    private final String nick,userName,hostName,message,rawEventData;
+    private final String nick, userName, hostName, message, rawEventData;
     private final Channel channel;
     private final Type type;
     private final Session session;

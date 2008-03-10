@@ -2,155 +2,150 @@ package jerklib.util;
 
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 
 /**
- * 
  * To use:
- *  cme.getChannel().say(Colors.BLUE + "HELLLLO");
- *  <br>
- *  Will say hello in blue
- *  
+ * cme.getChannel().say(Colors.BLUE + "HELLLLO");
+ * <br>
+ * Will say hello in blue
+ *
  * @author mohadib
- *	
  */
-public final class Colors
-{
-  /**
-   * Removes all applied color and formatting
-   */
-  public static final String NORMAL = "\u000f";
+public final class Colors {
+    /**
+     * Removes all applied color and formatting
+     */
+    public static final String NORMAL = "\u000f";
 
-  /**
-   * Bold text.
-   */
-  public static final String BOLD = "\u0002";
-  
-  /**
-   * Underlined text
-   */
-  public static final String UNDERLINE = "\u001f";
+    /**
+     * Bold text.
+     */
+    public static final String BOLD = "\u0002";
 
-  /**
-   * Reversed text
-   */
-  public static final String REVERSE = "\u0016";
+    /**
+     * Underlined text
+     */
+    public static final String UNDERLINE = "\u001f";
 
-  /**
-   * White colored text.
-   */
-  public static final String WHITE = "\u000300";
+    /**
+     * Reversed text
+     */
+    public static final String REVERSE = "\u0016";
 
-  /**
-   * Black colored text.
-   */
-  public static final String BLACK = "\u000301";
+    /**
+     * White colored text.
+     */
+    public static final String WHITE = "\u000300";
 
-  /**
-   * Dark blue colored text.
-   */
-  public static final String DARK_BLUE = "\u000302";
+    /**
+     * Black colored text.
+     */
+    public static final String BLACK = "\u000301";
 
-  /**
-   * Dark green colored text.
-   */
-  public static final String DARK_GREEN = "\u000303";
+    /**
+     * Dark blue colored text.
+     */
+    public static final String DARK_BLUE = "\u000302";
 
-  /**
-   * Red colored text.
-   */
-  public static final String RED = "\u000304";
+    /**
+     * Dark green colored text.
+     */
+    public static final String DARK_GREEN = "\u000303";
 
-  /**
-   * Brown colored text.
-   */
-  public static final String BROWN = "\u000305";
+    /**
+     * Red colored text.
+     */
+    public static final String RED = "\u000304";
 
-  /**
-   * Purple colored text.
-   */
-  public static final String PURPLE = "\u000306";
+    /**
+     * Brown colored text.
+     */
+    public static final String BROWN = "\u000305";
 
-  /**
-   * Olive colored text.
-   */
-  public static final String OLIVE = "\u000307";
+    /**
+     * Purple colored text.
+     */
+    public static final String PURPLE = "\u000306";
 
-  /**
-   * Yellow colored text.
-   */
-  public static final String YELLOW = "\u000308";
+    /**
+     * Olive colored text.
+     */
+    public static final String OLIVE = "\u000307";
 
-  /**
-   * Green colored text.
-   */
-  public static final String GREEN = "\u000309";
+    /**
+     * Yellow colored text.
+     */
+    public static final String YELLOW = "\u000308";
 
-  /**
-   * Teal colored text.
-   */
-  public static final String TEAL = "\u000310";
+    /**
+     * Green colored text.
+     */
+    public static final String GREEN = "\u000309";
 
-  /**
-   * Cyan colored text.
-   */
-  public static final String CYAN = "\u000311";
+    /**
+     * Teal colored text.
+     */
+    public static final String TEAL = "\u000310";
 
-  /**
-   * Blue colored text.
-   */
-  public static final String BLUE = "\u000312";
+    /**
+     * Cyan colored text.
+     */
+    public static final String CYAN = "\u000311";
 
-  /**
-   * Magenta colored text.
-   */
-  public static final String MAGENTA = "\u000313";
+    /**
+     * Blue colored text.
+     */
+    public static final String BLUE = "\u000312";
 
-  /**
-   * Dark gray colored text.
-   */
-  public static final String DARK_GRAY = "\u000314";
+    /**
+     * Magenta colored text.
+     */
+    public static final String MAGENTA = "\u000313";
 
-  /**
-   * Light gray colored text.
-   */
-  public static final String LIGHT_GRAY = "\u000315";
+    /**
+     * Dark gray colored text.
+     */
+    public static final String DARK_GRAY = "\u000314";
 
-  
-  private static final List<String> colorList = new ArrayList<String>();
+    /**
+     * Light gray colored text.
+     */
+    public static final String LIGHT_GRAY = "\u000315";
 
-  static
-  {
-  	colorList.add(Colors.BLACK);
-  	colorList.add(Colors.BLUE);
-  	colorList.add(Colors.BOLD);
-  	colorList.add(Colors.BROWN);
-  	colorList.add(Colors.CYAN);
-  	colorList.add(Colors.DARK_BLUE);
-  	colorList.add(Colors.DARK_GRAY);
-  	colorList.add(Colors.DARK_GREEN);
-  	colorList.add(Colors.GREEN);
-  	colorList.add(Colors.LIGHT_GRAY);
-  	colorList.add(Colors.MAGENTA);
-  	colorList.add(Colors.NORMAL);
-  	colorList.add(Colors.OLIVE);
-  	colorList.add(Colors.PURPLE);
-  	colorList.add(Colors.RED);
-  	colorList.add(Colors.TEAL);
-  	colorList.add(Colors.UNDERLINE);
-  	colorList.add(Colors.WHITE);
-  	colorList.add(Colors.YELLOW);
-  }
+
+    private static final List<String> colorList = new ArrayList<String>();
+
+    static {
+        colorList.add(Colors.BLACK);
+        colorList.add(Colors.BLUE);
+        colorList.add(Colors.BOLD);
+        colorList.add(Colors.BROWN);
+        colorList.add(Colors.CYAN);
+        colorList.add(Colors.DARK_BLUE);
+        colorList.add(Colors.DARK_GRAY);
+        colorList.add(Colors.DARK_GREEN);
+        colorList.add(Colors.GREEN);
+        colorList.add(Colors.LIGHT_GRAY);
+        colorList.add(Colors.MAGENTA);
+        colorList.add(Colors.NORMAL);
+        colorList.add(Colors.OLIVE);
+        colorList.add(Colors.PURPLE);
+        colorList.add(Colors.RED);
+        colorList.add(Colors.TEAL);
+        colorList.add(Colors.UNDERLINE);
+        colorList.add(Colors.WHITE);
+        colorList.add(Colors.YELLOW);
+    }
 
     /**
      * Returns the list of all available colors.
+     *
      * @return a list of all colors available
      */
-  public static List<String> getColorsList() {
-      return Collections.unmodifiableList(colorList);
-  }
-
-  
+    public static List<String> getColorsList() {
+        return Collections.unmodifiableList(colorList);
+    }  
 }
