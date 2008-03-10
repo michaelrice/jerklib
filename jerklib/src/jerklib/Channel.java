@@ -218,6 +218,10 @@ public class Channel
 	{
         return o == this;
     }
+    public String toString() {
+        return name; 
+    }
+
 	
 }
 
