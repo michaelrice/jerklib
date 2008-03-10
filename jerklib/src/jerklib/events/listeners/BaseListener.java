@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 public abstract class BaseListener implements IRCEventListener {
     protected Logger log = Logger.getLogger(this.getClass().getName());
 
-    @Override
     public void receiveEvent(IRCEvent e) {
         Type t = e.getType();
         boolean handled = handleChannelEvents(t, e);

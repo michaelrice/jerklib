@@ -1,4 +1,4 @@
-you canpackage jerklib;
+package jerklib;
 
 import jerklib.events.ChannelListEvent;
 import jerklib.events.ConnectionCompleteEvent;

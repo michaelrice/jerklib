@@ -33,7 +33,8 @@ import jerklib.WriteRequest;
  * @author mohadib
  *
  */
-public interface WriteRequestListener {
+public interface WriteRequestListener 
+{
 
 	/**
    * receiveEvent() - method will be called anytime a write is requestd.
