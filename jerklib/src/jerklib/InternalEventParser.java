@@ -717,4 +717,23 @@ public class InternalEventParser
 			}
 		}
 	}
+	
+	
+	public boolean isChannelToken(String token , Connection con)
+	{
+		ServerInformation serverInfo = manager.getSessionFor(con).getServerInformation();
+		String[] chanPrefixes = serverInfo.getChannelPrefixes();
+		for(String prefix: chanPrefixes)
+		{
+			if(token.startsWith(prefix)) return true;
+		}
+		return false;
+	}
+	
 }
+
+
+
+
+
+
