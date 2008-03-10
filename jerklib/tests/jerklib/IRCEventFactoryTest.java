@@ -11,19 +11,19 @@ import jerklib.events.NickInUseEvent;
 import jerklib.events.NoticeEvent;
 import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
-import jerklib.events.MessageEvent;
-import junit.framework.TestCase;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.Test;
+import static org.testng.AssertJUnit.*;
 
-public class IRCEventFactoryTest extends TestCase
+public class IRCEventFactoryTest
 {
 	private ConnectionManager conMan;
 	private Session session;
-	
-	@Override
-	protected void setUp() throws Exception
+
+    @BeforeTest
+    void setUp() throws Exception
 	{
-		super.setUp();
-		
 		conMan = new ConnectionManager
 		(
 				new ProfileImpl
@@ -44,14 +44,13 @@ public class IRCEventFactoryTest extends TestCase
 		
 	}
 	
-	@Override
+	@AfterTest
 	protected void tearDown() throws Exception
 	{
-		super.tearDown();
 		conMan.quit();
 	}
 
-	
+	@Test
 	public void testParseEvent()
 	{
 		Connection con = ((Session)session).getConnection();
