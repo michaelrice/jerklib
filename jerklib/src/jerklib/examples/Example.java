@@ -70,13 +70,6 @@ public class Example implements IRCEventListener
     			}
     			me.getChannel().say("Supported Modes:" + modes); 
         	}
-        	else
-        	{
-        		/* someone speaks in a channel */
-        	//	MessageEvent cme = (MessageEvent)e;
-        	//	System.out.println(cme.getChannel().getName() + " <" + cme.getNick() + ">" + cme.getMessage());
-        	}
-       
 		}
         else if(e.getType() == Type.CONNECT_COMPLETE)
 		{
