@@ -303,7 +303,6 @@ class Connection {
                     }
 
                     @SuppressWarnings("unused")
-                    //TODO this should be in the interface
                     public String getHostName() {
                         return actualHostName;
                     }
