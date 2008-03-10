@@ -32,7 +32,7 @@ public class BaseListenerExample extends BaseListener implements Runnable {
 
     @Override
     protected void handleChannelMessage(MessageEvent event) {
-        log.info(event.getChannel() + ":" + event.getNick() + ":" + event.getMessage());
+        log.info(event.getChannel().getName() + ":" + event.getNick() + ":" + event.getMessage());
         if ("now die".equalsIgnoreCase(event.getMessage())) {
             event.getChannel().say("Okay, fine, I'll die");
             try {
