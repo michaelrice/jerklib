@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Connection {
+class Connection {
     Logger log = Logger.getLogger(this.getClass().getName());
 
     /* ConnectionManager for this Connection */
