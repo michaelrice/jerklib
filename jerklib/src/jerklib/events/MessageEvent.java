@@ -12,7 +12,7 @@ public interface MessageEvent extends IRCEvent {
     /**
      * returns IRCChannel object the PrivMsg occured in
      *
-     * @return the IRCChannel object
+     * @return the Channel object
      */
     public Channel getChannel();
 
