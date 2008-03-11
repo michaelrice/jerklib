@@ -41,9 +41,11 @@ import jerklib.tasks.Task;
 public class ConnectionManager
 {
 	
-	public static boolean debug;
+	public static boolean debug , autoChooseNick;
 	private static String version = "0.3 or greater";
 	private static String extendedVersion = "";
+	
+	
 	static
 	{
 		Properties props = new Properties();
@@ -70,6 +72,7 @@ public class ConnectionManager
 		if(version == null) return;
 		extendedVersion = version;
 	}
+	
 	
 	
 	/**
@@ -464,6 +467,28 @@ public class ConnectionManager
 		}
 	}	
 	
+	
+	private Map<Type, List<Task>> removeCanceled(Session session)
+	{
+		Map<Type, List<Task>> tasks = session.getTasks(); 
+		synchronized (tasks)
+		{
+			for(Iterator<List<Task>>it = tasks.values().iterator(); it.hasNext();)
+			{
+				List<Task> thisTasks = it.next();
+				for(Iterator<Task>x = thisTasks.iterator(); x.hasNext();)
+				{
+					Task rmTask = x.next();
+					if(rmTask.isCanceled())
+					{
+						x.remove();
+					}
+				}
+			}
+		}
+		return tasks;
+	}
+	
 	private void relayEvents()
 	{
 		List<IRCEvent> events = new ArrayList<IRCEvent>();
@@ -487,60 +512,39 @@ public class ConnectionManager
 			//to the next event
 			if(s == null) continue;
 			
-			Map<Type, List<Task>> tasks = ((Session)s).getTasks(); 
-			synchronized (tasks)
-			{
-				for(Iterator<List<Task>>it = tasks.values().iterator(); it.hasNext();)
-				{
-					List<Task> thisTasks = it.next();
-					for(Iterator<Task>x = thisTasks.iterator(); x.hasNext();)
-					{
-						Task rmTask = x.next();
-						if(rmTask.isCanceled())
-						{
-							x.remove();
-						}
-					}
-				}
-				tempTasks.putAll(tasks);
-			}
-			
 			Collection<IRCEventListener> listeners = s.getIRCEventListeners();
 			synchronized (listeners)
 			{
 				templisteners.addAll(listeners);
 			}
 			
-			List<Task> typeTasks = tempTasks.get(event.getType());
-			if(typeTasks == null) typeTasks = new ArrayList<Task>();
+			tempTasks.putAll(removeCanceled(s));
 			
-			List<Task> taskCopy = new ArrayList<Task>(typeTasks);
+			List<Task> typeTasks = tempTasks.get(event.getType());
+			if(typeTasks != null) templisteners.addAll(typeTasks);
+			
+			
 			
 			List<Task>nullTasks = tempTasks.get(null);
 			if(nullTasks != null)
 			{
-				taskCopy.addAll(nullTasks);
+				templisteners.addAll(nullTasks);
 			}
 			
-			for(Task t : taskCopy)
+			
+			for(IRCEventListener listener : templisteners)
 			{
-				//could put code here to catch exceptions caused
-				//by lib users , this would keep the lib from crashing
-				//for outside reasons.
 				try
 				{
-					t.receiveEvent(event);
-				}catch (Exception e) 
+					listener.receiveEvent(event);
+				}
+				catch (Exception e) 
 				{
 					System.err.println("jerklib:Cought Client Exception");
 					e.printStackTrace();
 				}
 			}
 			
-			for(IRCEventListener listener : templisteners)
-			{
-				listener.receiveEvent(event);
-			}
 			templisteners.clear();
 			tempTasks.clear();
 		}
