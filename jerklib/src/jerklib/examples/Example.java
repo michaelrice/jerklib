@@ -42,8 +42,9 @@ public class Example implements IRCEventListener
 		 */
 		session.addIRCEventListener(this);
 
-        /* Tasks are a way to filter out events you do not care about
+        /* Tasks are a way to filter out events you do not care about.
          * This Task simply auto joins a channel to which we are invited.
+         * The parameter to the TaskImpl constructor is the task name, 
          */
         session.onEvent(new TaskImpl("invite")
 		{
