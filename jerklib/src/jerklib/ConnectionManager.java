@@ -524,7 +524,6 @@ public class ConnectionManager
 			if(typeTasks != null) templisteners.addAll(typeTasks);
 			
 			
-			
 			List<Task>nullTasks = tempTasks.get(null);
 			if(nullTasks != null)
 			{

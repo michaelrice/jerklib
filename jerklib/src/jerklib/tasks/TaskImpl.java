@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import jerklib.events.listeners.IRCEventListener;
-
-public abstract class Task implements IRCEventListener
+public abstract class TaskImpl implements Task
 {
 	private final List<TaskCompletionListener> listeners = new ArrayList<TaskCompletionListener>();
 	private boolean canceled;
