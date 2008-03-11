@@ -16,7 +16,9 @@ public class BaseListenerExample extends BaseListener implements Runnable {
 
     public void run() {
         ConnectionManager manager = new ConnectionManager(new ProfileImpl("ble", "ble", "ble_", "ble__"));
-        session = manager.requestConnection("irc.freenode.net");
+        try {
+            session = manager.requestConnection("irc.freenode.net");
+        }catch(CloneNotSupportedException e) {}
         session.addIRCEventListener(this);
     }
 

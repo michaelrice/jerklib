@@ -7,6 +7,7 @@ import jerklib.ConnectionManager;
 import jerklib.ProfileImpl;
 import jerklib.ServerInformation;
 import jerklib.Session;
+import jerklib.tasks.TaskImpl;
 import jerklib.ServerInformation.ModeType;
 import jerklib.events.*;
 import jerklib.events.IRCEvent.Type;
@@ -21,7 +22,7 @@ public class Example implements IRCEventListener
 	Logger log=Logger.getLogger(this.getClass().getName());
 	private ConnectionManager manager;
 
-	public Example()
+	public Example() throws CloneNotSupportedException
 	{
 		/* ConnectionManager takes a Profile to use for new connections. The profile
 		 * will contain the users nick , real name , alt. nick 1 and. alt nick 2	
@@ -36,13 +37,25 @@ public class Example implements IRCEventListener
 		 */
 		Session session = manager.requestConnection("irc.freenode.net");
 
-		/* JerkLib fires IRCEvents to notify users of the lib of incoming events
+		/* JerkLib fires IRCEvents to notify users .of the lib of incoming events
 		 * from a connected IRC server.
 		 */
 		session.addIRCEventListener(this);
-	}
-	
-	/*
+
+		/* An example Task for when somebody invites us to a channel. 
+		 *
+		 */
+        session.onEvent(new TaskImpl("invite")
+		{
+			public void receiveEvent(IRCEvent e)
+			{
+				InviteEvent ie = (InviteEvent)e;
+                e.getSession().join(ie.getChannelName());
+			}
+		}, Type.INVITE_EVENT);
+    }
+
+    /*
 	 * This method is for implementing an IRCEventListener.
 	 * This method will be called anytime Jerklib parses an
 	 * event from the Session its attached to. All events are 
@@ -76,7 +89,7 @@ public class Example implements IRCEventListener
 			/* connection to server is complete */
 			log.info("Joining");
 			//e.getSession().joinChannel("#sand-irc");
-			e.getSession().join("#sand-irc");
+			e.getSession().join("#jerklib");
 			//e.getSession().joinChannel("#ubuntu");
 			//e.getSession().joinChannel("#debian");
 			//e.getSession().joinChannel("#perl");
@@ -155,7 +168,7 @@ public class Example implements IRCEventListener
 		
 	}
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws CloneNotSupportedException
 	{
 		new Example();
 	}
