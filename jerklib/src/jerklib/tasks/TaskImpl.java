@@ -10,10 +10,12 @@ public abstract class TaskImpl implements Task
 	private boolean canceled;
 	private String name;
 	
-	public void setName(String name)
+	
+	public TaskImpl(String name)
 	{
 		this.name = name;
 	}
+	
 	
 	public String getName()
 	{

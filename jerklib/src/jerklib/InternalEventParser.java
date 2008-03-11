@@ -684,6 +684,8 @@ public class InternalEventParser
 		if(msg.startsWith("\u0001"))
 		{
 			String ctcpString = msg.substring(0,msg.length() -1).substring(1);
+			
+			/*
 			if(ctcpString.equals("VERSION"))
 			{
 				me.getSession().sayRaw("NOTICE " + me.getNick() + " :\001VERSION " + ConnectionManager.getVersion() + "\001\r\n");
@@ -692,6 +694,7 @@ public class InternalEventParser
 			{
 				me.getSession().sayRaw("NOTICE " + me.getNick() + " :\001PING \001\r\n");
 			}
+			*/
 			me = IRCEventFactory.ctcp(me, ctcpString);
 		}
 
