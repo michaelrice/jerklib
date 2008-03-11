@@ -22,9 +22,9 @@ public class Example implements IRCEventListener
 	Logger log=Logger.getLogger(this.getClass().getName());
 	private ConnectionManager manager;
 
-	public Example() throws CloneNotSupportedException
-	{
-		/* ConnectionManager takes a Profile to use for new connections. The profile
+	public Example()
+    {
+        /* ConnectionManager takes a Profile to use for new connections. The profile
 		 * will contain the users nick , real name , alt. nick 1 and. alt nick 2	
 		 */
 		manager = new ConnectionManager(new ProfileImpl("scripy", "dibz", "dibz_", "dibz__"));
@@ -169,7 +169,7 @@ public class Example implements IRCEventListener
 		
 	}
 	
-	public static void main(String[] args) throws CloneNotSupportedException
+	public static void main(String[] args)
 	{
 		new Example();
 	}
