@@ -204,6 +204,7 @@ public class ConnectionManager
 	 * request a new connection to a host
 	 * @param hostName DNS name of host to connect to
 	 * @param port port to use for connection
+     * @throws CloneNotSupportedException
      * @return the {@link Session} for this connection
 	 */
 	public Session requestConnection(String hostName , int port) throws CloneNotSupportedException
@@ -216,6 +217,7 @@ public class ConnectionManager
 	 * @param hostName  DNS name of host to connect to
 	 * @param port port to use for connection
 	 * @param profile profile to use for this connection
+     * @throws CloneNotSupportedException
      * @return the {@link Session} for this connection
 	 */
 	public Session requestConnection(String hostName , int port , Profile profile)
