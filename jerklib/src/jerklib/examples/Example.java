@@ -37,14 +37,14 @@ public class Example implements IRCEventListener
 		 */
 		Session session = manager.requestConnection("irc.freenode.net");
 
-		/* JerkLib fires IRCEvents to notify users .of the lib of incoming events
+		/* JerkLib fires IRCEvents to notify users of the lib of incoming events
 		 * from a connected IRC server.
 		 */
 		session.addIRCEventListener(this);
 
-		/* An example Task for when somebody invites us to a channel. 
-		 *
-		 */
+        /* Tasks are a way to filter out events you do not care about
+         * This Task simply auto joins a channel to which we are invited.
+         */
         session.onEvent(new TaskImpl("invite")
 		{
 			public void receiveEvent(IRCEvent e)
