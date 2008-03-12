@@ -214,10 +214,8 @@ public class ConnectionManager
         }
         catch(CloneNotSupportedException e)
         {
-            // swallow
-        }
-        // should never get here.
-        return null;
+            return null;
+        }        
     }
 	
 	/**
