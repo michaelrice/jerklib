@@ -1,6 +1,5 @@
 package jerklib;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,35 +24,36 @@ public class Session extends RequestGenerator
 	private final Map<Type, List<Task>> taskMap = new HashMap<Type, List<Task>>();
 	private final RequestedConnection rCon;
 	private Connection con;
-	private boolean rejoinOnKick = true,profileUpdating,isAway;
+	private boolean rejoinOnKick = true, profileUpdating, isAway;
 	private Profile tmpProfile;
 	private long lastRetry = -1, lastResponse = System.currentTimeMillis();
 	private ServerInformation serverInfo = new ServerInformation();
 	private State state = State.DISCONNECTED;
 
-    public void sayChannel(Channel channel, String msg) {
-        sayChannel(channel.getName(), msg);
-    }
+	public void sayChannel(Channel channel, String msg)
+	{
+		sayChannel(channel.getName(), msg);
+	}
 
-    enum State 
-    {
-        CONNECTED,
-        CONNECTING,
-        HALF_CONNECTED,
-        DISCONNECTED,
-        MARKED_FOR_REMOVAL,
-    	NEED_TO_PING,
-		PING_SENT,
+	enum State
+	{
+		CONNECTED, 
+		CONNECTING, 
+		HALF_CONNECTED, 
+		DISCONNECTED, 
+		MARKED_FOR_REMOVAL, 
+		NEED_TO_PING, 
+		PING_SENT, 
 		NEED_TO_RECONNECT
-    }
+	}
 
 	Session(RequestedConnection rCon)
 	{
 		this.rCon = rCon;
 	}
-	
+
 	/* general methods */
-	
+
 	public boolean isConnected()
 	{
 		return state == State.CONNECTED;
@@ -124,14 +124,13 @@ public class Session extends RequestGenerator
 		}
 	}
 
-
 	/* methods to get information about connection and server */
-	
+
 	public ServerInformation getServerInformation()
 	{
 		return serverInfo;
 	}
-	
+
 	public RequestedConnection getRequestedConnection()
 	{
 		return rCon;
@@ -141,8 +140,7 @@ public class Session extends RequestGenerator
 	{
 		return con.getHostName();
 	}
-	
-	
+
 	/* methods for adding/removing IRCEventListeners and Tasks */
 
 	public void addIRCEventListener(IRCEventListener listener)
@@ -160,7 +158,6 @@ public class Session extends RequestGenerator
 		return Collections.unmodifiableCollection(listenerList);
 	}
 
-	
 	public void onEvent(Task task)
 	{
 		// null means task should be notified of all Events
@@ -179,11 +176,10 @@ public class Session extends RequestGenerator
 			}
 			else
 			{
-				if(!taskMap.get(type).contains(task))taskMap.get(type).add(task);
+				if (!taskMap.get(type).contains(task)) taskMap.get(type).add(task);
 			}
 		}
 	}
-
 
 	Map<Type, List<Task>> getTasks()
 	{
@@ -194,10 +190,10 @@ public class Session extends RequestGenerator
 	{
 		synchronized (taskMap)
 		{
-			for(Iterator<Type> it = taskMap.keySet().iterator(); it.hasNext();)
+			for (Iterator<Type> it = taskMap.keySet().iterator(); it.hasNext();)
 			{
 				List<Task> tasks = taskMap.get(it.next());
-				if(tasks != null)
+				if (tasks != null)
 				{
 					tasks.remove(t);
 				}
@@ -205,7 +201,6 @@ public class Session extends RequestGenerator
 		}
 	}
 
-	
 	void updateProfileSuccessfully(boolean success)
 	{
 		if (success)
@@ -215,15 +210,15 @@ public class Session extends RequestGenerator
 		tmpProfile = null;
 		profileUpdating = false;
 	}
-	
+
 	/* Channel methods */
-	
+
 	public Collection<Channel> getChannels()
 	{
 		if (con != null) { return con.getChannels(); }
 		return new ArrayList<Channel>();
 	}
-	
+
 	public Channel getChannel(String channelName)
 	{
 		if (con != null) { return con.getChannel(channelName); }
@@ -242,15 +237,14 @@ public class Session extends RequestGenerator
 			channelNames.add(name);
 		}
 	}
-	
+
 	void removeChannelName(String name)
 	{
 		channelNames.remove(name);
 	}
-	
-	
+
 	/* methods to track connection attempts */
-	
+
 	long getLastRetry()
 	{
 		return lastRetry;
@@ -260,81 +254,78 @@ public class Session extends RequestGenerator
 	{
 		lastRetry = System.currentTimeMillis();
 	}
-	
-	
+
 	/* methods to get/set Connection object */
 	void setConnection(Connection con)
 	{
 		this.con = con;
 		super.setConnection(con);
 	}
-	
+
 	Connection getConnection()
 	{
 		return con;
 	}
-	
-	
+
 	/* Methods to get and set the state of the session */
-	
+
 	void gotResponse()
 	{
 		lastResponse = System.currentTimeMillis();
 		state = State.CONNECTED;
 	}
-	
+
 	void pingSent()
 	{
 		state = State.PING_SENT;
 	}
-	
+
 	void disconnected()
 	{
 		state = State.DISCONNECTED;
-		if(con != null)
+		if (con != null)
 		{
 			con.quit("");
 			con = null;
 		}
 		channelNames.clear();
 	}
-	
+
 	void connected()
 	{
 		gotResponse();
 	}
-	
+
 	void connecting()
 	{
 		state = State.CONNECTING;
 	}
-	
+
 	void halfConnected()
 	{
 		state = State.HALF_CONNECTED;
 	}
-	
+
 	void markForRemoval()
 	{
 		state = State.MARKED_FOR_REMOVAL;
 	}
-	
+
 	State getState()
 	{
 		long current = System.currentTimeMillis();
-		
-		if(current - lastResponse > 300000 && state == State.NEED_TO_PING)
+
+		if (current - lastResponse > 300000 && state == State.NEED_TO_PING)
 		{
 			state = State.NEED_TO_RECONNECT;
 		}
-		else if(current - lastResponse > 200000 && state != State.PING_SENT)
+		else if (current - lastResponse > 200000 && state != State.PING_SENT)
 		{
 			state = State.NEED_TO_PING;
 		}
-		
+
 		return state;
 	}
-
 
 	public int hashCode()
 	{
@@ -346,5 +337,5 @@ public class Session extends RequestGenerator
 		if (o instanceof Session && o.hashCode() == hashCode()) { return ((Session) o).getRequestedConnection().equals(rCon); }
 		return false;
 	}
-	
+
 }
