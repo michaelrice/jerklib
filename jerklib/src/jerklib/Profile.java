@@ -47,5 +47,5 @@ public interface Profile extends Cloneable {
     /**
      * @return a copy of this profile
      */
-	Profile clone() throws CloneNotSupportedException;
+	Profile clone();
 }

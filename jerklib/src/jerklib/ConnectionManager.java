@@ -208,14 +208,7 @@ public class ConnectionManager
 	 */
 	public Session requestConnection(String hostName , int port)
 	{
-		try
-        {
-           return requestConnection(hostName , port , defaultProfile.clone());
-        }
-        catch(CloneNotSupportedException e)
-        {
-            return null;
-        }        
+        return requestConnection(hostName , port , defaultProfile.clone());              
     }
 	
 	/**

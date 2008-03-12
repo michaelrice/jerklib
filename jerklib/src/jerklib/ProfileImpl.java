@@ -84,7 +84,7 @@ public class ProfileImpl implements Profile {
     }
 
     @Override
-    public Profile clone() throws CloneNotSupportedException {
+    public Profile clone() {
         ProfileImpl impl = new ProfileImpl(name,
                 firstNick,
                 secondNick,
