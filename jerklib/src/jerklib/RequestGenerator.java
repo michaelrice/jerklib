@@ -135,9 +135,9 @@ class RequestGenerator
     	ctcp(target, actionText);
     }
 	
-	public void sayChannel(String channelName, String msg)
+	public void sayChannel(String msg , Channel channel)
 	{
-		con.addWriteRequest(new WriteRequest(msg, con.getChannel(channelName), con));
+		con.addWriteRequest(new WriteRequest(msg,channel, con));
 	}
 
 	public void sayPrivate(String nick, String msg)

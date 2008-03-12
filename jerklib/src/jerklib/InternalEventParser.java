@@ -86,9 +86,9 @@ public class InternalEventParser
 	 */
 	void parseEvent(IRCEvent event)
 	{
-		Connection con = ((Session)event.getSession()).getConnection();
+		Session session = event.getSession();
 		String data = event.getRawEventData();
-		String nick = con.getProfile().getActualNick();
+		String nick = session.getNick();
 		
 		String[] tokens = data.split("\\s+");
 		
@@ -96,19 +96,19 @@ public class InternalEventParser
 		{
 			if(tokens[1].matches("^\\d{3}$"))
 			{
-				numericEvent(data, con, event, Integer.parseInt(tokens[1]));
+				numericEvent(data, session, event, Integer.parseInt(tokens[1]));
 			}
 			else
 			{
 				String command = tokens[1];
 				if(command.equals("PRIVMSG"))
 				{
-					message(data, con);
+					message(data, session);
 				}
 				else if(command.equals("QUIT"))
 				{
-					QuitEvent qEvent = IRCEventFactory.quit(data, con);
-					con.removeNickFromAllChannels(qEvent.getWho());
+					QuitEvent qEvent = IRCEventFactory.quit(data, session);
+					session.removeNickFromAllChannels(qEvent.getWho());
 					manager.addToRelayList(qEvent);
 				}
 				else if(command.equals("JOIN"))
@@ -117,14 +117,13 @@ public class InternalEventParser
 					Matcher m = p.matcher(data);
 					if(m.matches())
 					{
-						Channel channel = new Channel(m.group(1).toLowerCase(), manager.getSessionFor(con));
-						con.addChannel(channel);
-						manager.getSessionFor(con).addChannelName(channel.getName());
-						manager.addToRelayList(IRCEventFactory.joinCompleted(data, con, nick, channel));
+						Channel channel = new Channel(m.group(1).toLowerCase(), session);
+						session.addChannel(channel);
+						manager.addToRelayList(IRCEventFactory.joinCompleted(data, session, nick, channel));
 					}
 					else
 					{
-						JoinEvent jEvent = IRCEventFactory.regularJoin(data, con);
+						JoinEvent jEvent = IRCEventFactory.regularJoin(data, session);
 						jEvent.getChannel().addNick(jEvent.getNick());
 						manager.addToRelayList(jEvent);
 					}
@@ -135,21 +134,20 @@ public class InternalEventParser
 				}
 				else if(command.equals("PART"))
 				{
-					PartEvent pEvent = IRCEventFactory.part(data, con);
+					PartEvent pEvent = IRCEventFactory.part(data, session);
 					if(!pEvent.getChannel().removeNick(pEvent.getWho()))
 					{
 						System.err.println("Could Not remove nick " + pEvent.getWho() + " from " + pEvent.getChannelName());
 					}
 					if(pEvent.getWho().equalsIgnoreCase(nick))
 					{
-						con.removeChannel(pEvent.getChannel());
-						manager.getSessionFor(con).removeChannelName(pEvent.getChannelName());
+						session.removeChannel(pEvent.getChannel());
 					}
 					manager.addToRelayList(pEvent);
 				}
 				else if(command.equals("NOTICE"))
 				{
-					manager.addToRelayList(IRCEventFactory.notice(data, con));
+					manager.addToRelayList(IRCEventFactory.notice(data, session));
 				}
 				else if(command.equals("TOPIC"))
 				{
@@ -160,12 +158,12 @@ public class InternalEventParser
 				}
 				else if(command.equals("INVITE"))
 				{
-					manager.addToRelayList(IRCEventFactory.invite(data, con));
+					manager.addToRelayList(IRCEventFactory.invite(data, session));
 				}
 				else if(command.equals("NICK"))
 				{
-					NickChangeEvent nEvent = IRCEventFactory.nickChange(data, con);
-					con.nickChanged(nEvent.getOldNick(), nEvent.getNewNick());
+					NickChangeEvent nEvent = IRCEventFactory.nickChange(data, session);
+					session.nickChanged(nEvent.getOldNick(), nEvent.getNewNick());
 					if (nEvent.getOldNick().equals(nick))
 					{
 						event.getSession().updateProfileSuccessfully(true);
@@ -174,7 +172,7 @@ public class InternalEventParser
 				}
 				else if(command.equals("KICK"))
 				{
-					KickEvent ke = IRCEventFactory.kick(data, con);
+					KickEvent ke = IRCEventFactory.kick(data, session);
 					if (!ke.getChannel().removeNick(ke.getWho()))
 					{
 						log.info("COULD NOT REMOVE NICK " + ke.getWho() + " from channel " + ke.getChannel().getName());
@@ -182,24 +180,24 @@ public class InternalEventParser
 
 					if (ke.getWho().equals(nick))
 					{
-						con.removeChannel(ke.getChannel());
-						if (manager.getSessionFor(con).isRejoinOnKick()) manager.getSessionFor(con).join(ke.getChannel().getName());
+						session.removeChannel(ke.getChannel());
+						if (session.isRejoinOnKick()) session.join(ke.getChannel().getName());
 					}
 					manager.addToRelayList(ke);
 				}
 				else if (data.matches("^PING.*"))
 				{
-					con.pong(event);
+					session.getConnection().pong(event);
 					manager.addToRelayList(event);
 				}
 				else if (data.matches(".*PONG.*"))
 				{
-					con.gotPong();
+					session.getConnection().gotPong();
 					manager.addToRelayList(event);
 				}
 				else if(data.matches("^NOTICE\\s+(.*$)$"))
 				{
-					manager.addToRelayList(IRCEventFactory.notice(data, con));
+					manager.addToRelayList(IRCEventFactory.notice(data, session));
 				}
 				else 
 				{
@@ -496,16 +494,16 @@ public class InternalEventParser
 		manager.addToRelayList(se);
 	}
 	
-	private void numericEvent(String data ,Connection con ,IRCEvent event,int numeric)
+	private void numericEvent(String data ,Session session ,IRCEvent event,int numeric)
 	{
     switch (numeric)
 		{
-			case 001:connectionComplete(data, con, event);break;
+			case 001:connectionComplete(data, session, event);break;
 			case 005:serverInfo(data , event);break;
-			case 301:manager.addToRelayList(IRCEventFactory.away(data,con,numeric));break;
-			case 305:manager.addToRelayList(IRCEventFactory.away(data,con,numeric));break;
-			case 306:manager.addToRelayList(IRCEventFactory.away(data,con,numeric)); break;
-			case 314:manager.addToRelayList(IRCEventFactory.whowas(data, con));break;
+			case 301:manager.addToRelayList(IRCEventFactory.away(data,session,numeric));break;
+			case 305:manager.addToRelayList(IRCEventFactory.away(data,session,numeric));break;
+			case 306:manager.addToRelayList(IRCEventFactory.away(data,session,numeric)); break;
+			case 314:manager.addToRelayList(IRCEventFactory.whowas(data, session));break;
 			case 311://whois
 			case 312://whois
 			case 317://whois                         
@@ -513,19 +511,19 @@ public class InternalEventParser
 			case 319://whois
 			case 320:whois(data, event.getSession(), numeric);break;
 			case 321:break;//chanlist
-			case 322:manager.addToRelayList(IRCEventFactory.chanList(data, con));break;
+			case 322:manager.addToRelayList(IRCEventFactory.chanList(data, session));break;
 			case 323:break; //end chan ist
 			case 324:channelMode(event);break;
-			case 332:firstPartOfTopic(data, con);break;
-			case 333:secondPartOfTopic(data, con);break;
-			case 351:manager.addToRelayList(IRCEventFactory.serverVersion(data, con));break;
-			case 352:manager.addToRelayList(IRCEventFactory.who(data,con));break;
-			case 353:namesLine(data, con);break;
-			case 366:manager.addToRelayList(IRCEventFactory.nickList(data, con));break;
+			case 332:firstPartOfTopic(data, session);break;
+			case 333:secondPartOfTopic(data, session);break;
+			case 351:manager.addToRelayList(IRCEventFactory.serverVersion(data, session));break;
+			case 352:manager.addToRelayList(IRCEventFactory.who(data,session));break;
+			case 353:namesLine(data, session);break;
+			case 366:manager.addToRelayList(IRCEventFactory.nickList(data, session));break;
 			case 372://motd
 			case 375://motd
-			case 376:manager.addToRelayList(IRCEventFactory.motd(data, con));break;
-			case 433:nick(data, con, event.getSession());break;
+			case 376:manager.addToRelayList(IRCEventFactory.motd(data, session));break;
+			case 433:nick(data, session);break;
 			case 401:
 			case 402:
 			case 403:
@@ -568,19 +566,19 @@ public class InternalEventParser
 			case 483:
 			case 491:
 			case 501:
-			case 502:manager.addToRelayList(IRCEventFactory.numericError(data, con, numeric));break;
+			case 502:manager.addToRelayList(IRCEventFactory.numericError(data, session, numeric));break;
 			default :manager.addToRelayList(event);
 		}
 	}
 	
-	private void firstPartOfTopic(String data, Connection con)
+	private void firstPartOfTopic(String data, Session session)
 	{
 		// FIRST PART TOF TOPPIC;
 		// sterling.freenode.net 332 scrip #test :Welcome to #test - This channel is
 		// for testing only.
 		//if (data.matches(":(.+?)\\s+332\\s+(.+?)\\s+(" + channelPrefixRegex +".+?)\\s+:(.*)$"))
 		//{
-			TopicEvent tEvent = IRCEventFactory.topic(data, con);
+			TopicEvent tEvent = IRCEventFactory.topic(data, session);
 			if (topicMap.containsValue(tEvent.getChannel()))
 			{
 				((TopicEventImpl) topicMap.get(tEvent.getChannel())).appendToTopic(tEvent.getTopic());
@@ -592,7 +590,7 @@ public class InternalEventParser
 		//}
 	}
 
-	private void secondPartOfTopic(String data, Connection con)
+	private void secondPartOfTopic(String data, Session session)
 	{
 		// 2nd part of topic
 		// :zelazny.freenode.net 333 scrip #test LuX 1159267246
@@ -601,7 +599,7 @@ public class InternalEventParser
 			Pattern p = Pattern.compile(":(\\S+)\\s+333\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)$");
 			Matcher m = p.matcher(data);
 			m.matches();
-			Channel chan = (Channel) con.getChannel(m.group(3).toLowerCase());
+			Channel chan = (Channel) session.getChannel(m.group(3).toLowerCase());
 			if (topicMap.containsKey(chan))
 			{
 				TopicEventImpl tEvent = (TopicEventImpl) topicMap.get(chan);
@@ -615,7 +613,7 @@ public class InternalEventParser
 	}
 
 	Random rand = new Random();
-	private void nick(String data, Connection con, Session session)
+	private void nick(String data, Session session)
 	{
 		/* NICK IN USE */
 		//:simmons.freenode.net 433 * fran :Nickname is already in use.
@@ -626,7 +624,7 @@ public class InternalEventParser
 					session.updateProfileSuccessfully(false);
 				}
 				
-				if(!con.loggedInSuccessfully())
+				if(!session.getConnection().loggedInSuccessfully())
 				{
 					Profile p = session.getRequestedConnection().getProfile();
 					String aNick = p.getActualNick();
@@ -643,28 +641,28 @@ public class InternalEventParser
 					session.changeProfile(p);
 				}
 				
-				manager.addToRelayList(IRCEventFactory.nickInUse(data, con));
+				manager.addToRelayList(IRCEventFactory.nickInUse(data, session));
 		//}
 
 	}
 
-	private void connectionComplete(String data, Connection con, IRCEvent event)
+	private void connectionComplete(String data, Session session, IRCEvent event)
 	{
 		/*
 		 * CONNECTION COMPLETE irc,freenode.net might actually be
 		 * niveen.freenode.net :irc.nmglug.org 001 namnar :Welcome to the nmglug.org
 		 * Internet Relay Chat Network namnar
 		 */
-		ConnectionCompleteEvent ccEvent = IRCEventFactory.connectionComplete(data, con);
-		con.loginSuccess();	
-		con.setHostName(ccEvent.getActualHostName());
+		ConnectionCompleteEvent ccEvent = IRCEventFactory.connectionComplete(data, session);
+		session.getConnection().loginSuccess();	
+		session.getConnection().setHostName(ccEvent.getActualHostName());
 		manager.addToRelayList(ccEvent);
 	}
 
-	private void message(String data, Connection con)
+	private void message(String data, Session session)
 	{
 		
-		ServerInformation serverInfo = manager.getSessionFor(con).getServerInformation();
+		ServerInformation serverInfo = session.getServerInformation();
 		String[] chanPrefixes = serverInfo.getChannelPrefixes();
 		String channelPrefixRegex = "";
 		if(chanPrefixes != null)
@@ -677,7 +675,7 @@ public class InternalEventParser
 			channelPrefixRegex = "[" + channelPrefixRegex + "]";
 		}
 		
-		MessageEvent me = IRCEventFactory.privateMsg(data,con , channelPrefixRegex);
+		MessageEvent me = IRCEventFactory.privateMsg(data,session , channelPrefixRegex);
 		
 		String msg = me.getMessage();
 		
@@ -701,13 +699,13 @@ public class InternalEventParser
 		manager.addToRelayList(me);
 	}
 
-	private void namesLine(String data, Connection con )
+	private void namesLine(String data, Session session )
 	{
 		Pattern p = Pattern.compile("^:(?:.+?)\\s+353\\s+\\S+\\s+(?:=|@)\\s+(\\S+)\\s:(.+)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
-			Channel chan = con.getChannel(m.group(1).toLowerCase());
+			Channel chan = session.getChannel(m.group(1).toLowerCase());
 			String[] names = m.group(2).split("\\s+");
 
 			for (String name : names)
@@ -722,9 +720,9 @@ public class InternalEventParser
 	}
 	
 	
-	public boolean isChannelToken(String token , Connection con)
+	public boolean isChannelToken(String token , Session session)
 	{
-		ServerInformation serverInfo = manager.getSessionFor(con).getServerInformation();
+		ServerInformation serverInfo = session.getServerInformation();
 		String[] chanPrefixes = serverInfo.getChannelPrefixes();
 		for(String prefix: chanPrefixes)
 		{

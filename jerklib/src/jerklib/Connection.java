@@ -24,9 +24,6 @@ class Connection
 	/* A Buffer of write request */
 	private final List<WriteRequest> writeRequests = Collections.synchronizedList(new ArrayList<WriteRequest>());
 
-	/* a Map to index currently joined channels by name */
-	private final Map<String, Channel> channelMap = new HashMap<String, Channel>();
-
 	/* ByteBuffer for readinging into */
 	private final ByteBuffer readBuffer = ByteBuffer.allocate(2048);
 
@@ -80,57 +77,8 @@ class Connection
 		return actualHostName;
 	}
 
-	List<Channel> removeNickFromAllChannels(String nick)
-	{
-		List<Channel> returnList = new ArrayList<Channel>();
-		for (Channel chan : channelMap.values())
-		{
-			if (chan.removeNick(nick))
-			{
-				returnList.add(chan);
-			}
-		}
-		return returnList;
-	}
 
-	void nickChanged(String oldNick, String newNick)
-	{
-		if (log.isLoggable(Level.INFO))
-		{
-			log.info("Looking for " + oldNick);
-		}
-		synchronized (channelMap)
-		{
-			for (Channel chan : channelMap.values())
-			{
-				if (chan.getNicks().contains(oldNick))
-				{
-					log.severe("Found nick in " + chan.getName());
-					chan.nickChanged(oldNick, newNick);
-				}
-			}
-		}
-	}
 
-	void removeChannel(Channel channel)
-	{
-		channelMap.remove(channel.getName());
-	}
-
-	Channel getChannel(String name)
-	{
-		return channelMap.get(name);
-	}
-
-	Collection<Channel> getChannels()
-	{
-		return Collections.unmodifiableCollection(channelMap.values());
-	}
-
-	void addChannel(Channel channel)
-	{
-		channelMap.put(channel.getName(), channel);
-	}
 
 	void addWriteRequest(WriteRequest request)
 	{

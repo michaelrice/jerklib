@@ -1,5 +1,6 @@
 package jerklib.examples;
 
+import jerklib.Channel;
 import jerklib.ConnectionManager;
 import jerklib.ProfileImpl;
 import jerklib.Session;
@@ -65,8 +66,8 @@ public class BaseListenerExample extends BaseListener implements Runnable {
     }
 
     private void sayGoodbye() {
-        for (String channel : session.getChannelNames()) {
-            session.sayChannel(channel, "I'm melting! (built-in sword of Damocles... or bucket of water, whatever)");
-        }
+    		for(Channel chan : session.getChannels()) {
+    			chan.say("I'm melting! (built-in sword of Damocles... or bucket of water, whatever)");
+    		}
     }
 }

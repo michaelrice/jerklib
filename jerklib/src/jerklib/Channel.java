@@ -106,7 +106,7 @@ public class Channel {
       * @see jerklib.Channel#say(java.lang.String)
       */
     public void say(String message) {
-        session.sayChannel(getName(), message);
+        session.sayChannel(this, message);
     }
 
     public void notice(String message) {

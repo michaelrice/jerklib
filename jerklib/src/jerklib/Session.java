@@ -30,9 +30,13 @@ public class Session extends RequestGenerator
 	private ServerInformation serverInfo = new ServerInformation();
 	private State state = State.DISCONNECTED;
 
+	
+	/* a Map to index currently joined channels by name */
+	private final Map<String, Channel> channelMap = new HashMap<String, Channel>();
+	
 	public void sayChannel(Channel channel, String msg)
 	{
-		sayChannel(channel.getName(), msg);
+		super.sayChannel(msg , channel);
 	}
 
 	enum State
@@ -213,16 +217,14 @@ public class Session extends RequestGenerator
 
 	/* Channel methods */
 
-	public Collection<Channel> getChannels()
+	public	List<Channel> getChannels()
 	{
-		if (con != null) { return con.getChannels(); }
-		return new ArrayList<Channel>();
+		return Collections.unmodifiableList(new ArrayList<Channel>(channelMap.values()));
 	}
 
 	public Channel getChannel(String channelName)
 	{
-		if (con != null) { return con.getChannel(channelName); }
-		return null;
+		return channelMap.get(channelName);
 	}
 
 	public List<String> getChannelNames()
@@ -230,19 +232,53 @@ public class Session extends RequestGenerator
 		return Collections.unmodifiableList(channelNames);
 	}
 
-	void addChannelName(String name)
+	void addChannel(Channel channel)
 	{
-		if (!channelNames.contains(name))
+		channelMap.put(channel.getName(), channel);
+	}
+	
+
+	void removeChannel(Channel channel)
+	{
+		channelMap.remove(channel.getName());
+	}
+	
+	
+	void nickChanged(String oldNick, String newNick)
+	{
+		/*
+		if (log.isLoggable(Level.INFO))
 		{
-			channelNames.add(name);
+			log.info("Looking for " + oldNick);
+		}
+		*/
+		synchronized (channelMap)
+		{
+			for (Channel chan : channelMap.values())
+			{
+				if (chan.getNicks().contains(oldNick))
+				{
+				//	log.severe("Found nick in " + chan.getName());
+					chan.nickChanged(oldNick, newNick);
+				}
+			}
 		}
 	}
-
-	void removeChannelName(String name)
+	
+	List<Channel> removeNickFromAllChannels(String nick)
 	{
-		channelNames.remove(name);
+		List<Channel> returnList = new ArrayList<Channel>();
+		for (Channel chan : channelMap.values())
+		{
+			if (chan.removeNick(nick))
+			{
+				returnList.add(chan);
+			}
+		}
+		return returnList;
 	}
-
+	
+	
 	/* methods to track connection attempts */
 
 	long getLastRetry()
