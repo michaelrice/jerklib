@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * @version $Revision$
+ */
 /*
  * NOtes: to do this right i need to impl mock connection completly
  * i Also need 2 threads , one parsing,doing IO and another realying events

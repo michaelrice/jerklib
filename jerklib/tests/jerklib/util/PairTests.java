@@ -8,17 +8,17 @@ import org.testng.annotations.Test;
  */
 public class PairTests
 {
-	@Test
-	public void testPairEquals()
-	{
-		Pair<String, String> a, b = null;
-		a = new Pair<String, String>("first", "second");
-		assert (!a.equals(b));
-		b = new Pair<String, String>("first", "fourth");
-		assert (!a.equals(b));
-		b = new Pair<String, String>(null, "fourth");
-		assert (!a.equals(b));
-		b = new Pair<String, String>("first", "second");
-		assert (a.equals(b));
-	}
+    @Test
+    public void testPairEquals()
+    {
+        Pair<String, String> a, b = null;
+        a = new Pair<String, String>("first", "second");
+        assert (!a.equals(b));
+        b = new Pair<String, String>("first", "fourth");
+        assert (!a.equals(b));
+        b = new Pair<String, String>(null, "fourth");
+        assert (!a.equals(b));
+        b = new Pair<String, String>("first", "second");
+        assert (a.equals(b));
+    }
 }

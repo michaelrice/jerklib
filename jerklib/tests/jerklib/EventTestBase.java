@@ -5,6 +5,9 @@ import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.tasks.TaskImpl;
 
+/**
+ * @version $revision$
+ */
 public class EventTestBase
 {
     private Session session;

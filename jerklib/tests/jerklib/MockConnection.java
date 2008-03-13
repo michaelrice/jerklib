@@ -2,13 +2,16 @@ package jerklib;
 
 import java.nio.channels.SocketChannel;
 
+/**
+ * @version $revision$
+ */
 public class MockConnection extends Connection
 {
 
-	MockConnection(ConnectionManager manager, SocketChannel socChannel, Session session)
-	{
-		super(manager, socChannel, session);
-		// TODO Auto-generated constructor stub
-	}
+    MockConnection(ConnectionManager manager, SocketChannel socChannel, Session session)
+    {
+        super(manager, socChannel, session);
+        // TODO Auto-generated constructor stub
+    }
 
 }
