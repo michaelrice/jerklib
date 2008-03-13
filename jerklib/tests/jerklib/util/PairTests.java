@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
  * User: jottinger
  * Date: Mar 10, 2008
  * Time: 10:19:58 AM
- * To change this template use File | Settings | File Templates.
  */
 public class PairTests {
     @Test
