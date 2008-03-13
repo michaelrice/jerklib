@@ -11,6 +11,12 @@ import jerklib.events.IRCEvent;
 
 
 /*
+ * NOtes: to do this right i need to impl mock connection completly
+ * i Also need 2 threads , one parsing,doing IO and another realying events
+ * Then on top we need to add some calls to session. I think with those in place
+ * we can test MT.
+ * 
+ * 
  * what can be tested because of this class:
  * 	1. event relaying
  *  2. event parsing
