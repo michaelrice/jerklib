@@ -40,7 +40,6 @@ public class EventTestBase
                 events++;
             }
         });
-        System.out.println("Reset");
     }
 
     protected int allEvents = 0;

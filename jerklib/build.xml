@@ -17,6 +17,7 @@
         <path refid="main.classpath"/>
         <pathelement location="${build.java}"/>
         <pathelement location="${build.tests}"/>
+        <pathelement location="${src.tests}" />
     </path>
 
     <taskdef name="testng" classpathref="main.classpath" classname="org.testng.TestNGAntTask"/>
