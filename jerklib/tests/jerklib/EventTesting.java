@@ -3,7 +3,9 @@ package jerklib;
 import java.io.File;
 
 import jerklib.events.IRCEvent;
+import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
+import jerklib.tasks.TaskImpl;
 
 import junit.framework.TestCase;
 
@@ -16,23 +18,51 @@ public class EventTesting extends TestCase
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		File data = new File("/home/mohadib/TESTRESULTS");
-		man = new MockConnectionManager(data ,"kubrick.freenode.net");
+		man = new MockConnectionManager("kubrick.freenode.net");
+		man.parse(new File("/home/mohadib/TESTRESULTS"));
 		session = man.getSession();
 	}
 	
+	
+	int allEvents = 0;
 	public void testEventStuff()
 	{
-		session.addIRCEventListener(new Listener());
-		man.start();
-	}
-	
-	
-	public class Listener implements IRCEventListener
-	{
-		public void receiveEvent(IRCEvent e)
+		long time = System.currentTimeMillis();
+		session.addIRCEventListener(new IRCEventListener()
 		{
-			System.out.println(e.getType() + " " + e.getRawEventData());
+			public void receiveEvent(IRCEvent e)
+			{
+				allEvents++;
+			}
+		});
+		for(int i = 0 ; i <10000; i++)
+		{
+			man.start();
 		}
+		time = System.currentTimeMillis() - time;
+		System.out.println("Sent 590,000 events - events relayed and parsed: " + allEvents + " seconds elapsed :" + time/1000);
+		assertTrue(allEvents == 590000);
+	}
+
+	int conComplete = 0;
+	public void testTaskFiltering()
+	{
+		long time = System.currentTimeMillis();
+		session.onEvent(new TaskImpl("con_complete")
+		{
+			public void receiveEvent(IRCEvent e)
+			{
+				conComplete++;
+			}
+		} , Type.CONNECT_COMPLETE);
+		
+		for(int i = 0 ; i <10000; i++)
+		{
+			man.start();
+		}
+		time = System.currentTimeMillis() - time;
+		System.out.println("Sent 590,000 events - 10,000 of wich are ConnectionCompletes  - ConComplete received: " + conComplete + " seconds elapsed :" + time/1000);
+		assertTrue(conComplete == 10000);
+		
 	}
 }

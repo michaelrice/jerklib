@@ -187,7 +187,7 @@ public class ServerInformation
 			}
 			else
 			{
-				System.err.println("Unreconized Server Info Token:" + subTokens[0]);
+				//System.err.println("Unreconized Server Info Token:" + subTokens[0]);
 			}
 		}
 	}

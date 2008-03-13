@@ -319,7 +319,7 @@ public class InternalEventParser
 					List<String> modeArgs = modeMap.get(action + mode);
 					if(modeArgs == null) modeArgs = new ArrayList<String>();
 					modeArgs.add(arguments[argumntOffset]);
-					System.err.println("Mode " + action + mode + " " + arguments[argumntOffset] );
+					//System.err.println("Mode " + action + mode + " " + arguments[argumntOffset] );
 					argumntOffset++;
 					modeMap.put(action + mode , modeArgs);
 				}
@@ -333,13 +333,13 @@ public class InternalEventParser
 						if(!modeMap.containsKey(action + mode))
 						{
 							modeMap.put(action + mode, new ArrayList<String>());
-							System.err.println("Mode " + action + mode);
+							//System.err.println("Mode " + action + mode);
 						}
 					}
 					else
 					{
 						modeArgs.add(arguments[argumntOffset]);
-						System.err.println("Mode " + action + mode + " " + arguments[argumntOffset] );
+						//System.err.println("Mode " + action + mode + " " + arguments[argumntOffset] );
 						argumntOffset++;
 						modeMap.put(action + mode , modeArgs);
 					}
@@ -348,11 +348,11 @@ public class InternalEventParser
 				else if(type ==ModeType.GROUP_D)
 				{
 					modeMap.put(action + mode, new ArrayList<String>());
-					System.err.println("Mode " + action + mode);
+					//System.err.println("Mode " + action + mode);
 				}
 				else
 				{
-					System.err.println("unreconzied mode " + mode);
+					//System.err.println("unreconzied mode " + mode);
 				}
 			}
 		}

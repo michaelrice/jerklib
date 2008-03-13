@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import jerklib.events.IRCEvent;
 
@@ -25,9 +27,8 @@ import jerklib.events.IRCEvent;
 public class MockConnectionManager extends ConnectionManager
 {
 	Session session;
-	File ircDataFile;
 	
-	public MockConnectionManager(File ircDataFile , String hostName)
+	public MockConnectionManager(String hostName)
 	{
 		session = new Session(new RequestedConnection
 		(
@@ -36,7 +37,6 @@ public class MockConnectionManager extends ConnectionManager
 				new ProfileImpl("test" , "testnick" , "testnick1" , "testnick2")
 		));
 		
-		this.ircDataFile = ircDataFile;
 		
 		session.setConnection(new MockConnection(this , null , session));
 		session.connected();
@@ -50,7 +50,18 @@ public class MockConnectionManager extends ConnectionManager
 		
 	}
 	
+	List<IRCEvent> events = new ArrayList<IRCEvent>();
 	public void start()
+	{
+		for(IRCEvent event : events)
+		{
+			addToEventQueue(event);
+		}
+		parseEvents();
+		relayEvents();
+	}
+	
+	public void parse(File ircDataFile)
 	{
 		try
 		{
@@ -62,10 +73,11 @@ public class MockConnectionManager extends ConnectionManager
 			{
 				builder.append(buff , 0 ,len);
 			}
+			reader.close();
 			String[] tokens = builder.toString().split("\r\n");
 			for(final String token : tokens)
 			{
-				addToEventQueue(new IRCEvent()
+				events.add(new IRCEvent()
 				{
 
 					public String getRawEventData()
@@ -85,8 +97,6 @@ public class MockConnectionManager extends ConnectionManager
 				});
 			}
 			
-			parseEvents();
-			relayEvents();
 		}
 		catch (FileNotFoundException e)
 		{
