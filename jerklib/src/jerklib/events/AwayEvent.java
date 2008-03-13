@@ -13,8 +13,7 @@ package jerklib.events;
  *
  * @author <a href="mailto:rob@mybawx.org">Robert O'Connor<a/>
  */
-public interface
-        AwayEvent extends IRCEvent
+public interface AwayEvent extends IRCEvent
 {
 
 
