@@ -1,13 +1,13 @@
 package jerklib;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import jerklib.events.IRCEvent;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import jerklib.events.IRCEvent;
 
 
 /*
@@ -32,92 +32,82 @@ import jerklib.events.IRCEvent;
  */
 public class MockConnectionManager extends ConnectionManager
 {
-	Session session;
-	
-	public MockConnectionManager(String hostName)
-	{
-		session = new Session(new RequestedConnection
-		(
-				hostName,
-				6667,
-				new ProfileImpl("test" , "testnick" , "testnick1" , "testnick2")
-		));
-		
-		
-		session.setConnection(new MockConnection(this , null , session));
-		session.connected();
-		session.getConnection().loginSuccess();
-		session.getConnection().setHostName(hostName);
-		sessionMap.put("irc.freenode.net", session);
-		socChanMap.put(null, session);
-		
-		
-		IRCEventFactory.setManager(this);
-		
-	}
-	
-	List<IRCEvent> events = new ArrayList<IRCEvent>();
-	public void start()
-	{
-		for(IRCEvent event : events)
-		{
-			addToEventQueue(event);
-		}
-		parseEvents();
-		relayEvents();
-	}
-	
-	public void parse(File ircDataFile)
-	{
-		try
-		{
-			StringBuilder builder = new StringBuilder();
-			FileReader reader = new FileReader(ircDataFile);
-			char[] buff = new char[1024];
-			int len = 0;
-			while((len = reader.read(buff)) != -1)
-			{
-				builder.append(buff , 0 ,len);
-			}
-			reader.close();
-			String[] tokens = builder.toString().split("\r\n");
-			for(final String token : tokens)
-			{
-				events.add(new IRCEvent()
-				{
+    Session session;
 
-					public String getRawEventData()
-					{
-						return token;
-					}
+    public MockConnectionManager(String hostName)
+    {
+        session = new Session(new RequestedConnection
+                (
+                        hostName,
+                        6667,
+                        new ProfileImpl("test", "testnick", "testnick1", "testnick2")
+                ));
 
-					public Session getSession()
-					{
-						return session;
-					}
 
-					public Type getType()
-					{
-						return Type.DEFAULT;
-					}
-				});
-			}
-			
-		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	public Session getSession()
-	{
-		return session;
-	}
-	
+        session.setConnection(new MockConnection(this, null, session));
+        session.connected();
+        session.getConnection().loginSuccess();
+        session.getConnection().setHostName(hostName);
+        sessionMap.put("irc.freenode.net", session);
+        socChanMap.put(null, session);
+
+
+        IRCEventFactory.setManager(this);
+
+    }
+
+    List<IRCEvent> events = new ArrayList<IRCEvent>();
+
+    public void start()
+    {
+        for (IRCEvent event : events)
+        {
+            addToEventQueue(event);
+        }
+        parseEvents();
+        relayEvents();
+    }
+
+    public void parse(InputStream ircData)
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(ircData));
+        try
+        {
+            StringBuilder builder = new StringBuilder();
+            String token = null;
+            while ((token = br.readLine()) != null)
+            {
+                final String token1 = token;
+                events.add(new IRCEvent()
+                {
+
+                    public String getRawEventData()
+                    {
+                        return token1;
+                    }
+
+                    public Session getSession()
+                    {
+                        return session;
+                    }
+
+                    public Type getType()
+                    {
+                        return Type.DEFAULT;
+                    }
+                });
+            }
+        }
+        catch (IOException e)
+        {
+            throw new Error(e); // die horribly. What's wrong with you, you can't build a test properly?
+        }
+    }
+
+    public Session getSession()
+    {
+        return session;
+    }
+
 }
 
