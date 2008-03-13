@@ -3,7 +3,7 @@ package jerklib;
 import java.nio.channels.SocketChannel;
 
 /**
- * @version $revision$
+ * @version $Revision$
  */
 public class MockConnection extends Connection
 {

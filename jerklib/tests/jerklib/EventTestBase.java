@@ -6,7 +6,7 @@ import jerklib.events.listeners.IRCEventListener;
 import jerklib.tasks.TaskImpl;
 
 /**
- * @version $revision$
+ * @version $Revision$
  */
 public class EventTestBase
 {
