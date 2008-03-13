@@ -1,4 +1,4 @@
-package jerklib;
+hepackage jerklib;
 
 import java.io.IOException;
 import java.util.logging.Logger;

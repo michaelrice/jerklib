@@ -98,10 +98,6 @@ class Connection
 
 	int read()
 	{
-		if (log.isLoggable(Level.INFO))
-		{
-			log.info("READ CALLED");
-		}
 
 		if (!socChannel.isConnected())
 		{
