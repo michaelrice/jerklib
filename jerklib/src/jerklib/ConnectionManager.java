@@ -88,8 +88,8 @@ public class ConnectionManager
 	}
 	
 	/* maps to index sessions by name and socketchannel */
-	private final Map<String, Session> sessionMap = Collections.synchronizedMap(new HashMap<String, Session>());
-	private final Map<SocketChannel ,Session> socChanMap = Collections.synchronizedMap(new HashMap<SocketChannel, Session>());
+	final Map<String, Session> sessionMap = Collections.synchronizedMap(new HashMap<String, Session>());
+	final Map<SocketChannel ,Session> socChanMap = Collections.synchronizedMap(new HashMap<SocketChannel, Session>());
 	
 	/* event listener lists */
 	private final List<WriteRequestListener> writeListeners = Collections.synchronizedList(new ArrayList<WriteRequestListener>(1));
