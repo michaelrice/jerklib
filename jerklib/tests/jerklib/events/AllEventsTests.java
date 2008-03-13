@@ -4,6 +4,10 @@ import jerklib.EventTestBase;
 import static org.testng.AssertJUnit.assertTrue;
 import org.testng.annotations.Test;
 
+/**
+ * @author <a href="mailto:joeo@enigmastation.com">Joseph B. Ottinger</a>
+ * @version $Revision$
+ */
 public class AllEventsTests extends EventTestBase
 {
     @Test (timeOut = 17000)
