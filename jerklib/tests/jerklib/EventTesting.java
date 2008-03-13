@@ -65,4 +65,28 @@ public class EventTesting extends TestCase
 		assertTrue(conComplete == 10000);
 		
 	}
+	
+	
+	int events = 0;
+	public void testNonFilteredTasks()
+	{
+		long time = System.currentTimeMillis();
+		session.onEvent(new TaskImpl("all")
+		{
+			public void receiveEvent(IRCEvent e)
+			{
+				events++;
+			}
+		});
+		
+		for(int i = 0 ; i <10000; i++)
+		{
+			man.start();
+		}
+		time = System.currentTimeMillis() - time;
+		System.out.println("Sent 590,000 events - ALL_EVENTS Task events received: " + events + " seconds elapsed :" + time/1000);
+		assertTrue(events == 590000);
+		
+	}
+	
 }

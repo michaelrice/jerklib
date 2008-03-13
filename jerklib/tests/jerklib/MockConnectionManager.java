@@ -11,18 +11,18 @@ import jerklib.events.IRCEvent;
 
 
 /*
- * what can be tested here:
+ * what can be tested because of this class:
  * 	1. event relaying
  *  2. event parsing
  *  3. the IRCEventFactory
  *  4. WriteListeners notify/get/add/remove
  *  5. session methods get/remove etc
- *  6. all aspects of sesion can be tested via mock connection
+ *  6. all aspects of sesion can be tested
  *  
  *  what cant be tested:
  *  	1. all the connection methods makeCOnnections/checkConnections etc
  *  	2. doNetworkIO
- * 
+ * 		3. The Connection class
  */
 public class MockConnectionManager extends ConnectionManager
 {
