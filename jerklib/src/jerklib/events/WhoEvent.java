@@ -1,11 +1,12 @@
 package jerklib.events;
 
 /**
- * This is fired when the lib gets a reply from a WHO request. 
+ * This is fired when the lib gets a reply from a WHO request.
  *
  * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor</a>
  */
-public interface WhoEvent extends IRCEvent {
+public interface WhoEvent extends IRCEvent
+{
     /**
      * Get the nick of the user
      *

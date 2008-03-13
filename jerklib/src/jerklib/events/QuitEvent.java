@@ -24,16 +24,17 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 package jerklib.events;
 
-import java.util.List;
-
 import jerklib.Channel;
+
+import java.util.List;
 
 /**
  * This is the event made when someone quits
  *
  * @author mohadib
  */
-public interface QuitEvent extends IRCEvent {
+public interface QuitEvent extends IRCEvent
+{
 
     /**
      * returns the nick of who quit
@@ -44,12 +45,14 @@ public interface QuitEvent extends IRCEvent {
 
     /**
      * Get the username from the hostmask of the quitted
+     *
      * @return the username
      */
     public String getUserName();
 
     /**
      * get the host name of the user.
+     *
      * @return the hostname of the quitted.
      */
     public String getHostName();

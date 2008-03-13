@@ -5,63 +5,62 @@ import jerklib.events.WhowasEvent;
 
 public class WhowasEventImpl implements WhowasEvent
 {
-	private final Type type = Type.WHOWAS_EVENT;
-	private final String hostName,userName,nick,realName,rawEventData;
-	private final Session session;
-	
-	
-	
-	public WhowasEventImpl
-	(
-			String hostName, 
-			String userName, 
-			String nick, 
-			String realName, 
-			String rawEventData, 
-			Session session
-	)
-	{
-		this.hostName = hostName;
-		this.userName = userName;
-		this.nick = nick;
-		this.realName = realName;
-		this.rawEventData = rawEventData;
-		this.session = session;
-	}
+    private final Type type = Type.WHOWAS_EVENT;
+    private final String hostName, userName, nick, realName, rawEventData;
+    private final Session session;
 
-	public String getHostName()
-	{
-		return hostName;
-	}
 
-	public String getNick()
-	{
-		return nick;
-	}
+    public WhowasEventImpl
+            (
+                    String hostName,
+                    String userName,
+                    String nick,
+                    String realName,
+                    String rawEventData,
+                    Session session
+            )
+    {
+        this.hostName = hostName;
+        this.userName = userName;
+        this.nick = nick;
+        this.realName = realName;
+        this.rawEventData = rawEventData;
+        this.session = session;
+    }
 
-	public String getRealName()
-	{
-		return realName;
-	}
+    public String getHostName()
+    {
+        return hostName;
+    }
 
-	public String getUserName()
-	{
-		return userName;
-	}
+    public String getNick()
+    {
+        return nick;
+    }
 
-	public String getRawEventData()
-	{
-		return rawEventData;
-	}
+    public String getRealName()
+    {
+        return realName;
+    }
 
-	public Session getSession()
-	{
-		return session;
-	}
+    public String getUserName()
+    {
+        return userName;
+    }
 
-	public Type getType()
-	{
-		return type;
-	}
+    public String getRawEventData()
+    {
+        return rawEventData;
+    }
+
+    public Session getSession()
+    {
+        return session;
+    }
+
+    public Type getType()
+    {
+        return type;
+    }
 
 }

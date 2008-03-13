@@ -7,7 +7,8 @@ import jerklib.Channel;
  *
  * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor</a>
  */
-public interface MessageEvent extends IRCEvent {
+public interface MessageEvent extends IRCEvent
+{
 
     /**
      * returns IRCChannel object the PrivMsg occured in

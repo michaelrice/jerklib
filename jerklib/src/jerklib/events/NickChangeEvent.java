@@ -29,7 +29,8 @@ package jerklib.events;
  *
  * @author mohadib
  */
-public interface NickChangeEvent extends IRCEvent {
+public interface NickChangeEvent extends IRCEvent
+{
 
     /**
      * Returns the previous nick of the user before the change
@@ -47,12 +48,14 @@ public interface NickChangeEvent extends IRCEvent {
 
     /**
      * Get the username of the user who changed their nick
+     *
      * @return username
      */
     public String getUserName();
 
     /**
      * Get the hostname of the user who changed their nick
+     *
      * @return hostname
      */
     public String getHostName();

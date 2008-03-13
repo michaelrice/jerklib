@@ -27,17 +27,16 @@ package jerklib.events;
 /**
  * NickInUseIRCEvent is thrown when jerklib is trying to use a nick
  * that is in use on a given server.
- * 
- * @author mohadib
  *
+ * @author mohadib
  */
 public interface NickInUseEvent extends IRCEvent
 {
-	
-  /**
-   * returns nick that was in use
-   * 
-   * @return nick that was in use.
-   */
-  public String getInUseNick();
+
+    /**
+     * returns nick that was in use
+     *
+     * @return nick that was in use.
+     */
+    public String getInUseNick();
 }

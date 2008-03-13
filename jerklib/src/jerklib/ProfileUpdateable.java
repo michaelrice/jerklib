@@ -1,8 +1,8 @@
 package jerklib;
 
-interface ProfileUpdateable 
+interface ProfileUpdateable
 {
-	void updateProfileSuccessfully(boolean success);
-	
-	boolean isProfileUpdating();
+    void updateProfileSuccessfully(boolean success);
+
+    boolean isProfileUpdating();
 }

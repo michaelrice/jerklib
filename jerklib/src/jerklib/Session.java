@@ -1,377 +1,391 @@
 package jerklib;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.tasks.Task;
 
+import java.util.*;
+
 /**
  * @author mohadib
- * 
  */
 public class Session extends RequestGenerator
 {
 
-	private final List<String> channelNames = new ArrayList<String>();
-	private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
-	private final Map<Type, List<Task>> taskMap = new HashMap<Type, List<Task>>();
-	private final RequestedConnection rCon;
-	private Connection con;
-	private boolean rejoinOnKick = true, profileUpdating, isAway;
-	private Profile tmpProfile;
-	private long lastRetry = -1, lastResponse = System.currentTimeMillis();
-	private ServerInformation serverInfo = new ServerInformation();
-	private State state = State.DISCONNECTED;
+    private final List<String> channelNames = new ArrayList<String>();
+    private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
+    private final Map<Type, List<Task>> taskMap = new HashMap<Type, List<Task>>();
+    private final RequestedConnection rCon;
+    private Connection con;
+    private boolean rejoinOnKick = true, profileUpdating, isAway;
+    private Profile tmpProfile;
+    private long lastRetry = -1, lastResponse = System.currentTimeMillis();
+    private ServerInformation serverInfo = new ServerInformation();
+    private State state = State.DISCONNECTED;
 
-	
-	/* a Map to index currently joined channels by name */
-	private final Map<String, Channel> channelMap = new HashMap<String, Channel>();
-	
-	public void sayChannel(Channel channel, String msg)
-	{
-		super.sayChannel(msg , channel);
-	}
 
-	enum State
-	{
-		CONNECTED, 
-		CONNECTING, 
-		HALF_CONNECTED, 
-		DISCONNECTED, 
-		MARKED_FOR_REMOVAL, 
-		NEED_TO_PING, 
-		PING_SENT, 
-		NEED_TO_RECONNECT
-	}
+    /* a Map to index currently joined channels by name */
+    private final Map<String, Channel> channelMap = new HashMap<String, Channel>();
 
-	Session(RequestedConnection rCon)
-	{
-		this.rCon = rCon;
-	}
+    public void sayChannel(Channel channel, String msg)
+    {
+        super.sayChannel(msg, channel);
+    }
 
-	/* general methods */
+    enum State
+    {
+        CONNECTED,
+        CONNECTING,
+        HALF_CONNECTED,
+        DISCONNECTED,
+        MARKED_FOR_REMOVAL,
+        NEED_TO_PING,
+        PING_SENT,
+        NEED_TO_RECONNECT
+    }
 
-	public boolean isConnected()
-	{
-		return state == State.CONNECTED;
-	}
+    Session(RequestedConnection rCon)
+    {
+        this.rCon = rCon;
+    }
 
-	public boolean isRejoinOnKick()
-	{
-		return rejoinOnKick;
-	}
+    /* general methods */
 
-	public void setRejoinOnKick(boolean rejoin)
-	{
-		rejoinOnKick = rejoin;
-	}
+    public boolean isConnected()
+    {
+        return state == State.CONNECTED;
+    }
 
-	public void close(String quitMessage)
-	{
-		if (con != null)
-		{
-			con.quit(quitMessage);
-		}
-	}
+    public boolean isRejoinOnKick()
+    {
+        return rejoinOnKick;
+    }
 
-	public String getNick()
-	{
-		return getRequestedConnection().getProfile().getActualNick();
-	}
+    public void setRejoinOnKick(boolean rejoin)
+    {
+        rejoinOnKick = rejoin;
+    }
 
-	public void changeProfile(Profile profile)
-	{
-		tmpProfile = profile;
-		profileUpdating = true;
-		super.changeNick(tmpProfile.getActualNick());
-	}
+    public void close(String quitMessage)
+    {
+        if (con != null)
+        {
+            con.quit(quitMessage);
+        }
+    }
 
-	public boolean isProfileUpdating()
-	{
-		return profileUpdating;
-	}
+    public String getNick()
+    {
+        return getRequestedConnection().getProfile().getActualNick();
+    }
 
-	public void kick(String userName, String reason, Channel channel)
-	{
-		if (reason == null || reason.length() == 0)
-		{
-			reason = getNick();
-		}
-		super.kick(userName, reason, channel);
-	}
+    public void changeProfile(Profile profile)
+    {
+        tmpProfile = profile;
+        profileUpdating = true;
+        super.changeNick(tmpProfile.getActualNick());
+    }
 
-	public boolean isAway()
-	{
-		return isAway;
-	}
+    public boolean isProfileUpdating()
+    {
+        return profileUpdating;
+    }
 
-	public void setAway(String message)
-	{
-		isAway = true;
-		super.setAway(message);
-	}
+    public void kick(String userName, String reason, Channel channel)
+    {
+        if (reason == null || reason.length() == 0)
+        {
+            reason = getNick();
+        }
+        super.kick(userName, reason, channel);
+    }
 
-	public void unsetAway()
-	{
-		/* if we're not away let's not bother even delegating */
-		if (isAway)
-		{
-			super.unSetAway();
-			isAway = false;
-		}
-	}
+    public boolean isAway()
+    {
+        return isAway;
+    }
 
-	/* methods to get information about connection and server */
+    public void setAway(String message)
+    {
+        isAway = true;
+        super.setAway(message);
+    }
 
-	public ServerInformation getServerInformation()
-	{
-		return serverInfo;
-	}
+    public void unsetAway()
+    {
+        /* if we're not away let's not bother even delegating */
+        if (isAway)
+        {
+            super.unSetAway();
+            isAway = false;
+        }
+    }
 
-	public RequestedConnection getRequestedConnection()
-	{
-		return rCon;
-	}
+    /* methods to get information about connection and server */
 
-	public String getConnectedHostName()
-	{
-		return con.getHostName();
-	}
+    public ServerInformation getServerInformation()
+    {
+        return serverInfo;
+    }
 
-	/* methods for adding/removing IRCEventListeners and Tasks */
+    public RequestedConnection getRequestedConnection()
+    {
+        return rCon;
+    }
 
-	public void addIRCEventListener(IRCEventListener listener)
-	{
-		listenerList.add(listener);
-	}
+    public String getConnectedHostName()
+    {
+        return con.getHostName();
+    }
 
-	public void removeIRCEventListener(IRCEventListener listener)
-	{
-		listenerList.remove(listener);
-	}
+    /* methods for adding/removing IRCEventListeners and Tasks */
+    public void addIRCEventListener(IRCEventListener listener)
+    {
+        listenerList.add(listener);
+    }
 
-	public Collection<IRCEventListener> getIRCEventListeners()
-	{
-		return Collections.unmodifiableCollection(listenerList);
-	}
+    public void removeIRCEventListener(IRCEventListener listener)
+    {
+        listenerList.remove(listener);
+    }
 
-	public void onEvent(Task task)
-	{
-		// null means task should be notified of all Events
-		onEvent(task, null);
-	}
+    public Collection<IRCEventListener> getIRCEventListeners()
+    {
+        return Collections.unmodifiableCollection(listenerList);
+    }
 
-	public void onEvent(Task task, Type type)
-	{
-		synchronized (taskMap)
-		{
-			if (!taskMap.containsKey(type))
-			{
-				List<Task> tasks = new ArrayList<Task>();
-				tasks.add(task);
-				taskMap.put(type, tasks);
-			}
-			else
-			{
-				if (!taskMap.get(type).contains(task)) taskMap.get(type).add(task);
-			}
-		}
-	}
+    /**
+     * Chances are you'll never need this. (But tests will.)
+     */
+    protected void clearListeners()
+    {
+        listenerList.clear();
+    }
 
-	Map<Type, List<Task>> getTasks()
-	{
-		return new HashMap<Type, List<Task>>(taskMap);
-	}
 
-	public void removeTask(Task t)
-	{
-		synchronized (taskMap)
-		{
-			for (Iterator<Type> it = taskMap.keySet().iterator(); it.hasNext();)
-			{
-				List<Task> tasks = taskMap.get(it.next());
-				if (tasks != null)
-				{
-					tasks.remove(t);
-				}
-			}
-		}
-	}
+    public void onEvent(Task task)
+    {
+        // null means task should be notified of all Events
+        onEvent(task, null);
+    }
 
-	void updateProfileSuccessfully(boolean success)
-	{
-		if (success)
-		{
-			rCon.setProfile(tmpProfile);
-		}
-		tmpProfile = null;
-		profileUpdating = false;
-	}
+    public void onEvent(Task task, Type type)
+    {
+        synchronized (taskMap)
+        {
+            if (!taskMap.containsKey(type))
+            {
+                List<Task> tasks = new ArrayList<Task>();
+                tasks.add(task);
+                taskMap.put(type, tasks);
+            }
+            else
+            {
+                if (!taskMap.get(type).contains(task))
+                {
+                    taskMap.get(type).add(task);
+                }
+            }
+        }
+    }
 
-	/* Channel methods */
+    Map<Type, List<Task>> getTasks()
+    {
+        return new HashMap<Type, List<Task>>(taskMap);
+    }
 
-	public	List<Channel> getChannels()
-	{
-		return Collections.unmodifiableList(new ArrayList<Channel>(channelMap.values()));
-	}
+    /**
+     * Chances are you'll never need this. (But testing does.)
+     */
+    protected void clearTasks()
+    {
+        taskMap.clear();
+    }
 
-	public Channel getChannel(String channelName)
-	{
-		return channelMap.get(channelName);
-	}
+    public void removeTask(Task t)
+    {
+        synchronized (taskMap)
+        {
+            for (Iterator<Type> it = taskMap.keySet().iterator(); it.hasNext();)
+            {
+                List<Task> tasks = taskMap.get(it.next());
+                if (tasks != null)
+                {
+                    tasks.remove(t);
+                }
+            }
+        }
+    }
 
-	public List<String> getChannelNames()
-	{
-		return Collections.unmodifiableList(channelNames);
-	}
+    void updateProfileSuccessfully(boolean success)
+    {
+        if (success)
+        {
+            rCon.setProfile(tmpProfile);
+        }
+        tmpProfile = null;
+        profileUpdating = false;
+    }
 
-	void addChannel(Channel channel)
-	{
-		channelMap.put(channel.getName(), channel);
-	}
-	
+    /* Channel methods */
 
-	void removeChannel(Channel channel)
-	{
-		channelMap.remove(channel.getName());
-	}
-	
-	
-	void nickChanged(String oldNick, String newNick)
-	{
-		/*
-		if (log.isLoggable(Level.INFO))
-		{
-			log.info("Looking for " + oldNick);
-		}
-		*/
-		synchronized (channelMap)
-		{
-			for (Channel chan : channelMap.values())
-			{
-				if (chan.getNicks().contains(oldNick))
-				{
-				//	log.severe("Found nick in " + chan.getName());
-					chan.nickChanged(oldNick, newNick);
-				}
-			}
-		}
-	}
-	
-	List<Channel> removeNickFromAllChannels(String nick)
-	{
-		List<Channel> returnList = new ArrayList<Channel>();
-		for (Channel chan : channelMap.values())
-		{
-			if (chan.removeNick(nick))
-			{
-				returnList.add(chan);
-			}
-		}
-		return returnList;
-	}
-	
-	
-	/* methods to track connection attempts */
+    public List<Channel> getChannels()
+    {
+        return Collections.unmodifiableList(new ArrayList<Channel>(channelMap.values()));
+    }
 
-	long getLastRetry()
-	{
-		return lastRetry;
-	}
+    public Channel getChannel(String channelName)
+    {
+        return channelMap.get(channelName);
+    }
 
-	void retried()
-	{
-		lastRetry = System.currentTimeMillis();
-	}
+    public List<String> getChannelNames()
+    {
+        return Collections.unmodifiableList(channelNames);
+    }
 
-	/* methods to get/set Connection object */
-	void setConnection(Connection con)
-	{
-		this.con = con;
-		super.setConnection(con);
-	}
+    void addChannel(Channel channel)
+    {
+        channelMap.put(channel.getName(), channel);
+    }
 
-	Connection getConnection()
-	{
-		return con;
-	}
 
-	/* Methods to get and set the state of the session */
+    void removeChannel(Channel channel)
+    {
+        channelMap.remove(channel.getName());
+    }
 
-	void gotResponse()
-	{
-		lastResponse = System.currentTimeMillis();
-		state = State.CONNECTED;
-	}
 
-	void pingSent()
-	{
-		state = State.PING_SENT;
-	}
+    void nickChanged(String oldNick, String newNick)
+    {
+        /*
+          if (log.isLoggable(Level.INFO))
+          {
+              log.info("Looking for " + oldNick);
+          }
+          */
+        synchronized (channelMap)
+        {
+            for (Channel chan : channelMap.values())
+            {
+                if (chan.getNicks().contains(oldNick))
+                {
+                    //	log.severe("Found nick in " + chan.getName());
+                    chan.nickChanged(oldNick, newNick);
+                }
+            }
+        }
+    }
 
-	void disconnected()
-	{
-		state = State.DISCONNECTED;
-		if (con != null)
-		{
-			con.quit("");
-			con = null;
-		}
-		channelNames.clear();
-	}
+    List<Channel> removeNickFromAllChannels(String nick)
+    {
+        List<Channel> returnList = new ArrayList<Channel>();
+        for (Channel chan : channelMap.values())
+        {
+            if (chan.removeNick(nick))
+            {
+                returnList.add(chan);
+            }
+        }
+        return returnList;
+    }
 
-	void connected()
-	{
-		gotResponse();
-	}
+    /* methods to track connection attempts */
 
-	void connecting()
-	{
-		state = State.CONNECTING;
-	}
+    long getLastRetry()
+    {
+        return lastRetry;
+    }
 
-	void halfConnected()
-	{
-		state = State.HALF_CONNECTED;
-	}
+    void retried()
+    {
+        lastRetry = System.currentTimeMillis();
+    }
 
-	void markForRemoval()
-	{
-		state = State.MARKED_FOR_REMOVAL;
-	}
+    /* methods to get/set Connection object */
+    void setConnection(Connection con)
+    {
+        this.con = con;
+        super.setConnection(con);
+    }
 
-	State getState()
-	{
-		long current = System.currentTimeMillis();
+    Connection getConnection()
+    {
+        return con;
+    }
 
-		if (current - lastResponse > 300000 && state == State.NEED_TO_PING)
-		{
-			state = State.NEED_TO_RECONNECT;
-		}
-		else if (current - lastResponse > 200000 && state != State.PING_SENT)
-		{
-			state = State.NEED_TO_PING;
-		}
+    /* Methods to get and set the state of the session */
 
-		return state;
-	}
+    void gotResponse()
+    {
+        lastResponse = System.currentTimeMillis();
+        state = State.CONNECTED;
+    }
 
-	public int hashCode()
-	{
-		return rCon.hashCode();
-	}
+    void pingSent()
+    {
+        state = State.PING_SENT;
+    }
 
-	public boolean equals(Object o)
-	{
-		if (o instanceof Session && o.hashCode() == hashCode()) { return ((Session) o).getRequestedConnection().equals(rCon); }
-		return false;
-	}
+    void disconnected()
+    {
+        state = State.DISCONNECTED;
+        if (con != null)
+        {
+            con.quit("");
+            con = null;
+        }
+        channelNames.clear();
+    }
+
+    void connected()
+    {
+        gotResponse();
+    }
+
+    void connecting()
+    {
+        state = State.CONNECTING;
+    }
+
+    void halfConnected()
+    {
+        state = State.HALF_CONNECTED;
+    }
+
+    void markForRemoval()
+    {
+        state = State.MARKED_FOR_REMOVAL;
+    }
+
+    State getState()
+    {
+        long current = System.currentTimeMillis();
+
+        if (current - lastResponse > 300000 && state == State.NEED_TO_PING)
+        {
+            state = State.NEED_TO_RECONNECT;
+        }
+        else if (current - lastResponse > 200000 && state != State.PING_SENT)
+        {
+            state = State.NEED_TO_PING;
+        }
+
+        return state;
+    }
+
+    public int hashCode()
+    {
+        return rCon.hashCode();
+    }
+
+    public boolean equals(Object o)
+    {
+        if (o instanceof Session && o.hashCode() == hashCode())
+        {
+            return ((Session) o).getRequestedConnection().equals(rCon);
+        }
+        return false;
+    }
 
 }

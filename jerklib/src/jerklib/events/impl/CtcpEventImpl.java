@@ -4,80 +4,80 @@ import jerklib.Channel;
 import jerklib.Session;
 import jerklib.events.CtcpEvent;
 
-public class CtcpEventImpl implements CtcpEvent 
+public class CtcpEventImpl implements CtcpEvent
 {
 
-	private String ctcpString , hostName , message , nick , userName , rawEventData;
-	private Channel channel;
-	private Session session;
-	
-	
-	public CtcpEventImpl
-	(
-		String ctcpString, 
-		String hostName, 
-		String message,
-		String nick, 
-		String userName, 
-		String rawEventData, 
-		Channel channel,
-		Session session
-	) 
-	{
-		super();
-		this.ctcpString = ctcpString;
-		this.hostName = hostName;
-		this.message = message;
-		this.nick = nick;
-		this.userName = userName;
-		this.rawEventData = rawEventData;
-		this.channel = channel;
-		this.session = session;
-	}
+    private String ctcpString, hostName, message, nick, userName, rawEventData;
+    private Channel channel;
+    private Session session;
 
-	public String getCtcpString() 
-	{
-		return ctcpString;
-	}
 
-	public Channel getChannel() 
-	{
-		return channel;
-	}
+    public CtcpEventImpl
+            (
+                    String ctcpString,
+                    String hostName,
+                    String message,
+                    String nick,
+                    String userName,
+                    String rawEventData,
+                    Channel channel,
+                    Session session
+            )
+    {
+        super();
+        this.ctcpString = ctcpString;
+        this.hostName = hostName;
+        this.message = message;
+        this.nick = nick;
+        this.userName = userName;
+        this.rawEventData = rawEventData;
+        this.channel = channel;
+        this.session = session;
+    }
 
-	public String getHostName() 
-	{
-		return hostName;
-	}
+    public String getCtcpString()
+    {
+        return ctcpString;
+    }
 
-	public String getMessage() 
-	{
-		return message;
-	}
+    public Channel getChannel()
+    {
+        return channel;
+    }
 
-	public String getNick() 
-	{
-		return nick;
-	}
+    public String getHostName()
+    {
+        return hostName;
+    }
 
-	public String getUserName() 
-	{
-		return userName;
-	}
+    public String getMessage()
+    {
+        return message;
+    }
 
-	public String getRawEventData() 
-	{
-		return rawEventData;
-	}
+    public String getNick()
+    {
+        return nick;
+    }
 
-	public Session getSession() 
-	{
-		return session;
-	}
+    public String getUserName()
+    {
+        return userName;
+    }
 
-	public Type getType() 
-	{
-		return Type.CTCP_EVENT;
-	}
+    public String getRawEventData()
+    {
+        return rawEventData;
+    }
+
+    public Session getSession()
+    {
+        return session;
+    }
+
+    public Type getType()
+    {
+        return Type.CTCP_EVENT;
+    }
 
 }

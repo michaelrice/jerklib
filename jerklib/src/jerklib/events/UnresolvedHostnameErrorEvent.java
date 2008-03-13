@@ -4,7 +4,7 @@ import java.nio.channels.UnresolvedAddressException;
 
 public interface UnresolvedHostnameErrorEvent extends ErrorEvent
 {
-	String getHostName();
-	
-	UnresolvedAddressException getException();
+    String getHostName();
+
+    UnresolvedAddressException getException();
 }

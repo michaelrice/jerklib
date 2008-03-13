@@ -6,7 +6,8 @@ import jerklib.events.WhoisEvent;
 import java.util.Date;
 import java.util.List;
 
-public class WhoisEventImpl implements WhoisEvent {
+public class WhoisEventImpl implements WhoisEvent
+{
     private final Type type = Type.WHOIS_EVENT;
     private final String host, user, realName, nick;
     private final Session session;
@@ -25,7 +26,8 @@ public class WhoisEventImpl implements WhoisEvent {
                     String host,
                     String rawEventData,
                     Session session
-            ) {
+            )
+    {
         this.nick = nick;
         this.realName = realName;
         this.user = user;
@@ -34,85 +36,105 @@ public class WhoisEventImpl implements WhoisEvent {
         this.rawEventData = rawEventData;
     }
 
-    public List<String> getChannelNames() {
+    public List<String> getChannelNames()
+    {
         return channelNames;
     }
 
-    public void setChannelNamesList(List<String> chanNames) {
+    public void setChannelNamesList(List<String> chanNames)
+    {
         channelNames = chanNames;
     }
 
-    public String getHost() {
+    public String getHost()
+    {
         return host;
     }
 
-    public String getUser() {
+    public String getUser()
+    {
         return user;
     }
 
-    public String getRealName() {
+    public String getRealName()
+    {
         return realName;
     }
 
-    public String getNick() {
+    public String getNick()
+    {
         return nick;
     }
 
-    public boolean isAnOperator() {
+    public boolean isAnOperator()
+    {
         return isOp;
     }
 
 
-    public boolean isIdle() {
+    public boolean isIdle()
+    {
         return secondsIdle > 0;
     }
 
 
-    public long secondsIdle() {
+    public long secondsIdle()
+    {
         return secondsIdle;
     }
 
-    public void setSecondsIdle(int secondsIdle) {
+    public void setSecondsIdle(int secondsIdle)
+    {
         this.secondsIdle = secondsIdle();
     }
 
-    public Date signOnTime() {
+    public Date signOnTime()
+    {
         return new Date(1000L * signOnTime);
     }
 
-    public void setSignOnTime(int signOnTime) {
+    public void setSignOnTime(int signOnTime)
+    {
         this.signOnTime = signOnTime;
     }
 
-    public String whoisServer() {
+    public String whoisServer()
+    {
         return whoisServer;
     }
 
-    public void setWhoisServer(String whoisServer) {
+    public void setWhoisServer(String whoisServer)
+    {
         this.whoisServer = whoisServer;
     }
 
-    public String whoisServerInfo() {
+    public String whoisServerInfo()
+    {
         return whoisServerInfo;
     }
 
-    public void setWhoisServerInfo(String whoisServerInfo) {
+    public void setWhoisServerInfo(String whoisServerInfo)
+    {
         this.whoisServerInfo = whoisServerInfo;
     }
 
-    public String getRawEventData() {
+    public String getRawEventData()
+    {
         return rawEventData;
     }
 
-    public void appendRawEventData(String rawEventData) {
+    public void appendRawEventData(String rawEventData)
+    {
         this.rawEventData += "\r\n" + rawEventData;
     }
 
-    public Session getSession() {
+    public Session getSession()
+    {
         return session;
     }
 
-    public Type getType() {
+    public Type getType()
+    {
         return type;
     }
 

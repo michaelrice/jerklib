@@ -6,7 +6,8 @@ package jerklib;
  *
  * @author mohadib
  */
-public interface Profile extends Cloneable {
+public interface Profile extends Cloneable
+{
     /**
      * Gets the nick currently being used
      *
@@ -47,5 +48,5 @@ public interface Profile extends Cloneable {
     /**
      * @return a copy of this profile
      */
-	Profile clone();
+    Profile clone();
 }

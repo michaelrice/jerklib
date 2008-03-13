@@ -1,6 +1,6 @@
 package jerklib.events;
 
-public interface CtcpEvent extends MessageEvent 
+public interface CtcpEvent extends MessageEvent
 {
-	String getCtcpString();
+    String getCtcpString();
 }

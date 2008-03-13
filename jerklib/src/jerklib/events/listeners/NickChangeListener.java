@@ -1,6 +1,6 @@
 package jerklib.events.listeners;
 
-public interface NickChangeListener 
+public interface NickChangeListener
 {
-	void changeNick();
+    void changeNick();
 }

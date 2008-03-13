@@ -28,47 +28,48 @@ import jerklib.Channel;
 
 /**
  * NoticeIRCEvent - the event for notices from teh server
- * 
- * @author mohadib
  *
+ * @author mohadib
  */
-public interface NoticeEvent extends IRCEvent {
-	
-  
-  /**
-   * Returns a string that represents the notice type
-   * 
-   * @return event type
-   */
-  public String getNoticeType();
-	
-  
-  /**
-   * returns notice message
-   * 
-   * @return notice message
-   */
-  public String getNoticeMessage();
-  
-  /**
-   * Gets who sent the notice event
-   * 
-   * @return who
-   */
-  public String byWho();
-  
-  /**
-   * If this notice is sent to a user this will return who
-   * @return who
-   */
-  public String toWho();
+public interface NoticeEvent extends IRCEvent
+{
 
-  /**
-   * If this is a Channel notice this will return the Channel
-   * 
-   * @return Channel
-   * @see Channel
-   */
-  public Channel getChannel();
-  
+
+    /**
+     * Returns a string that represents the notice type
+     *
+     * @return event type
+     */
+    public String getNoticeType();
+
+
+    /**
+     * returns notice message
+     *
+     * @return notice message
+     */
+    public String getNoticeMessage();
+
+    /**
+     * Gets who sent the notice event
+     *
+     * @return who
+     */
+    public String byWho();
+
+    /**
+     * If this notice is sent to a user this will return who
+     *
+     * @return who
+     */
+    public String toWho();
+
+    /**
+     * If this is a Channel notice this will return the Channel
+     *
+     * @return Channel
+     * @see Channel
+     */
+    public Channel getChannel();
+
 }

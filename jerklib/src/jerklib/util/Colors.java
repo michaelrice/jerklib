@@ -14,7 +14,8 @@ import java.util.List;
  *
  * @author mohadib
  */
-public final class Colors {
+public final class Colors
+{
     /**
      * Removes all applied color and formatting
      */
@@ -118,7 +119,8 @@ public final class Colors {
 
     private static final List<String> colorList = new ArrayList<String>();
 
-    static {
+    static
+    {
         colorList.add(Colors.BLACK);
         colorList.add(Colors.BLUE);
         colorList.add(Colors.BOLD);
@@ -145,7 +147,8 @@ public final class Colors {
      *
      * @return a list of all colors available
      */
-    public static List<String> getColorsList() {
+    public static List<String> getColorsList()
+    {
         return Collections.unmodifiableList(colorList);
-    }  
+    }
 }

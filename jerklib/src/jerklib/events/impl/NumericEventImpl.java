@@ -5,53 +5,53 @@ import jerklib.events.NumericErrorEvent;
 
 public class NumericEventImpl implements NumericErrorEvent
 {
-	private final String errMsg,rawEventData;
-	private final Session session;
-	private final int numeric;
-	
-	public NumericEventImpl
-	(
-			String errMsg, 
-			String rawEventData, 
-			int numeric,
-			Session session
-	)
-	{
-		super();
-		this.errMsg = errMsg;
-		this.rawEventData = rawEventData;
-		this.session = session;
-		this.numeric = numeric;
-	}
+    private final String errMsg, rawEventData;
+    private final Session session;
+    private final int numeric;
 
-	public String getErrorMsg()
-	{
-		return errMsg;
-	}
+    public NumericEventImpl
+            (
+                    String errMsg,
+                    String rawEventData,
+                    int numeric,
+                    Session session
+            )
+    {
+        super();
+        this.errMsg = errMsg;
+        this.rawEventData = rawEventData;
+        this.session = session;
+        this.numeric = numeric;
+    }
 
-	public int getNumeric()
-	{
-		return numeric;
-	}
-	
-	public ErrorType getErrorType() 
-	{
-		return ErrorType.NUMERIC_ERROR;
-	}
-	
-	public String getRawEventData()
-	{
-		return rawEventData;
-	}
+    public String getErrorMsg()
+    {
+        return errMsg;
+    }
 
-	public Session getSession()
-	{
-		return session;
-	}
+    public int getNumeric()
+    {
+        return numeric;
+    }
 
-	public Type getType()
-	{
-		return Type.ERROR;
-	}
+    public ErrorType getErrorType()
+    {
+        return ErrorType.NUMERIC_ERROR;
+    }
+
+    public String getRawEventData()
+    {
+        return rawEventData;
+    }
+
+    public Session getSession()
+    {
+        return session;
+    }
+
+    public Type getType()
+    {
+        return Type.ERROR;
+    }
 
 }

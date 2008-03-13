@@ -1,6 +1,6 @@
 package jerklib.events.listeners;
 
-interface NickUpdatedListener 
+interface NickUpdatedListener
 {
-	void nickUpdatedSuccessfully(boolean success);
+    void nickUpdatedSuccessfully(boolean success);
 }

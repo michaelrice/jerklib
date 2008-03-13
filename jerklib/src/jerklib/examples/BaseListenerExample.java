@@ -9,13 +9,16 @@ import jerklib.events.JoinCompleteEvent;
 import jerklib.events.MessageEvent;
 import jerklib.events.listeners.BaseListener;
 
-public class BaseListenerExample extends BaseListener implements Runnable {
-    public BaseListenerExample() {
+public class BaseListenerExample extends BaseListener implements Runnable
+{
+    public BaseListenerExample()
+    {
     }
 
     Session session;
 
-    public void run() {
+    public void run()
+    {
         ConnectionManager manager = new ConnectionManager(new ProfileImpl("ble", "ble", "ble_", "ble__"));
 
         session = manager.requestConnection("irc.freenode.net");
@@ -24,50 +27,66 @@ public class BaseListenerExample extends BaseListener implements Runnable {
     }
 
     @Override
-    protected void handleJoinCompleteEvent(JoinCompleteEvent event) {
+    protected void handleJoinCompleteEvent(JoinCompleteEvent event)
+    {
         event.getChannel().say("Hello from BaseListenerExample");
     }
 
     @Override
-    protected void handleConnectComplete(ConnectionCompleteEvent event) {
+    protected void handleConnectComplete(ConnectionCompleteEvent event)
+    {
         event.getSession().join("#jerklib");
     }
 
     @Override
-    protected void handleChannelMessage(MessageEvent event) {
+    protected void handleChannelMessage(MessageEvent event)
+    {
         log.info(event.getChannel().getName() + ":" + event.getNick() + ":" + event.getMessage());
-        if ("now die".equalsIgnoreCase(event.getMessage())) {
+        if ("now die".equalsIgnoreCase(event.getMessage()))
+        {
             event.getChannel().say("Okay, fine, I'll die");
-            try {
+            try
+            {
                 Thread.sleep(2000);
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e)
+            {
                 // *nothing*
             }
             System.exit(0);
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         BaseListenerExample ble = new BaseListenerExample();
         Thread t = new Thread(ble);
         t.start();
-        try {
+        try
+        {
             Thread.sleep(30000L); // give it the axe in 30!
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e)
+        {
             // *nothing*
         }
         ble.sayGoodbye();
-        try {
+        try
+        {
             Thread.sleep(5000); // let the message be written!
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e)
+        {
             // *nothing*
         }
         System.exit(0);
     }
 
-    private void sayGoodbye() {
-    		for(Channel chan : session.getChannels()) {
-    			chan.say("I'm melting! (built-in sword of Damocles... or bucket of water, whatever)");
-    		}
+    private void sayGoodbye()
+    {
+        for (Channel chan : session.getChannels())
+        {
+            chan.say("I'm melting! (built-in sword of Damocles... or bucket of water, whatever)");
+        }
     }
 }

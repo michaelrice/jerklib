@@ -27,17 +27,16 @@ package jerklib.events;
 /**
  * Event made when connected to the server
  * This event contains the real server name. Example. When connection
- * to 'irc.freenode.net' we might actually connect to kornbluf.freenode.net 
+ * to 'irc.freenode.net' we might actually connect to kornbluf.freenode.net
  * or some other host. This event will have the real hosts name.
- * 
+ * <p/>
  * After receiving this event a Session is ready to join channels
- * 
- * @author mohadib
  *
+ * @author mohadib
  */
 public interface ConnectionCompleteEvent extends IRCEvent
 {
-  
-  public String getActualHostName();
+
+    public String getActualHostName();
 
 }

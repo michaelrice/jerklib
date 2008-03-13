@@ -10,14 +10,16 @@ import jerklib.events.MessageEvent;
  *
  * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor</a>
  */
-public class MessageEventImpl implements MessageEvent {
+public class MessageEventImpl implements MessageEvent
+{
 
     private final String nick, userName, hostName, message, rawEventData;
     private final Channel channel;
     private final Type type;
     private final Session session;
 
-    public MessageEventImpl(Channel channel, String hostName, String message, String nick, String rawEventData, Session session, IRCEvent.Type type, String userName) {
+    public MessageEventImpl(Channel channel, String hostName, String message, String nick, String rawEventData, Session session, IRCEvent.Type type, String userName)
+    {
         this.channel = channel;
         this.hostName = hostName;
         this.message = message;
@@ -28,35 +30,43 @@ public class MessageEventImpl implements MessageEvent {
         this.userName = userName;
     }
 
-    public Channel getChannel() {
+    public Channel getChannel()
+    {
         return channel;
     }
 
-    public String getHostName() {
+    public String getHostName()
+    {
         return hostName;
     }
 
-    public String getMessage() {
+    public String getMessage()
+    {
         return message;
     }
 
-    public String getNick() {
+    public String getNick()
+    {
         return nick;
     }
 
-    public String getRawEventData() {
+    public String getRawEventData()
+    {
         return rawEventData;
     }
 
-    public Type getType() {
+    public Type getType()
+    {
         return type;
     }
 
-    public String getUserName() {
+    public String getUserName()
+    {
         return userName;
     }
 
-    public Session getSession() {
+    public Session getSession()
+    {
         return session;
     }
 }

@@ -29,18 +29,17 @@ import jerklib.WriteRequest;
 
 /**
  * IRCWriteRequestListener - Listener to be notified of all writes
- * 
- * @author mohadib
  *
+ * @author mohadib
  */
-public interface WriteRequestListener 
+public interface WriteRequestListener
 {
 
-	/**
-   * receiveEvent() - method will be called anytime a write is requestd.
-   * 
-	 * @param request <code>IRCWriteRequest</code> the write request
-	 */
-	public void receiveEvent(WriteRequest request);
-	
+    /**
+     * receiveEvent() - method will be called anytime a write is requestd.
+     *
+     * @param request <code>IRCWriteRequest</code> the write request
+     */
+    public void receiveEvent(WriteRequest request);
+
 }

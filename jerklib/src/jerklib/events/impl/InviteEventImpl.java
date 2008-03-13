@@ -1,15 +1,17 @@
 package jerklib.events.impl;
 
-import jerklib.events.InviteEvent;
-import jerklib.events.IRCEvent;
 import jerklib.Session;
+import jerklib.events.IRCEvent;
+import jerklib.events.InviteEvent;
 
-public class InviteEventImpl implements InviteEvent {
-    private final String nick,channel,rawEventData,userName,hostName;
+public class InviteEventImpl implements InviteEvent
+{
+    private final String nick, channel, rawEventData, userName, hostName;
     private Type type = IRCEvent.Type.INVITE_EVENT;
     private Session session;
 
-    public InviteEventImpl(String channel, String nick, String userName, String hostName, String rawEventData, Session session){
+    public InviteEventImpl(String channel, String nick, String userName, String hostName, String rawEventData, Session session)
+    {
         this.channel = channel;
         this.nick = nick;
         this.userName = userName;
@@ -25,7 +27,8 @@ public class InviteEventImpl implements InviteEvent {
      *
      * @return <code>Type</code> enum for event.
      */
-    public Type getType() {
+    public Type getType()
+    {
         return type;
     }
 
@@ -34,7 +37,8 @@ public class InviteEventImpl implements InviteEvent {
      *
      * @return the channel we were invited to.
      */
-    public String getChannelName() {
+    public String getChannelName()
+    {
         return channel;
     }
 
@@ -43,15 +47,18 @@ public class InviteEventImpl implements InviteEvent {
      *
      * @return the nick of the person who invited us
      */
-    public String getNick() {
+    public String getNick()
+    {
         return nick;
     }
 
-    public String getHostName() {
+    public String getHostName()
+    {
         return hostName;
     }
 
-    public String getUserName() {
+    public String getUserName()
+    {
         return userName;
     }
 
@@ -60,11 +67,13 @@ public class InviteEventImpl implements InviteEvent {
      *
      * @return <code>String</code> Raw IRC event text.
      */
-    public String getRawEventData() {
+    public String getRawEventData()
+    {
         return rawEventData;
     }
 
-    public Session getSession() {
+    public Session getSession()
+    {
         return session;
     }
 }
