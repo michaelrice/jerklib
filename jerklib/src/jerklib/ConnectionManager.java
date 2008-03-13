@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Logger;
 import java.util.logging.Level;
 
 
@@ -141,6 +140,12 @@ public class ConnectionManager
 		
 		startMainLoop();
 	}
+	
+	/* this ctor is for testing purposes only */
+	ConnectionManager()
+	{
+	}
+	
 
 	/**
 	 * get a list of Sessions
@@ -335,7 +340,7 @@ public class ConnectionManager
 	}
 	
 	
-	private void startMainLoop()
+	void startMainLoop()
 	{
 		dispatchTimer = new Timer();
 		
@@ -366,7 +371,7 @@ public class ConnectionManager
 		dispatchTimer.schedule(dispatchTask, 0 , 200);
 	}
 	
-	private void doNetworkIO()
+	void doNetworkIO()
 	{
 		try
 		{
@@ -405,7 +410,7 @@ public class ConnectionManager
 		}
 	}
 	
-	private void finishConnection(SelectionKey key)
+	void finishConnection(SelectionKey key)
 	{
 		SocketChannel chan = (SocketChannel)key.channel();
 		Session session = socChanMap.get(chan);
@@ -433,7 +438,7 @@ public class ConnectionManager
 		}
 	}
 	
-	private void checkServerConnections()
+	void checkServerConnections()
 	{
 		synchronized (sessionMap)
 		{
@@ -454,7 +459,7 @@ public class ConnectionManager
 		}
 	}
 	
-	private void parseEvents()
+	void parseEvents()
 	{
 		synchronized (eventQueue) 
 		{
@@ -468,7 +473,7 @@ public class ConnectionManager
 	}	
 	
 	
-	private Map<Type, List<Task>> removeCanceled(Session session)
+	Map<Type, List<Task>> removeCanceled(Session session)
 	{
 		Map<Type, List<Task>> tasks = session.getTasks(); 
 		synchronized (tasks)
@@ -489,7 +494,7 @@ public class ConnectionManager
 		return tasks;
 	}
 	
-	private void relayEvents()
+	void relayEvents()
 	{
 		List<IRCEvent> events = new ArrayList<IRCEvent>();
 		List<IRCEventListener>templisteners = new ArrayList<IRCEventListener>();
@@ -549,7 +554,7 @@ public class ConnectionManager
 		}
 	}
 	
-	private void notifyWriteListeners()
+	void notifyWriteListeners()
 	{
 		List<WriteRequestListener> list = new ArrayList<WriteRequestListener>();
 		List<WriteRequest> wRequests = new ArrayList<WriteRequest>();
@@ -573,10 +578,9 @@ public class ConnectionManager
 				listener.receiveEvent(request);
 			}
 		}
-		
 	}
 	
-	private void makeConnections()
+	void makeConnections()
 	{
 		synchronized (sessionMap)
 		{
@@ -627,7 +631,7 @@ public class ConnectionManager
 		}
 	}
 	
-	private void connect(Session session) throws IOException
+	void connect(Session session) throws IOException
 	{
 		SocketChannel sChannel = SocketChannel.open();
     
