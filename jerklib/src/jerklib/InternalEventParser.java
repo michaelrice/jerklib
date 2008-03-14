@@ -544,7 +544,7 @@ public class InternalEventParser
                 manager.addToRelayList(IRCEventFactory.who(data, session));
                 break;
             case 353:
-                namesLine(data, session);
+                namesLine(data, session);manager.addToRelayList(event);
                 break;
             case 366:
                 manager.addToRelayList(IRCEventFactory.nickList(data, session));
