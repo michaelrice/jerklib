@@ -33,7 +33,8 @@ public class Channel
 
     void updateUsersMode(String username, String mode)
     {
-        List<String> modes = userMap.get(username);
+    		String nick = getActualUserString(username);
+        List<String> modes = userMap.get(nick);
         if (modes == null)
         {
             modes = new ArrayList<String>();
@@ -43,11 +44,12 @@ public class Channel
         modes.remove("+" + modeChar);
         modes.remove(modeChar);
         modes.add(mode);
-        userMap.put(username, modes);
+        userMap.put(nick, modes);
     }
 
     public List<String> getUsersModes(String nick)
     {
+    		nick = getActualUserString(nick);
         if (userMap.containsKey(nick))
         {
             return userMap.get(nick);
@@ -62,7 +64,7 @@ public class Channel
     public List<String> getNicksForMode(String mode)
     {
         List<String> nicks = new ArrayList<String>();
-        for (String nick : userMap.keySet())
+        for (String nick : getNicks())
         {
             List<String> modes = userMap.get(nick);
             if (modes != null && modes.contains(mode))
@@ -163,13 +165,22 @@ public class Channel
 
     boolean removeNick(String nick)
     {
-        return userMap.remove(nick) != null;
+    	nick = getActualUserString(nick);
+    	if(nick != null)
+    	{
+    		return userMap.remove(nick) != null;
+    	}
+    		return false;
     }
 
     void nickChanged(String oldNick, String newNick)
     {
-        List<String> modes = userMap.remove(oldNick);
-        userMap.put(newNick, modes);
+    		String nick = getActualUserString(oldNick);
+    		if(nick != null)
+    		{
+    			List<String> modes = userMap.remove(nick);
+          userMap.put(newNick, modes);
+    		}
     }
 
     /* (non-Javadoc)
@@ -177,7 +188,29 @@ public class Channel
       */
     public List<String> getNicks()
     {
-        return new ArrayList<String>(Collections.unmodifiableCollection(userMap.keySet()));
+        return new ArrayList<String>(Collections.unmodifiableCollection(userMap.keySet()))
+        {
+        	@Override
+        	public int indexOf(Object o)
+        	{
+        		if(o == null)
+        		{
+        			return super.indexOf(o);
+        		}
+        		else
+        		{
+        			for(Iterator<String> it = iterator();it.hasNext();)
+        			{
+        				String s = it.next();
+        				if(s.equalsIgnoreCase(o.toString()))
+        				{
+        					return indexOf(s);
+        				}
+        			}
+        		}
+        		return -1;
+        	}
+        };
     }
 
     /* (non-Javadoc)
@@ -242,6 +275,14 @@ public class Channel
     }
 
 
+    private String getActualUserString(String userName)
+    {
+    	List<String> nicks = getNicks();
+  		int index = nicks.indexOf(userName);
+  		if(index == -1) return null;
+  		return nicks.get(index);
+    }
+    
 }
 
 
