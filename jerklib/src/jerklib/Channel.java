@@ -204,7 +204,7 @@ public class Channel
         				String s = it.next();
         				if(s.equalsIgnoreCase(o.toString()))
         				{
-        					return indexOf(s);
+        					return super.indexOf(s);
         				}
         			}
         		}
