@@ -9,6 +9,13 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.assertTrue;
 
+
+/*
+ * the data file for this test only has data from freenodes - hyperion-1.0.2b
+ * need to run this with data from other ircds 
+ * 
+ */
+
 public class NickCacheTest
 {
 	private MockConnectionManager conMan;
