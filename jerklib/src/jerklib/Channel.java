@@ -4,6 +4,8 @@ import jerklib.events.TopicEvent;
 
 import java.util.*;
 
+import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
+
 public class Channel
 {
     private String name;
@@ -199,12 +201,11 @@ public class Channel
         		}
         		else
         		{
-        			for(Iterator<String> it = iterator();it.hasNext();)
+        			for(int i =0 ; i < size(); i++)
         			{
-        				String s = it.next();
-        				if(s.equalsIgnoreCase(o.toString()))
+        				if(get(i).equalsIgnoreCase(o.toString()))
         				{
-        					return super.indexOf(s);
+        					return i;
         				}
         			}
         		}
