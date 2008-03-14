@@ -21,7 +21,7 @@ import static org.testng.AssertJUnit.assertTrue;
  * undernet - 	u2.10.12.12 
  * irc.nixgeeks.com -  Unreal3.2.3
  * freenode -  hyperion-1.0.2b
- * 
+ * dalnet - bahmunt
  */
 
 public class ChannelMessageTest
@@ -53,6 +53,7 @@ public class ChannelMessageTest
 		session.addChannel(new Channel("#ubuntu" , session));
 		session.addChannel(new Channel("#cod4.wars" , session));
 		session.addChannel(new Channel("#cd+g" , session));
+		session.addChannel(new Channel("#perkosa" , session));
 		
 		
 		session.addIRCEventListener(new IRCEventListener()
@@ -121,6 +122,17 @@ public class ChannelMessageTest
 						assertTrue(me.getMessage().equals("@FIND C-SIDE"));
 						break;
 					}
+					case 6:
+					{
+						assertTrue(me.getChannel() != null);
+						assertTrue(me.getChannel().getName().equals("#perkosa"));
+						assertTrue(me.getHostName().equals("72.20.54.161"));
+						assertTrue(me.getUserName().equals("perkosa"));
+						assertTrue(me.getSession().equals(session));
+						assertTrue(me.getNick().equals("p3rkosa"));
+						assertTrue(me.getMessage().equals(" HELLO"));
+						break;
+					}
 					default:
 					{
 						assertTrue(false);
@@ -130,7 +142,7 @@ public class ChannelMessageTest
 		});
 		
 		conMan.start(session);
-		assertTrue(pmReceived == 5);
+		assertTrue(pmReceived == 6);
 		
 	}
 }
