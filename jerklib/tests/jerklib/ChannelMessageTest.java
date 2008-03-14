@@ -80,17 +80,6 @@ public class ChannelMessageTest
 					case 2:
 					{
 						assertTrue(me.getChannel() != null);
-						assertTrue(me.getChannel().getName().equals("#tvtorrents"));
-						assertTrue(me.getHostName().equals("nix-555C426C.cust.blixtvik.net"));
-						assertTrue(me.getUserName().equals("~PircBot"));
-						assertTrue(me.getSession().equals(session));
-						assertTrue(me.getNick().equals("TVTorrentsBot"));
-						assertTrue(me.getMessage().equals("<sammyp123> so if i have say episodes of lost, i have got of the stage 6 site how do i seed them or attach the tracker to let it seed"));
-						break;
-					}
-					case 3:
-					{
-						assertTrue(me.getChannel() != null);
 						assertTrue(me.getChannel().getName().equals("#mp3passion"));
 						assertTrue(me.getHostName().equals("bas9-montreal02-1096615543.dsl.bell.ca"));
 						assertTrue(me.getUserName().equals("Eclipse"));
@@ -99,18 +88,7 @@ public class ChannelMessageTest
 						assertTrue(me.getMessage().equals("!afroman 07-santos-crazy_crazy_lovin.mp3  ::INFO:: 2.1MB"));
 						break;
 					}
-					case 4:
-					{
-						assertTrue(me.getChannel() != null);
-						assertTrue(me.getChannel().getName().equals("#mp3passion"));
-						assertTrue(me.getHostName().equals("bas9-montreal02-1096615543.dsl.bell.ca"));
-						assertTrue(me.getUserName().equals("Eclipse"));
-						assertTrue(me.getSession().equals(session));
-						assertTrue(me.getNick().equals("Arukko"));
-						assertTrue(me.getMessage().equals("!afroman 08-santos-move_it.mp3  ::INFO:: 2.7MB"));
-						break;
-					}
-					case 5:
+					case 3:
 					{
 						assertTrue(me.getChannel() != null);
 						assertTrue(me.getChannel().getName().equals("#ubuntu"));
@@ -121,18 +99,7 @@ public class ChannelMessageTest
 						assertTrue(me.getMessage().equals("gr1ff1n,  what's the command ?"));
 						break;
 					}
-					case 6:
-					{
-						assertTrue(me.getChannel() != null);
-						assertTrue(me.getChannel().getName().equals("#ubuntu"));
-						assertTrue(me.getHostName().equals("r190-64-97-115.dialup.adsl.anteldata.net.uy"));
-						assertTrue(me.getUserName().equals("n=juan"));
-						assertTrue(me.getSession().equals(session));
-						assertTrue(me.getNick().equals("Juan"));
-						assertTrue(me.getMessage().equals("nothing"));
-						break;
-					}
-					case 7:
+					case 4:
 					{
 						assertTrue(me.getChannel() != null);
 						assertTrue(me.getChannel().getName().equals("#cod4.wars"));
@@ -143,18 +110,7 @@ public class ChannelMessageTest
 						assertTrue(me.getMessage().equals("5on5 cb.eu server on"));
 						break;
 					}
-					case 8:
-					{
-						assertTrue(me.getChannel() != null);
-						assertTrue(me.getChannel().getName().equals("#cod4.wars"));
-						assertTrue(me.getHostName().equals("p57B3E8F1.dip.t-dialin.net"));
-						assertTrue(me.getUserName().equals("~gamelukas"));
-						assertTrue(me.getSession().equals(session));
-						assertTrue(me.getNick().equals("sfclukas"));
-						assertTrue(me.getMessage().equals("7on7 server on"));
-						break;
-					}
-					case 9:
+					case 5:
 					{
 						assertTrue(me.getChannel() != null);
 						assertTrue(me.getChannel().getName().equals("#cd+g"));
@@ -163,17 +119,6 @@ public class ChannelMessageTest
 						assertTrue(me.getSession().equals(session));
 						assertTrue(me.getNick().equals("carl"));
 						assertTrue(me.getMessage().equals("@FIND C-SIDE"));
-						break;
-					}
-					case 10:
-					{
-						assertTrue(me.getChannel() != null);
-						assertTrue(me.getChannel().getName().equals("#cd+g"));
-						assertTrue(me.getHostName().equals("outsiderz-9BEEF55C.dhcp.stls.mo.charter.com"));
-						assertTrue(me.getUserName().equals("carl"));
-						assertTrue(me.getSession().equals(session));
-						assertTrue(me.getNick().equals("carl"));
-						assertTrue(me.getMessage().equals("@find this town needs a bar"));
 						break;
 					}
 					default:
@@ -185,7 +130,7 @@ public class ChannelMessageTest
 		});
 		
 		conMan.start(session);
-		assertTrue(pmReceived == 10);
+		assertTrue(pmReceived == 5);
 		
 	}
 }
