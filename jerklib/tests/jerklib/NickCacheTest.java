@@ -41,6 +41,11 @@ public class NickCacheTest
 		conMan.start(session);
 	}
 	
+	@Test
+	public void testNickListEventGenerated()
+	{
+		assertTrue(nle != null);
+	}
 	
 	@Test
 	public void TestNickCountFromNickListEvent()
@@ -61,6 +66,7 @@ public class NickCacheTest
 		Channel chan = session.getChannel("#ubuntu");
 		assertTrue(!chan.getNicks().contains("unstable"));
 		assertTrue(chan.getNicks().contains("rosco"));
+		assertTrue(!chan.getNicks().contains("Rosco"));
 	}
 	
 	
