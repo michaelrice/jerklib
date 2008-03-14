@@ -23,7 +23,7 @@ class Connection
     private final SocketChannel socChannel;
 
     /* A Buffer of write request */
-    private final List<WriteRequest> writeRequests = Collections.synchronizedList(new ArrayList<WriteRequest>());
+    final List<WriteRequest> writeRequests = Collections.synchronizedList(new ArrayList<WriteRequest>());
 
     /* ByteBuffer for readinging into */
     private final ByteBuffer readBuffer = ByteBuffer.allocate(2048);
@@ -283,7 +283,7 @@ class Connection
         }
     }
 
-    private void fireWriteEvent(WriteRequest request)
+    void fireWriteEvent(WriteRequest request)
     {
         for (WriteRequestListener listener : manager.getWriteListeners())
         {
