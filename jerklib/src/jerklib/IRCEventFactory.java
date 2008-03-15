@@ -19,43 +19,46 @@ class IRCEventFactory
 		myManager = manager;
 	}
 
-	// :kubrick.freenode.net 351 scripy hyperion-1.0.2b(382). kubrick.freenode.net
-	// :iM dncrTS/v4
+	// :kubrick.freenode.net 351 scripy hyperion-1.0.2b(382). kubrick.freenode.net :iM dncrTS/v4
 	// "<version>.<debuglevel> <server> :<comments>"
-	static ServerVersionEvent serverVersion(String data, Session session)
+	static ServerVersionEvent serverVersion(EventToken token, Session session)
 	{
-		Pattern p = Pattern.compile("^:\\S+\\s351\\s\\S+\\s(\\S+)\\s(\\S+)\\s:(.*)$");
-		Matcher m = p.matcher(data);
-		if (m.matches()) { return new ServerVersionEventImpl(m.group(3), m.group(2), m.group(1), "", data, session); }
-		debug("SERVER_VERSION", data);
-		return null;
+		List<Token> tokens = token.getWordTokens();
+			return new ServerVersionEventImpl
+			(
+				token.concatTokens(10).substring(1), 
+				tokens.get(5).data,
+				tokens.get(4).data, 
+				"", 
+				token.getData(), 
+				session
+			);
 	}
 
 	// :irc.nmglug.org 001 namnar :Welcome to the nmglug.org
-	static ConnectionCompleteEvent connectionComplete(String data, Session session)
+	static ConnectionCompleteEvent connectionComplete(EventToken token, Session session)
 	{
-
-		Pattern p = Pattern.compile(":(\\S+)\\s+001\\s+\\S+\\s+:.*$");
-		Matcher m = p.matcher(data);
-		if (m.matches())
-		{
+			List<Token> tokens = token.getWordTokens();
 			/* send host name changed event so users of lib can update *records* */
-			return new ConnectionCompleteEventImpl(data, m.group(1).toLowerCase(), // new
-					session, session.getConnection().getHostName() // old hostname
+			return new ConnectionCompleteEventImpl
+			(
+					token.getData(), 
+					tokens.get(0).data.substring(1).toLowerCase(), // new
+					session, 
+					session.getConnection().getHostName() // old hostname
 			);
-		}
-		debug("CONN_COMPLETE", data);
-		return null;
 	}
 
 	// :simmons.freenode.net 352 r0bby_ * n=wakawaka guifications/user/r0bby
 	// irc.freenode.net r0bby H :0 Robert O'Connor
-	static WhoEvent who(String data, Session session)
+	static WhoEvent who(EventToken token, Session session)
 	{
+		String data = token.getData();
 		Pattern p = Pattern.compile("^:.+?\\s+352\\s+.+?\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?):(\\d+)\\s+(.+)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())
 		{
+			
 			boolean away = m.group(6).charAt(0) == 'G';
 			return new WhoEventImpl(m.group(1), // channel
 					Integer.parseInt(m.group(7)), // hop count
@@ -75,65 +78,78 @@ class IRCEventFactory
 
 	// :kubrick.freenode.net 314 scripy1 ty n=ty 71.237.206.180 * :ty
 	// "<nick> <user> <host> * :<real name>"
-	static WhowasEvent whowas(String data, Session session)
+	static WhowasEvent whowas(EventToken token, Session session)
 	{
-		Pattern p = Pattern.compile("^:\\S+\\s314\\s\\S+\\s(\\S+)\\s(\\S+)\\s(\\S+).+?:(.*)$");
-		Matcher m = p.matcher(data);
-		if (m.matches()) { return new WhowasEventImpl(m.group(3), m.group(2), m.group(1), m.group(4), data, session); }
-		debug("WHOWAS", data);
-		return null;
+		List<Token> tokens = token.getWordTokens();
+			return new WhowasEventImpl
+			(
+					tokens.get(5).data, 
+					tokens.get(4).data, 
+					tokens.get(3).data, 
+					tokens.get(tokens.size() -1).data.substring(1), 
+					token.getData(), 
+					session
+			); 
 	}
 
-	static NumericErrorEvent numericError(String data, Session session, int numeric)
+	static NumericErrorEvent numericError(EventToken token, Session session, int numeric)
 	{
-		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s(.*)$");
-		Matcher m = p.matcher(data);
-		if (m.matches()) { return new NumericEventImpl(m.group(1), data, numeric, session); }
-		debug("NUMERIC ERROR", data);
-		return null;
+		return new NumericEventImpl
+		(
+				token.concatTokens(7), 
+				token.getData(), 
+				numeric, 
+				session
+		); 
 	}
 
-	static WhoisEvent whois(String data, Session session)
+	static WhoisEvent whois(EventToken token, Session session)
 	{
 		// "<nick> <user> <host> * :<real name>"
-		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s\\S+\\s(\\S+)\\s(\\S+)\\s(\\S+).*?:(.*)$");
-		Matcher m = p.matcher(data);
-		if (m.matches()) { return new WhoisEventImpl(m.group(1), m.group(4), m.group(2), m.group(3), data, session); }
-		debug("WHOIS", data);
-		return null;
+			List<Token> tokens = token.getWordTokens();
+			return new WhoisEventImpl
+			(	
+					tokens.get(4).data, 
+					token.getData().substring(token.getData().lastIndexOf(":") + 1), 
+					tokens.get(5).data, 
+					tokens.get(6).data, 
+					token.getData(), 
+					session
+			); 
 	}
 
 	/*
 	 * end of names :irc.newcommunity.tummy.com 366 SwingBot #test :End of NAMES
 	 * list
 	 */
-	static NickListEvent nickList(String data, Session session)
+	static NickListEvent nickList(EventToken token, Session session)
 	{
-		Pattern p = Pattern.compile("^:(?:.*?)\\s+366\\s+\\S+\\s+(.*?)\\s+.*$");
-		Matcher m = p.matcher(data);
-
-		if (m.matches()) { return new NickListEventImpl(data, session, session.getChannel(m.group(1).toLowerCase()), session.getChannel(m.group(1).toLowerCase()).getNicks()); }
-		debug("NICK_LIST", data);
-		return null;
+			List<Token>tokens = token.getWordTokens();
+			return new NickListEventImpl
+			(
+					token.getData(), 
+					session, 
+					session.getChannel(tokens.get(3).data.toLowerCase()), 
+					session.getChannel(tokens.get(3).data.toLowerCase()).getNicks()
+			); 
 	}
 
 	/* :mohadib!~mohadib@67.41.102.162 KICK #test scab :bye! */
-	static KickEvent kick(String data, Session session)
+	static KickEvent kick(EventToken token, Session session)
 	{
-		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+KICK\\s+(\\S+)\\s+(\\S+)\\s+:(.*)$");
-		Matcher m = p.matcher(data);
-		if (m.matches())
-		{
-			Channel channel = session.getChannel(m.group(4).toLowerCase());
-			return new KickEventImpl(data, session, m.group(1), // byWho
-					m.group(2), // username
-					m.group(3), // host name
-					m.group(5), // victim
-					m.group(6), // message
-					channel);
-		}
-		debug("KICK", data);
-		return null;
+		List<Token>tokens = token.getWordTokens();
+			Channel channel = session.getChannel(tokens.get(2).data.toLowerCase());
+			return new KickEventImpl
+			(
+					token.getData(), 
+					session, 
+					getNick(tokens.get(0)), // byWho
+					getUserName(tokens.get(0)), // username
+					getHostName(tokens.get(0)), // host name
+					tokens.get(3).data, // victim
+					token.concatTokens(8).substring(1), // message
+					channel
+			);
 	}
 
 	// sterling.freenode.net 332 scrip #test :Welcome to #test - This channel is
@@ -174,12 +190,12 @@ class IRCEventFactory
 	
 	static String getHostName(Token t)
 	{
-		return t.data.substring(t.data.indexOf('@'));
+		return t.data.substring(t.data.indexOf('@') + 1);
 	}
 
 	static String getUserName(Token t)
 	{
-		return t.data.substring(t.data.indexOf('!') , t.data.indexOf('@'));
+		return t.data.substring(t.data.indexOf('!') + 1 , t.data.indexOf('@'));
 	}
 	
 	static String getNick(Token t)
@@ -232,23 +248,19 @@ class IRCEventFactory
 		return new AwayEventImpl(m.group(2), AwayEvent.EventType.USER_IS_AWAY, true, false, m.group(1), data, session);
 	}
 
-	// :anthony.freenode.net 375 mohadib_ :- anthony.freenode.net Message of the
-	// Day -
-	// :anthony.freenode.net 372 mohadib_ :- Welcome to anthony.freenode.net in
-	// Irvine, CA, USA! Thanks to
+	// :anthony.freenode.net 375 mohadib_ :- anthony.freenode.net Message of the Day -
+	// :anthony.freenode.net 372 mohadib_ :- Welcome to anthony.freenode.net in Irvine, CA, USA! Thanks to
 	// :anthony.freenode.net 376 mohadib_ :End of /MOTD command.
-	static MotdEvent motd(String data, Session session)
+	static MotdEvent motd(EventToken token , Session session)
 	{
-		Pattern p = Pattern.compile(":(\\S+)\\s+\\d+\\s+(\\S+)\\s+:(.*)$");
-		Matcher m = p.matcher(data);
-
-		if (!m.matches())
-		{
-			debug("MOTD", data);
-			return null;
-		}
-
-		return new MotdEventImpl(data, session, m.group(3), m.group(1));
+		List<Token>tokens = token.getWordTokens();
+		return new MotdEventImpl
+		(
+			token.getData(), 
+			session, 
+			token.concatTokens(6).substring(1), 
+			tokens.get(0).data.substring(1)
+		);
 	}
 
 	static NoticeEvent notice(String data, Session session)
@@ -264,8 +276,7 @@ class IRCEventFactory
 			return noticeEvent;
 		}
 
-		// channel notice :DIBLET!n=fran@c-68-35-11-181.hsd1.nm.comcast.net NOTICE
-		// #jerklib :test
+		// channel notice :DIBLET!n=fran@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #jerklib :test
 		p = Pattern.compile("^:(.*?)\\!.*?\\s+NOTICE\\s+(.*?)\\s+:(.*)$");
 		m = p.matcher(data);
 		if (m.matches()) { return new NoticeEventImpl(data, session, "channel", m.group(3), "", m.group(1), session.getChannel(m.group(2).toLowerCase()));
@@ -357,8 +368,9 @@ class IRCEventFactory
 	 * https://sourceforge.net/projects/jerklib :irc.nixgeeks.com 321 mohadib
 	 * Channel :Users Name
 	 */
-	static ChannelListEvent chanList(String data, Session session)
+	static ChannelListEvent chanList(EventToken token, Session session)
 	{
+		String data = token.getData();
 		if (log.isLoggable(Level.FINE))
 		{
 			log.fine(data);

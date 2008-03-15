@@ -55,6 +55,7 @@ public class ChannelMessageTest
 		session.addChannel(new Channel("#cd+g" , session));
 		session.addChannel(new Channel("#perkosa" , session));
 		
+		session.getServerInformation().parseServerInfo(":Vancouver.BC.CA.Undernet.org 005 r0bby___ MAXNICKLEN=15 TOPICLEN=160 AWAYLEN=160 KICKLEN=160 CHANNELLEN=200 MAXCHANNELLEN=200 CHANTYPES=#& PREFIX=(ov)@+ STATUSMSG=@+ CHANMODES=b,k,l,imnpstrDd CASEMAPPING=rfc1459 NETWORK=UnderNet :are supported by this server");
 		
 		session.addIRCEventListener(new IRCEventListener()
 		{
@@ -71,8 +72,8 @@ public class ChannelMessageTest
 					{
 						assertTrue(me.getChannel() != null);
 						assertTrue(me.getChannel().getName().equals("#tvtorrents"));
-						assertTrue(me.getHostName().equals("nix-555C426C.cust.blixtvik.net"));
-						assertTrue(me.getUserName().equals("~PircBot"));
+						assertTrue(me.getHostName() , me.getHostName().equals("nix-555C426C.cust.blixtvik.net"));
+						assertTrue(me.getUserName() , me.getUserName().equals("~PircBot"));
 						assertTrue(me.getSession().equals(session));
 						assertTrue(me.getNick().equals("TVTorrentsBot"));
 						assertTrue(me.getMessage().equals("<sammyp123> o yeh"));

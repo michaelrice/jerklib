@@ -3,10 +3,10 @@ package jerklib;
 public class Token
 {
 	
-	String data = "";
-	int offset = 0;
-	int len = 0;
-	Type type;
+	public String data = "";
+	public int offset = 0;
+	public int len = 0;
+	public Type type;
 	
 	enum Type
 	{
