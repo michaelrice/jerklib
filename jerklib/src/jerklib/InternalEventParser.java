@@ -68,7 +68,7 @@ public class InternalEventParser
 	 */
 	void parseEvent(IRCEvent event)
 	{
-		Session session = event.getSession();
+        Session session = event.getSession();
 		String data = event.getRawEventData();
 		String nick = session.getNick();
 
