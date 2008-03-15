@@ -372,34 +372,19 @@ class IRCEventFactory
 
 	// :r0bby!n=wakawaka@guifications/user/r0bby JOIN :#jerklib
 	// :mohadib_!~mohadib@68.35.11.181 JOIN &test
-	static JoinEvent regularJoin(String data, Session session)
+	static JoinEvent regularJoin(EventToken token, Session session)
 	{
-		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+JOIN\\s+:?(\\S+)$");
-		Matcher m = p.matcher(data);
-		if (m.matches())
-		{
-			try
-			{
-				return new JoinEventImpl(data, session, m.group(1), // nick
-						m.group(2), // user name
-						m.group(3).toLowerCase(), // host
-						session.getChannel(m.group(4).toLowerCase()).getName(), // channel
-																																		// name
-						session.getChannel(m.group(4).toLowerCase()) // channel
+				List<Token> tokens = token.getWordTokens();
+				return new JoinEventImpl
+				(
+					token.getData(), 
+					session, 
+					getNick(tokens.get(0)), // nick
+					getUserName(tokens.get(0)), // user name
+					getHostName(tokens.get(0)), // host
+					tokens.get(2).data.replaceFirst(":", ""), // channel name
+					session.getChannel(tokens.get(2).data.replaceFirst(":", "").toLowerCase()) // channel
 				);
-			}
-			catch (Exception e)
-			{
-				System.err.println(data);
-				for (Channel chan : session.getChannels())
-				{
-					System.err.println(chan.getName());
-				}
-				e.printStackTrace();
-			}
-		}
-		debug("JOIN_EVENT", data);
-		return null;
 	}
 
 	/*

@@ -105,7 +105,7 @@ public class InternalEventParser
 			}
 			else
 			{
-				JoinEvent jEvent = IRCEventFactory.regularJoin(data, session);
+				JoinEvent jEvent = IRCEventFactory.regularJoin(eventToken, session);
 				jEvent.getChannel().addNick(jEvent.getNick());
 				manager.addToRelayList(jEvent);
 			}
