@@ -154,16 +154,16 @@ class IRCEventFactory
 
 	// sterling.freenode.net 332 scrip #test :Welcome to #test - This channel is
 	// for testing only.
-	static TopicEvent topic(String data, Session session)
+	static TopicEvent topic(EventToken token, Session session)
 	{
-		Pattern p = Pattern.compile(":(\\S+)\\s+332\\s+(\\S+)\\s+(\\S+)\\s+:(.*)$");
-		Matcher m = p.matcher(data);
-		if (m.matches()) { return new TopicEventImpl(data, session, session.getChannel(m.group(3).toLowerCase()), m.group(4));
-
-		}
-
-		debug("TOPIC", data);
-		return null;
+			List<Token> tokens = token.getWordTokens();
+			return new TopicEventImpl
+			(
+					token.getData(), 
+					session, 
+					session.getChannel(tokens.get(3).data),
+					token.concatTokens(8).substring(1)
+			);
 	}
 
 	/*
@@ -216,13 +216,16 @@ class IRCEventFactory
 	// * is used for current nick when this event happens on connect
 	/* :simmons.freenode.net 433 * fran :Nickname is already in use. */
 
-	static NickInUseEvent nickInUse(String data, Session session)
+	static NickInUseEvent nickInUse(EventToken token, Session session)
 	{
-		Pattern p = Pattern.compile("\\S+\\s433\\s.*?\\s(\\S+)\\s:?.*$");
-		Matcher m = p.matcher(data);
-		if (m.matches()) { return new NickInUseEventImpl(m.group(1), data, session); }
-		debug("NICK_IN_USE", data);
-		return null;
+			List<Token> tokens = token.getWordTokens();
+			String nick = tokens.get(2).data.equals("*")?tokens.get(3).data:tokens.get(2).data;
+			return new NickInUseEventImpl
+			(
+					nick,
+					token.getData(), 
+					session
+			); 
 	}
 
 	// :leguin.freenode.net 306 r0bby_ :You have been marked as being away
@@ -326,7 +329,7 @@ class IRCEventFactory
 			nick, // who
 			getUserName(tokens.get(0)), // username
 			getHostName(tokens.get(0)), // hostName
-			token.concatTokens(4), // message
+			token.concatTokens(4).substring(1), // message
 			chanList
 		);
 	}
@@ -390,46 +393,37 @@ class IRCEventFactory
 	// :fran!~fran@outsiderz-88006847.hsd1.nm.comcast.net PART #jerklib
 	// :r0bby!n=wakawaka@guifications/user/r0bby PART #jerklib :"FOO"
 	// :mohadib_!~mohadib@68.35.11.181 PART :&test
-	static PartEvent part(String data, Session session)
+	static PartEvent part(EventToken token, Session session)
 	{
-		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+PART\\s+:?(\\S+?)(?:\\s+:(.*))?$");
-		Matcher m = p.matcher(data);
-		if (m.matches())
-		{
-			if (log.isLoggable(Level.FINE))
-			{
-				log.fine("HERE? " + m.group(4));
-				log.fine(data);
-			}
-			return new PartEventImpl(data, session, m.group(1), // who
-					m.group(2), // username
-					m.group(3), // host name
-					session.getChannel(m.group(4).toLowerCase()).getName(), // channel
-																																	// name
-					session.getChannel(m.group(4).toLowerCase()), m.group(5) // part
-																																		// message
+			List<Token>tokens = token.getWordTokens();
+			String partMsg = tokens.size() >= 3?token.concatTokens(6):"";
+			if(tokens.get(2).data.startsWith(":"))tokens.get(2).data = tokens.get(2).data.substring(1);
+			return new PartEventImpl
+			(
+					token.getData(), 
+					session,
+					getNick(tokens.get(0)), // who
+					getUserName(tokens.get(0)), // username
+					getHostName(tokens.get(0)), // host name
+					session.getChannel(tokens.get(2).data.toLowerCase()).getName(), // channel name
+					session.getChannel(tokens.get(2).data.toLowerCase()), 
+					partMsg 
 			);
-		}
-		else
-		{
-			log.severe("NO MATCH");
-		}
-		debug("PART", data);
-		return null;
 	}
 
 	// :raving!n=raving@74.195.43.119 NICK :Sir_Fawnpug
-	static NickChangeEvent nickChange(String data, Session session)
+	static NickChangeEvent nickChange(EventToken token, Session session)
 	{
-		Pattern p = Pattern.compile("^:(\\S+)!(\\S+)@(\\S+)\\s+NICK\\s+:(.*)$");
-		Matcher m = p.matcher(data);
-		if (m.matches()) { return new NickChangeEventImpl(data, session, m.group(1), // old
-				m.group(4), // new nick
-				m.group(3), // hostname
-				m.group(2) // username
-		); }
-		debug("NICK_CHANGE", data);
-		return null;
+			List<Token> tokens = token.getWordTokens();
+			return new NickChangeEventImpl
+			(
+					token.getData(), 
+					session, 
+					getNick(tokens.get(0)), // old
+					tokens.get(2).data.substring(1), // new nick
+				getHostName(tokens.get(0)), // hostname
+				getUserName(tokens.get(0)) // username
+		); 
 	}
 
 	// :r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2

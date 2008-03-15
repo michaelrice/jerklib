@@ -469,69 +469,32 @@ public class InternalEventParser
 	{
 		switch (numeric)
 		{
-		case 001:
-			connectionComplete(token, session, event);
-			break;
-		case 005:
-			serverInfo(token, event);
-			break;
-		case 301:
-			manager.addToRelayList(IRCEventFactory.away(token.getData(), session, numeric));
-			break;
-		case 305:
-			manager.addToRelayList(IRCEventFactory.away(token.getData() , session, numeric));
-			break;
-		case 306:
-			manager.addToRelayList(IRCEventFactory.away(token.getData(), session, numeric));
-			break;
-		case 314:
-			manager.addToRelayList(IRCEventFactory.whowas(token, session));
-			break;
+		case 001:connectionComplete(token, session, event);break;
+		case 005:serverInfo(token, event);	break;
+		case 301:manager.addToRelayList(IRCEventFactory.away(token.getData(), session, numeric));break;
+		case 305:manager.addToRelayList(IRCEventFactory.away(token.getData() , session, numeric));break;
+		case 306:manager.addToRelayList(IRCEventFactory.away(token.getData(), session, numeric));break;
+		case 314:manager.addToRelayList(IRCEventFactory.whowas(token, session));break;
 		case 311:// whois
 		case 312:// whois
 		case 317:// whois
 		case 318:// whois
 		case 319:// whois
-		case 320:
-			whois(token, event.getSession(), numeric);
-			break;
-		case 321:
-			break;// chanlist
-		case 322:
-			manager.addToRelayList(IRCEventFactory.chanList(token, session));
-			break;
-		case 323:
-			break; // end chan ist
-		case 324:
-			channelMode(event);
-			break;
-		case 332:
-			firstPartOfTopic(token, session);
-			break;
-		case 333:
-			secondPartOfTopic(token, session);
-			break;
-		case 351:
-			manager.addToRelayList(IRCEventFactory.serverVersion(token, session));
-			break;
-		case 352:
-			manager.addToRelayList(IRCEventFactory.who(token, session));
-			break;
-		case 353:
-			namesLine(token, session);
-			manager.addToRelayList(event);
-			break;
-		case 366:
-			manager.addToRelayList(IRCEventFactory.nickList(token, session));
-			break;
+		case 320:whois(token, event.getSession(), numeric);break;
+		case 321:break;// chanlist
+		case 322:manager.addToRelayList(IRCEventFactory.chanList(token, session));break;
+		case 323:break; // end chan ist
+		case 324:channelMode(event);break;
+		case 332:firstPartOfTopic(token, session);break;
+		case 333:secondPartOfTopic(token, session);break;
+		case 351:manager.addToRelayList(IRCEventFactory.serverVersion(token, session));break;
+		case 352:manager.addToRelayList(IRCEventFactory.who(token, session));break;
+		case 353:namesLine(token, session);manager.addToRelayList(event);break;
+		case 366:manager.addToRelayList(IRCEventFactory.nickList(token, session));break;
 		case 372:// motd
 		case 375:// motd
-		case 376:
-			manager.addToRelayList(IRCEventFactory.motd(token, session));
-			break;
-		case 433:
-			nick(token, session);
-			break;
+		case 376:manager.addToRelayList(IRCEventFactory.motd(token, session));break;
+		case 433:nick(token, session);break;
 		case 401:
 		case 402:
 		case 403:
@@ -574,11 +537,8 @@ public class InternalEventParser
 		case 483:
 		case 491:
 		case 501:
-		case 502:
-			manager.addToRelayList(IRCEventFactory.numericError(token, session, numeric));
-			break;
-		default:
-			manager.addToRelayList(event);
+		case 502:manager.addToRelayList(IRCEventFactory.numericError(token, session, numeric));break;
+		default:manager.addToRelayList(event);
 		}
 	}
 
@@ -682,7 +642,7 @@ public class InternalEventParser
 
 		if (msg.startsWith("\u0001"))
 		{
-			String ctcpString = msg.substring(0, msg.length() - 1).substring(1);
+			String ctcpString = msg.substring(1, msg.length() - 1);
 			me = IRCEventFactory.ctcp(me, ctcpString);
 		}
 		manager.addToRelayList(me);
@@ -699,7 +659,6 @@ public class InternalEventParser
 
 			for (String name : names)
 			{
-				// remove @ and + from front for voice and ops ?
 				if (name != null && name.length() > 0)
 				{
 					chan.addNick(name);
