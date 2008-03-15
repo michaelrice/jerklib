@@ -374,6 +374,18 @@ public class Session extends RequestGenerator
         return state;
     }
 
+    
+  	boolean isChannelToken(Token token)
+  	{
+  		ServerInformation serverInfo = getServerInformation();
+  		String[] chanPrefixes = serverInfo.getChannelPrefixes();
+  		for (String prefix : chanPrefixes)
+  		{
+  			if (token.data.startsWith(prefix)) { return true; }
+  		}
+  		return false;
+  	}
+    
     public int hashCode()
     {
         return rCon.hashCode();

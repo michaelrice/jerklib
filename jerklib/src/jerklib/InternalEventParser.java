@@ -72,123 +72,121 @@ public class InternalEventParser
 		String data = event.getRawEventData();
 		String nick = session.getNick();
 
-		String[] tokens = data.split("\\s+");
+		EventToken eventToken = new EventToken(data);
 
-		if (tokens.length > 1)
+		List<Token> tokens = eventToken.getWordTokens();
+		if (tokens.isEmpty()) return;
+
+		String command = tokens.get(1).data;
+
+		if (command.matches("^\\d{3}$"))
 		{
-			if (tokens[1].matches("^\\d{3}$"))
+			numericEvent(data, session, event, Integer.parseInt(command));
+		}
+		else if (command.equals("PRIVMSG"))
+		{
+			message(eventToken, session);
+		}
+		else if (command.equals("QUIT"))
+		{
+			QuitEvent qEvent = IRCEventFactory.quit(eventToken, session);
+			session.removeNickFromAllChannels(qEvent.getWho());
+			manager.addToRelayList(qEvent);
+		}
+		else if (command.equals("JOIN"))
+		{
+			Pattern p = Pattern.compile("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?(\\S+)$");
+			Matcher m = p.matcher(data);
+			if (m.matches())
 			{
-				numericEvent(data, session, event, Integer.parseInt(tokens[1]));
+				Channel channel = new Channel(m.group(1).toLowerCase(), session);
+				session.addChannel(channel);
+				manager.addToRelayList(IRCEventFactory.joinCompleted(data, session, nick, channel));
 			}
 			else
 			{
-				String command = tokens[1];
-				if (command.equals("PRIVMSG"))
-				{
-					message(data, session);
-				}
-				else if (command.equals("QUIT"))
-				{
-					QuitEvent qEvent = IRCEventFactory.quit(data, session);
-					session.removeNickFromAllChannels(qEvent.getWho());
-					manager.addToRelayList(qEvent);
-				}
-				else if (command.equals("JOIN"))
-				{
-					Pattern p = Pattern.compile("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?(\\S+)$");
-					Matcher m = p.matcher(data);
-					if (m.matches())
-					{
-						Channel channel = new Channel(m.group(1).toLowerCase(), session);
-						session.addChannel(channel);
-						manager.addToRelayList(IRCEventFactory.joinCompleted(data, session, nick, channel));
-					}
-					else
-					{
-						JoinEvent jEvent = IRCEventFactory.regularJoin(data, session);
-						jEvent.getChannel().addNick(jEvent.getNick());
-						manager.addToRelayList(jEvent);
-					}
-				}
-				else if (command.equals("MODE"))
-				{
-					mode(event);
-				}
-				else if (command.equals("PART"))
-				{
-					PartEvent pEvent = IRCEventFactory.part(data, session);
-					if (!pEvent.getChannel().removeNick(pEvent.getWho()))
-					{
-						System.err.println("Could Not remove nick " + pEvent.getWho() + " from " + pEvent.getChannelName());
-					}
-					if (pEvent.getWho().equalsIgnoreCase(nick))
-					{
-						session.removeChannel(pEvent.getChannel());
-					}
-					manager.addToRelayList(pEvent);
-				}
-				else if (command.equals("NOTICE"))
-				{
-					manager.addToRelayList(IRCEventFactory.notice(data, session));
-				}
-				else if (command.equals("TOPIC"))
-				{
-					Pattern p = Pattern.compile("^.+?TOPIC\\s+(.+?)\\s+.*$");
-					Matcher m = p.matcher(data);
-					m.matches();
-					event.getSession().sayRaw("TOPIC " + m.group(1));
-				}
-				else if (command.equals("INVITE"))
-				{
-					manager.addToRelayList(IRCEventFactory.invite(data, session));
-				}
-				else if (command.equals("NICK"))
-				{
-					NickChangeEvent nEvent = IRCEventFactory.nickChange(data, session);
-					session.nickChanged(nEvent.getOldNick(), nEvent.getNewNick());
-					if (nEvent.getOldNick().equals(nick))
-					{
-						event.getSession().updateProfileSuccessfully(true);
-					}
-					manager.addToRelayList(nEvent);
-				}
-				else if (command.equals("KICK"))
-				{
-					KickEvent ke = IRCEventFactory.kick(data, session);
-					if (!ke.getChannel().removeNick(ke.getWho()))
-					{
-						log.info("COULD NOT REMOVE NICK " + ke.getWho() + " from channel " + ke.getChannel().getName());
-					}
+				JoinEvent jEvent = IRCEventFactory.regularJoin(data, session);
+				jEvent.getChannel().addNick(jEvent.getNick());
+				manager.addToRelayList(jEvent);
+			}
+		}
+		else if (command.equals("MODE"))
+		{
+			mode(event);
+		}
+		else if (command.equals("PART"))
+		{
+			PartEvent pEvent = IRCEventFactory.part(data, session);
+			if (!pEvent.getChannel().removeNick(pEvent.getWho()))
+			{
+				System.err.println("Could Not remove nick " + pEvent.getWho() + " from " + pEvent.getChannelName());
+			}
+			if (pEvent.getWho().equalsIgnoreCase(nick))
+			{
+				session.removeChannel(pEvent.getChannel());
+			}
+			manager.addToRelayList(pEvent);
+		}
+		else if (command.equals("NOTICE"))
+		{
+			manager.addToRelayList(IRCEventFactory.notice(data, session));
+		}
+		else if (command.equals("TOPIC"))
+		{
+			Pattern p = Pattern.compile("^.+?TOPIC\\s+(.+?)\\s+.*$");
+			Matcher m = p.matcher(data);
+			m.matches();
+			event.getSession().sayRaw("TOPIC " + m.group(1));
+		}
+		else if (command.equals("INVITE"))
+		{
+			manager.addToRelayList(IRCEventFactory.invite(data, session));
+		}
+		else if (command.equals("NICK"))
+		{
+			NickChangeEvent nEvent = IRCEventFactory.nickChange(data, session);
+			session.nickChanged(nEvent.getOldNick(), nEvent.getNewNick());
+			if (nEvent.getOldNick().equals(nick))
+			{
+				event.getSession().updateProfileSuccessfully(true);
+			}
+			manager.addToRelayList(nEvent);
+		}
+		else if (command.equals("KICK"))
+		{
+			KickEvent ke = IRCEventFactory.kick(data, session);
+			if (!ke.getChannel().removeNick(ke.getWho()))
+			{
+				log.info("COULD NOT REMOVE NICK " + ke.getWho() + " from channel " + ke.getChannel().getName());
+			}
 
-					if (ke.getWho().equals(nick))
-					{
-						session.removeChannel(ke.getChannel());
-						if (session.isRejoinOnKick())
-						{
-							session.join(ke.getChannel().getName());
-						}
-					}
-					manager.addToRelayList(ke);
-				}
-				else if (data.matches("^PING.*"))
+			if (ke.getWho().equals(nick))
+			{
+				session.removeChannel(ke.getChannel());
+				if (session.isRejoinOnKick())
 				{
-					session.getConnection().pong(event);
-					manager.addToRelayList(event);
-				}
-				else if (data.matches(".*PONG.*"))
-				{
-					session.getConnection().gotPong();
-					manager.addToRelayList(event);
-				}
-				else if (data.matches("^NOTICE\\s+(.*$)$"))
-				{
-					manager.addToRelayList(IRCEventFactory.notice(data, session));
-				}
-				else
-				{
-					manager.addToRelayList(event);
+					session.join(ke.getChannel().getName());
 				}
 			}
+			manager.addToRelayList(ke);
+		}
+		else if (data.matches("^PING.*"))
+		{
+			session.getConnection().pong(event);
+			manager.addToRelayList(event);
+		}
+		else if (data.matches(".*PONG.*"))
+		{
+			session.getConnection().gotPong();
+			manager.addToRelayList(event);
+		}
+		else if (data.matches("^NOTICE\\s+(.*$)$"))
+		{
+			manager.addToRelayList(IRCEventFactory.notice(data, session));
+		}
+		else
+		{
+			manager.addToRelayList(event);
 		}
 	}
 
@@ -676,40 +674,18 @@ public class InternalEventParser
 		manager.addToRelayList(ccEvent);
 	}
 
-	private void message(String data, Session session)
+	private void message(EventToken token, Session session)
 	{
-
-		ServerInformation serverInfo = session.getServerInformation();
-		String[] chanPrefixes = serverInfo.getChannelPrefixes();
-		String channelPrefixRegex = "";
-		if (chanPrefixes != null)
-		{
-			for (String prefix : serverInfo.getChannelPrefixes())
-			{
-				channelPrefixRegex += prefix;
-			}
-			// may need to do some quoting
-			channelPrefixRegex = "[" + channelPrefixRegex + "]";
-		}
-
-		MessageEvent me = IRCEventFactory.privateMsg(data, session, channelPrefixRegex);
+		
+		MessageEvent me = IRCEventFactory.message(token , session);
 
 		String msg = me.getMessage();
 
 		if (msg.startsWith("\u0001"))
 		{
 			String ctcpString = msg.substring(0, msg.length() - 1).substring(1);
-
-			/*
-			 * if(ctcpString.equals("VERSION")) { me.getSession().sayRaw("NOTICE " +
-			 * me.getNick() + " :\001VERSION " + ConnectionManager.getVersion() +
-			 * "\001\r\n"); } else if(ctcpString.equals("PING")) {
-			 * me.getSession().sayRaw("NOTICE " + me.getNick() + " :\001PING
-			 * \001\r\n"); }
-			 */
 			me = IRCEventFactory.ctcp(me, ctcpString);
 		}
-
 		manager.addToRelayList(me);
 	}
 
@@ -731,17 +707,6 @@ public class InternalEventParser
 				}
 			}
 		}
-	}
-
-	public boolean isChannelToken(String token, Session session)
-	{
-		ServerInformation serverInfo = session.getServerInformation();
-		String[] chanPrefixes = serverInfo.getChannelPrefixes();
-		for (String prefix : chanPrefixes)
-		{
-			if (token.startsWith(prefix)) { return true; }
-		}
-		return false;
 	}
 
 }

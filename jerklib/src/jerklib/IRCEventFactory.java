@@ -154,21 +154,39 @@ class IRCEventFactory
 	 * A Channel Msg :fuknuit!~admin@212.199.146.104 PRIVMSG #debian :blah blah
 	 * Private message :mohadib!~mohadib@67.41.102.162 PRIVMSG SwingBot :HY!!
 	 */
-	static MessageEvent privateMsg(String data, Session session, String channelPrefixRegex)
+	static MessageEvent message(EventToken token , Session session)
 	{
-		if (data.matches("^:\\S+\\s+PRIVMSG\\s+\\S+\\s+:.*$"))
-		{
-			Pattern p = Pattern.compile("^:(\\S+?)\\!(\\S+?)@(\\S+)\\s+PRIVMSG\\s+(\\S+)\\s+:(.*)$");
-			Matcher m = p.matcher(data);
-			m.matches();
-			String target = m.group(4);
-			return new MessageEventImpl(target.matches("^" + channelPrefixRegex + "{1}.+") ? session.getChannel(target.toLowerCase()) : null, m.group(3), m.group(5), m.group(1), data, session, target
-					.matches("^" + channelPrefixRegex + "{1}.+") ? Type.CHANNEL_MESSAGE : Type.PRIVATE_MESSAGE, m.group(2));
-		}
-
-		debug("MESSAGE", data);
-		return null;
+		List<Token>tokens = token.getWordTokens();
+		Type type = session.isChannelToken(tokens.get(2))?Type.CHANNEL_MESSAGE:Type.PRIVATE_MESSAGE;
+		Channel chan = type == Type.CHANNEL_MESSAGE? session.getChannel(tokens.get(2).data):null;
+		return new MessageEventImpl
+		(
+			chan,
+			getHostName(tokens.get(0)), 
+			token.concatTokens(6).substring(1), 
+			getNick(tokens.get(0)),
+			token.getData(), 
+			session, 
+			type, 
+			getUserName(tokens.get(0))
+		);
 	}
+	
+	static String getHostName(Token t)
+	{
+		return t.data.substring(t.data.indexOf('@'));
+	}
+
+	static String getUserName(Token t)
+	{
+		return t.data.substring(t.data.indexOf('!') , t.data.indexOf('@'));
+	}
+	
+	static String getNick(Token t)
+	{
+		return t.data.substring(1).substring(0,t.data.indexOf('!') - 1);
+	}
+
 
 	static CtcpEvent ctcp(MessageEvent event, String ctcpString)
 	{
@@ -285,21 +303,21 @@ class IRCEventFactory
 	 * :james_so!~me@213-152-46-35.dsl.eclipse.net.uk QUIT :Read error: 60
 	 * (Operation timed out)
 	 */
-	static QuitEvent quit(String data, Session session)
+	static QuitEvent quit(EventToken token, Session session)
 	{
-		Pattern pattern = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+QUIT\\s+:(.*)$");
-		Matcher matcher = pattern.matcher(data);
-		if (matcher.matches())
-		{
-			List<Channel> chanList = session.removeNickFromAllChannels(matcher.group(1));
-			return new QuitEventImpl(data, session, matcher.group(1), // who
-					matcher.group(2), // username
-					matcher.group(3), // hostName
-					matcher.group(4), // message
-					chanList);
-		}
-		debug("QUIT", data);
-		return null;
+		List<Token>tokens = token.getWordTokens();
+		String nick = getNick(tokens.get(0));
+		List<Channel> chanList = session.removeNickFromAllChannels(nick);
+		return new QuitEventImpl
+		(
+			token.getData(), 
+			session, 
+			nick, // who
+			getUserName(tokens.get(0)), // username
+			getHostName(tokens.get(0)), // hostName
+			token.concatTokens(4), // message
+			chanList
+		);
 	}
 
 	// :r0bby!n=wakawaka@guifications/user/r0bby JOIN :#jerklib

@@ -145,12 +145,7 @@ public class ConnectionManager
      */
     public List<Session> getSessions()
     {
-        List<Session> sessions = new ArrayList<Session>(sessionMap.size());
-        for (Session ses : sessionMap.values())
-        {
-            sessions.add(ses);
-        }
-        return Collections.unmodifiableList(sessions);
+        return Collections.unmodifiableList(new ArrayList<Session>(sessionMap.values()));
     }
 
     /**
