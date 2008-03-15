@@ -71,12 +71,33 @@ public class NoticeTest
 					{
 						assertTrue(ne.getNoticeType().equals("generic"));break;
 					}
+					case 5:
+					{
+						assertTrue(ne.getNoticeType().equals("channel"));
+						assertTrue(ne.getChannel().getName().equals("&foo"));
+						assertTrue(ne.getNoticeMessage().equals("foo"));
+						assertTrue(ne.byWho().equals("fehhh"));
+						assertTrue(ne.toWho().equals("&foo"));
+						assertTrue(ne.getSession().equals(session));
+						break;
+					}
+					case 6:
+					{
+						assertTrue(ne.getNoticeType().equals("user"));
+						assertTrue(ne.getChannel() == null);
+						assertTrue(ne.getNoticeMessage().equals("sucker"));
+						assertTrue(ne.byWho().equals("fehhh"));
+						assertTrue(ne.toWho().equals(session.getNick()));
+						assertTrue(ne.getSession().equals(session));
+						break;
+					}
 				}
 				
 			}
 		} , Type.NOTICE);
 		
 		session.addChannel(new Channel("#jerklib" , session));
+		session.addChannel(new Channel("&foo" , session));
 		
 		session.getServerInformation().parseServerInfo(":Vancouver.BC.CA.Undernet.org 005 r0bby___ MAXNICKLEN=15 TOPICLEN=160 AWAYLEN=160 KICKLEN=160 CHANNELLEN=200 MAXCHANNELLEN=200 CHANTYPES=#& PREFIX=(ov)@+ STATUSMSG=@+ CHANMODES=b,k,l,imnpstrDd CASEMAPPING=rfc1459 NETWORK=UnderNet :are supported by this server");
 		

@@ -1,0 +1,6 @@
+:DIBLET!n=fran@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #jerklib :test
+:NickServ!NickServ@services. NOTICE testnick :This nickname is owned by someone else
+:anthony.freenode.net NOTICE testnick :NickServ set your hostname to foo
+NOTICE AUTH :*** No identd (auth) response
+:fehhh!~foo@c-24-126-146-81.hsd1.ga.comcast.net NOTICE &foo :foo
+:fehhh!~foo@c-24-126-146-81.hsd1.ga.comcast.net NOTICE testnick :sucker
