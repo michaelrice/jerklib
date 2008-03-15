@@ -266,40 +266,76 @@ class IRCEventFactory
 		);
 	}
 
-	static NoticeEvent notice(String data, Session session)
+	static NoticeEvent notice(EventToken token, Session session)
 	{
-
+		
+		List<Token> tokens = token.getWordTokens();
+		
 		// generic notice NOTICE AUTH :*** No identd (auth) response
-		Pattern p = Pattern.compile("^NOTICE\\s+(.*$)$");
-		Matcher m = p.matcher(data);
-		if (m.matches())
+		if(tokens.get(0).data.equals("NOTICE"))
 		{
-			NoticeEvent noticeEvent = new NoticeEventImpl(data, session, "generic", m.group(1), "", "", null);
-
-			return noticeEvent;
+			return new NoticeEventImpl
+			(
+				token.getData(), 
+				session, 
+				"generic", 
+				token.substring(token.getData().indexOf(":") + 1), 
+				session.getNick(), 
+				session.getConnectedHostName(),
+				null
+			);
 		}
-
-		// channel notice :DIBLET!n=fran@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #jerklib :test
-		p = Pattern.compile("^:(.*?)\\!.*?\\s+NOTICE\\s+(.*?)\\s+:(.*)$");
-		m = p.matcher(data);
-		if (m.matches()) { return new NoticeEventImpl(data, session, "channel", m.group(3), "", m.group(1), session.getChannel(m.group(2).toLowerCase()));
-
+		
+		if(tokens.get(1).data.equals("NOTICE"))
+		{
+			//from server to user
+			//:anthony.freenode.net NOTICE mohadib_ :NickServ set your hostname to foo
+			if(tokens.get(0).data.indexOf("@") == -1)
+			{
+				return new NoticeEventImpl
+				(
+					token.getData(), 
+					session, 
+					"server", 
+					token.substring(token.getData().indexOf(":" , 1) + 1), 
+					session.getNick(), 
+					session.getConnectedHostName(), 
+					null
+				);
+			}
+			
+			//from user to channel
+			// channel notice :DIBLET!n=fran@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #jerklib :test
+			if(session.isChannelToken(tokens.get(2)))
+			{
+				Channel channel = session.getChannel(tokens.get(2).data);
+				return new NoticeEventImpl
+				(
+						token.getData(),
+						session,
+						"channel",
+						token.getData().substring(token.getData().indexOf(":", 1) + 1),
+						channel.getName(),
+						getNick(tokens.get(0)),
+						channel
+				);
+			}
+			else
+			{
+				//:NickServ!NickServ@services. NOTICE mohadib_ :This nickname is owned by someone else
+				return new NoticeEventImpl
+				(
+						token.getData(),
+						session,
+						"user",
+						token.getData().substring(token.getData().indexOf(":", 1) + 1),
+						session.getNick(),
+						getNick(tokens.get(0)),
+						null
+				);
+			}
 		}
-
-		// user notice :NickServ!NickServ@services. NOTICE mohadib_ :This nickname
-		// is owned by someone else
-		p = Pattern.compile("^:(.*?)\\!.*?\\s+NOTICE\\s+(.*?)\\s+:(.*)$");
-		m = p.matcher(data);
-		if (m.matches()) { return new NoticeEventImpl(data, session, "user", m.group(3), m.group(2), m.group(1), null); }
-
-		// user notice but from the server - user notice means to a user as opposed
-		// a channel
-		// :anthony.freenode.net NOTICE mohadib_ :NickServ set your hostname to
-		// "unaffiliated/mohadib"
-		p = Pattern.compile("^:(\\S+)\\s+NOTICE\\s+(\\S+)\\s+:(.*)$");
-		m = p.matcher(data);
-		if (m.matches()) { return new NoticeEventImpl(data, session, "user", m.group(3), m.group(2), m.group(1), null); }
-		debug("NOTICE", data);
+		
 		return null;
 	}
 

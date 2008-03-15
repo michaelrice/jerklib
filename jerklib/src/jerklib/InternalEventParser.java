@@ -129,7 +129,7 @@ public class InternalEventParser
 		}
 		else if (command.equals("NOTICE"))
 		{
-			manager.addToRelayList(IRCEventFactory.notice(data, session));
+			manager.addToRelayList(IRCEventFactory.notice(eventToken, session));
 		}
 		else if (command.equals("TOPIC"))
 		{
@@ -182,7 +182,7 @@ public class InternalEventParser
 		}
 		else if (data.matches("^NOTICE\\s+(.*$)$"))
 		{
-			manager.addToRelayList(IRCEventFactory.notice(data, session));
+			manager.addToRelayList(IRCEventFactory.notice(eventToken, session));
 		}
 		else
 		{
@@ -465,80 +465,120 @@ public class InternalEventParser
 		manager.addToRelayList(se);
 	}
 
-	private void numericEvent(EventToken token , Session session, IRCEvent event, int numeric)
+	private void numericEvent(EventToken token, Session session, IRCEvent event, int numeric)
 	{
 		switch (numeric)
 		{
-		case 001:connectionComplete(token, session, event);break;
-		case 005:serverInfo(token, event);	break;
-		case 301:manager.addToRelayList(IRCEventFactory.away(token.getData(), session, numeric));break;
-		case 305:manager.addToRelayList(IRCEventFactory.away(token.getData() , session, numeric));break;
-		case 306:manager.addToRelayList(IRCEventFactory.away(token.getData(), session, numeric));break;
-		case 314:manager.addToRelayList(IRCEventFactory.whowas(token, session));break;
-		case 311:// whois
-		case 312:// whois
-		case 317:// whois
-		case 318:// whois
-		case 319:// whois
-		case 320:whois(token, event.getSession(), numeric);break;
-		case 321:break;// chanlist
-		case 322:manager.addToRelayList(IRCEventFactory.chanList(token, session));break;
-		case 323:break; // end chan ist
-		case 324:channelMode(event);break;
-		case 332:firstPartOfTopic(token, session);break;
-		case 333:secondPartOfTopic(token, session);break;
-		case 351:manager.addToRelayList(IRCEventFactory.serverVersion(token, session));break;
-		case 352:manager.addToRelayList(IRCEventFactory.who(token, session));break;
-		case 353:namesLine(token, session);manager.addToRelayList(event);break;
-		case 366:manager.addToRelayList(IRCEventFactory.nickList(token, session));break;
-		case 372:// motd
-		case 375:// motd
-		case 376:manager.addToRelayList(IRCEventFactory.motd(token, session));break;
-		case 433:nick(token, session);break;
-		case 401:
-		case 402:
-		case 403:
-		case 404:
-		case 405:
-		case 406:
-		case 407:
-		case 409:
-		case 411:
-		case 412:
-		case 413:
-		case 414:
-		case 421:
-		case 422:
-		case 423:
-		case 424:
-		case 431:
-		case 432:
-		case 436:
-		case 441:
-		case 442:
-		case 443:
-		case 444:
-		case 445:
-		case 446:
-		case 451:
-		case 461:
-		case 462:
-		case 463:
-		case 464:
-		case 465:
-		case 467:
-		case 471:
-		case 472:
-		case 473:
-		case 474:
-		case 475:
-		case 481:
-		case 482:
-		case 483:
-		case 491:
-		case 501:
-		case 502:manager.addToRelayList(IRCEventFactory.numericError(token, session, numeric));break;
-		default:manager.addToRelayList(event);
+			case 001:
+				connectionComplete(token, session, event);
+				break;
+			case 005:
+				serverInfo(token, event);
+				break;
+			case 301:
+				manager.addToRelayList(IRCEventFactory.away(token.getData(), session, numeric));
+				break;
+			case 305:
+				manager.addToRelayList(IRCEventFactory.away(token.getData(), session, numeric));
+				break;
+			case 306:
+				manager.addToRelayList(IRCEventFactory.away(token.getData(), session, numeric));
+				break;
+			case 314:
+				manager.addToRelayList(IRCEventFactory.whowas(token, session));
+				break;
+			case 311:// whois
+			case 312:// whois
+			case 317:// whois
+			case 318:// whois
+			case 319:// whois
+			case 320:
+				whois(token, event.getSession(), numeric);
+				break;
+			case 321:
+				break;// chanlist
+			case 322:
+				manager.addToRelayList(IRCEventFactory.chanList(token, session));
+				break;
+			case 323:
+				break; // end chan ist
+			case 324:
+				channelMode(event);
+				break;
+			case 332:
+				firstPartOfTopic(token, session);
+				break;
+			case 333:
+				secondPartOfTopic(token, session);
+				break;
+			case 351:
+				manager.addToRelayList(IRCEventFactory.serverVersion(token, session));
+				break;
+			case 352:
+				manager.addToRelayList(IRCEventFactory.who(token, session));
+				break;
+			case 353:
+				namesLine(token, session);
+				manager.addToRelayList(event);
+				break;
+			case 366:
+				manager.addToRelayList(IRCEventFactory.nickList(token, session));
+				break;
+			case 372:// motd
+			case 375:// motd
+			case 376:
+				manager.addToRelayList(IRCEventFactory.motd(token, session));
+				break;
+			case 433:
+				nick(token, session);
+				break;
+			case 401:
+			case 402:
+			case 403:
+			case 404:
+			case 405:
+			case 406:
+			case 407:
+			case 409:
+			case 411:
+			case 412:
+			case 413:
+			case 414:
+			case 421:
+			case 422:
+			case 423:
+			case 424:
+			case 431:
+			case 432:
+			case 436:
+			case 441:
+			case 442:
+			case 443:
+			case 444:
+			case 445:
+			case 446:
+			case 451:
+			case 461:
+			case 462:
+			case 463:
+			case 464:
+			case 465:
+			case 467:
+			case 471:
+			case 472:
+			case 473:
+			case 474:
+			case 475:
+			case 481:
+			case 482:
+			case 483:
+			case 491:
+			case 501:
+			case 502:
+				manager.addToRelayList(IRCEventFactory.numericError(token, session, numeric));
+				break;
+			default:
+				manager.addToRelayList(event);
 		}
 	}
 
