@@ -459,7 +459,7 @@ public class InternalEventParser
 
 	private void serverInfo(EventToken token, IRCEvent event)
 	{
-		Session session = (Session) event.getSession();
+		Session session = event.getSession();
 		session.getServerInformation().parseServerInfo(token.getData());
 		ServerInformationEventImpl se = new ServerInformationEventImpl(session, token.getData(), session.getServerInformation());
 		manager.addToRelayList(se);
