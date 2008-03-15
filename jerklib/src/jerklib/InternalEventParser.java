@@ -68,7 +68,7 @@ public class InternalEventParser
 	 */
 	void parseEvent(IRCEvent event)
 	{
-        Session session = event.getSession();
+		Session session = event.getSession();
 		String data = event.getRawEventData();
 		String nick = session.getNick();
 
@@ -116,7 +116,7 @@ public class InternalEventParser
 		}
 		else if (command.equals("PART"))
 		{
-			PartEvent pEvent = IRCEventFactory.part(data, session);
+			PartEvent pEvent = IRCEventFactory.part(eventToken, session);
 			if (!pEvent.getChannel().removeNick(pEvent.getWho()))
 			{
 				System.err.println("Could Not remove nick " + pEvent.getWho() + " from " + pEvent.getChannelName());
@@ -144,7 +144,7 @@ public class InternalEventParser
 		}
 		else if (command.equals("NICK"))
 		{
-			NickChangeEvent nEvent = IRCEventFactory.nickChange(data, session);
+			NickChangeEvent nEvent = IRCEventFactory.nickChange(eventToken , session);
 			session.nickChanged(nEvent.getOldNick(), nEvent.getNewNick());
 			if (nEvent.getOldNick().equals(nick))
 			{
@@ -590,7 +590,7 @@ public class InternalEventParser
 		// if (data.matches(":(.+?)\\s+332\\s+(.+?)\\s+(" + channelPrefixRegex
 		// +".+?)\\s+:(.*)$"))
 		// {
-		TopicEvent tEvent = IRCEventFactory.topic(token.getData(), session);
+		TopicEvent tEvent = IRCEventFactory.topic(token, session);
 		if (topicMap.containsValue(tEvent.getChannel()))
 		{
 			((TopicEventImpl) topicMap.get(tEvent.getChannel())).appendToTopic(tEvent.getTopic());
@@ -655,7 +655,7 @@ public class InternalEventParser
 			session.changeProfile(p);
 		}
 
-		manager.addToRelayList(IRCEventFactory.nickInUse(token.getData(), session));
+		manager.addToRelayList(IRCEventFactory.nickInUse(token, session));
 		// }
 
 	}
