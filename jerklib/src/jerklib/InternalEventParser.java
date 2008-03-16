@@ -112,7 +112,7 @@ public class InternalEventParser
 		}
 		else if (command.equals("MODE"))
 		{
-			mode(event);
+			mode(event , eventToken);
 		}
 		else if (command.equals("PART"))
 		{
@@ -204,168 +204,133 @@ public class InternalEventParser
 		manager.addToRelayList(me);
 	}
 
+	
 	// :mohadib_!n=mohadib@unaffiliated/mohadib MODE #jerklib +o scripyasas
 	// :services. MODE mohadib :+e
-	private void mode(IRCEvent event)
+	private void mode(IRCEvent event , EventToken token)
 	{
-		if (log.isLoggable(Level.FINE))
-		{
-			log.fine(event.getRawEventData());
-		}
-		String[] rawTokens = event.getRawEventData().split("\\s+");
-		String[] rawModeTokens = rawTokens[3].split("");
-		String[] modeTokens = new String[rawModeTokens.length - 1];
-		System.arraycopy(rawModeTokens, 1, modeTokens, 0, rawModeTokens.length - 1);
-		String[] arguments = new String[rawTokens.length - 4];
-		System.arraycopy(rawTokens, 4, arguments, 0, arguments.length);
+		if (log.isLoggable(Level.FINE))log.fine(token.getData());
+		
+		List<Token> wordTokens = token.getWordTokens(); 
+		char[] modeTokens = wordTokens.get(3).data.replaceFirst(":" , "").toCharArray();
+		String[] arguments = token.concatTokens(8).split("\\s+");
 
 		Map<String, List<String>> modeMap = new HashMap<String, List<String>>();
-
-		/* see if user mode */
 		ServerInformation info = event.getSession().getServerInformation();
-		String[] channelPrefixes = info.getChannelPrefixes();
-		boolean userMode = true;
-		for (String prefix : channelPrefixes)
+		
+		/* see if user mode */
+		boolean channelMode = event.getSession().isChannelToken(wordTokens.get(2));
+
+		if (!channelMode)
 		{
-			if (rawTokens[2].startsWith(prefix))
-			{
-				userMode = false;
-			}
-		}
-
-		if (userMode)
-		{
-			// do something..
-
-			if (log.isLoggable(Level.INFO))
-			{
-				log.info("MODE  " + Arrays.toString(modeTokens));
-			}
-
-			// free mode adds a : for some reason
-			if (modeTokens[0].equals(":"))
-			{
-				String[] cleanTokens = new String[modeTokens.length - 1];
-				System.arraycopy(modeTokens, 1, cleanTokens, 0, modeTokens.length - 1);
-				modeTokens = cleanTokens;
-			}
+			if (log.isLoggable(Level.INFO))log.info("MODE  " + Arrays.toString(modeTokens));
 
 			char action = '+';
 			List<String> targets = new ArrayList<String>();
 			targets.add(event.getSession().getNick());
-			for (String mode : modeTokens)
+			for (char mode : modeTokens)
 			{
-				if (mode.equals("+") || mode.equals("-"))
+				if (mode == '+' || mode == '-')
 				{
-					action = mode.charAt(0);
+					action = mode;
 				}
 				else
 				{
-					modeMap.put(action + mode, targets);
+					modeMap.put(action + "" +  mode, targets);
 				}
 			}
 
-			ModeEvent me = new ModeEventImpl(event.getRawEventData(), event.getSession(), modeMap, rawTokens[0].substring(1).split("\\!")[0], null);
+			//remove : and . -> :services.
+			String who = wordTokens.get(0).data.replaceFirst(":" , "");
+			if(who.endsWith("."))who = who.substring(0 , who.length() - 1);
+			
+			ModeEvent me = new ModeEventImpl
+			(
+				token.getData(), 
+				event.getSession(), 
+				modeMap, 
+				who,
+				null
+			);
 
 			manager.addToRelayList(me);
-
 			return;
 		}
 
 		char action = '+';
 		int argumntOffset = 0;
-
-		for (String mode : modeTokens)
+		
+		for (char mode : modeTokens)
 		{
-			if (mode.equals("+") || mode.equals("-"))
+			if (mode == '+' || mode == '-')
 			{
-				action = mode.charAt(0);
-			}
+				action = mode;
+			}	
 			else
 			{
-				ModeType type = info.getTypeForMode(mode);
+				ModeType type = info.getTypeForMode(String.valueOf(mode));
 				// must have an argument on + and -
 				if (type == ModeType.GROUP_A || type == ModeType.GROUP_B)
 				{
-					List<String> modeArgs = modeMap.get(action + mode);
-					if (modeArgs == null)
-					{
-						modeArgs = new ArrayList<String>();
-					}
+					List<String> modeArgs = modeMap.get(action +""+ mode);
+					if (modeArgs == null)modeArgs = new ArrayList<String>();
 					modeArgs.add(arguments[argumntOffset]);
-					// System.err.println("Mode " + action + mode + " " +
-					// arguments[argumntOffset] );
 					argumntOffset++;
-					modeMap.put(action + mode, modeArgs);
+					modeMap.put(action + "" + mode, modeArgs);
 				}
-				// must have args on + : must not have args on -
+				// must have args on + , must not have args on -
 				else if (type == ModeType.GROUP_C)
 				{
-					List<String> modeArgs = modeMap.get(action + mode);
-					if (modeArgs == null)
-					{
-						modeArgs = new ArrayList<String>();
-					}
+					List<String> modeArgs = modeMap.get(action +""+ mode);
+					if (modeArgs == null)modeArgs = new ArrayList<String>();
 					if (action == '-')
 					{
-						if (!modeMap.containsKey(action + mode))
+						if (!modeMap.containsKey(action +""+ mode))
 						{
-							modeMap.put(action + mode, new ArrayList<String>());
-							// System.err.println("Mode " + action + mode);
+							modeMap.put(action + "" + mode, new ArrayList<String>());
 						}
 					}
 					else
 					{
 						modeArgs.add(arguments[argumntOffset]);
-						// System.err.println("Mode " + action + mode + " " +
-						// arguments[argumntOffset] );
 						argumntOffset++;
-						modeMap.put(action + mode, modeArgs);
+						modeMap.put(action +""+ mode, modeArgs);
 					}
 				}
 				// no args
 				else if (type == ModeType.GROUP_D)
 				{
-					modeMap.put(action + mode, new ArrayList<String>());
-					// System.err.println("Mode " + action + mode);
+					modeMap.put(action +""+ mode, new ArrayList<String>());
 				}
 				else
 				{
-					// System.err.println("unreconzied mode " + mode);
+					System.err.println("unreconzied mode " + mode);
 				}
 			}
 		}
-		// update channel object for o and v mode events
-		Channel chan = event.getSession().getChannel(rawTokens[2]);
-
-		List<String> voicedNicks = modeMap.get("+v") == null ? new ArrayList<String>() : modeMap.get("+v");
-		List<String> opedNicks = modeMap.get("+o") == null ? new ArrayList<String>() : modeMap.get("+o");
-		List<String> devoicedNicks = modeMap.get("-v") == null ? new ArrayList<String>() : modeMap.get("-v");
-		List<String> deopedNicks = modeMap.get("-o") == null ? new ArrayList<String>() : modeMap.get("-o");
-
-		for (String nick : voicedNicks)
+		
+		// update user modes in channel
+		Channel chan = event.getSession().getChannel(wordTokens.get(2).data);
+		for(String mode : modeMap.keySet())
 		{
-			chan.updateUsersMode(nick, "+v");
+			List<String>nicks = modeMap.get(mode);
+			for(String nick : nicks)
+			{
+				if(chan.getNicks().contains(nick))
+				chan.updateUsersMode(nick, mode);
+			}
 		}
-		for (String nick : opedNicks)
-		{
-			chan.updateUsersMode(nick, "+o");
-		}
-		for (String nick : devoicedNicks)
-		{
-			chan.updateUsersMode(nick, "-v");
-		}
-		for (String nick : deopedNicks)
-		{
-			chan.updateUsersMode(nick, "-o");
-		}
+		
+		
+		ModeEvent me = new ModeEventImpl(event.getRawEventData(), event.getSession(), modeMap, IRCEventFactory.getNick(wordTokens.get(0)), chan);
 
-		ModeEvent me = new ModeEventImpl(event.getRawEventData(), event.getSession(), modeMap, rawTokens[0].substring(1).split("\\!")[0], chan);
-
-		// notify with a Mode EVent
 		manager.addToRelayList(me);
 	}
 
+	
+	
+	
+	
 	/*
 	 * :kubrick.freenode.net 311 scripy mohadib n=fran unaffiliated/mohadib *
 	 * :fran :kubrick.freenode.net 319 scripy mohadib :#jerklib
