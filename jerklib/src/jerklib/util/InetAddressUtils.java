@@ -43,7 +43,7 @@ public class InetAddressUtils {
 	public static byte[] numericIpToByteArray(long ip)
 	{
         byte[] ipArray = new byte[4];
-        ipArray[3] = (byte) (ip & 255);
+        ipArray[3] = (byte) (ip & 0xff);
         ipArray[2] = (byte) ((ip >> 8) & 0xff);
         ipArray[1] = (byte) ((ip >> 16) & 0xff);
         ipArray[0] = (byte) ((ip >> 24) & 0xff);
