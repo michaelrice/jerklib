@@ -44,9 +44,9 @@ public class InetAddressUtils {
 	{
         byte[] ipArray = new byte[4];
         ipArray[3] = (byte) (ip & 255);
-        ipArray[2] = (byte) ((ip >> 8) & 255);
-        ipArray[1] = (byte) ((ip >> 16) & 255);
-        ipArray[0] = (byte) ((ip >> 24) & 255);
+        ipArray[2] = (byte) ((ip >> 8) & 0xff);
+        ipArray[1] = (byte) ((ip >> 16) & 0xff);
+        ipArray[0] = (byte) ((ip >> 24) & 0xff);
         return ipArray;
 	}
 
