@@ -221,11 +221,12 @@ public class InternalEventParser
 		/* see if user mode */
 		boolean channelMode = event.getSession().isChannelToken(wordTokens.get(2));
 
+		char action = '+';
+		
 		if (!channelMode)
 		{
 			if (log.isLoggable(Level.INFO))log.info("MODE  " + Arrays.toString(modeTokens));
 
-			char action = '+';
 			List<String> targets = new ArrayList<String>();
 			targets.add(event.getSession().getNick());
 			for (char mode : modeTokens)
@@ -257,7 +258,6 @@ public class InternalEventParser
 			return;
 		}
 
-		char action = '+';
 		int argumntOffset = 0;
 		
 		for (char mode : modeTokens)
@@ -596,8 +596,6 @@ public class InternalEventParser
 	{
 		/* NICK IN USE */
 		// :simmons.freenode.net 433 * fran :Nickname is already in use.
-		// if (data.matches(":\\S+\\s433\\s.+?\\s\\S+\\s:?.*$"))
-		// {
 		if (session.isConnected() && session.isProfileUpdating())
 		{
 			session.updateProfileSuccessfully(false);
@@ -621,8 +619,6 @@ public class InternalEventParser
 		}
 
 		manager.addToRelayList(IRCEventFactory.nickInUse(token, session));
-		// }
-
 	}
 
 	private void connectionComplete(EventToken token, Session session, IRCEvent event)
