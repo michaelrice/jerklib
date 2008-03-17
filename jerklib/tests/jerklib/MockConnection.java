@@ -123,25 +123,29 @@ public class MockConnection extends Connection
   			String token = null;
   			while ((token = br.readLine()) != null)
   			{
-  				final String token1 = token;
-  				events.add(new IRCEvent()
+  				//skip comments
+  				if(!token.startsWith("#"))
   				{
+  					final String token1 = token;
+    				events.add(new IRCEvent()
+    				{
 
-  					public String getRawEventData()
-  					{
-  						return token1;
-  					}
+    					public String getRawEventData()
+    					{
+    						return token1;
+    					}
 
-  					public Session getSession()
-  					{
-  						return session;
-  					}
+    					public Session getSession()
+    					{
+    						return session;
+    					}
 
-  					public Type getType()
-  					{
-  						return Type.DEFAULT;
-  					}
-  				});
+    					public Type getType()
+    					{
+    						return Type.DEFAULT;
+    					}
+    				});
+  				}
   			}
   		}
   		catch (IOException e)

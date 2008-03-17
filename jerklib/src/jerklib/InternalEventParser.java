@@ -95,11 +95,9 @@ public class InternalEventParser
 		}
 		else if (command.equals("JOIN"))
 		{
-			Pattern p = Pattern.compile("^:\\Q" + nick + "\\E\\!.*?\\s+JOIN\\s+:?(\\S+)$");
-			Matcher m = p.matcher(data);
-			if (m.matches())
+			if (IRCEventFactory.getNick(tokens.get(0)).equalsIgnoreCase(nick))
 			{
-				Channel channel = new Channel(m.group(1).toLowerCase(), session);
+				Channel channel = new Channel(tokens.get(2).data.replaceFirst(":", ""), session);
 				session.addChannel(channel);
 				manager.addToRelayList(IRCEventFactory.joinCompleted(data, session, nick, channel));
 			}
@@ -175,14 +173,14 @@ public class InternalEventParser
 			session.getConnection().pong(event);
 			manager.addToRelayList(event);
 		}
+		else if (data.matches("^NOTICE\\s+(.*$)$"))
+		{
+			manager.addToRelayList(IRCEventFactory.notice(eventToken, session));
+		}
 		else if (data.matches(".*PONG.*"))
 		{
 			session.getConnection().gotPong();
 			manager.addToRelayList(event);
-		}
-		else if (data.matches("^NOTICE\\s+(.*$)$"))
-		{
-			manager.addToRelayList(IRCEventFactory.notice(eventToken, session));
 		}
 		else
 		{
@@ -320,7 +318,6 @@ public class InternalEventParser
 				chan.updateUsersMode(nick, mode);
 			}
 		}
-		
 		
 		ModeEvent me = new ModeEventImpl(event.getRawEventData(), event.getSession(), modeMap, IRCEventFactory.getNick(wordTokens.get(0)), chan);
 
@@ -470,12 +467,8 @@ public class InternalEventParser
 			case 324:
 				channelMode(event);
 				break;
-			case 332:
-				firstPartOfTopic(token, session);
-				break;
-			case 333:
-				secondPartOfTopic(token, session);
-				break;
+			case 332:topic(token, session , numeric);break;
+			case 333:topic(token, session , numeric);break;
 			case 351:
 				manager.addToRelayList(IRCEventFactory.serverVersion(token, session));
 				break;
@@ -546,48 +539,39 @@ public class InternalEventParser
 				manager.addToRelayList(event);
 		}
 	}
-
-	private void firstPartOfTopic(EventToken token, Session session)
+	
+	//:sterling.freenode.net 332 scrip #test :Welcome to #test - This channel is for testing only
+	//:sterling.freenode.net 333 scrip #test LuX 1159267246
+	private void topic(EventToken token, Session session , int numeric)
 	{
-		// FIRST PART TOF TOPPIC;
-		// sterling.freenode.net 332 scrip #test :Welcome to #test - This channel is
-		// for testing only.
-		// if (data.matches(":(.+?)\\s+332\\s+(.+?)\\s+(" + channelPrefixRegex
-		// +".+?)\\s+:(.*)$"))
-		// {
-		TopicEvent tEvent = IRCEventFactory.topic(token, session);
-		if (topicMap.containsValue(tEvent.getChannel()))
+		if(numeric == 332)
 		{
-			((TopicEventImpl) topicMap.get(tEvent.getChannel())).appendToTopic(tEvent.getTopic());
+			TopicEvent tEvent = IRCEventFactory.topic(token, session);
+			if (topicMap.containsValue(tEvent.getChannel()))
+			{
+				((TopicEventImpl) topicMap.get(tEvent.getChannel())).appendToTopic(tEvent.getTopic());
+			}
+			else
+			{
+				topicMap.put(tEvent.getChannel(), tEvent);
+			}
 		}
 		else
 		{
-			topicMap.put(tEvent.getChannel(), tEvent);
+			Pattern p = Pattern.compile(":(\\S+)\\s+333\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)$");
+			Matcher m = p.matcher(token.getData());
+			m.matches();
+			Channel chan = (Channel) session.getChannel(m.group(3).toLowerCase());
+			if (topicMap.containsKey(chan))
+			{
+				TopicEventImpl tEvent = (TopicEventImpl) topicMap.get(chan);
+				topicMap.remove(chan);
+				tEvent.setSetBy(m.group(4));
+				tEvent.setSetWhen(m.group(5));
+				chan.setTopicEvent(tEvent);
+				manager.addToRelayList(tEvent);
+			}
 		}
-		// }
-	}
-
-	private void secondPartOfTopic(EventToken token, Session session)
-	{
-		// 2nd part of topic
-		// :zelazny.freenode.net 333 scrip #test LuX 1159267246
-		// if (data.matches(":(.+?)\\s+333\\s+(.+?)\\s+("+
-		// channelPrefixRegex+".+?)\\s+(\\S+)\\s+(\\S+)$"))
-		// {
-		Pattern p = Pattern.compile(":(\\S+)\\s+333\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)$");
-		Matcher m = p.matcher(token.getData());
-		m.matches();
-		Channel chan = (Channel) session.getChannel(m.group(3).toLowerCase());
-		if (topicMap.containsKey(chan))
-		{
-			TopicEventImpl tEvent = (TopicEventImpl) topicMap.get(chan);
-			topicMap.remove(chan);
-			tEvent.setSetBy(m.group(4));
-			tEvent.setSetWhen(m.group(5));
-			chan.setTopicEvent(tEvent);
-			manager.addToRelayList(tEvent);
-		}
-		// }
 	}
 
 	Random rand = new Random();
@@ -623,11 +607,6 @@ public class InternalEventParser
 
 	private void connectionComplete(EventToken token, Session session, IRCEvent event)
 	{
-		/*
-		 * CONNECTION COMPLETE irc,freenode.net might actually be
-		 * niveen.freenode.net :irc.nmglug.org 001 namnar :Welcome to the nmglug.org
-		 * Internet Relay Chat Network namnar
-		 */
 		ConnectionCompleteEvent ccEvent = IRCEventFactory.connectionComplete(token, session);
 		session.getConnection().loginSuccess();
 		session.getConnection().setHostName(ccEvent.getActualHostName());
@@ -636,11 +615,9 @@ public class InternalEventParser
 
 	private void message(EventToken token, Session session)
 	{
-		
 		MessageEvent me = IRCEventFactory.message(token , session);
 
 		String msg = me.getMessage();
-
 		if (msg.startsWith("\u0001"))
 		{
 			String ctcpString = msg.substring(1, msg.length() - 1);
