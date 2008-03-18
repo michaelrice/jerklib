@@ -272,6 +272,8 @@ class Connection
 
             // need to notify conman so it can
             // update session cache
+            //this is fucked and needs to be rethought - why does
+            //connection need to to tell session to do anything...
             manager.removeSession(session);
 
             socChannel.close();

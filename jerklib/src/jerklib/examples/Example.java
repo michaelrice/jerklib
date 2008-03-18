@@ -147,7 +147,7 @@ public class Example implements IRCEventListener
         {
             log.info("JOIN COMPLETE");
             JoinCompleteEvent jce = (JoinCompleteEvent) e;
-            if (jce.getChannel().getName().equals("#sand-irc"))
+            if (jce.getChannel().getName().equals("#jerklib"))
             {
                 /* say hello and version number */
                 e.getSession().notice(jce.getChannel().getName(), "Hello from Jerklib " + ConnectionManager.getVersion());
@@ -165,6 +165,10 @@ public class Example implements IRCEventListener
                     log.info("MODE " + mode + "->" + target);
                 }
             }
+        }
+        else
+        {
+        	System.out.println(e.getRawEventData());
         }
 
     }
