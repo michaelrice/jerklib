@@ -3,8 +3,8 @@ package jerklib;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import jerklib.events.IRCEvent;
 public class MockConnection extends Connection
 {
 
-	private FileReader reader;
+	private InputStreamReader reader;
 	private FileOutputStream writer;
 	private Session session;
 	private List<IRCEvent> events = new ArrayList<IRCEvent>();
@@ -41,15 +41,8 @@ public class MockConnection extends Connection
     
     public void setInputFile(String path)
     {
-    	 try
-				{
-					reader = new FileReader(path);
-					parse();
-				}
-				catch (FileNotFoundException e)
-				{
-					throw new Error(e);
-				}
+    	reader = new InputStreamReader(ConnectionManager.class.getResourceAsStream(path));
+    	parse();
     }
     
     public void setOutputFile(String path)

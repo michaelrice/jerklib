@@ -23,6 +23,7 @@ public class DataParser
 		String s = "";
 		StringBuilder builder = null;
 		int i = 0;
+		int added = 0;
 		while((s = reader.readLine()) != null)
 		{
 			switch(i)
@@ -42,8 +43,10 @@ public class DataParser
 				{
 					if(runnable.matches(new EventToken(s)))
 					{
+						builder.append("# Event index: " + added + "\r\n");
 						builder.append(s + "\r\n");
 						tokens.add(builder.toString());
+						added++;
 					}
 					break;
 				}

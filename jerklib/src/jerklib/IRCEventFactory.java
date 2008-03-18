@@ -218,7 +218,11 @@ class IRCEventFactory
 	
 	static String getNick(Token t)
 	{
-		return t.data.substring(1).substring(0,t.data.indexOf('!') - 1);
+		if(t.data.indexOf("!") != -1)
+		{
+			return t.data.substring(1).substring(0,t.data.indexOf('!') - 1);
+		}
+		return t.data.substring(1);
 	}
 
 
@@ -287,7 +291,7 @@ class IRCEventFactory
 	static NoticeEvent notice(EventToken token, Session session)
 	{
 		
-		List<Token> tokens = token.getWordTokens();
+		final List<Token> tokens = token.getWordTokens();
 		
 		// generic notice NOTICE AUTH :*** No identd (auth) response
 		if(tokens.get(0).data.equals("NOTICE"))
