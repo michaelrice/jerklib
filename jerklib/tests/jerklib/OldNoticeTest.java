@@ -7,7 +7,7 @@ import jerklib.tasks.TaskImpl;
 import static org.testng.AssertJUnit.assertTrue;
 import org.testng.annotations.Test;
 
-public class NoticeTest
+public class OldNoticeTest
 {
 
 	private MockConnectionManager conMan;

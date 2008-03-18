@@ -85,7 +85,6 @@ public class DataParser
 			
 			parser.filterData(new File(args[0] , "notice.data"), new RegexRunnable("((^NOTICE.+)|(^\\S+\\s+NOTICE.+))"));
 			parser.filterData(new File(args[0] , "ping.data"), new RegexRunnable("^PING.+"));
-			
 		}
 		catch (IOException e) 
 		{
