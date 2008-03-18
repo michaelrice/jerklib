@@ -47,14 +47,14 @@ import java.util.regex.Pattern;
  * 
  * @author mohadib
  */
-public class InternalEventParser
+class InternalEventParserImpl implements InternalEventParser
 {
 	private ConnectionManager manager;
 	private Map<Channel, TopicEvent> topicMap = new HashMap<Channel, TopicEvent>();
 	private WhoisEventImpl we;
 	Logger log = Logger.getLogger(this.getClass().getName());
 
-	public InternalEventParser(ConnectionManager manager)
+	public InternalEventParserImpl(ConnectionManager manager)
 	{
 		this.manager = manager;
 	}
@@ -66,14 +66,13 @@ public class InternalEventParser
 	 * @param event
 	 *          <code>IRCEvent</code> the event to parse
 	 */
-	void parseEvent(IRCEvent event)
+	public void parseEvent(IRCEvent event)
 	{
 		Session session = event.getSession();
 		String data = event.getRawEventData();
 		String nick = session.getNick();
-
+		
 		EventToken eventToken = new EventToken(data);
-
 		List<Token> tokens = eventToken.getWordTokens();
 		if (tokens.isEmpty()) return;
 
@@ -168,14 +167,14 @@ public class InternalEventParser
 			}
 			manager.addToRelayList(ke);
 		}
+		else if (data.matches("^NOTICE\\s+(.*$)$"))
+		{
+			manager.addToRelayList(IRCEventFactory.notice(eventToken, session));
+		}
 		else if (data.matches("^PING.*"))
 		{
 			session.getConnection().pong(event);
 			manager.addToRelayList(event);
-		}
-		else if (data.matches("^NOTICE\\s+(.*$)$"))
-		{
-			manager.addToRelayList(IRCEventFactory.notice(eventToken, session));
 		}
 		else if (data.matches(".*PONG.*"))
 		{
@@ -431,9 +430,8 @@ public class InternalEventParser
 	{
 		switch (numeric)
 		{
-			case 001:
-				connectionComplete(token, session, event);
-				break;
+			case 001:connectionComplete(token, session, event);break;
+			case 002:manager.addToRelayList(IRCEventFactory.serverVersion(token, session));break;
 			case 005:
 				serverInfo(token, event);
 				break;

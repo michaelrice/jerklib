@@ -19,11 +19,29 @@ class IRCEventFactory
 		myManager = manager;
 	}
 
+	//"<version>.<debuglevel> <server> :<comments>"
 	// :kubrick.freenode.net 351 scripy hyperion-1.0.2b(382). kubrick.freenode.net :iM dncrTS/v4
-	// "<version>.<debuglevel> <server> :<comments>"
+	// :kubrick.freenode.net 002 mohadib_ :Your host is kubrick.freenode.net[kubrick.freenode.net/6667], running version hyperion-1.0.2b
+	// :irc.nixgeeks.com 002 mohadib :Your host is irc.nixgeeks.com, running version Unreal3.2.3
 	static ServerVersionEvent serverVersion(EventToken token, Session session)
 	{
 		List<Token> tokens = token.getWordTokens();
+		
+		Token numeric = tokens.get(1);
+		if(numeric.data.equals("002"))
+		{
+			return new ServerVersionEventImpl
+			(
+				"",
+				tokens.get(6).data,
+				tokens.get(9).data,
+				"",
+				token.getData(),
+				session
+			);
+		}
+		
+		
 			return new ServerVersionEventImpl
 			(
 				token.concatTokens(10).substring(1), 

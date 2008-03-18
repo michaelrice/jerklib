@@ -28,7 +28,7 @@ import java.util.*;
 public class ConnectionManager
 {
 
-    public static boolean debug, autoChooseNick;
+    public static boolean debug,dontParse;
     private static String version = "0.3 or greater";
     private static String extendedVersion = "";
 
@@ -91,7 +91,7 @@ public class ConnectionManager
     private final List<WriteRequest> requestForWriteListenerEventQueue = new ArrayList<WriteRequest>();
 
     /* internal event parser */
-    private final InternalEventParser parser = new InternalEventParser(this);
+    private InternalEventParser parser = new InternalEventParserImpl(this);
 
     /* main loop timer */
     private Timer loopTimer;
@@ -120,6 +120,8 @@ public class ConnectionManager
 
         IRCEventFactory.setManager(this);
 
+        if(dontParse)parser = new MinimalEventParser(this);
+        
         try
         {
             selector = Selector.open();
