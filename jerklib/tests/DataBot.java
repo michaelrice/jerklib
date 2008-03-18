@@ -112,7 +112,7 @@ public class DataBot implements IRCEventListener
 		};
 		
 		
-		String[] hosts = { "irc.dalnet.com" , "irc.nixgeeks.com" , "irc.freenode.net" , "irc.quakenet.org" };
+		String[] hosts = { "rumble.dal.net" , "irc.nixgeeks.com" , "irc.freenode.net" , "irc.quakenet.org" };
 		for(String host : hosts)
 		{
 			final Session session = conMan.requestConnection(host);
