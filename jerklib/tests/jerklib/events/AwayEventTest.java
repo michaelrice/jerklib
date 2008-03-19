@@ -49,7 +49,7 @@ public class AwayEventTest extends EventTestBase
         AwayEvent event = events.get(0);
         assertFalse(event.isYou());
         assertTrue(event.isAway());
-        assertEquals(event.getNick(),"mohadib");
+        assertEquals(event.getNick(),"mohadib__");
         assertEquals(event.getAwayMessage(),"NO");
 
     }
@@ -69,6 +69,16 @@ public class AwayEventTest extends EventTestBase
         AwayEvent event = events.get(2);
         assertFalse(event.isAway());
         assertTrue(event.isYou()); 
+    }
+
+    @Test
+    public void testHyperionUserIsAway()
+    {
+        AwayEvent event = events.get(3);
+        assertFalse(event.isYou());
+        assertTrue(event.isAway());
+        assertEquals(event.getNick(),"Swingbot");
+        assertEquals(event.getAwayMessage(),"FUCKER"); 
     }
 
 }
