@@ -49,7 +49,7 @@ public class AwayEventTest extends EventTestBase
         AwayEvent event = events.get(0);
         assertFalse(event.isYou());
         assertTrue(event.isAway());
-        assertEquals(event.getNick(),"mohadib__");
+        assertEquals(event.getNick(),"mohadib");
         assertEquals(event.getAwayMessage(),"NO");
 
     }
