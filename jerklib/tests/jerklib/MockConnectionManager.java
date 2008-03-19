@@ -33,8 +33,8 @@ public class MockConnectionManager extends ConnectionManager
 		MockSocketChannel chan = new MockSocketChannel(null);
 		MockConnection con = new MockConnection
 		(
-				(ConnectionManager)this , 
-				(SocketChannel)chan , 
+				this , 
+				chan ,
 				session,
 				inputFile,
 				outputFile
