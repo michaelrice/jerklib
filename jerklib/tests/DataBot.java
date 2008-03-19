@@ -31,8 +31,13 @@ import jerklib.tasks.TaskImpl;
  * 
  * irc.quakenet.org - snircd
  * 	#cod4.wars
- * 
+ *
+ * //TODO
  * irc.shadow-realm.org - ultimate
+ *
+ * //TODO
+ * us.undernet.org - Undernet (ircu)
+ * #ubuntu
  * 
  */
 public class DataBot implements IRCEventListener
