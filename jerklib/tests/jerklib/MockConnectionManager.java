@@ -1,8 +1,6 @@
 package jerklib;
 
 
-import java.nio.channels.SocketChannel;
-
 /**
  * @version $Revision$
  */

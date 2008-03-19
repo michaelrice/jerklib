@@ -41,7 +41,7 @@ public class MockConnection extends Connection
     
     public void setInputFile(String path)
     {
-    	reader = new InputStreamReader(ConnectionManager.class.getResourceAsStream(path));
+    	reader = new InputStreamReader(MockConnectionManager.class.getResourceAsStream(path));
     	parse();
     }
     
