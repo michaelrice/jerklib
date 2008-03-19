@@ -93,7 +93,7 @@ public class AwayEventTest extends EventTestBase
     public void testHyperionUserReturnedFromAway()
     {
         AwayEvent event = events.get(5);
-        assertFalse(event.isYou());
+        assertTrue(event.isYou());
         assertFalse(event.isAway());
     }
 
@@ -119,7 +119,7 @@ public class AwayEventTest extends EventTestBase
     public void testQuakeNetUserReturnedFromAway()
     {
         AwayEvent event = events.get(8);
-        assertFalse(event.isYou());
+        assertTrue(event.isYou());
         assertFalse(event.isAway());
     }
 
@@ -145,7 +145,7 @@ public class AwayEventTest extends EventTestBase
     public void testUserReturnedFromAway()
     {
         AwayEvent event = events.get(11);
-        assertFalse(event.isYou());
+        assertTrue(event.isYou());
         assertFalse(event.isAway());    
     }
 }
