@@ -263,7 +263,9 @@ class IRCEventFactory
 			case 305:
 				return new AwayEventImpl(session, AwayEvent.EventType.RETURNED_FROM_AWAY, false, true, myManager.getDefaultProfile().getActualNick(), data);
 			case 306:
+			{
 				return new AwayEventImpl(session, AwayEvent.EventType.WENT_AWAY, true, true, myManager.getDefaultProfile().getActualNick(), data);
+			}
 			}
 		}
 		// :card.freenode.net 301 r0bby_ r0bby :foo

@@ -47,7 +47,7 @@ public class MockConnectionManager extends ConnectionManager
 		sessionMap.put(hostName, session);
 		socChanMap.put(chan, session);
 		
-		
+		setDefaultProfile(profile);
 		return session;
 	}
 

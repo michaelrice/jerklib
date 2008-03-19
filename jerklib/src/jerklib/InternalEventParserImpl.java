@@ -188,17 +188,24 @@ class InternalEventParserImpl implements InternalEventParser
 	}
 
 	// :kubrick.freenode.net 324 mohadib__ #test +mnPzlfJ 101 #flood 1,2
+	// :swiftco.wa.us.dal.net 324 mohadib #Testing +tn 
 	private void channelMode(IRCEvent event)
 	{
 		Pattern p = Pattern.compile("^\\S+\\s+\\S+\\s+\\S+\\s+(\\S+)\\s+(.+)$");
 		Matcher m = p.matcher(event.getRawEventData());
-		m.matches();
-
-		event.getSession().getChannel(m.group(1)).setModeString(m.group(2));
-		ModeEvent me = new ModeEventImpl(event.getRawEventData(), event.getSession(), null, null, event.getSession().getChannel(m.group(1)));
-
-		// notify with a Mode EVent
-		manager.addToRelayList(me);
+		if(m.matches())
+		{
+			event.getSession().getChannel(m.group(1).toLowerCase()).setModeString(m.group(2));
+			ModeEvent me = new ModeEventImpl(event.getRawEventData(), event.getSession(), null, null, event.getSession().getChannel(m.group(1)));
+			manager.addToRelayList(me);
+		}
+		else
+		{
+			//no arguments
+			p = Pattern.compile("^\\S+\\s+\\S+\\s+\\S+\\s+(\\S+)$");
+			m = p.matcher(event.getRawEventData());
+			ModeEvent me = new ModeEventImpl(event.getRawEventData(), event.getSession(), null, null, event.getSession().getChannel(m.group(1)));
+		}
 	}
 
 	
