@@ -44,7 +44,7 @@ public class AwayEventTest extends EventTestBase
 	}
 
 	@Test
-    public void testBahamutUserIsAway()
+    public void testBahamutRemoteUserIsAway()
     {
         AwayEvent event = events.get(0);
         assertFalse(event.isYou());
@@ -81,4 +81,71 @@ public class AwayEventTest extends EventTestBase
         assertEquals(event.getAwayMessage(),"FUCKER"); 
     }
 
+    @Test
+    public void testHyperionUserWentAway()
+    {
+        AwayEvent event = events.get(4);
+        assertTrue(event.isYou());
+        assertTrue(event.isAway());
+    }
+
+    @Test
+    public void testHyperionUserReturnedFromAway()
+    {
+        AwayEvent event = events.get(5);
+        assertFalse(event.isYou());
+        assertFalse(event.isAway());
+    }
+
+    @Test
+    public void testQuakeNetUserIsAway()
+    {
+        AwayEvent event = events.get(6);
+        assertFalse(event.isYou());
+        assertTrue(event.isAway());
+        assertEquals(event.getNick(),"mohadib");
+        assertEquals(event.getAwayMessage(),"HEYE");
+    }
+
+    @Test
+    public void testQuakeNetUserWentAway()
+    {
+        AwayEvent event = events.get(7);
+        assertTrue(event.isYou());
+        assertTrue(event.isAway());
+    }
+
+    @Test
+    public void testQuakeNetUserReturnedFromAway()
+    {
+        AwayEvent event = events.get(8);
+        assertFalse(event.isYou());
+        assertFalse(event.isAway());
+    }
+
+    @Test
+    public void testUnrealUserIsAway()
+    {
+        AwayEvent event = events.get(9);
+        assertFalse(event.isYou());
+        assertTrue(event.isAway());
+        assertEquals(event.getNick(),"mohadib");
+        assertEquals(event.getAwayMessage(),"HI");
+    }
+
+    @Test
+    public void testUnrealUserWentAway()
+    {
+        AwayEvent event = events.get(10);
+        assertTrue(event.isYou());
+        assertTrue(event.isAway());
+    }
+
+    @Test
+    public void testUserReturnedFromAway()
+    {
+        AwayEvent event = events.get(11);
+        assertFalse(event.isYou());
+        assertFalse(event.isAway());    
+    }
 }
