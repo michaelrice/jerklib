@@ -9,7 +9,9 @@ import java.io.File;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import static org.testng.AssertJUnit.assertTrue;
+
+import static org.testng.AssertJUnit.*;
+
 
 /**
  * Created: Mar 18, 2008 9:50:23 PM
@@ -42,11 +44,31 @@ public class AwayEventTest extends EventTestBase
 	}
 
 	@Test
+    public void testBahamutUserIsAway()
+    {
+        AwayEvent event = events.get(0);
+        assertFalse(event.isYou());
+        assertTrue(event.isAway());
+        assertEquals(event.getNick(),"mohadib");
+        assertEquals(event.getAwayMessage(),"NO");
+
+    }
+
+    @Test
 	public void testBahamutUserWentAway()
 	{
 		AwayEvent event = events.get(1);
         assertTrue(event.isYou());
         assertTrue(event.isAway());
         
-    }	
+    }
+
+    @Test
+    public void testBahamutUserReturnedFromAway()
+    {
+        AwayEvent event = events.get(2);
+        assertFalse(event.isAway());
+        assertTrue(event.isYou()); 
+    }
+
 }
