@@ -17,7 +17,7 @@
         <path refid="main.classpath"/>
         <pathelement location="${build.java}"/>
         <pathelement location="${build.tests}"/>
-        <pathelement location="${src.tests}" />
+       	<pathelement location="${src.tests}" />
     </path>
 
     <taskdef name="testng" classpathref="main.classpath" classname="org.testng.TestNGAntTask"/>
@@ -51,7 +51,7 @@
 
     <target name="test" depends="build, buildprops">
         <testng classpathref="testing.classpath">
-            <classfileset dir="${build.tests}" includes="**/*.class"/>
+        	<classfileset dir="${build.tests}" includes="**/AwayEventTest.class **/NoticeEventTest.class"/> 
         </testng>
     </target>
 
