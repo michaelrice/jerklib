@@ -59,5 +59,16 @@ public class Token
 			return 0;
 		}
 	}
+
+    public long getAsLong()
+    {
+        try
+        {
+            return Long.parseLong(data);
+        }
+        catch(NumberFormatException e) {
+            return 0L;
+        }
+    }
 	
 }
