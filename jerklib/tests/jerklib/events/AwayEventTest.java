@@ -146,7 +146,7 @@ public class AwayEventTest extends EventTestBase
     }
 
     @Test
-    public void testUserReturnedFromAway()
+    public void testUnrealUserReturnedFromAway()
     {
         AwayEvent event = events.get(11);
         assertTrue(event.isYou());
