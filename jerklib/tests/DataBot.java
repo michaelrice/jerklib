@@ -91,8 +91,7 @@ public class DataBot implements IRCEventListener
 		builder.append("# Version:" + ircdMap.get(e.getSession().getRequestedConnection().getHostName()) + "\n");
 		builder.append(e.getRawEventData() + "\r\n");
 		builder.append("\n");
-		
-		try
+        try
 		{
 			fos.write(builder.toString().getBytes());
 			fos.flush();
@@ -115,15 +114,25 @@ public class DataBot implements IRCEventListener
 				ircdMap.put(e.getSession().getRequestedConnection().getHostName() , se.getVersion());
 			}
 		};
-		
-		
-		String[] hosts = { "rumble.dal.net" , "irc.nixgeeks.com" , "irc.freenode.net" , "irc.quakenet.org" };
+
+
+        String[] hosts = { "rumble.dal.net" , "irc.nixgeeks.com" , "irc.freenode.net" , "irc.quakenet.org","Vancouver.BC.CA.Undernet.org" };
 		for(String host : hosts)
 		{
 			final Session session = conMan.requestConnection(host);
-			session.onEvent(t , Type.SERVER_VERSION_EVENT);
-			session.addIRCEventListener(this);
-			session.onEvent(new TaskImpl("join")
+			session.onEvent(t , Type.SERVER_VERSION_EVENT);            
+            session.addIRCEventListener(this);
+            session.onEvent(new TaskImpl("msg")
+            {
+                public void receiveEvent(IRCEvent e)
+                {
+                    e.getSession().setAway("foo");
+                    e.getSession().sayPrivate("r0bby","hai2u");
+                    e.getSession().unsetAway();
+                    cancel();
+                }
+            },Type.CONNECT_COMPLETE);
+            session.onEvent(new TaskImpl("join")
 			{
 				int x = i;
 				public void receiveEvent(IRCEvent e)
@@ -150,7 +159,13 @@ public class DataBot implements IRCEventListener
 								System.out.println("Joining cod4.wars");
 								session.join("#cod4.wars");break;
 							}
-						default: System.out.println("NO " + i);
+                        case 4:
+                             {
+                                System.out.println("Joining ubuntu");
+                                session.join("#ubuntu");
+                             }
+
+                        default: System.out.println("NO " + i);
 					}
 				}
 			} , Type.CONNECT_COMPLETE);
