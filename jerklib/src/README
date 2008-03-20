@@ -2,9 +2,10 @@ Jerklib is an event-driven IRC library that can be used to write an IRC bot/clie
 
 Authors:
 	Jason Davis <mohadib@openactive.org> - mohadib on freenode
+	Andres N. Kievsky <http://www.ank.com.ar> - mr_ank on freenode
 	Robert O'Connor <rob@mybawx.org> - r0bby on freenode
 	Joseph B. Ottinger <joeo@enigmastation.com> - jottinger on freenode 
-	Andres N. Kievsky - http://www.ank.com.ar - mr_ank on freenode
+
 
 Bugs/Feature Requests:
 	If you find a bug or would like a feature added , please let us know!
