@@ -2,20 +2,20 @@ package jerklib;
 
 public class Token
 {
-	
+
 	public String data = "";
 	public int offset = 0;
 	public int len = 0;
 	public Type type;
-	
+
 	enum Type
 	{
-		WHITESPACE,
-		NON_WHITESPACE
+		WHITESPACE, NON_WHITESPACE
 	}
-	
+
 	/**
 	 * Does this token look like a number?
+	 * 
 	 * @return true/false.
 	 */
 	public boolean isNumeric()
@@ -23,37 +23,34 @@ public class Token
 		return data.matches("^\\d+$");
 	}
 
-    /**
-     * Check if the number is a long
-     * @return true/false
-     */
-    public boolean isLong() {
-        if(!isNumeric())
-        {
-            return false;
-        }
-        try
-        {
-            Long.parseLong(data);
-            return true;
-        }
-        catch(NumberFormatException e)
-        {
-            return false;
-        }
+	/**
+	 * Check if the number is a long
+	 * 
+	 * @return true/false
+	 */
+	public boolean isLong()
+	{
+		if (!isNumeric()) { return false; }
+		try
+		{
+			Long.parseLong(data);
+			return true;
+		}
+		catch (NumberFormatException e)
+		{
+			return false;
+		}
 
+	}
 
-    }
-    /**
+	/**
 	 * Is this token a valid integer?
+	 * 
 	 * @return true/false.
 	 */
 	public boolean isInteger()
 	{
-		if (!isNumeric())
-		{
-			return false;
-		}
+		if (!isNumeric()) { return false; }
 		try
 		{
 			Integer.parseInt(data);
@@ -67,6 +64,7 @@ public class Token
 
 	/**
 	 * Convert to integer, if possible.
+	 * 
 	 * @return the int value;
 	 */
 	public int getAsInteger()
@@ -81,19 +79,21 @@ public class Token
 		}
 	}
 
-    /**
-     * Get the Token as a long.
-     * @return the long value.
-     */
-    public long getAsLong()
-    {
-        try
-        {
-            return Long.parseLong(data);
-        }
-        catch(NumberFormatException e) {
-            return 0L;
-        }
-    }
-	
+	/**
+	 * Get the Token as a long.
+	 * 
+	 * @return the long value.
+	 */
+	public long getAsLong()
+	{
+		try
+		{
+			return Long.parseLong(data);
+		}
+		catch (NumberFormatException e)
+		{
+			return 0L;
+		}
+	}
+
 }
