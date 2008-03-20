@@ -2,9 +2,14 @@ package jerklib;
 
 import jerklib.events.TopicEvent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date; 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
+
 
 public class Channel
 {
