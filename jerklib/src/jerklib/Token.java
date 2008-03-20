@@ -22,8 +22,29 @@ public class Token
 	{
 		return data.matches("^\\d+$");
 	}
-	
-	/**
+
+    /**
+     * Check if the number is a long
+     * @return true/false
+     */
+    public boolean isLong() {
+        if(!isNumeric())
+        {
+            return false;
+        }
+        try
+        {
+            Long.parseLong(data);
+            return true;
+        }
+        catch(NumberFormatException e)
+        {
+            return false;
+        }
+
+
+    }
+    /**
 	 * Is this token a valid integer?
 	 * @return true/false.
 	 */
@@ -60,6 +81,10 @@ public class Token
 		}
 	}
 
+    /**
+     * Get the Token as a long.
+     * @return the long value.
+     */
     public long getAsLong()
     {
         try
