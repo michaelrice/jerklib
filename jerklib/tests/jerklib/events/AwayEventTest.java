@@ -81,7 +81,7 @@ public class AwayEventTest extends EventTestBase
         AwayEvent event = events.get(3);
         assertFalse(event.isYou());
         assertTrue(event.isAway());
-        assertEquals(event.getNick(),"Swingbot");
+        assertEquals(event.getNick(),"SwingBot");
         assertEquals(event.getAwayMessage(),"FUCKER"); 
     }
 
