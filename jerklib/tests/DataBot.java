@@ -116,22 +116,13 @@ public class DataBot implements IRCEventListener
 		};
 
 
-        String[] hosts = { "rumble.dal.net" , "irc.nixgeeks.com" , "irc.freenode.net" , "irc.quakenet.org","Vancouver.BC.CA.Undernet.org" };
+        String[] hosts = { "rumble.dal.net" , "irc.nixgeeks.com" , "irc.freenode.net" , "irc.quakenet.org","Vancouver.BC.CA.Undernet.org","irc.shadow-realm.org"};
 		for(String host : hosts)
 		{
 			final Session session = conMan.requestConnection(host);
 			session.onEvent(t , Type.SERVER_VERSION_EVENT);            
             session.addIRCEventListener(this);
-            session.onEvent(new TaskImpl("msg")
-            {
-                public void receiveEvent(IRCEvent e)
-                {
-                    e.getSession().setAway("foo");
-                    e.getSession().sayPrivate("r0bby","hai2u");
-                    e.getSession().unsetAway();
-                    cancel();
-                }
-            },Type.CONNECT_COMPLETE);
+            
             session.onEvent(new TaskImpl("join")
 			{
 				int x = i;
@@ -163,6 +154,11 @@ public class DataBot implements IRCEventListener
                              {
                                 System.out.println("Joining ubuntu");
                                 session.join("#ubuntu");
+                             }
+                        case 5:
+                             {
+                                 System.out.println("Joining shadowrealm");
+                                 session.join("#shadowrealm");
                              }
 
                         default: System.out.println("NO " + i);
