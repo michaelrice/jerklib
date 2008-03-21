@@ -72,7 +72,14 @@ public abstract class BaseListener implements IRCEventListener
         }
         if (Type.CTCP_EVENT.equals(t))
         {
-            handleCtcpEvent((CtcpEvent) e);
+            if (e instanceof DccEvent)
+            {
+            	handleDccEvent((DccEvent) e);	
+            }
+            else
+            {
+            	handleCtcpEvent((CtcpEvent) e);	
+            }
             return true;
         }
         if (Type.ERROR.equals(t))
@@ -270,6 +277,11 @@ public abstract class BaseListener implements IRCEventListener
         log.finest(event.getRawEventData());
     }
 
+    protected void handleDccEvent(DccEvent event)
+    {
+    		log.finest(event.getRawEventData());
+    }
+    
     protected void handleConnectComplete(ConnectionCompleteEvent event)
     {
         log.finest(event.getRawEventData());

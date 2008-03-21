@@ -626,7 +626,14 @@ class InternalEventParserImpl implements InternalEventParser
 		if (msg.startsWith("\u0001"))
 		{
 			String ctcpString = msg.substring(1, msg.length() - 1);
-			me = IRCEventFactory.ctcp(me, ctcpString);
+			if (ctcpString.startsWith("DCC "))
+			{
+				me = IRCEventFactory.dcc(me, ctcpString);
+			}
+			else
+			{
+				me = IRCEventFactory.ctcp(me, ctcpString);
+			}
 		}
 		manager.addToRelayList(me);
 	}
