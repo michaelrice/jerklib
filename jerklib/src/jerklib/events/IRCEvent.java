@@ -122,7 +122,12 @@ public interface IRCEvent
         SERVER_VERSION_EVENT,
         AWAY_EVENT,
         ERROR,
-        CTCP_EVENT
+        CTCP_EVENT,
+        
+        /**
+         * a DCC Event.
+         */
+        DCC_EVENT
     }
 
     /**

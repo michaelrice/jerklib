@@ -51,7 +51,7 @@ class DccEventImpl implements DccEvent
 
 	public Type getType()
 	{
-		return Type.CTCP_EVENT;
+		return Type.DCC_EVENT;
 	}
 
 	public String getCtcpString()

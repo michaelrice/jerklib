@@ -72,14 +72,12 @@ public abstract class BaseListener implements IRCEventListener
         }
         if (Type.CTCP_EVENT.equals(t))
         {
-            if (e instanceof DccEvent)
-            {
-            	handleDccEvent((DccEvent) e);	
-            }
-            else
-            {
-            	handleCtcpEvent((CtcpEvent) e);	
-            }
+           	handleCtcpEvent((CtcpEvent) e);	
+            return true;
+        }
+        if (Type.DCC_EVENT.equals(t))
+        {
+        		handleDccEvent((DccEvent) e);
             return true;
         }
         if (Type.ERROR.equals(t))
