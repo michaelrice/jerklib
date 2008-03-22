@@ -34,61 +34,51 @@ class DccEventImpl implements DccEvent
 	}
 
 	
-	@Override
 	public DccType getDccType()
 	{
 		return DccType.UNKNOWN;
 	}
 
-	@Override
 	public String getRawEventData()
 	{
 		return this.rawEventData;
 	}
 
-	@Override
 	public Session getSession()
 	{
 		return this.session;
 	}
 
-	@Override
 	public Type getType()
 	{
 		return Type.CTCP_EVENT;
 	}
 
-	@Override
 	public String getCtcpString()
 	{
 		return this.ctcpString;
 	}
 
-	@Override
 	public Channel getChannel()
 	{
 		return this.channel;
 	}
 
-	@Override
 	public String getHostName()
 	{
 		return this.hostName;
 	}
 
-	@Override
 	public String getMessage()
 	{
 		return this.message;
 	}
 
-	@Override
 	public String getNick()
 	{
 		return this.nick;
 	}
 
-	@Override
 	public String getUserName()
 	{
 		return this.userName;

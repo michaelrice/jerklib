@@ -30,19 +30,16 @@ public class DccAcceptEventImpl extends DccEventImpl implements DccAcceptEvent
 		return DccEvent.DccType.ACCEPT;
 	}
 
-	@Override
 	public String getFilename()
 	{
 		return this.filename;
 	}
 
-	@Override
 	public int getPort()
 	{
 		return this.port;
 	}
 
-	@Override
 	public long getPosition()
 	{
 		return this.position;

@@ -30,19 +30,16 @@ public class DccResumeEventImpl extends DccEventImpl implements DccResumeEvent
 		return DccEvent.DccType.RESUME;
 	}
 
-	@Override
 	public String getFilename()
 	{
 		return this.filename;
 	}
 
-	@Override
 	public int getPort()
 	{
 		return this.port;
 	}
 
-	@Override
 	public long getPosition()
 	{
 		return this.position;

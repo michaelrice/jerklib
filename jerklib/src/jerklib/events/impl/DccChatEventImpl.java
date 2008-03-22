@@ -32,19 +32,16 @@ public class DccChatEventImpl extends DccEventImpl implements DccChatEvent
 		return DccEvent.DccType.CHAT;
 	}
 
-	@Override
 	public String getProtocol()
 	{
 		return this.protocol;
 	}
 
-	@Override
 	public InetAddress getIp()
 	{
 		return this.ip;
 	}
 
-	@Override
 	public int getPort()
 	{
 		return this.port;
