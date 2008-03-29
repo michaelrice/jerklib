@@ -4,7 +4,14 @@ import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.tasks.Task;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+
 
 /**
  * @author mohadib
@@ -159,6 +166,7 @@ public class Session extends RequestGenerator
      */
     protected void clearListeners()
     {
+
         listenerList.clear();
     }
 
