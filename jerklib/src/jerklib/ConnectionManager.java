@@ -15,7 +15,16 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.UnresolvedAddressException;
-import java.util.*;
+import java.util.Properties;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Timer;
+import java.util.Iterator;
+import java.util.TimerTask;
+import java.util.Collection;
 
 
 /**
@@ -69,6 +78,7 @@ public class ConnectionManager
      *
      * @return Version string
      */
+
     public static String getVersion()
     {
         if (extendedVersion.length() > 0)
