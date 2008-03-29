@@ -31,11 +31,16 @@ import jerklib.events.impl.ServerInformationEventImpl;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.WhoisEventImpl;
 
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * InternalEventParser is the first place IRCEvents are sent. Here they are
