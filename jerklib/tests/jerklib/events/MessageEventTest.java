@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 
 import static org.testng.AssertJUnit.assertTrue;
 
-import jerklib.Channel;
 import jerklib.EventTestBase;
 import jerklib.tasks.TaskImpl;
 import static jerklib.events.IRCEvent.Type.*;

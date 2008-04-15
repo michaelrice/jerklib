@@ -451,7 +451,7 @@ class IRCEventFactory
 	static PartEvent part(EventToken token, Session session)
 	{
 			List<Token>tokens = token.getWordTokens();
-			String partMsg = tokens.size() >= 3?token.concatTokens(6):"";
+			String partMsg = tokens.size() >= 3?token.concatTokens(6).substring(1):"";
 			if(tokens.get(2).data.startsWith(":"))tokens.get(2).data = tokens.get(2).data.substring(1);
 			return new PartEventImpl
 			(
