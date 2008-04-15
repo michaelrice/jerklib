@@ -1,9 +1,9 @@
-package jerklib.events.impl;
+package jerklib.events.impl.dcc;
 
 import jerklib.Channel;
 import jerklib.Session;
-import jerklib.events.DccEvent;
-import jerklib.events.DccUnknownEvent;
+import jerklib.events.dcc.DccEvent;
+import jerklib.events.dcc.DccUnknownEvent;
 
 /**
  * 

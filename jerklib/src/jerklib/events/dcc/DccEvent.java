@@ -1,4 +1,7 @@
-package jerklib.events;
+package jerklib.events.dcc;
+
+import jerklib.events.CtcpEvent;
+import jerklib.events.IRCEvent;
 
 /**
  * Base interface for all DCC Events.

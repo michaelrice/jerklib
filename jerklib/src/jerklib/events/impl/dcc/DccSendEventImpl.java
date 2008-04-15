@@ -1,11 +1,11 @@
-package jerklib.events.impl;
+package jerklib.events.impl.dcc;
 
 import java.net.InetAddress;
 
 import jerklib.Channel;
 import jerklib.Session;
-import jerklib.events.DccEvent;
-import jerklib.events.DccSendEvent;
+import jerklib.events.dcc.DccEvent;
+import jerklib.events.dcc.DccSendEvent;
 
 /**
  * 

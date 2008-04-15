@@ -2,6 +2,7 @@ package jerklib.events.listeners;
 
 import jerklib.events.*;
 import jerklib.events.IRCEvent.Type;
+import jerklib.events.dcc.DccEvent;
 
 import java.util.logging.Logger;
 

@@ -3,13 +3,13 @@ package jerklib;
 import java.net.InetAddress;
 import java.util.List;
 
-import jerklib.events.DccEvent;
 import jerklib.events.MessageEvent;
-import jerklib.events.impl.DccAcceptEventImpl;
-import jerklib.events.impl.DccChatEventImpl;
-import jerklib.events.impl.DccResumeEventImpl;
-import jerklib.events.impl.DccSendEventImpl;
-import jerklib.events.impl.DccUnknownEventImpl;
+import jerklib.events.dcc.DccEvent;
+import jerklib.events.impl.dcc.DccAcceptEventImpl;
+import jerklib.events.impl.dcc.DccChatEventImpl;
+import jerklib.events.impl.dcc.DccResumeEventImpl;
+import jerklib.events.impl.dcc.DccSendEventImpl;
+import jerklib.events.impl.dcc.DccUnknownEventImpl;
 import jerklib.util.InetAddressUtils;
 
 /**

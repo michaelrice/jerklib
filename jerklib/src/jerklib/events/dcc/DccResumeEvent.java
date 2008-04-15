@@ -1,4 +1,4 @@
-package jerklib.events;
+package jerklib.events.dcc;
 
 /**
  * DCC RESUME event.

@@ -1,22 +1,22 @@
-package jerklib.events.impl;
+package jerklib.events.impl.dcc;
 
 import jerklib.Channel;
 import jerklib.Session;
-import jerklib.events.DccAcceptEvent;
-import jerklib.events.DccEvent;
+import jerklib.events.dcc.DccEvent;
+import jerklib.events.dcc.DccResumeEvent;
 
 /**
  * 
  * @author Andres N. Kievsky
  */
-public class DccAcceptEventImpl extends DccEventImpl implements DccAcceptEvent
+public class DccResumeEventImpl extends DccEventImpl implements DccResumeEvent
 {
 
 	private String filename;
 	private int port;
 	private long position;
 
-	public DccAcceptEventImpl(String filename, int port, long position, String ctcpString, String hostName, String message, String nick, String userName, String rawEventData, Channel channel,
+	public DccResumeEventImpl(String filename, int port, long position, String ctcpString, String hostName, String message, String nick, String userName, String rawEventData, Channel channel,
 			Session session)
 	{
 		super(ctcpString, hostName, message, nick, userName, rawEventData, channel, session);
@@ -27,7 +27,7 @@ public class DccAcceptEventImpl extends DccEventImpl implements DccAcceptEvent
 
 	public DccType getDccType()
 	{
-		return DccEvent.DccType.ACCEPT;
+		return DccEvent.DccType.RESUME;
 	}
 
 	public String getFilename()
