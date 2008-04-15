@@ -82,7 +82,7 @@ class InternalEventParserImpl implements InternalEventParser
 		if (tokens.isEmpty()) return;
 
 		String command = tokens.get(1).data;
-
+		
 		if (command.matches("^\\d{3}$"))
 		{
 			numericEvent(eventToken, session, event, Integer.parseInt(command));

@@ -106,9 +106,10 @@ public class MockConnection extends Connection
     	return amount;
     }
     
-    
+   
     public void parse()
     {
+    	int numEvents = 0;
     	events.clear();
   		try
   		{
@@ -117,7 +118,7 @@ public class MockConnection extends Connection
   			while ((token = br.readLine()) != null)
   			{
   				//skip comments
-  				if(!token.startsWith("#"))
+  				if(!token.startsWith("#") && token.length() > 0)
   				{
   					final String token1 = token;
     				events.add(new IRCEvent()
@@ -138,8 +139,10 @@ public class MockConnection extends Connection
     						return Type.DEFAULT;
     					}
     				});
+    				numEvents++;
   				}
   			}
+  			System.out.println("MockConnectionManager: Parsed " + numEvents + " events ");
   		}
   		catch (IOException e)
   		{

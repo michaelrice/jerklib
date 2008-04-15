@@ -5,7 +5,6 @@ import jerklib.Channel;
 /**
  * Base interface for all PRIVMSGs.
  *
- * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor</a>
  */
 public interface MessageEvent extends IRCEvent
 {
