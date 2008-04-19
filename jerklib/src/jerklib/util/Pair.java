@@ -16,6 +16,7 @@ public class Pair<A, B>
     @Override
     public boolean equals(Object obj)
     {
+    		if(obj == this) return true;
         if (obj instanceof Pair && obj.hashCode() == hashCode())
         {
             Pair<A, B> other = (Pair<A, B>) obj;

@@ -13,6 +13,7 @@
         </fileset>
     </path>
 
+	
     <path id="testing.classpath">
         <path refid="main.classpath"/>
         <pathelement location="${build.java}"/>

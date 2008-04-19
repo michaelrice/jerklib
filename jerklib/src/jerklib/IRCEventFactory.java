@@ -3,10 +3,7 @@ package jerklib;
 import jerklib.events.*;
 import jerklib.events.IRCEvent.Type;
 import jerklib.events.impl.*;
-import jerklib.util.InetAddressUtils;
 
-import java.net.InetAddress;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -453,7 +450,6 @@ class IRCEventFactory
 	static PartEvent part(EventToken token, Session session)
 	{
 		List<Token>tokens = token.getWordTokens();
-		try{
 			String partMsg = tokens.size() >= 4?token.concatTokens(6).substring(1):"";
 			if(tokens.get(2).data.startsWith(":"))tokens.get(2).data = tokens.get(2).data.substring(1);
 			return new PartEventImpl
@@ -467,16 +463,6 @@ class IRCEventFactory
 					session.getChannel(tokens.get(2).data.toLowerCase()), 
 					partMsg 
 			);
-		}catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(token.getData());
-			System.out.println(tokens.size());
-			for(Token t : tokens)
-			{
-				System.out.println(t.data);
-			}
-		}
-		return null;
 	}
 		
 
