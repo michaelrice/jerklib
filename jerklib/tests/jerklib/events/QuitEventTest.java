@@ -35,13 +35,19 @@ public class QuitEventTest extends EventTestBase
 		{
 			public void receiveEvent(IRCEvent e)
 			{
-				events.add((QuitEvent)e);
+				QuitEvent qe = (QuitEvent)e;
+				if(qe.getQuitMessage().indexOf(":") != -1)
+				{
+					System.err.println(qe.getQuitMessage());
+				}
+				events.add(qe);
 			}
 		} , QUIT);
 		
 		conMan.start(session);
 	}
 	
+
 	
 	@Test
 	public void testUnrealQuit()
