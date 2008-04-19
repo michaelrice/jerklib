@@ -21,7 +21,6 @@ public class ModeTest
 	private Session session;
 	private List<ModeEvent> events = new ArrayList<ModeEvent>();
 	
-	@BeforeTest
 	public void setUp()
 	{
 		conMan = new MockConnectionManager();
@@ -51,14 +50,12 @@ public class ModeTest
 	}
 	
 	
-	@Test
 	public void testAmountDispatched()
 	{
 		assertTrue(String.valueOf(events.size()) ,events.size() == 27);
 	}
 	
 	
-	@Test
 	public void testUserModes()
 	{
 		
@@ -74,7 +71,6 @@ public class ModeTest
 	}
 	
 	
-	@Test
 	public void testChannelModes()
 	{
 		ModeEvent me = events.get(2);

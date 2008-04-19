@@ -22,7 +22,6 @@ public class NickCacheTest
 	private Session session;
 	private NickListEvent nle;
 	
-	@BeforeTest
 	public void setUp()
 	{
 		conMan = new MockConnectionManager();
@@ -48,26 +47,22 @@ public class NickCacheTest
 		conMan.start(session);
 	}
 	
-	@Test
 	public void testNickListEventGenerated()
 	{
 		assertTrue(nle != null);
 	}
 	
-	@Test
 	public void TestNickCountFromNickListEvent()
 	{
 		assertTrue(nle.getNicks().size() + "" , nle.getNicks().size() == 1225);
 	}
 	
-	@Test
 	public void TestNickCountAfterPartJoinsEtc()
 	{
 		int size = session.getChannel("#ubuntu").getNicks().size();
 		assertTrue(size == 1224);
 	}
 	
-	@Test
 	public void testContainsNick()
 	{
 		Channel chan = session.getChannel("#ubuntu");
@@ -75,7 +70,6 @@ public class NickCacheTest
 		assertTrue(chan.getNicks().contains("rosco"));
 	}
 	
-	@Test 
 	public void testNickCaseInsensitivity()
 	{
 		Channel chan = session.getChannel("#ubuntu");
