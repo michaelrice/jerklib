@@ -52,12 +52,12 @@ public class NickCacheTest
 		assertTrue(nle != null);
 	}
 	
-	public void TestNickCountFromNickListEvent()
+	public void testNickCountFromNickListEvent()
 	{
 		assertTrue(nle.getNicks().size() + "" , nle.getNicks().size() == 1225);
 	}
 	
-	public void TestNickCountAfterPartJoinsEtc()
+	public void testNickCountAfterPartJoinsEtc()
 	{
 		int size = session.getChannel("#ubuntu").getNicks().size();
 		assertTrue(size == 1224);
