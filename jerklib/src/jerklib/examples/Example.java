@@ -82,7 +82,7 @@ public class Example implements IRCEventListener
         }
         else
         {
-        	System.out.println(e.getRawEventData());
+        	//System.out.println(e.getRawEventData());
         }
 
     }
