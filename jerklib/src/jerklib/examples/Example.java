@@ -69,7 +69,7 @@ public class Example implements IRCEventListener
         else if (e.getType() == Type.CHANNEL_MESSAGE)
         {
         	MessageEvent me = (MessageEvent)e;
-        	System.out.println(me.getNick() + ":" + me.getMessage());
+        	//System.out.println(me.getNick() + ":" + me.getMessage());
         }
         else if (e.getType() == Type.JOIN_COMPLETE)
         {
