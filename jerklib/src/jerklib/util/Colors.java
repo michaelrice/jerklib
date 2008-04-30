@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * To use:
- * cme.getChannel().say(Colors.BLUE + "HELLLLO");
+ * channel.say(Colors.BLUE + "HELLLLO");
  * <br>
  * Will say hello in blue
  *

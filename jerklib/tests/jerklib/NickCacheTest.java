@@ -1,12 +1,15 @@
 package jerklib;
 
+import java.io.File;
+
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
 import jerklib.events.IRCEvent;
 import jerklib.events.NickListEvent;
 import jerklib.events.IRCEvent.Type;
 import jerklib.tasks.TaskImpl;
 
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.assertTrue;
 
 
@@ -16,53 +19,45 @@ import static org.testng.AssertJUnit.assertTrue;
  * 
  */
 
-public class NickCacheTest
+public class NickCacheTest extends EventTestBase
 {
-	private MockConnectionManager conMan;
-	private Session session;
 	private NickListEvent nle;
 	
-	public void setUp()
+	public NickCacheTest()
 	{
-		conMan = new MockConnectionManager();
-		session = conMan.requestConnection
-		(
-			"kubrick.freenode.net", 
-			6667, 
-			new ProfileImpl("testnick" , "testnick" , "testnick" , "testnick"), 
-			"/home/mohadib/nickcachedata", 
-			"/home/mohadib/TEST_OUTPUT"
-		);
-		
-		session.onEvent(new TaskImpl("nick_list")
+		super("/nickcachedata" , System.getProperty("user.home") + File.separator + "jerklib.tests.user.ouput");
+	}
+	
+	@BeforeTest
+	public void init()
+	{
+		createSession();
+		addServerInfo(EventTestBase.ServerInfo.HYPERION);
+		addChannel("#ubuntu");
+		session.onEvent(new TaskImpl("nle")
 		{
 			public void receiveEvent(IRCEvent e)
 			{
 				nle = (NickListEvent)e;
 			}
 		} , Type.NICK_LIST_EVENT);
-		
-		session.addChannel(new Channel("#ubuntu" , session));
-		
 		conMan.start(session);
 	}
 	
-	public void testNickListEventGenerated()
-	{
-		assertTrue(nle != null);
-	}
-	
-	public void testNickCountFromNickListEvent()
+	@Test
+	public void TestNickCountFromNickListEvent()
 	{
 		assertTrue(nle.getNicks().size() + "" , nle.getNicks().size() == 1225);
 	}
 	
-	public void testNickCountAfterPartJoinsEtc()
+	@Test
+	public void TestNickCountAfterPartJoinsEtc()
 	{
 		int size = session.getChannel("#ubuntu").getNicks().size();
 		assertTrue(size == 1224);
 	}
 	
+	@Test
 	public void testContainsNick()
 	{
 		Channel chan = session.getChannel("#ubuntu");
@@ -70,6 +65,7 @@ public class NickCacheTest
 		assertTrue(chan.getNicks().contains("rosco"));
 	}
 	
+	@Test
 	public void testNickCaseInsensitivity()
 	{
 		Channel chan = session.getChannel("#ubuntu");

@@ -1,11 +1,12 @@
 package jerklib;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import jerklib.Token.Type;
 
-public class EventToken
+public class EventToken implements Iterable<Token>
 {
 	private String data;
 	private List<Token>tokens = new ArrayList<Token>();
@@ -97,5 +98,15 @@ public class EventToken
 			
 			if(i + 1 == chars.length) tokens.add(token);
 		}
+	}
+	
+	public String toString()
+	{
+		return data;
+	}
+
+	public Iterator<Token> iterator()
+	{
+		return tokens.iterator();
 	}
 }
