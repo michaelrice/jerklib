@@ -121,7 +121,7 @@ class InternalEventParserImpl implements InternalEventParser
 			PartEvent pEvent = IRCEventFactory.part(eventToken, session);
 			if (!pEvent.getChannel().removeNick(pEvent.getWho()))
 			{
-				System.err.println("Could Not remove nick " + pEvent.getWho() + " from " + pEvent.getChannelName());
+				log.severe("Could Not remove nick " + pEvent.getWho() + " from " + pEvent.getChannelName());
 			}
 			if (pEvent.getWho().equalsIgnoreCase(nick))
 			{

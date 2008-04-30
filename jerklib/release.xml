@@ -53,7 +53,7 @@
 
 	<target name="javadoc">
 		<mkdir dir="${doc}" />
-		<javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="jerklib.events.listeners,jerklib.util,jerklib.tasks,jerklib.events,jerklib.tasks" source="1.6" sourcefiles="src/jerklib/Channel.java,src/jerklib/WriteRequest.java,src/jerklib/Connection.java,src/jerklib/ProfileImpl.java,src/jerklib/ConnectionState.java,src/jerklib/ConnectionManager.java,src/jerklib/Profile.java,src/jerklib/Session.java,src/jerklib/RequestedConnection.java,src/jerklib/ServerInformation.java" sourcepath="src" splitindex="true" use="true" version="true">
+		<javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="jerklib.events.listeners,jerklib.util,jerklib.tasks,jerklib.events,jerklib.tasks" source="1.6" sourcefiles="src/jerklib/Channel.java,src/jerklib/WriteRequest.java,src/jerklib/Connection.java,src/jerklib/ProfileImpl.java,src/jerklib/ConnectionManager.java,src/jerklib/Profile.java,src/jerklib/Session.java,src/jerklib/RequestedConnection.java,src/jerklib/ServerInformation.java" sourcepath="src" splitindex="true" use="true" version="true">
 			<link href="http://java.sun.com/javase/6/docs/api/" />
 		</javadoc>
 		<zip destfile="${basedir}/JerkLib-${build.version}r${svn.Revision}-javadocs.zip" basedir="${doc}" />

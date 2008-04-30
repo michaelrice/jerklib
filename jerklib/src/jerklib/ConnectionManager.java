@@ -622,7 +622,7 @@ public class ConnectionManager
 
                     try
                     {
-                        System.err.println("Trying to connect to " + session.getRequestedConnection().getHostName());
+                        //System.err.println("Trying to connect to " + session.getRequestedConnection().getHostName());
                         session.retried();
                         connect(session);
                     }
