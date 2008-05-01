@@ -244,7 +244,8 @@ public class Session extends RequestGenerator
 
     public Channel getChannel(String channelName)
     {
-        return channelMap.get(channelName);
+        Channel chan = channelMap.get(channelName);
+        return chan == null? channelMap.get(channelName.toLowerCase()) : chan;
     }
 
     public List<String> getChannelNames()

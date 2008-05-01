@@ -147,8 +147,8 @@ class IRCEventFactory
 			(
 					token.getData(), 
 					session, 
-					session.getChannel(tokens.get(3).data.toLowerCase()), 
-					session.getChannel(tokens.get(3).data.toLowerCase()).getNicks()
+					session.getChannel(tokens.get(3).data), 
+					session.getChannel(tokens.get(3).data).getNicks()
 			); 
 	}
 
@@ -156,7 +156,7 @@ class IRCEventFactory
 	static KickEvent kick(EventToken token, Session session)
 	{
 		List<Token>tokens = token.getWordTokens();
-			Channel channel = session.getChannel(tokens.get(2).data.toLowerCase());
+			Channel channel = session.getChannel(tokens.get(2).data);
 			return new KickEventImpl
 			(
 					token.getData(), 
@@ -415,7 +415,7 @@ class IRCEventFactory
 					getUserName(tokens.get(0)), // user name
 					getHostName(tokens.get(0)), // host
 					tokens.get(2).data.replaceFirst(":", ""), // channel name
-					session.getChannel(tokens.get(2).data.replaceFirst(":", "").toLowerCase()) // channel
+					session.getChannel(tokens.get(2).data.replaceFirst(":", "")) // channel
 				);
 	}
 
@@ -459,8 +459,8 @@ class IRCEventFactory
 					getNick(tokens.get(0)), // who
 					getUserName(tokens.get(0)), // username
 					getHostName(tokens.get(0)), // host name
-					session.getChannel(tokens.get(2).data.toLowerCase()).getName(), // channel name
-					session.getChannel(tokens.get(2).data.toLowerCase()), 
+					session.getChannel(tokens.get(2).data).getName(), // channel name
+					session.getChannel(tokens.get(2).data), 
 					partMsg 
 			);
 	}

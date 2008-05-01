@@ -201,7 +201,7 @@ class InternalEventParserImpl implements InternalEventParser
 		Matcher m = p.matcher(event.getRawEventData());
 		if(m.matches())
 		{
-			event.getSession().getChannel(m.group(1).toLowerCase()).setModeString(m.group(2));
+			event.getSession().getChannel(m.group(1)).setModeString(m.group(2));
 			ModeEvent me = new ModeEventImpl(event.getRawEventData(), event.getSession(), null, null, event.getSession().getChannel(m.group(1)));
 			manager.addToRelayList(me);
 		}
@@ -572,7 +572,7 @@ class InternalEventParserImpl implements InternalEventParser
 			Pattern p = Pattern.compile(":(\\S+)\\s+333\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)$");
 			Matcher m = p.matcher(token.getData());
 			m.matches();
-			Channel chan = (Channel) session.getChannel(m.group(3).toLowerCase());
+			Channel chan = (Channel) session.getChannel(m.group(3));
 			if (topicMap.containsKey(chan))
 			{
 				TopicEventImpl tEvent = (TopicEventImpl) topicMap.get(chan);
@@ -643,7 +643,7 @@ class InternalEventParserImpl implements InternalEventParser
 		Matcher m = p.matcher(token.getData());
 		if (m.matches())
 		{
-			Channel chan = session.getChannel(m.group(1).toLowerCase());
+			Channel chan = session.getChannel(m.group(1));
 			String[] names = m.group(2).split("\\s+");
 
 			for (String name : names)
