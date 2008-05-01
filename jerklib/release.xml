@@ -64,6 +64,7 @@
 				src/jerklib/WriteRequest.java,
 				src/jerklib/Connection.java,
 				src/jerklib/ProfileImpl.java,
+				src/jerklib/Profile.java,
 				src/jerklib/ConnectionManager.java,
 				src/jerklib/Profile.java,
 				src/jerklib/Session.java,
