@@ -101,12 +101,13 @@ class InternalEventParserImpl implements InternalEventParser
 		{
 			if (IRCEventFactory.getNick(tokens.get(0)).equalsIgnoreCase(nick))
 			{
-				Channel channel = new Channel(tokens.get(2).data.replaceFirst(":", ""), session);
+				Channel channel = new Channel(tokens.get(2).data.replaceFirst(":", "").toLowerCase(), session);
 				session.addChannel(channel);
 				manager.addToRelayList(IRCEventFactory.joinCompleted(data, session, nick, channel));
 			}
 			else
 			{
+				System.out.println(eventToken.getData());
 				JoinEvent jEvent = IRCEventFactory.regularJoin(eventToken, session);
 				jEvent.getChannel().addNick(jEvent.getNick());
 				manager.addToRelayList(jEvent);
