@@ -95,5 +95,11 @@ public class Token
 			return 0L;
 		}
 	}
+	
+	@Override
+	public String toString()
+	{
+		return data;
+	}
 
 }

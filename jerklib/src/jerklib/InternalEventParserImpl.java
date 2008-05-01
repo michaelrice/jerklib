@@ -27,6 +27,7 @@ package jerklib;
 import jerklib.ServerInformation.ModeType;
 import jerklib.events.*;
 import jerklib.events.impl.ModeEventImpl;
+import jerklib.events.impl.NickChangeEventImpl;
 import jerklib.events.impl.ServerInformationEventImpl;
 import jerklib.events.impl.TopicEventImpl;
 import jerklib.events.impl.WhoisEventImpl;
@@ -618,6 +619,29 @@ class InternalEventParserImpl implements InternalEventParser
 
 	private void connectionComplete(EventToken token, Session session, IRCEvent event)
 	{
+		/* sometimes the server will change the nick when connecting
+		 * for instance , if the nick is too long it will be trunkated
+		 * need to check if this happend and send a nick update event
+		 */
+		
+		String nick = token.getWordTokens().get(2).data;
+		String profileNick = session.getNick();
+		if(!nick.equalsIgnoreCase(profileNick))
+		{
+			ProfileImpl pi = (ProfileImpl)session.getRequestedConnection().getProfile();
+			pi.setActualNick(nick);
+			NickChangeEvent nce = new NickChangeEventImpl
+			(
+				token.getData(),
+				session,
+				profileNick,
+				nick,
+				"",
+				""
+			);
+			manager.addToRelayList(nce);
+		}
+		
 		ConnectionCompleteEvent ccEvent = IRCEventFactory.connectionComplete(token, session);
 		session.getConnection().loginSuccess();
 		session.getConnection().setHostName(ccEvent.getActualHostName());
