@@ -303,6 +303,16 @@ public class ConnectionManager
         this.defaultProfile = profile;
     }
 
+    
+    /**
+     * Sets the InternalEventParser implementation to use
+     * @param parser
+     */
+    public void setInternalEventParser(InternalEventParser parser)
+    {
+    	this.parser = parser;
+    }
+    
     void removeSession(Session session)
     {
         sessionMap.remove(session.getRequestedConnection().getHostName());

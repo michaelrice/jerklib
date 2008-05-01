@@ -56,7 +56,7 @@ public class Example implements IRCEventListener
     /*
       * This method is for implementing an IRCEventListener. This method will be
       * called anytime Jerklib parses an event from the Session its attached to.
-      * All events are sent as IRCEvents. You can check its actually type and cast
+      * All events are sent as IRCEvents. You can check its actual type and cast
       * it to a more specific type.
       */
     public void receiveEvent(IRCEvent e)
@@ -65,25 +65,22 @@ public class Example implements IRCEventListener
         {
             /* connection to server is complete */
             e.getSession().join("#jerklib");
-            e.getSession().join("#ubuntu");
         }
         else if (e.getType() == Type.CHANNEL_MESSAGE)
         {
         	MessageEvent me = (MessageEvent)e;
-        	//System.out.println(me.getNick() + ":" + me.getMessage());
+        	System.out.println(me.getNick() + ":" + me.getMessage());
         }
         else if (e.getType() == Type.JOIN_COMPLETE)
         {
             JoinCompleteEvent jce = (JoinCompleteEvent) e;
-            if (jce.getChannel().getName().equals("#jerklib"))
-            {
-                /* say hello and version number */
-               jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
-            }
+            
+            /* say hello and version number */
+            jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
         }
         else
         {
-        	//System.out.println(e.getRawEventData());
+        		System.out.println(e.getRawEventData());
         }
 
     }
