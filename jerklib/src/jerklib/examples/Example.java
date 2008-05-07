@@ -19,13 +19,13 @@ public class Example implements IRCEventListener
 
     public Example()
     {
-        /*
+          /*
            * ConnectionManager takes a Profile to use for new connections. The profile
            * will contain the users name , nick , alt. nick 1 and. alt nick 2
            */
         manager = new ConnectionManager(new ProfileImpl("scripy", "dibz", "dibz_", "dibz__"));
 
-        /*
+          /*
            * One instance of ConnectionManager can connect to many IRC networks.
            * ConnectionManager#requestConnection(String) will return a Session object.
            * The Session is the main way users will interact with this library and IRC
@@ -33,13 +33,13 @@ public class Example implements IRCEventListener
            */
         Session session = manager.requestConnection("irc.freenode.net");
 
-        /*
+          /*
            * JerkLib fires IRCEvents to notify users of the lib of incoming events
            * from a connected IRC server.
            */
         session.addIRCEventListener(this);
 
-        /*
+          /*
            * Tasks are a way to filter out events you do not care about. This Task
            * simply auto joins a channel to which we are invited. The parameter to the
            * TaskImpl constructor is the task name, it is how the task is identified
@@ -55,7 +55,7 @@ public class Example implements IRCEventListener
         }, Type.INVITE_EVENT);
     }
 
-    /*
+     /*
       * This method is for implementing an IRCEventListener. This method will be
       * called anytime Jerklib parses an event from the Session its attached to.
       * All events are sent as IRCEvents. You can check its actual type and cast
