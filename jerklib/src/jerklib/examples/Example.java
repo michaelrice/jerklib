@@ -14,6 +14,8 @@ import jerklib.tasks.TaskImpl;
 public class Example implements IRCEventListener
 {
     private ConnectionManager manager;
+    // change this to your channel name as to not spam our channel!
+    private static final String CHANNEL_TO_JOIN = "#jerklib";
 
     public Example()
     {
@@ -64,8 +66,7 @@ public class Example implements IRCEventListener
         if (e.getType() == Type.CONNECT_COMPLETE)
         {
             /* connection to server is complete */
-            //TODO: change this to YOUR CHANNEL!
-            e.getSession().join("#jerklib");
+            e.getSession().join(CHANNEL_TO_JOIN);
         }
         else if (e.getType() == Type.CHANNEL_MESSAGE)
         {
