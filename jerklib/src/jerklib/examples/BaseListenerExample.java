@@ -16,6 +16,8 @@ public class BaseListenerExample extends BaseListener implements Runnable
     }
 
     Session session;
+    //TODO: change this as to not spam our channel
+    static final String CHANNEL_TO_JOIN = "#jerklib";
 
     public void run()
     {
@@ -35,7 +37,7 @@ public class BaseListenerExample extends BaseListener implements Runnable
     @Override
     protected void handleConnectComplete(ConnectionCompleteEvent event)
     {
-        event.getSession().join("#jerklib");
+        event.getSession().join(CHANNEL_TO_JOIN);
     }
 
     @Override
