@@ -14,7 +14,7 @@ import jerklib.tasks.TaskImpl;
 public class Example implements IRCEventListener
 {
     private ConnectionManager manager;
-    // change this to your channel name as to not spam our channel!
+    //TODO: change this to your channel name as to not spam our channel!
     private static final String CHANNEL_TO_JOIN = "#jerklib";
 
     public Example()
