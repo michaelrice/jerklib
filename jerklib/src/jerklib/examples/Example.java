@@ -64,6 +64,7 @@ public class Example implements IRCEventListener
         if (e.getType() == Type.CONNECT_COMPLETE)
         {
             /* connection to server is complete */
+            //TODO: change this to YOUR CHANNEL!
             e.getSession().join("#jerklib");
         }
         else if (e.getType() == Type.CHANNEL_MESSAGE)
