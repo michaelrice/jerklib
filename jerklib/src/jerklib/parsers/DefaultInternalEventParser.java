@@ -1,4 +1,4 @@
-package jerklib;
+package jerklib.parsers;
 
 import java.util.HashMap;
 import java.util.Map;

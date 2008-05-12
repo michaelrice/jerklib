@@ -1,5 +1,8 @@
 package jerklib;
 
+import jerklib.parsers.DefaultInternalEventParser;
+import jerklib.parsers.InternalEventParser;
+
 
 /**
  * @version $Revision$

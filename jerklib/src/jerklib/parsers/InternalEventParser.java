@@ -1,4 +1,4 @@
-package jerklib;
+package jerklib.parsers;
 
 import jerklib.events.IRCEvent;
 

@@ -7,6 +7,8 @@ import jerklib.events.IRCEvent.Type;
 import jerklib.events.impl.UnresolvedHostnameErrorEventImpl;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.events.listeners.WriteRequestListener;
+import jerklib.parsers.DefaultInternalEventParser;
+import jerklib.parsers.InternalEventParser;
 import jerklib.tasks.Task;
 
 import java.io.IOException;
