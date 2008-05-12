@@ -22,12 +22,17 @@ public class MockConnectionManager extends ConnectionManager
 
 	public MockConnectionManager()
 	{
-		IRCEventFactory.setManager(this);
+		//IRCEventFactory.setManager(this);
 	}
 
 	public Session requestConnection(String hostName, int port, Profile profile , String inputFile , String outputFile)
 	{
 		Session session = new Session(new RequestedConnection(hostName , port , profile));
+		
+		InternalEventParser parser = new DefaultInternalEventParser();
+		parser.setInternalEventHandler(new DefaultInternalEventHandler(this));
+		session.setInternalParser(parser);
+		
 		MockSocketChannel chan = new MockSocketChannel(null);
 		MockConnection con = new MockConnection
 		(

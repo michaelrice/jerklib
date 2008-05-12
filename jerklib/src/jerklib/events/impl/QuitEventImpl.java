@@ -38,7 +38,7 @@ public class QuitEventImpl implements QuitEvent
         return userName;
     }
 
-    public final String getWho()
+    public final String getNick()
     {
         return who;
     }

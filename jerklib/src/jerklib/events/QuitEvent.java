@@ -41,7 +41,7 @@ public interface QuitEvent extends IRCEvent
      *
      * @return the nick who quit
      */
-    public String getWho();
+    public String getNick();
 
     /**
      * Get the username from the hostmask of the quitted
