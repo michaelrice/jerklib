@@ -1,5 +1,0 @@
-This directory is for primarily the developers of jerklib. 
-
-The reason for this rationale is that we have an ant build file 
-that is specifically for generating javadocs and release jars,
-both binary and source. (release.xml)
