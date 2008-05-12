@@ -1,0 +1,154 @@
+# Host:irc.quakenet.org
+# Version:null
+# Event index: 0
+NOTICE AUTH :*** Looking up your hostname
+
+# Host:irc.dalnet.com
+# Version:null
+# Event index: 1
+:swiftco.wa.us.dal.net NOTICE AUTH :*** Looking up your hostname...
+
+# Host:irc.dalnet.com
+# Version:null
+# Event index: 2
+:swiftco.wa.us.dal.net NOTICE AUTH :*** Found your hostname, cached
+
+# Host:irc.dalnet.com
+# Version:null
+# Event index: 3
+:swiftco.wa.us.dal.net NOTICE AUTH :*** Checking Ident
+
+# Host:irc.freenode.net
+# Version:null
+# Event index: 4
+NOTICE AUTH :*** Looking up your hostname...
+
+# Host:irc.freenode.net
+# Version:null
+# Event index: 5
+NOTICE AUTH :*** Found your hostname, welcome back
+
+# Host:irc.freenode.net
+# Version:null
+# Event index: 6
+NOTICE AUTH :*** Checking ident
+
+# Host:irc.freenode.net
+# Version:null
+# Event index: 7
+NOTICE AUTH :*** No identd (auth) response
+
+# Host:irc.quakenet.org
+# Version:null
+# Event index: 8
+NOTICE AUTH :*** Checking Ident
+
+# Host:irc.quakenet.org
+# Version:null
+# Event index: 9
+NOTICE AUTH :*** Found your hostname
+
+# Host:irc.dalnet.com
+# Version:null
+# Event index: 10
+:swiftco.wa.us.dal.net NOTICE AUTH :*** No Ident response
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 11
+:swiftco.wa.us.dal.net NOTICE scripy :*** Notice -- motd was last changed at 20/10/2006 19:06
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 12
+NOTICE scripy :*** Your host is kubrick.freenode.net[kubrick.freenode.net/6667], running version hyperion-1.0.2b
+
+# Host:irc.quakenet.org
+# Version:null
+# Event index: 13
+NOTICE AUTH :*** No ident response
+
+# Host:irc.nixgeeks.com
+# Version:null
+# Event index: 14
+:irc.nixgeeks.com NOTICE AUTH :*** Looking up your hostname...
+
+# Host:irc.nixgeeks.com
+# Version:null
+# Event index: 15
+:irc.nixgeeks.com NOTICE AUTH :*** Found your hostname (cached)
+
+# Host:irc.nixgeeks.com
+# Version:null
+# Event index: 16
+:irc.nixgeeks.com NOTICE AUTH :*** Checking ident...
+
+# Host:irc.nixgeeks.com
+# Version:null
+# Event index: 17
+:irc.nixgeeks.com NOTICE AUTH :*** No ident response; username prefixed with ~
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 18
+:NickServ!NickServ@services. NOTICE scripy :This nickname is owned by someone else
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 19
+:NickServ!NickServ@services. NOTICE scripy :If this is your nickname, type /msg NickServ IDENTIFY <password>
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 20
+:underworld2.no.quakenet.org NOTICE scripy :Highest connection count: 5736 (5735 clients)
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 21
+:underworld2.no.quakenet.org NOTICE scripy :on 1 ca 2(4) ft 20(20) tr
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 22
+:ChanServ!ChanServ@services. NOTICE scripy :[#ubuntu] Welcome to #ubuntu! Please read the channel topic and consider spending some time on the FAQ mentioned there
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 23
+:mohadib__!n=mohadib@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #jerklib :testtt
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 24
+:mohadib!~mohadib@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #testing :test
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 25
+:mohadib!~mohadib@nix-BDC3EBA9.hsd1.nm.comcast.net NOTICE #test :testss
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 26
+:mohadib!~mohadib@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #foooo :heloooo
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 27
+:mohadib_!~mohadib@c-68-35-11-181.hsd1.nm.comcast.net NOTICE mohadib__ :TEST?
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 28
+:mohadib_!~mohadib@nix-BDC3EBA9.hsd1.nm.comcast.net NOTICE mohadib__ :TESTTSS
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 29
+:mohadib_!~mohadib@c-68-35-11-181.hsd1.nm.comcast.net NOTICE mohadib__ :HELLO
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 30
+:kubrick.freenode.net NOTICE mohadib :NickServ set your hostname to "unaffiliated/mohadib"
