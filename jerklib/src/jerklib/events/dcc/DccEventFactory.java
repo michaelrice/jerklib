@@ -1,10 +1,9 @@
-package jerklib;
+package jerklib.events.dcc;
 
 import java.net.InetAddress;
 import java.util.List;
 
 import jerklib.events.MessageEvent;
-import jerklib.events.dcc.DccEvent;
 import jerklib.events.impl.dcc.DccAcceptEventImpl;
 import jerklib.events.impl.dcc.DccChatEventImpl;
 import jerklib.events.impl.dcc.DccResumeEventImpl;

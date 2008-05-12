@@ -3,11 +3,11 @@ package jerklib.parsers;
 import java.util.List;
 
 import jerklib.Channel;
-import jerklib.DccEventFactory;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.MessageEvent;
 import jerklib.events.IRCEvent.Type;
+import jerklib.events.dcc.DccEventFactory;
 import jerklib.events.impl.CtcpEventImpl;
 import jerklib.events.impl.MessageEventImpl;
 import jerklib.tokens.EventToken;

@@ -43,10 +43,6 @@ public interface Profile extends Cloneable
      * @return the username
      */
     String getName();
-
-
-    /**
-     * @return a copy of this profile
-     */
+    
     Profile clone();
 }
