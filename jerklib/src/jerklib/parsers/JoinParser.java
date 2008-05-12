@@ -35,7 +35,6 @@ public class JoinParser implements CommandParser
 		
 		if(je.getNick().equalsIgnoreCase(event.getSession().getNick()))
 		{
-			System.out.println("GOOOOOOOT JOIN COMPLETE");
 			return new JoinCompleteEventImpl
 			(
 				je.getRawEventData(), 
