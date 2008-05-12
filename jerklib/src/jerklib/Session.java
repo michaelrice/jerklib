@@ -121,6 +121,7 @@ public class Session extends RequestGenerator
     	tmpProfile = rCon.getProfile().clone();
     	tmpProfile.setActualNick(newNick);
     	tmpProfile.setFirstNick(newNick);
+    	profileUpdating = true;
     	super.changeNick(newNick);
     }
     
