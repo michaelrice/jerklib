@@ -5,7 +5,6 @@ import java.util.Map;
 
 import jerklib.events.IRCEvent;
 import jerklib.tokens.EventToken;
-import jerklib.parsers.*;
 
 public class DefaultInternalEventParser implements InternalEventParser
 {
@@ -109,7 +108,7 @@ public class DefaultInternalEventParser implements InternalEventParser
 		//TODO mode
 		
 		//numeric errors
-		CommandParser errorParser = new DefaultNumericErrorParser();
+		CommandParser errorParser = new NumericErrorParser();
 		for(int i = 401 ; i < 503 ; i++)
 		{
 			parsers.put(String.valueOf(i), errorParser);

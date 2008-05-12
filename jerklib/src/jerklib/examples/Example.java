@@ -15,7 +15,7 @@ public class Example implements IRCEventListener
 {
     private ConnectionManager manager;
     //TODO: change this to your channel name as to not spam our channel!
-    private static final String CHANNEL_TO_JOIN = "#jerklib";
+    private static final String CHANNEL_TO_JOIN = "#ubuntu";
 
     public Example()
     {
@@ -78,7 +78,7 @@ public class Example implements IRCEventListener
             JoinCompleteEvent jce = (JoinCompleteEvent) e;
             
             /* say hello and version number */
-            jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
+           // jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
         }
         else
         {
