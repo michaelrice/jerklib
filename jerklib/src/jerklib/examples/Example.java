@@ -15,7 +15,7 @@ public class Example implements IRCEventListener
 {
     private ConnectionManager manager;
     //TODO: change this to your channel name as to not spam our channel!
-    private static final String CHANNEL_TO_JOIN = "#ubuntu";
+    private static final String CHANNEL_TO_JOIN = "#jerklib";
 
     public Example()
     {

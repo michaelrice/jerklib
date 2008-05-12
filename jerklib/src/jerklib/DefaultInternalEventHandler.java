@@ -1,6 +1,7 @@
 package jerklib;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -9,6 +10,7 @@ import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
+import jerklib.events.ModeEvent;
 import jerklib.events.NickChangeEvent;
 import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
@@ -168,6 +170,29 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	}
 	
 	
+	/*
+	 * Sets a users modes in a given channel , this is not
+	 * the same as a server wide user mode
+	 */
+	public void channelMode(IRCEvent event)
+	{
+		// update user modes in channel
+		ModeEvent me = (ModeEvent)event;
+		Map<String ,List<String>> modeMap = me.getModeMap(); 
+		Channel chan = me.getChannel();
+		
+		for(String mode : modeMap.keySet())
+		{
+			List<String>nicks = modeMap.get(mode);
+			for(String nick : nicks)
+			{
+				if(chan.getNicks().contains(nick))
+				chan.updateUsersMode(nick, mode);
+			}
+		}
+	}
+	
+	
 	
 	private void initStratMap()
 	{
@@ -224,6 +249,14 @@ public class DefaultInternalEventHandler implements IRCEventListener
 			public void receiveEvent(IRCEvent e)
 			{
 				kick(e);
+			}
+		});
+		
+		stratMap.put(MODE_EVENT, new IRCEventListener()
+		{
+			public void receiveEvent(IRCEvent e)
+			{
+				channelMode(e);
 			}
 		});
 	}

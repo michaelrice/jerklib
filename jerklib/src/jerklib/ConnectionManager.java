@@ -243,7 +243,7 @@ public class ConnectionManager
         
         session.setInternalParser(internalEventParser);
         
-        sessionMap.put(hostName, session);
+        sessionMap.put(hostName, session);	
 
         return session;
     }
@@ -371,7 +371,11 @@ public class ConnectionManager
             quit("Null Pointers ?? In my Code??! :(");
             return;
         }
-        relayQueue.add(event);
+
+        synchronized (relayQueue)
+				{
+        	relayQueue.add(event);	
+				}
     }
 
 

@@ -104,8 +104,8 @@ public class DefaultInternalEventParser implements InternalEventParser
 		parsers.put("TOPIC", new TopicUpdatedParser());
 		parsers.put("INVITE", new InviteParser());
 		parsers.put("NICK", new NickParser());
-		
-		//TODO mode
+		parsers.put("MODE", new ModeParser());
+
 		
 		//numeric errors
 		CommandParser errorParser = new NumericErrorParser();

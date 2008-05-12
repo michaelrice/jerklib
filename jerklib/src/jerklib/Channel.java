@@ -3,7 +3,6 @@ package jerklib;
 import jerklib.events.TopicEvent;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date; 
 import java.util.HashMap;
 import java.util.List;
@@ -195,18 +194,14 @@ public class Channel
       */
     public List<String> getNicks()
     {
-        return new ArrayList<String>(Collections.unmodifiableCollection(userMap.keySet()))
+        return new ArrayList<String>(userMap.keySet())
         {
 					private static final long serialVersionUID = 1L;
 
 					@Override
         	public int indexOf(Object o)
         	{
-        		if(o == null)
-        		{
-        			return super.indexOf(o);
-        		}
-        		else
+        		if(o != null)
         		{
         			for(int i =0 ; i < size(); i++)
         			{
