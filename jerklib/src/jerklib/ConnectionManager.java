@@ -124,7 +124,7 @@ public class ConnectionManager
      *
      * @param defaultProfile default user profile
      * @see Profile
-     * @see ProfileImpl
+     * @see Profile
      */
     public ConnectionManager(Profile defaultProfile)
     {

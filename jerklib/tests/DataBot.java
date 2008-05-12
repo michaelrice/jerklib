@@ -7,7 +7,7 @@ import java.util.Map;
 
 import jerklib.ConnectionManager;
 import jerklib.Profile;
-import jerklib.ProfileImpl;
+import jerklib.Profile;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.ServerVersionEvent;
@@ -45,7 +45,7 @@ public class DataBot implements IRCEventListener
 	private FileOutputStream fos;
 	private Map<String, String>ircdMap = new HashMap<String, String>();
 	private ConnectionManager conMan;
-	private Profile profile = new ProfileImpl("scripy" , "scripy" , "scripy1" , "scripy2");
+	private Profile profile = new Profile("scripy" , "scripy" , "scripy1" , "scripy2");
 	int i = 0;
 	
 	public DataBot(File logFile)

@@ -2,7 +2,7 @@ package jerklib.examples;
 
 import jerklib.Channel;
 import jerklib.ConnectionManager;
-import jerklib.ProfileImpl;
+import jerklib.Profile;
 import jerklib.Session;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.JoinCompleteEvent;
@@ -21,7 +21,7 @@ public class BaseListenerExample extends BaseListener implements Runnable
 
     public void run()
     {
-        ConnectionManager manager = new ConnectionManager(new ProfileImpl("ble", "ble", "ble_", "ble__"));
+        ConnectionManager manager = new ConnectionManager(new Profile("ble", "ble", "ble_", "ble__"));
 
         session = manager.requestConnection("irc.freenode.net");
 

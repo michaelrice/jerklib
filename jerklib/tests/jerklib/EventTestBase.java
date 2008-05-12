@@ -72,7 +72,7 @@ public class EventTestBase
 		(
 			"anthony.freenode.net", 
 			6667, 
-			new ProfileImpl(nick , nick , nick + "_" , nick + "__"), 
+			new Profile(nick , nick , nick + "_" , nick + "__"), 
 			dataFile, 
 			outputFile
 		);

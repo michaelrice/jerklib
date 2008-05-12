@@ -7,7 +7,7 @@ package jerklib;
  *         Used when get a new instance of connection mananer.
  *         Connection manager uses this information when making new connections
  */
-public class ProfileImpl implements Profile
+public class ProfileImpl
 {
     private String name, actualNick, firstNick, secondNick, thirdNick;
 
@@ -24,6 +24,16 @@ public class ProfileImpl implements Profile
         this.secondNick = secondNick == null ? "" : secondNick;
         this.thirdNick = thirdNick == null ? "" : thirdNick;
         actualNick = firstNick;
+    }
+    
+    public ProfileImpl(String name , String nick)
+    {
+    	this(name , nick , nick + "1" , nick + "2");
+    }
+    
+    public ProfileImpl(String nick)
+    {
+    	this(nick , nick , nick + "1" , nick + "2");
     }
 
     /* (non-Javadoc)
@@ -66,7 +76,7 @@ public class ProfileImpl implements Profile
         return actualNick;
     }
 
-    public void setActualNick(String aNick)
+    void setActualNick(String aNick)
     {
         actualNick = aNick;
     }
@@ -107,7 +117,7 @@ public class ProfileImpl implements Profile
     @Override
     public Profile clone()
     {
-        ProfileImpl impl = new ProfileImpl(name,
+        Profile impl = new Profile(name,
                                            firstNick,
                                            secondNick,
                                            thirdNick);

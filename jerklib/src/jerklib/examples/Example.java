@@ -1,7 +1,7 @@
 package jerklib.examples;
 
 import jerklib.ConnectionManager;
-import jerklib.ProfileImpl;
+import jerklib.Profile;
 import jerklib.Session;
 import jerklib.events.*;
 import jerklib.events.IRCEvent.Type;
@@ -23,7 +23,7 @@ public class Example implements IRCEventListener
            * ConnectionManager takes a Profile to use for new connections. The profile
            * will contain the users name , nick , alt. nick 1 and. alt nick 2
            */
-        manager = new ConnectionManager(new ProfileImpl("scripy", "dibz", "dibz_", "dibz__"));
+        manager = new ConnectionManager(new Profile("scripy", "dibz", "dibz_", "dibz__"));
 
           /*
            * One instance of ConnectionManager can connect to many IRC networks.

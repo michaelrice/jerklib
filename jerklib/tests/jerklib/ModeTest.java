@@ -26,7 +26,7 @@ public class ModeTest
 		(
 			"kubrick.freenode.net", 
 			6667, 
-			new ProfileImpl("testnick" , "testnick" , "testnick" , "testnick"), 
+			new Profile("testnick" , "testnick" , "testnick" , "testnick"), 
 			"/home/mohadib/mode_msg_data", 
 			"/home/mohadib/TEST_OUTPUT"
 		);

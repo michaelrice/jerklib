@@ -148,7 +148,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		String profileNick = session.getNick();
 		if(!nick.equalsIgnoreCase(profileNick))
 		{
-			ProfileImpl pi = (ProfileImpl)session.getRequestedConnection().getProfile();
+			Profile pi = (Profile)session.getRequestedConnection().getProfile();
 			pi.setActualNick(nick);
 			NickChangeEvent nce = new NickChangeEventImpl
 			(
