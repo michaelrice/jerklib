@@ -15,6 +15,8 @@ public class Token
 
 	/**
 	 * Does this token look like a number?
+	 * in this instance decimal points will
+	 * never appear so \\d+ works fine
 	 * 
 	 * @return true/false.
 	 */
@@ -67,7 +69,7 @@ public class Token
 	 * 
 	 * @return the int value;
 	 */
-	public int getAsInteger()
+	public int asInteger()
 	{
 		try
 		{
@@ -84,7 +86,7 @@ public class Token
 	 * 
 	 * @return the long value.
 	 */
-	public long getAsLong()
+	public long asLong()
 	{
 		try
 		{

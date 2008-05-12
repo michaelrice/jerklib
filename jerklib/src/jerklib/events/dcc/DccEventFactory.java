@@ -41,14 +41,14 @@ public class DccEventFactory
 					&& dccTokenList.get(4).isInteger())
 			{
 				String filename = dccTokenList.get(2).data;
-				InetAddress ip = InetAddressUtils.parseNumericIp(dccTokenList.get(3).getAsLong());
-				int port = dccTokenList.get(4).getAsInteger();
+				InetAddress ip = InetAddressUtils.parseNumericIp(dccTokenList.get(3).asLong());
+				int port = dccTokenList.get(4).asInteger();
 
 				// File Size is optative.
 				long fileSize = -1;
 				if (dccTokenList.size() == 6 && dccTokenList.get(5).isLong())
 				{
-					fileSize = dccTokenList.get(5).getAsLong();
+					fileSize = dccTokenList.get(5).asLong();
 				}
 
 				if (ip != null) {
@@ -63,8 +63,8 @@ public class DccEventFactory
 					&& dccTokenList.get(4).isLong())
 			{
 				String filename = dccTokenList.get(2).data;
-				int port = dccTokenList.get(3).getAsInteger();
-				long position = dccTokenList.get(4).getAsLong();
+				int port = dccTokenList.get(3).asInteger();
+				long position = dccTokenList.get(4).asLong();
 				return new DccResumeEventImpl(filename, port, position, ctcpString, event.getHostName(), event.getMessage(), event.getNick(), event.getUserName(), event.getRawEventData(), event.getChannel(), event.getSession());
 			}
 			
@@ -75,8 +75,8 @@ public class DccEventFactory
 					&& dccTokenList.get(4).isLong())
 			{
 				String filename = dccTokenList.get(2).data;
-				int port = dccTokenList.get(3).getAsInteger();
-				long position = dccTokenList.get(4).getAsLong();
+				int port = dccTokenList.get(3).asInteger();
+				long position = dccTokenList.get(4).asLong();
 				return new DccAcceptEventImpl(filename, port, position, ctcpString, event.getHostName(), event.getMessage(), event.getNick(), event.getUserName(), event.getRawEventData(), event.getChannel(), event.getSession());
 			}
 			
@@ -87,8 +87,8 @@ public class DccEventFactory
 					&& dccTokenList.get(4).isInteger())
 			{
 				String protocol = dccTokenList.get(2).data;
-				InetAddress ip = InetAddressUtils.parseNumericIp(dccTokenList.get(3).getAsLong());
-				int port = dccTokenList.get(4).getAsInteger();
+				InetAddress ip = InetAddressUtils.parseNumericIp(dccTokenList.get(3).asLong());
+				int port = dccTokenList.get(4).asInteger();
 				
 				if (ip != null)
 				{
