@@ -10,6 +10,8 @@ import jerklib.events.impl.dcc.DccChatEventImpl;
 import jerklib.events.impl.dcc.DccResumeEventImpl;
 import jerklib.events.impl.dcc.DccSendEventImpl;
 import jerklib.events.impl.dcc.DccUnknownEventImpl;
+import jerklib.tokens.EventToken;
+import jerklib.tokens.Token;
 import jerklib.util.InetAddressUtils;
 
 /**
@@ -18,10 +20,10 @@ import jerklib.util.InetAddressUtils;
  * @author Andres N. Kievsky
  */
 
-class DccEventFactory
+public class DccEventFactory
 {
 
-	static DccEvent dcc(MessageEvent event, String ctcpString)
+	public static DccEvent dcc(MessageEvent event, String ctcpString)
 	{
 		
 		EventToken dccTokens = new EventToken(ctcpString);

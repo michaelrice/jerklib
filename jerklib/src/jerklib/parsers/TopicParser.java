@@ -7,11 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import jerklib.Channel;
-import jerklib.EventToken;
-import jerklib.Token;
 import jerklib.events.IRCEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.impl.TopicEventImpl;
+import jerklib.tokens.EventToken;
+import jerklib.tokens.Token;
 
 
 //TODO this class is fucked and a left over from old code

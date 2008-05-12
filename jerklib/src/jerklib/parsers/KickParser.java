@@ -3,11 +3,12 @@ package jerklib.parsers;
 import java.util.List;
 
 import jerklib.Channel;
-import jerklib.EventToken;
 import jerklib.Session;
-import jerklib.Token;
 import jerklib.events.IRCEvent;
 import jerklib.events.impl.KickEventImpl;
+import jerklib.tokens.EventToken;
+import jerklib.tokens.Token;
+import jerklib.tokens.TokenUtil;
 
 public class KickParser implements CommandParser
 {
@@ -20,9 +21,9 @@ public class KickParser implements CommandParser
 			(
 					token.getData(), 
 					session, 
-					ParserUtil.getNick(tokens.get(0)), // byWho
-					ParserUtil.getUserName(tokens.get(0)), // username
-					ParserUtil.getHostName(tokens.get(0)), // host name
+					TokenUtil.getNick(tokens.get(0)), // byWho
+					TokenUtil.getUserName(tokens.get(0)), // username
+					TokenUtil.getHostName(tokens.get(0)), // host name
 					tokens.get(3).data, // victim
 					token.concatTokens(8).substring(1), // message
 					channel

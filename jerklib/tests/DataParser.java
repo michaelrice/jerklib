@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jerklib.ConnectionManager;
-import jerklib.EventToken;
-import jerklib.Token;
+import jerklib.tokens.EventToken;
+import jerklib.tokens.Token;
 
 
 public class DataParser

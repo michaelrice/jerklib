@@ -130,7 +130,6 @@ public class ConnectionManager
     {
         this.defaultProfile = defaultProfile;
 
-        IRCEventFactory.setManager(this);
         
         defaultParser.setInternalEventHandler(defaultInternalEventHandler);
         

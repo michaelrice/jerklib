@@ -3,13 +3,14 @@ package jerklib.parsers;
 import java.util.List;
 
 import jerklib.Channel;
-import jerklib.EventToken;
 import jerklib.Session;
-import jerklib.Token;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.impl.JoinCompleteEventImpl;
 import jerklib.events.impl.JoinEventImpl;
+import jerklib.tokens.EventToken;
+import jerklib.tokens.Token;
+import jerklib.tokens.TokenUtil;
 
 public class JoinParser implements CommandParser
 {
@@ -26,9 +27,9 @@ public class JoinParser implements CommandParser
 		(
 			token.getData(), 
 			session, 
-			ParserUtil.getNick(tokens.get(0)), // nick
-			ParserUtil.getUserName(tokens.get(0)), // user name
-			ParserUtil.getHostName(tokens.get(0)), // host
+			TokenUtil.getNick(tokens.get(0)), // nick
+			TokenUtil.getUserName(tokens.get(0)), // user name
+			TokenUtil.getHostName(tokens.get(0)), // host
 			tokens.get(2).data.replaceFirst(":", ""), // channel name
 			session.getChannel(tokens.get(2).data.replaceFirst(":", "")) // channel
 		);

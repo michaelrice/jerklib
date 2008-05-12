@@ -3,12 +3,12 @@ package jerklib.parsers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.AwayEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.AwayEvent.EventType;
 import jerklib.events.impl.AwayEventImpl;
+import jerklib.tokens.EventToken;
 
 public class AwayParser implements CommandParser
 {

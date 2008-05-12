@@ -3,9 +3,9 @@ package jerklib.parsers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jerklib.EventToken;
 import jerklib.events.IRCEvent;
 import jerklib.events.impl.InviteEventImpl;
+import jerklib.tokens.EventToken;
 
 public class InviteParser implements CommandParser
 {

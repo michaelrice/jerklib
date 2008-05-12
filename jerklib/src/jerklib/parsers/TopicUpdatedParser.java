@@ -3,8 +3,8 @@ package jerklib.parsers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jerklib.EventToken;
 import jerklib.events.IRCEvent;
+import jerklib.tokens.EventToken;
 
 public class TopicUpdatedParser implements CommandParser
 {

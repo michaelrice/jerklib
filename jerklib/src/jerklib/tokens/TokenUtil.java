@@ -1,8 +1,7 @@
-package jerklib.parsers;
+package jerklib.tokens;
 
-import jerklib.Token;
 
-public class ParserUtil
+public class TokenUtil
 {
 	
 	public static String getHostName(Token t)

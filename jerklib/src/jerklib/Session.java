@@ -3,6 +3,7 @@ package jerklib;
 import jerklib.events.IRCEvent.Type;
 import jerklib.events.listeners.IRCEventListener;
 import jerklib.tasks.Task;
+import jerklib.tokens.Token;
 
 import java.util.ArrayList;
 import java.util.List;

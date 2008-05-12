@@ -27,6 +27,7 @@ import jerklib.parsers.TopicUpdatedParser;
 import jerklib.parsers.WhoParser;
 import jerklib.parsers.WhoWasParser;
 import jerklib.parsers.WhoisParser;
+import jerklib.tokens.EventToken;
 
 public class DefaultInternalEventParser implements InternalEventParser
 {

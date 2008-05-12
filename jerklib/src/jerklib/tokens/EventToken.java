@@ -1,10 +1,10 @@
-package jerklib;
+package jerklib.tokens;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import jerklib.Token.Type;
+import jerklib.tokens.Token.Type;
 
 public class EventToken implements Iterable<Token>
 {

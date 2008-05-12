@@ -1,4 +1,4 @@
-package jerklib;
+package jerklib.tokens;
 
 public class Token
 {

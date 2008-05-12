@@ -2,12 +2,13 @@ package jerklib.parsers;
 
 import java.util.List;
 
-import jerklib.EventToken;
 import jerklib.Session;
-import jerklib.Token;
 import jerklib.events.IRCEvent;
 import jerklib.events.PartEvent;
 import jerklib.events.impl.PartEventImpl;
+import jerklib.tokens.EventToken;
+import jerklib.tokens.Token;
+import jerklib.tokens.TokenUtil;
 
 public class PartParser implements CommandParser
 {
@@ -21,9 +22,9 @@ public class PartParser implements CommandParser
 			(
 					token.getData(), 
 					session,
-					ParserUtil.getNick(tokens.get(0)), // who
-					ParserUtil.getUserName(tokens.get(0)), // username
-					ParserUtil.getHostName(tokens.get(0)), // host name
+					TokenUtil.getNick(tokens.get(0)), // who
+					TokenUtil.getUserName(tokens.get(0)), // username
+					TokenUtil.getHostName(tokens.get(0)), // host name
 					session.getChannel(tokens.get(2).data).getName(), // channel name
 					session.getChannel(tokens.get(2).data), 
 					partMsg 

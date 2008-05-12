@@ -3,14 +3,16 @@ package jerklib.parsers;
 import java.util.List;
 
 import jerklib.Channel;
-import jerklib.EventToken;
-import jerklib.IRCEventFactory;
+import jerklib.DccEventFactory;
 import jerklib.Session;
-import jerklib.Token;
 import jerklib.events.IRCEvent;
 import jerklib.events.MessageEvent;
 import jerklib.events.IRCEvent.Type;
+import jerklib.events.impl.CtcpEventImpl;
 import jerklib.events.impl.MessageEventImpl;
+import jerklib.tokens.EventToken;
+import jerklib.tokens.Token;
+import jerklib.tokens.TokenUtil;
 
 public class PrivMsgParser implements CommandParser
 {
@@ -23,20 +25,37 @@ public class PrivMsgParser implements CommandParser
 		MessageEvent me =  new MessageEventImpl
 		(
 			chan,
-			ParserUtil.getHostName(tokens.get(0)), 
+			TokenUtil.getHostName(tokens.get(0)), 
 			token.concatTokens(6).substring(1), 
-			ParserUtil.getNick(tokens.get(0)),
+			TokenUtil.getNick(tokens.get(0)),
 			token.getData(), 
 			session, 
 			type, 
-			ParserUtil.getUserName(tokens.get(0))
+			TokenUtil.getUserName(tokens.get(0))
 		);
 		
 		String msg = me.getMessage();
 		if (msg.startsWith("\u0001"))
 		{
 			String ctcpString = msg.substring(1, msg.length() - 1);
-			me = IRCEventFactory.ctcp(me, ctcpString);
+			if (ctcpString.startsWith("DCC "))
+			{
+				me = DccEventFactory.dcc(me, ctcpString);
+			}
+			else
+			{
+				return new CtcpEventImpl
+				(
+					ctcpString, 
+					me.getHostName(), 
+					me.getMessage(), 
+					me.getNick(), 
+					me.getUserName(), 
+					me.getRawEventData(), 
+					me.getChannel(), 
+					me.getSession()
+				);
+			}
 		}
 		
 		return me;

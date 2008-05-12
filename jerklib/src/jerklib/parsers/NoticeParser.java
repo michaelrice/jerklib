@@ -3,12 +3,13 @@ package jerklib.parsers;
 import java.util.List;
 
 import jerklib.Channel;
-import jerklib.EventToken;
 import jerklib.Session;
-import jerklib.Token;
 import jerklib.events.IRCEvent;
 import jerklib.events.NoticeEvent;
 import jerklib.events.impl.NoticeEventImpl;
+import jerklib.tokens.EventToken;
+import jerklib.tokens.Token;
+import jerklib.tokens.TokenUtil;
 
 public class NoticeParser implements CommandParser
 {
@@ -61,7 +62,7 @@ public class NoticeParser implements CommandParser
 						"channel",
 						token.getData().substring(token.getData().indexOf(":", 1) + 1),
 						channel.getName(),
-						ParserUtil.getNick(tokens.get(0)),
+						TokenUtil.getNick(tokens.get(0)),
 						channel
 				);
 			}
@@ -75,7 +76,7 @@ public class NoticeParser implements CommandParser
 						"user",
 						token.getData().substring(token.getData().indexOf(":", 1) + 1),
 						session.getNick(),
-						ParserUtil.getNick(tokens.get(0)),
+						TokenUtil.getNick(tokens.get(0)),
 						null
 				);
 			}

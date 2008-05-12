@@ -1,7 +1,7 @@
 package jerklib.parsers;
 
-import jerklib.EventToken;
 import jerklib.events.IRCEvent;
+import jerklib.tokens.EventToken;
 
 public interface CommandParser
 {

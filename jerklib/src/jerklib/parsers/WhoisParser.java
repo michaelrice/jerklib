@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jerklib.EventToken;
-import jerklib.Token;
 import jerklib.events.IRCEvent;
 import jerklib.events.impl.WhoisEventImpl;
+import jerklib.tokens.EventToken;
+import jerklib.tokens.Token;
 
 public class WhoisParser implements CommandParser
 {
