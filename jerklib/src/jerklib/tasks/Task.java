@@ -1,6 +1,6 @@
 package jerklib.tasks;
 
-import jerklib.events.listeners.IRCEventListener;
+import jerklib.listeners.IRCEventListener;
 
 public interface Task extends IRCEventListener
 {

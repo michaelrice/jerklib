@@ -7,7 +7,7 @@ import jerklib.Session;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.MessageEvent;
-import jerklib.events.listeners.BaseListener;
+import jerklib.listeners.BaseListener;
 
 public class BaseListenerExample extends BaseListener implements Runnable
 {

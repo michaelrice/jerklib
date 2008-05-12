@@ -1,7 +1,7 @@
 package jerklib;
 
 import jerklib.events.IRCEvent.Type;
-import jerklib.events.listeners.IRCEventListener;
+import jerklib.listeners.IRCEventListener;
 import jerklib.parsers.InternalEventParser;
 import jerklib.tasks.Task;
 import jerklib.tokens.Token;

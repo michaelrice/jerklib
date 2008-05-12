@@ -5,7 +5,7 @@ import jerklib.Profile;
 import jerklib.Session;
 import jerklib.events.*;
 import jerklib.events.IRCEvent.Type;
-import jerklib.events.listeners.IRCEventListener;
+import jerklib.listeners.IRCEventListener;
 import jerklib.tasks.TaskImpl;
 
 /**

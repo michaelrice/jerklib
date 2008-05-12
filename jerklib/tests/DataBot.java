@@ -12,7 +12,7 @@ import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.ServerVersionEvent;
 import jerklib.events.IRCEvent.Type;
-import jerklib.events.listeners.IRCEventListener;
+import jerklib.listeners.IRCEventListener;
 import jerklib.tasks.Task;
 import jerklib.tasks.TaskImpl;
 

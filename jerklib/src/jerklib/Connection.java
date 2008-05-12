@@ -2,7 +2,7 @@ package jerklib;
 
 import jerklib.Session.State;
 import jerklib.events.IRCEvent;
-import jerklib.events.listeners.WriteRequestListener;
+import jerklib.listeners.WriteRequestListener;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

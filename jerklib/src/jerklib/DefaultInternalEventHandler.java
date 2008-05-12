@@ -14,7 +14,7 @@ import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.IRCEvent.Type;
 import jerklib.events.impl.NickChangeEventImpl;
-import jerklib.events.listeners.IRCEventListener;
+import jerklib.listeners.IRCEventListener;
 import jerklib.parsers.NoticeParser;
 import jerklib.tokens.EventToken;
 import static jerklib.events.IRCEvent.Type.*;

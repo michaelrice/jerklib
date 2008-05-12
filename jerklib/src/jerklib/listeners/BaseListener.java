@@ -1,4 +1,4 @@
-package jerklib.events.listeners;
+package jerklib.listeners;
 
 import jerklib.events.*;
 import jerklib.events.IRCEvent.Type;
