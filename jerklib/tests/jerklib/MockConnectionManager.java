@@ -30,7 +30,6 @@ public class MockConnectionManager extends ConnectionManager
 		Session session = new Session(new RequestedConnection(hostName , port , profile));
 		
 		InternalEventParser parser = new DefaultInternalEventParser();
-		parser.setInternalEventHandler(new DefaultInternalEventHandler(this));
 		session.setInternalParser(parser);
 		
 		MockSocketChannel chan = new MockSocketChannel(null);

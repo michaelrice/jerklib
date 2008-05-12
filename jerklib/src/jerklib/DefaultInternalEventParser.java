@@ -4,61 +4,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jerklib.events.IRCEvent;
-import jerklib.events.listeners.IRCEventListener;
-import jerklib.parsers.AwayParser;
-import jerklib.parsers.ChanListParser;
-import jerklib.parsers.CommandParser;
-import jerklib.parsers.ConnectionCompleteParser;
-import jerklib.parsers.DefaultNumericErrorParser;
-import jerklib.parsers.InviteParser;
-import jerklib.parsers.JoinParser;
-import jerklib.parsers.MotdParser;
-import jerklib.parsers.NamesParser;
-import jerklib.parsers.NickInUseParser;
-import jerklib.parsers.NickParser;
-import jerklib.parsers.NoticeParser;
-import jerklib.parsers.PartParser;
-import jerklib.parsers.PrivMsgParser;
-import jerklib.parsers.QuitParser;
-import jerklib.parsers.ServerInformationParser;
-import jerklib.parsers.ServerVersionParser;
-import jerklib.parsers.TopicParser;
-import jerklib.parsers.TopicUpdatedParser;
-import jerklib.parsers.WhoParser;
-import jerklib.parsers.WhoWasParser;
-import jerklib.parsers.WhoisParser;
 import jerklib.tokens.EventToken;
+import jerklib.parsers.*;
 
 public class DefaultInternalEventParser implements InternalEventParser
 {
 	private final Map<String , CommandParser> parsers = new HashMap<String, CommandParser>();
 	private CommandParser defaultParser;
-	private IRCEventListener internalEventHandler;
 	
 	public DefaultInternalEventParser()
 	{
 		initDefaultParsers();
 	}
 	
-	public void receiveEvent(IRCEvent e)
+	public IRCEvent receiveEvent(IRCEvent e)
 	{
 		EventToken eventToken = new EventToken(e.getRawEventData());
 		CommandParser parser = parsers.get(eventToken.getCommand());
 		parser = parser == null? defaultParser : parser;
-		IRCEvent event = parser == null?e:parser.createEvent(eventToken, e);
-		internalEventHandler.receiveEvent(event);
+		return parser == null?e:parser.createEvent(eventToken, e);
 	}
+
 	
-	public void setInternalEventHandler(IRCEventListener listener)
+	public void removeAllParsers()
 	{
-		internalEventHandler = listener;
+		parsers.clear();
 	}
-	
-	public IRCEventListener getInternalEventHandler()
-	{
-		return internalEventHandler;
-	}
-	
 	
 	public void addParser(String command , CommandParser parser)
 	{
@@ -75,7 +46,12 @@ public class DefaultInternalEventParser implements InternalEventParser
 		defaultParser = parser;
 	}
 	
-	private void initDefaultParsers()
+	public CommandParser getDefaultParser()
+	{
+		return defaultParser;
+	}
+	
+	public void initDefaultParsers()
 	{
 		parsers.put("001" , new ConnectionCompleteParser());
 		parsers.put("002" , new ServerVersionParser());

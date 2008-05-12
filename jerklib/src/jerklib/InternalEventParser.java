@@ -1,10 +1,8 @@
 package jerklib;
 
-import jerklib.events.listeners.IRCEventListener;
+import jerklib.events.IRCEvent;
 
-public interface InternalEventParser extends IRCEventListener
+public interface InternalEventParser
 {
-	public void setInternalEventHandler(IRCEventListener listener);
-	
-	public IRCEventListener getInternalEventHandler();
+	public IRCEvent receiveEvent(IRCEvent e);
 }

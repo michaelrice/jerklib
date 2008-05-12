@@ -102,8 +102,8 @@ public class ConnectionManager
 
     /* internal event parser */
    // private InternalEventParser parser = new InternalEventParserImpl(this);
-    private IRCEventListener defaultInternalEventHandler = new DefaultInternalEventHandler(this);
-    private InternalEventParser defaultParser = new DefaultInternalEventParser();
+    private IRCEventListener internalEventHandler = new DefaultInternalEventHandler(this);
+    private InternalEventParser internalEventParser = new DefaultInternalEventParser();
     
     /* main loop timer */
     private Timer loopTimer;
@@ -130,8 +130,6 @@ public class ConnectionManager
     {
         this.defaultProfile = defaultProfile;
 
-        
-        defaultParser.setInternalEventHandler(defaultInternalEventHandler);
         
         //if(dontParse)parser = new MinimalEventParser(this);
         
@@ -241,7 +239,7 @@ public class ConnectionManager
             throw new IllegalArgumentException("Already connected to " + hostName + " on same port with same profile");
         }
         
-        session.setInternalParser(defaultParser);
+        session.setInternalParser(internalEventParser);
         
         sessionMap.put(hostName, session);
 
@@ -315,19 +313,22 @@ public class ConnectionManager
      */
     public void setDefaultInternalEventHandler(IRCEventListener handler)
     {
-    	defaultInternalEventHandler = handler;
-    	defaultParser.setInternalEventHandler(handler);
+    	internalEventHandler = handler;
     }
     
     public void setDefaultInternalEventParser(InternalEventParser parser)
     {
-    	defaultParser = parser;
+    	internalEventParser = parser;
     }
-    
     
     public InternalEventParser getDefaultInternalEventParser()
     {
-    	return defaultParser;
+    	return internalEventParser;
+    }
+    
+    public IRCEventListener getDefaultEventHandler()
+    {
+    	return internalEventHandler;
     }
     
     void removeSession(Session session)
@@ -501,7 +502,8 @@ public class ConnectionManager
             }
             for (IRCEvent event : eventQueue)
             {
-                event.getSession().getInternalEventParser().receiveEvent(event);
+                IRCEvent newEvent = event.getSession().getInternalEventParser().receiveEvent(event);
+                internalEventHandler.receiveEvent(newEvent);
             }
             eventQueue.clear();
         }

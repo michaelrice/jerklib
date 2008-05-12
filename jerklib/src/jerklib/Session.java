@@ -31,7 +31,7 @@ public class Session extends RequestGenerator
     private ServerInformation serverInfo = new ServerInformation();
     private State state = State.DISCONNECTED;
     private InternalEventParser parser;
-    
+    private IRCEventListener internalEventHandler;
     
     public InternalEventParser getInternalEventParser()
     {
@@ -45,12 +45,12 @@ public class Session extends RequestGenerator
     
     public void setInternalEventHandler(IRCEventListener handler)
     {
-    	parser.setInternalEventHandler(handler);
+    	internalEventHandler = handler;
     }
     
     public IRCEventListener getInternalEventHandler()
     {
-    	return parser.getInternalEventHandler();
+    	return internalEventHandler;
     }
     
     
