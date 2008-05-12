@@ -81,6 +81,11 @@ public class Profile
         actualNick = aNick;
     }
 
+    void setFirstNick(String nick)
+    {
+    	firstNick = nick;
+    }
+    
     public boolean equals(Object o)
     {
         if (this == o)
