@@ -42,7 +42,6 @@ import jerklib.tasks.TaskImpl;
  */
 public class DataBot implements IRCEventListener
 {
-	private File logFile;
 	private FileOutputStream fos;
 	private Map<String, String>ircdMap = new HashMap<String, String>();
 	private ConnectionManager conMan;
@@ -51,7 +50,6 @@ public class DataBot implements IRCEventListener
 	
 	public DataBot(File logFile)
 	{
-		this.logFile = logFile;
 		try
 		{
 			fos = new FileOutputStream(logFile , false);

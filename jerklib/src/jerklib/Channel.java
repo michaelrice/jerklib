@@ -197,7 +197,9 @@ public class Channel
     {
         return new ArrayList<String>(Collections.unmodifiableCollection(userMap.keySet()))
         {
-        	@Override
+					private static final long serialVersionUID = 1L;
+
+					@Override
         	public int indexOf(Object o)
         	{
         		if(o == null)

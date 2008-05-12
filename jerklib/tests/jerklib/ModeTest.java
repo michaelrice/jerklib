@@ -9,8 +9,6 @@ import jerklib.events.ModeEvent;
 import jerklib.events.IRCEvent.Type;
 import jerklib.tasks.TaskImpl;
 
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 
 import static org.testng.AssertJUnit.assertTrue;
 
