@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>TestNG:  Unit Test</title>
+<style type="text/css">
+table caption,table.info_table,table.param,table.passed,table.failed {margin-bottom:10px;border:1px solid #000099;border-collapse:collapse;empty-cells:show;}
+table.info_table td,table.info_table th,table.param td,table.param th,table.passed td,table.passed th,table.failed td,table.failed th {
+border:1px solid #000099;padding:.25em .5em .25em .5em
+}
+table.param th {vertical-align:bottom}
+td.numi,th.numi,td.numi_attn {
+text-align:right
+}
+tr.total td {font-weight:bold}
+table caption {
+text-align:center;font-weight:bold;
+}
+table.passed tr.stripe td,table tr.passedodd td {background-color: #00AA00;}
+table.passed td,table tr.passedeven td {background-color: #33FF33;}
+table.passed tr.stripe td,table tr.skippedodd td {background-color: #cccccc;}
+table.passed td,table tr.skippedodd td {background-color: #dddddd;}
+table.failed tr.stripe td,table tr.failedodd td,table.param td.numi_attn {background-color: #FF3333;}
+table.failed td,table tr.failedeven td,table.param tr.stripe td.numi_attn {background-color: #DD0000;}
+tr.stripe td,tr.stripe th {background-color: #E6EBF9;}
+p.totop {font-size:85%;text-align:center;border-bottom:2px black solid}
+div.shootout {padding:2em;border:3px #4854A8 solid}
+</style>
+</head>
+<body>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
+<tr><td style="text-align:left;padding-right:2em">All</td><td class="numi">64</td><td class="numi">64</td><td class="numi">0</td><td class="numi">0</td><td class="numi">12.6 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+</table>
+<a id="summary"></a>
+<table cellspacing=0 cellpadding=0 class="passed">
+<tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Time<br/>(Msecs)</th></tr>
+<tr><th colspan="4">All &#8212; passed</th></tr>
+<tr class="passedodd"><td rowspan="1">jerklib.EventTokenTest<td><a href="#m1">testTokenize</a></td><td class="numi">1</td><td class="numi">17</td></tr>
+<tr class="passedeven"><td rowspan="4">jerklib.NickCacheTest<td><a href="#m2">TestNickCountAfterPartJoinsEtc</a></td><td class="numi">1</td><td class="numi">12</td></tr><tr class="passedeven"><td><a href="#m3">TestNickCountFromNickListEvent</a></td><td class="numi">1</td><td class="numi">11</td></tr><tr class="passedeven"><td><a href="#m4">testContainsNick</a></td><td class="numi">1</td><td class="numi">11</td></tr><tr class="passedeven"><td><a href="#m5">testNickCaseInsensitivity</a></td><td class="numi">1</td><td class="numi">11</td></tr>
+<tr class="passedodd"><td rowspan="12">jerklib.events.AwayEventTest<td><a href="#m6">testBahamutRemoteUserIsAway</a></td><td class="numi">1</td><td class="numi">15</td></tr><tr class="passedodd"><td><a href="#m7">testBahamutUserReturnedFromAway</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m8">testBahamutUserWentAway</a></td><td class="numi">1</td><td class="numi">17</td></tr><tr class="passedodd"><td><a href="#m9">testHyperionUserIsAway</a></td><td class="numi">1</td><td class="numi">15</td></tr><tr class="passedodd"><td><a href="#m10">testHyperionUserReturnedFromAway</a></td><td class="numi">1</td><td class="numi">22</td></tr><tr class="passedodd"><td><a href="#m11">testHyperionUserWentAway</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m12">testQuakeNetUserIsAway</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m13">testQuakeNetUserReturnedFromAway</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m14">testQuakeNetUserWentAway</a></td><td class="numi">1</td><td class="numi">16</td></tr><tr class="passedodd"><td><a href="#m15">testUnrealUserIsAway</a></td><td class="numi">1</td><td class="numi">13</td></tr><tr class="passedodd"><td><a href="#m16">testUnrealUserReturnedFromAway</a></td><td class="numi">1</td><td class="numi">20</td></tr><tr class="passedodd"><td><a href="#m17">testUnrealUserWentAway</a></td><td class="numi">1</td><td class="numi">21</td></tr>
+<tr class="passedeven"><td rowspan="5">jerklib.events.JoinCompleteEventTest<td><a href="#m18">testBahamutJoinComplete</a></td><td class="numi">1</td><td class="numi">20</td></tr><tr class="passedeven"><td><a href="#m19">testHyperionJoinComplete</a></td><td class="numi">1</td><td class="numi">27</td></tr><tr class="passedeven"><td><a href="#m20">testNumEventsDispatched</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedeven"><td><a href="#m21">testSnircdJoinComplete</a></td><td class="numi">1</td><td class="numi">21</td></tr><tr class="passedeven"><td><a href="#m22">testUnrealJoinComplete</a></td><td class="numi">1</td><td class="numi">18</td></tr>
+<tr class="passedodd"><td rowspan="5">jerklib.events.JoinEventTest<td><a href="#m23">testBahamutJoin</a></td><td class="numi">1</td><td class="numi">22</td></tr><tr class="passedodd"><td><a href="#m24">testHyperionJoinComplete</a></td><td class="numi">1</td><td class="numi">20</td></tr><tr class="passedodd"><td><a href="#m25">testNumEventsDispatched</a></td><td class="numi">1</td><td class="numi">28</td></tr><tr class="passedodd"><td><a href="#m26">testSnircdJoinComplete</a></td><td class="numi">1</td><td class="numi">22</td></tr><tr class="passedodd"><td><a href="#m27">testUnrealJoinComplete</a></td><td class="numi">1</td><td class="numi">21</td></tr>
+<tr class="passedeven"><td rowspan="9">jerklib.events.MessageEventTest<td><a href="#m28">testBahamutChannelMessage</a></td><td class="numi">1</td><td class="numi">22</td></tr><tr class="passedeven"><td><a href="#m29">testBahamutPrivateMessage</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedeven"><td><a href="#m30">testHyperionChannelMessage</a></td><td class="numi">1</td><td class="numi">20</td></tr><tr class="passedeven"><td><a href="#m31">testHyperionPrivateMessage</a></td><td class="numi">1</td><td class="numi">20</td></tr><tr class="passedeven"><td><a href="#m32">testNumEventsDispatched</a></td><td class="numi">1</td><td class="numi">20</td></tr><tr class="passedeven"><td><a href="#m33">testSnircdChannelMessage</a></td><td class="numi">1</td><td class="numi">28</td></tr><tr class="passedeven"><td><a href="#m34">testSnircdPrivateMessage</a></td><td class="numi">1</td><td class="numi">22</td></tr><tr class="passedeven"><td><a href="#m35">testUnrealChannelMessage</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedeven"><td><a href="#m36">testUnrealPrivateMessage</a></td><td class="numi">1</td><td class="numi">23</td></tr>
+<tr class="passedodd"><td rowspan="18">jerklib.events.NoticeEventTest<td><a href="#m37">testBahamutChannelNotice</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m38">testBahamutServerNotice</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m39">testBahamutUserNotice</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m40">testBahmutGenericNotices</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m41">testHyperionChannelNotice</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m42">testHyperionGenericNotices</a></td><td class="numi">1</td><td class="numi">20</td></tr><tr class="passedodd"><td><a href="#m43">testHyperionServerNotice</a></td><td class="numi">1</td><td class="numi">20</td></tr><tr class="passedodd"><td><a href="#m44">testHyperionUserNotice</a></td><td class="numi">1</td><td class="numi">21</td></tr><tr class="passedodd"><td><a href="#m45">testNumEventsDispatched</a></td><td class="numi">1</td><td class="numi">18</td></tr><tr class="passedodd"><td><a href="#m46">testSnircdChannelNotice</a></td><td class="numi">1</td><td class="numi">21</td></tr><tr class="passedodd"><td><a href="#m47">testSnircdGenericNotices</a></td><td class="numi">1</td><td class="numi">18</td></tr><tr class="passedodd"><td><a href="#m48">testSnircdServerNotice</a></td><td class="numi">1</td><td class="numi">20</td></tr><tr class="passedodd"><td><a href="#m49">testSnircdUserNotice</a></td><td class="numi">1</td><td class="numi">29</td></tr><tr class="passedodd"><td><a href="#m50">testUltimateChannelNotice</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m51">testUnrealChannelNotice</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m52">testUnrealGenericNotices</a></td><td class="numi">1</td><td class="numi">28</td></tr><tr class="passedodd"><td><a href="#m53">testUnrealServerNotice</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m54">testUnrealUserNotice</a></td><td class="numi">1</td><td class="numi">19</td></tr>
+<tr class="passedeven"><td rowspan="5">jerklib.events.PartEventTest<td><a href="#m55">testBahamutPart</a></td><td class="numi">1</td><td class="numi">27</td></tr><tr class="passedeven"><td><a href="#m56">testHyperionPart</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedeven"><td><a href="#m57">testNumEventsDispatched</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedeven"><td><a href="#m58">testSnircdPart</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedeven"><td><a href="#m59">testUnrealPart</a></td><td class="numi">1</td><td class="numi">22</td></tr>
+<tr class="passedodd"><td rowspan="5">jerklib.events.QuitEventTest<td><a href="#m60">testBahamutQuit</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m61">testHyperionQuit</a></td><td class="numi">1</td><td class="numi">19</td></tr><tr class="passedodd"><td><a href="#m62">testNumEventsDispatched</a></td><td class="numi">1</td><td class="numi">21</td></tr><tr class="passedodd"><td><a href="#m63">testSnircdQuit</a></td><td class="numi">1</td><td class="numi">20</td></tr><tr class="passedodd"><td><a href="#m64">testUnrealQuit</a></td><td class="numi">1</td><td class="numi">18</td></tr>
+</table>
+<h1>All</h1>
+<a id="m1"></a><h2>jerklib.EventTokenTest:testTokenize</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m2"></a><h2>jerklib.NickCacheTest:TestNickCountAfterPartJoinsEtc</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m3"></a><h2>jerklib.NickCacheTest:TestNickCountFromNickListEvent</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m4"></a><h2>jerklib.NickCacheTest:testContainsNick</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m5"></a><h2>jerklib.NickCacheTest:testNickCaseInsensitivity</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m6"></a><h2>jerklib.events.AwayEventTest:testBahamutRemoteUserIsAway</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m7"></a><h2>jerklib.events.AwayEventTest:testBahamutUserReturnedFromAway</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m8"></a><h2>jerklib.events.AwayEventTest:testBahamutUserWentAway</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m9"></a><h2>jerklib.events.AwayEventTest:testHyperionUserIsAway</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m10"></a><h2>jerklib.events.AwayEventTest:testHyperionUserReturnedFromAway</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m11"></a><h2>jerklib.events.AwayEventTest:testHyperionUserWentAway</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m12"></a><h2>jerklib.events.AwayEventTest:testQuakeNetUserIsAway</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m13"></a><h2>jerklib.events.AwayEventTest:testQuakeNetUserReturnedFromAway</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m14"></a><h2>jerklib.events.AwayEventTest:testQuakeNetUserWentAway</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m15"></a><h2>jerklib.events.AwayEventTest:testUnrealUserIsAway</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m16"></a><h2>jerklib.events.AwayEventTest:testUnrealUserReturnedFromAway</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m17"></a><h2>jerklib.events.AwayEventTest:testUnrealUserWentAway</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m18"></a><h2>jerklib.events.JoinCompleteEventTest:testBahamutJoinComplete</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m19"></a><h2>jerklib.events.JoinCompleteEventTest:testHyperionJoinComplete</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m20"></a><h2>jerklib.events.JoinCompleteEventTest:testNumEventsDispatched</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m21"></a><h2>jerklib.events.JoinCompleteEventTest:testSnircdJoinComplete</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m22"></a><h2>jerklib.events.JoinCompleteEventTest:testUnrealJoinComplete</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m23"></a><h2>jerklib.events.JoinEventTest:testBahamutJoin</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m24"></a><h2>jerklib.events.JoinEventTest:testHyperionJoinComplete</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m25"></a><h2>jerklib.events.JoinEventTest:testNumEventsDispatched</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m26"></a><h2>jerklib.events.JoinEventTest:testSnircdJoinComplete</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m27"></a><h2>jerklib.events.JoinEventTest:testUnrealJoinComplete</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m28"></a><h2>jerklib.events.MessageEventTest:testBahamutChannelMessage</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m29"></a><h2>jerklib.events.MessageEventTest:testBahamutPrivateMessage</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m30"></a><h2>jerklib.events.MessageEventTest:testHyperionChannelMessage</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m31"></a><h2>jerklib.events.MessageEventTest:testHyperionPrivateMessage</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m32"></a><h2>jerklib.events.MessageEventTest:testNumEventsDispatched</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m33"></a><h2>jerklib.events.MessageEventTest:testSnircdChannelMessage</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m34"></a><h2>jerklib.events.MessageEventTest:testSnircdPrivateMessage</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m35"></a><h2>jerklib.events.MessageEventTest:testUnrealChannelMessage</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m36"></a><h2>jerklib.events.MessageEventTest:testUnrealPrivateMessage</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m37"></a><h2>jerklib.events.NoticeEventTest:testBahamutChannelNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m38"></a><h2>jerklib.events.NoticeEventTest:testBahamutServerNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m39"></a><h2>jerklib.events.NoticeEventTest:testBahamutUserNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m40"></a><h2>jerklib.events.NoticeEventTest:testBahmutGenericNotices</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m41"></a><h2>jerklib.events.NoticeEventTest:testHyperionChannelNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m42"></a><h2>jerklib.events.NoticeEventTest:testHyperionGenericNotices</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m43"></a><h2>jerklib.events.NoticeEventTest:testHyperionServerNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m44"></a><h2>jerklib.events.NoticeEventTest:testHyperionUserNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m45"></a><h2>jerklib.events.NoticeEventTest:testNumEventsDispatched</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m46"></a><h2>jerklib.events.NoticeEventTest:testSnircdChannelNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m47"></a><h2>jerklib.events.NoticeEventTest:testSnircdGenericNotices</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m48"></a><h2>jerklib.events.NoticeEventTest:testSnircdServerNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m49"></a><h2>jerklib.events.NoticeEventTest:testSnircdUserNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m50"></a><h2>jerklib.events.NoticeEventTest:testUltimateChannelNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m51"></a><h2>jerklib.events.NoticeEventTest:testUnrealChannelNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m52"></a><h2>jerklib.events.NoticeEventTest:testUnrealGenericNotices</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m53"></a><h2>jerklib.events.NoticeEventTest:testUnrealServerNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m54"></a><h2>jerklib.events.NoticeEventTest:testUnrealUserNotice</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m55"></a><h2>jerklib.events.PartEventTest:testBahamutPart</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m56"></a><h2>jerklib.events.PartEventTest:testHyperionPart</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m57"></a><h2>jerklib.events.PartEventTest:testNumEventsDispatched</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m58"></a><h2>jerklib.events.PartEventTest:testSnircdPart</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m59"></a><h2>jerklib.events.PartEventTest:testUnrealPart</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m60"></a><h2>jerklib.events.QuitEventTest:testBahamutQuit</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m61"></a><h2>jerklib.events.QuitEventTest:testHyperionQuit</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m62"></a><h2>jerklib.events.QuitEventTest:testNumEventsDispatched</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m63"></a><h2>jerklib.events.QuitEventTest:testSnircdQuit</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m64"></a><h2>jerklib.events.QuitEventTest:testUnrealQuit</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+</body></html>

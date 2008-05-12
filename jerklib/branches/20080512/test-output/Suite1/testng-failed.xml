@@ -1,0 +1,27 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="5" skipfailedinvocationCounts="false" verbose="1" name="Failed suite [Suite1]" junit="false" annotations="JDK">
+  <test name="All(failed)" junit="false" annotations="JDK">
+    <classes>
+      <class name="jerklib.events.NoticeEventTest">
+        <methods>
+          <include name="testNumEventsDispatched"/>
+          <include name="testSnircdChannelNotice"/>
+          <include name="testBahamutChannelNotice"/>
+          <include name="testUnrealChannelNotice"/>
+          <include name="testSnircdUserNotice"/>
+          <include name="testSnircdGenericNotices"/>
+          <include name="testBahamutServerNotice"/>
+          <include name="testSnircdServerNotice"/>
+          <include name="testHyperionUserNotice"/>
+          <include name="testHyperionServerNotice"/>
+          <include name="testHyperionChannelNotice"/>
+          <include name="init"/>
+          <include name="testBahamutUserNotice"/>
+          <include name="testUnrealServerNotice"/>
+          <include name="testHyperionGenericNotices"/>
+          <include name="testUnrealUserNotice"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+</suite>
