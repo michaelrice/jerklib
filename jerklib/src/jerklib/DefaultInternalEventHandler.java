@@ -193,6 +193,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	
 	
 	
+	
 	private void initStratMap()
 	{
 		stratMap.put(CONNECT_COMPLETE, new IRCEventListener()
@@ -258,5 +259,6 @@ public class DefaultInternalEventHandler implements IRCEventListener
 				mode(e);
 			}
 		});
+		
 	}
 }

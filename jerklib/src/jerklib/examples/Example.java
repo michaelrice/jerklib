@@ -42,7 +42,7 @@ public class Example implements IRCEventListener
            * The Session is the main way users will interact with this library and IRC
            * networks
            */
-        Session session = manager.requestConnection("irc.freenode.net");
+        Session session = manager.requestConnection("irc.undernet.org");
 
           /*
            * JerkLib fires IRCEvents to notify users of the lib of incoming events

@@ -73,7 +73,7 @@ public class ServerInformation
             {
                 ircd = subTokens[1];
             }
-            else if (subTokens[0].equals("CAPAB"))
+            else if (subTokens[0].equals("	"))
             {
                 supportsCAPAB = true;
             }

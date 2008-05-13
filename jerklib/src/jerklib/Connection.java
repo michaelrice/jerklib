@@ -91,7 +91,10 @@ class Connection
 
     void login()
     {
-        writeRequests.add(new WriteRequest("NICK " + getProfile().getActualNick() + "\r\n", this));
+    		//test :irc.inter.net.il CAP * LS :multi-prefix
+    		//writeRequests.add(new WriteRequest("CAP LS", this));
+        
+    		writeRequests.add(new WriteRequest("NICK " + getProfile().getActualNick() + "\r\n", this));
         writeRequests.add(new WriteRequest("USER " + getProfile().getName() + " 0 0 :" + getProfile().getName() + "\r\n", this));
     }
 
