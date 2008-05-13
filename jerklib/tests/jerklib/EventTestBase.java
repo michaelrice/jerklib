@@ -20,6 +20,7 @@ public class EventTestBase
 		ALL
 	}
 	
+	
 	public EventTestBase(String dataFile , String outputFile)
 	{
 		this(dataFile, outputFile, "scripy");

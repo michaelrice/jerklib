@@ -174,7 +174,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	
 	
 	/*
-	 *handl channel and user modes
+	 *handle channel and user modes
 	 */
 	public void mode(IRCEvent event)
 	{
@@ -182,23 +182,8 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		ModeEvent me = (ModeEvent)event;
 		if(me.getModeType() == ModeEvent.ModeType.CHANNEL)
 		{
-			// update user modes in channel
-			List<ModeAdjustment>modeAdjustments = me.getModeAdjustments();
-			Channel chan = me.getChannel();
-			List<String>nicks = chan.getNicks();
-		
-			for(ModeAdjustment ma : modeAdjustments)
-			{
-				if(ma.getArgument().length() > 0 && nicks.contains(ma.getArgument()))
-				{
-					//hack for now lol
-					chan.updateUsersMode(ma.getArgument(), ma.toString().substring(0,2));
-				}
-				else
-				{
-					//update channels mode
-				}
-			}
+			// update channel modes
+			me.getChannel().updateModes(me.getModeAdjustments());
 		}
 		else
 		{

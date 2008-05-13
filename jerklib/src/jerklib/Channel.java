@@ -1,6 +1,8 @@
 package jerklib;
 
 import jerklib.events.TopicEvent;
+import jerklib.events.modes.ModeAdjustment;
+import jerklib.events.modes.ModeAdjustment.Action;
 
 import java.util.ArrayList;
 import java.util.Date; 
@@ -15,9 +17,9 @@ public class Channel
     private String name;
     private Connection con;
     private Session session;
-    private Map<String, List<String>> userMap = new HashMap<String, List<String>>();
+    private Map<String, List<ModeAdjustment>> userMap = new HashMap<String, List<ModeAdjustment>>();
+    private List<ModeAdjustment> channelModes = new ArrayList<ModeAdjustment>();
     private TopicEvent topicEvent;
-    private String modeString = "";
 
     public Channel(String name, Session session)
     {
@@ -26,34 +28,77 @@ public class Channel
         this.con = session.getConnection();
     }
 
-
-    void setModeString(String mode)
+    
+    
+    /* This code assumes the only valid user modes can be found in PREFIX from serverinfo*/
+    void updateModes(List<ModeAdjustment> modes)
     {
-        modeString = mode;
+    	ServerInformation info = session.getServerInformation();
+    	List<String>nickModes = new ArrayList<String>(info.getNickPrefixMap().values());
+    	
+    	for(ModeAdjustment mode : modes)
+    	{
+    		if(nickModes.contains(mode.getMode()) && userMap.containsKey(mode.getArgument()))
+    		{
+    			updateMode(mode , userMap.get(mode.getArgument()));
+    		}
+    		else
+    		{
+    			updateMode(mode , channelModes);
+    		}
+    	}
+    }
+    
+    /**
+     * If Action is MINUS and the same mode exists with a PLUS Action
+     * then just remove the PLUS mode ModeAdjustment from the collection.
+     * 
+     * If Action is MINUS and the same mode with PLUS does not exist
+     * then add the MINUS mode to the ModeAdjustment collection
+     * 
+     * if Action is PLUS and the same mode exists with a MINUS Action
+     * then remove MINUS mode and add PLUS mode
+     * 
+     * If Action is PLUS and the same mode with MINUS does not exist
+     * then just add PLUS mode to collection
+     * 
+     * @param mode
+     */
+    private void updateMode(ModeAdjustment mode , List<ModeAdjustment>modes)
+    {
+    	int index = indexOfMode(mode.getMode(), modes);
+    	
+    	if(mode.getAction() == Action.MINUS)
+    	{
+    		if(index != -1)
+    		{
+    			ModeAdjustment ma = modes.remove(index);
+    			if(ma.getAction() == Action.MINUS) 
+    				modes.add(ma);
+    		}
+    		else
+    		{
+    			modes.add(mode);
+    		}
+    	}
+    	else
+    	{
+    		if(index != -1) modes.remove(index);
+    		modes.add(mode);
+    	}
+    }
+    
+    private int indexOfMode(char mode , List<ModeAdjustment>modes)
+    {
+    	for(int i = 0 ; i < modes.size(); i++)
+    	{
+    		ModeAdjustment ma = modes.get(i);
+    		if(ma.getMode() == mode) return i;
+    	}
+    	return -1;
     }
 
-    public String getModeString()
-    {
-        return modeString;
-    }
-
-    void updateUsersMode(String username, String mode)
-    {
-    		String nick = getActualUserString(username);
-        List<String> modes = userMap.get(nick);
-        if (modes == null)
-        {
-            modes = new ArrayList<String>();
-        }
-        String modeChar = mode.substring(1);
-        modes.remove("-" + modeChar);
-        modes.remove("+" + modeChar);
-        modes.remove(modeChar);
-        modes.add(mode);
-        userMap.put(nick, modes);
-    }
-
-    public List<String> getUsersModes(String nick)
+    public List<ModeAdjustment> getUsersModes(String nick)
     {
     		nick = getActualUserString(nick);
         if (userMap.containsKey(nick))
@@ -62,20 +107,19 @@ public class Channel
         }
         else
         {
-            return new ArrayList<String>();
+            return new ArrayList<ModeAdjustment>();
         }
     }
 
-
-    public List<String> getNicksForMode(String mode)
+    public List<String> getNicksForMode(char mode)
     {
         List<String> nicks = new ArrayList<String>();
         for (String nick : getNicks())
         {
-            List<String> modes = userMap.get(nick);
-            if (modes != null && modes.contains(mode))
+            List<ModeAdjustment> modes = userMap.get(nick);
+            for(ModeAdjustment ma : modes)
             {
-                nicks.add(nick);
+            	if(ma.getMode() == mode) nicks.add(nick);
             }
         }
         return nicks;
@@ -152,15 +196,17 @@ public class Channel
 
             ServerInformation info = session.getServerInformation();
             Map<String, String> nickPrefixMap = info.getNickPrefixMap();
-            List<String> modes = new ArrayList<String>();
+            List<ModeAdjustment> modes = new ArrayList<ModeAdjustment>();
             for (String prefix : nickPrefixMap.keySet())
             {
                 if (nick.startsWith(prefix))
                 {
-                    modes.add("+" + nickPrefixMap.get(prefix));
+                    modes.add(new ModeAdjustment(Action.PLUS , nickPrefixMap.get(prefix).charAt(0), "" ));
                 }
             }
-
+            
+            //TODO can a nick come in as voiced and oped? +@dib ?
+            //if so substring nick with modes.size();
             if (!modes.isEmpty())
             {
                 nick = nick.substring(1);
@@ -179,12 +225,13 @@ public class Channel
     		return false;
     }
 
+    //do channel modes follow when nick changes? yes :)
     void nickChanged(String oldNick, String newNick)
     {
     		String nick = getActualUserString(oldNick);
     		if(nick != null)
     		{
-    			List<String> modes = userMap.remove(nick);
+    			List<ModeAdjustment> modes = userMap.remove(nick);
           userMap.put(newNick, modes);
     		}
     }
