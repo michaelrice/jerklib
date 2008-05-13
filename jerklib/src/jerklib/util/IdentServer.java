@@ -54,7 +54,7 @@ public class IdentServer implements Runnable
 		catch (IOException e)
 		{
 			// /log
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 	}
