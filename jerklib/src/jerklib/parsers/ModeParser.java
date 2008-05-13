@@ -101,16 +101,13 @@ public class ModeParser implements CommandParser
 			if (mode == '+' || mode == '-') action = mode;
 			else
 			{
-				modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, arguments[argumntOffset]));
+				String argument = argumntOffset >= arguments.length? "":arguments[argumntOffset];
+				modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, argument));
 				argumntOffset++;
 			}
 		}
 
-		// remove : and . -> :services.
-		String who = wordTokens.get(0).data.replaceFirst(":", "");
-		if (who.endsWith(".")) who = who.substring(0, who.length() - 1);
-
-		return new ModeEventImpl(ModeEvent.ModeType.USER, token.getData(), event.getSession(), modeAdjustments, who, null);
+		return new ModeEventImpl(ModeEvent.ModeType.USER, token.getData(), event.getSession(), modeAdjustments , event.getSession().getConnectedHostName(), null);
 	}
 
 	

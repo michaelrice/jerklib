@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import jerklib.ServerInformation.ModeType;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
@@ -173,28 +174,35 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	
 	
 	/*
-	 * Sets a users modes in a given channel , this is not
-	 * the same as a server wide user mode
+	 *handl channel and user modes
 	 */
-	public void channelUserMode(IRCEvent event)
+	public void mode(IRCEvent event)
 	{
-		// update user modes in channel
+	
 		ModeEvent me = (ModeEvent)event;
-		List<ModeAdjustment>modeAdjustments = me.getModeAdjustments();
-		Channel chan = me.getChannel();
-		List<String>nicks = chan.getNicks();
-		
-		for(ModeAdjustment ma : modeAdjustments)
+		if(me.getModeType() == ModeEvent.ModeType.CHANNEL)
 		{
-			if(ma.getArgument().length() > 0 && nicks.contains(ma.getArgument()))
+			// update user modes in channel
+			List<ModeAdjustment>modeAdjustments = me.getModeAdjustments();
+			Channel chan = me.getChannel();
+			List<String>nicks = chan.getNicks();
+		
+			for(ModeAdjustment ma : modeAdjustments)
 			{
-				//hack for now lol
-				chan.updateUsersMode(ma.getArgument(), ma.toString().substring(0,2));
+				if(ma.getArgument().length() > 0 && nicks.contains(ma.getArgument()))
+				{
+					//hack for now lol
+					chan.updateUsersMode(ma.getArgument(), ma.toString().substring(0,2));
+				}
+				else
+				{
+					//update channels mode
+				}
 			}
-			else
-			{
-				//update channels mode
-			}
+		}
+		else
+		{
+			//user mode
 		}
 	}
 	
@@ -262,7 +270,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		{
 			public void receiveEvent(IRCEvent e)
 			{
-				channelUserMode(e);
+				mode(e);
 			}
 		});
 	}

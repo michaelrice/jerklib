@@ -2703,3 +2703,7 @@
 # Event index: 540
 :|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
 
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 541
+:services. MODE mohadib :+e
