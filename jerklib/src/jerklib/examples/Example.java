@@ -82,6 +82,7 @@ public class Example implements IRCEventListener
             if(jce.getChannel().getName().equalsIgnoreCase("#jerklib"))
             {
             	jce.getSession().sayRaw("MODE #jerklib");
+            	jce.getSession().sayRaw("MODE #ubuntu");
             }
             /* say hello and version number */
            // jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());

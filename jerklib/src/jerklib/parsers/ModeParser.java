@@ -20,15 +20,74 @@ import jerklib.tokens.TokenUtil;
  * Class currently handles Server level modes for use of the lib and channel
  * level modes for any user in a given channel.
  * 
+ * developers see:
+ * https://sourceforge.net/tracker/index.php?func=detail&aid=1962621&group_id=214803&atid=1031130
+ * 
  */
 public class ModeParser implements CommandParser
 {
-
+	// :kubrick.freenode.net 324 mohadib__ #test +mnPzlfJ 101 #flood 1,2
 	private IRCEvent numericModeEvent(EventToken token, IRCEvent event)
 	{
-		return event;
+		List<Token> wordTokens = token.getWordTokens();
+		char[] modeTokens = wordTokens.get(4).data.replaceFirst(":", "").toCharArray();
+		String[] arguments = token.concatTokens(10).split("\\s+");
+		ServerInformation info = event.getSession().getServerInformation();
+		List<ModeAdjustment> modeAdjustments = new ArrayList<ModeAdjustment>();
+		char action = '+';
+		int argumntOffset = 0;
+		for (char mode : modeTokens)
+		{
+			if (mode == '+' || mode == '-')
+			{
+				action = mode;
+			}
+			else
+			{
+				ModeType type = info.getTypeForMode(String.valueOf(mode));
+				// must have an argument on + and -
+				if (type == ModeType.GROUP_A || type == ModeType.GROUP_B)
+				{
+					modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, arguments[argumntOffset]));
+					argumntOffset++;
+				}
+				// must have args on + , must not have args on -
+				else if (type == ModeType.GROUP_C)
+				{
+					if (action == '-')
+					{
+						modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, ""));
+					}
+					else
+					{
+						modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, arguments[argumntOffset]));
+						argumntOffset++;
+					}
+				}
+				// no args
+				else if (type == ModeType.GROUP_D)
+				{
+					modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, ""));
+				}
+				else
+				{
+					System.err.println("unreconzied mode " + mode);
+				}
+			}
+		}
+		
+		return new ModeEventImpl
+		(
+			ModeEvent.ModeType.CHANNEL, 
+			event.getRawEventData(), 
+			event.getSession(), 
+			modeAdjustments, 
+			"server",
+			event.getSession().getChannel(wordTokens.get(3).data)
+		);
 	}
 
+	// :services. MODE mohadib :+e
 	private IRCEvent userModeEvent(EventToken token, IRCEvent event)
 	{
 		List<ModeAdjustment> modeAdjustments = new ArrayList<ModeAdjustment>();
@@ -54,6 +113,8 @@ public class ModeParser implements CommandParser
 		return new ModeEventImpl(ModeEvent.ModeType.USER, token.getData(), event.getSession(), modeAdjustments, who, null);
 	}
 
+	
+	// :mohadib_!n=mohadib@unaffiliated/mohadib MODE #jerklib +o scripyasas
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
 		List<Token> wordTokens = token.getWordTokens();
