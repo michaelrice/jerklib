@@ -82,7 +82,7 @@ public class ModeParser implements CommandParser
 			event.getRawEventData(), 
 			event.getSession(), 
 			modeAdjustments, 
-			"server",
+			"",
 			event.getSession().getChannel(wordTokens.get(3).data)
 		);
 	}

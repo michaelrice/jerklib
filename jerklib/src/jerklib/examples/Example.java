@@ -8,6 +8,9 @@ import jerklib.events.IRCEvent.Type;
 import jerklib.events.modes.ModeAdjustment;
 import jerklib.events.modes.ModeEvent;
 import jerklib.listeners.IRCEventListener;
+import jerklib.parsers.ConnectionCompleteParser;
+import jerklib.parsers.DefaultInternalEventParser;
+import jerklib.parsers.JoinParser;
 import jerklib.tasks.TaskImpl;
 
 /**
@@ -27,6 +30,10 @@ public class Example implements IRCEventListener
            */
         manager = new ConnectionManager(new Profile("scripy", "dibz", "dibz_", "dibz__"));
 
+        DefaultInternalEventParser parser = (DefaultInternalEventParser)manager.getDefaultInternalEventParser();
+        parser.removeAllParsers();
+        parser.addParser("001", new ConnectionCompleteParser());
+        parser.addParser("JOIN", new JoinParser());
           /*
            * One instance of ConnectionManager can connect to many IRC networks.
            * ConnectionManager#requestConnection(String) will return a Session object.
@@ -68,8 +75,9 @@ public class Example implements IRCEventListener
         if (e.getType() == Type.CONNECT_COMPLETE)
         {
             /* connection to server is complete */
-            e.getSession().join(CHANNEL_TO_JOIN);
+            //e.getSession().join(CHANNEL_TO_JOIN);
             e.getSession().join("#jerklib");
+        	
         }
         else if (e.getType() == Type.CHANNEL_MESSAGE)
         {
@@ -79,11 +87,7 @@ public class Example implements IRCEventListener
         else if (e.getType() == Type.JOIN_COMPLETE)
         {
             JoinCompleteEvent jce = (JoinCompleteEvent) e;
-            if(jce.getChannel().getName().equalsIgnoreCase("#jerklib"))
-            {
-            	jce.getSession().sayRaw("MODE #jerklib");
-            	jce.getSession().sayRaw("MODE #ubuntu");
-            }
+            e.getSession().sayRaw("MODE #jerklib");
             /* say hello and version number */
            // jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
         }
