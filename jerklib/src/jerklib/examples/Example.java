@@ -28,7 +28,7 @@ public class Example implements IRCEventListener
            * ConnectionManager takes a Profile to use for new connections. The profile
            * will contain the users name , nick , alt. nick 1 and. alt nick 2
            */
-        manager = new ConnectionManager(new Profile("scripy", "dibz", "dibz_", "dibz__"));
+        manager = new ConnectionManager(new Profile("scripy", "dibz23", "dibz_", "dibz__"));
 
         /*
         DefaultInternalEventParser parser = (DefaultInternalEventParser)manager.getDefaultInternalEventParser();
@@ -42,7 +42,7 @@ public class Example implements IRCEventListener
            * The Session is the main way users will interact with this library and IRC
            * networks
            */
-        Session session = manager.requestConnection("irc.undernet.org");
+        Session session = manager.requestConnection("irc.freenode.net");
 
           /*
            * JerkLib fires IRCEvents to notify users of the lib of incoming events
@@ -77,7 +77,7 @@ public class Example implements IRCEventListener
         if (e.getType() == Type.CONNECT_COMPLETE)
         {
             /* connection to server is complete */
-            e.getSession().join(CHANNEL_TO_JOIN);
+           // e.getSession().join(CHANNEL_TO_JOIN);
             e.getSession().join("#jerklib");
         	
         }

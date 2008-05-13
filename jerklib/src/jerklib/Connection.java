@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 class Connection
 {
-    Logger log = Logger.getLogger(this.getClass().getName());
+    private Logger log = Logger.getLogger(this.getClass().getName());
 
     /* ConnectionManager for this Connection */
     private final ConnectionManager manager;
@@ -22,7 +22,7 @@ class Connection
     /* SocketChannel this connection will use for reading/writing */
     private final SocketChannel socChannel;
 
-    /* A Buffer of write request */
+    /* A Buffer for write request */
     final List<WriteRequest> writeRequests = Collections.synchronizedList(new ArrayList<WriteRequest>());
 
     /* ByteBuffer for readinging into */
@@ -39,7 +39,7 @@ class Connection
 
     /*
       * this is used for auto choosing a nick - if we have logged in successfully
-      * once a new nick will not be auto chosen in event of NickInUse
+      * once, a new nick will not be auto choose in event of NickInUse
       */
     private boolean loggedInSuccessfully;
 
@@ -273,10 +273,6 @@ class Connection
             // clear out write queue
             doWrites();
 
-            // need to notify conman so it can
-            // update session cache
-            //this is fucked and needs to be rethought - why does
-            //connection need to to tell session to do anything...
             manager.removeSession(session);
 
             socChannel.close();

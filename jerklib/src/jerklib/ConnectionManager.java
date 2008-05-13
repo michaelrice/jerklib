@@ -10,6 +10,7 @@ import jerklib.listeners.WriteRequestListener;
 import jerklib.parsers.DefaultInternalEventParser;
 import jerklib.parsers.InternalEventParser;
 import jerklib.tasks.Task;
+import jerklib.util.IdentServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -231,7 +232,9 @@ public class ConnectionManager
 		session.setInternalParser(internalEventParser);
 
 		sessionMap.put(hostName, session);
-
+		
+		new IdentServer(defaultProfile.getName());
+		
 		return session;
 	}
 
