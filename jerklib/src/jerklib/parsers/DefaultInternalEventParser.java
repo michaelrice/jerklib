@@ -75,8 +75,7 @@ public class DefaultInternalEventParser implements InternalEventParser
 		parsers.put("321" , chanListParser);
 		parsers.put("322" , chanListParser);
 		
-		//TODO channel mode parser
-		//parsers.put("324" , parser);
+		parsers.put("324" , new ModeParser());
 		
 		TopicParser topicParser = new TopicParser();
 		parsers.put("332", topicParser);

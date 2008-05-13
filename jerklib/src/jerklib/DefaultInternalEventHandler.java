@@ -1,5 +1,6 @@
 package jerklib;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,12 +11,13 @@ import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
-import jerklib.events.ModeEvent;
 import jerklib.events.NickChangeEvent;
 import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.IRCEvent.Type;
 import jerklib.events.impl.NickChangeEventImpl;
+import jerklib.events.modes.ModeAdjustment;
+import jerklib.events.modes.ModeEvent;
 import jerklib.listeners.IRCEventListener;
 import jerklib.parsers.NoticeParser;
 import jerklib.tokens.EventToken;
@@ -174,20 +176,24 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	 * Sets a users modes in a given channel , this is not
 	 * the same as a server wide user mode
 	 */
-	public void channelMode(IRCEvent event)
+	public void channelUserMode(IRCEvent event)
 	{
 		// update user modes in channel
 		ModeEvent me = (ModeEvent)event;
-		Map<String ,List<String>> modeMap = me.getModeMap(); 
+		List<ModeAdjustment>modeAdjustments = me.getModeAdjustments();
 		Channel chan = me.getChannel();
+		List<String>nicks = chan.getNicks();
 		
-		for(String mode : modeMap.keySet())
+		for(ModeAdjustment ma : modeAdjustments)
 		{
-			List<String>nicks = modeMap.get(mode);
-			for(String nick : nicks)
+			if(ma.getArgument().length() > 0 && nicks.contains(ma.getArgument()))
 			{
-				if(chan.getNicks().contains(nick))
-				chan.updateUsersMode(nick, mode);
+				//hack for now lol
+				chan.updateUsersMode(ma.getArgument(), ma.toString().substring(0,2));
+			}
+			else
+			{
+				//update channels mode
 			}
 		}
 	}
@@ -256,7 +262,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		{
 			public void receiveEvent(IRCEvent e)
 			{
-				channelMode(e);
+				channelUserMode(e);
 			}
 		});
 	}

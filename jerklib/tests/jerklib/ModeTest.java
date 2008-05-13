@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import jerklib.events.IRCEvent;
-import jerklib.events.ModeEvent;
 import jerklib.events.IRCEvent.Type;
+import jerklib.events.modes.ModeEvent;
 import jerklib.tasks.TaskImpl;
 
 

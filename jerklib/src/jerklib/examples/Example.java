@@ -5,6 +5,8 @@ import jerklib.Profile;
 import jerklib.Session;
 import jerklib.events.*;
 import jerklib.events.IRCEvent.Type;
+import jerklib.events.modes.ModeAdjustment;
+import jerklib.events.modes.ModeEvent;
 import jerklib.listeners.IRCEventListener;
 import jerklib.tasks.TaskImpl;
 
@@ -15,7 +17,7 @@ public class Example implements IRCEventListener
 {
     private ConnectionManager manager;
     //TODO: change this to your channel name as to not spam our channel!
-    private static final String CHANNEL_TO_JOIN = "#jerklib";
+    private static final String CHANNEL_TO_JOIN = "#ubuntu";
 
     public Example()
     {
@@ -67,6 +69,7 @@ public class Example implements IRCEventListener
         {
             /* connection to server is complete */
             e.getSession().join(CHANNEL_TO_JOIN);
+            e.getSession().join("#jerklib");
         }
         else if (e.getType() == Type.CHANNEL_MESSAGE)
         {
@@ -76,9 +79,20 @@ public class Example implements IRCEventListener
         else if (e.getType() == Type.JOIN_COMPLETE)
         {
             JoinCompleteEvent jce = (JoinCompleteEvent) e;
-            
+            if(jce.getChannel().getName().equalsIgnoreCase("#jerklib"))
+            {
+            	jce.getSession().sayRaw("MODE #jerklib");
+            }
             /* say hello and version number */
            // jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
+        }
+        else if(e.getType() == Type.MODE_EVENT)
+        {
+        	ModeEvent me = (ModeEvent)e;
+        	for(ModeAdjustment adj : me.getModeAdjustments())
+        	{
+        		System.out.println("MODE " + adj.toString());
+        	}
         }
         else
         {
