@@ -50,6 +50,40 @@ public class ServerInformation
         ALL
     }
 
+    
+    public ServerInformation()
+    {
+    	//init some defaults because some servers either dont send 005
+    	//or some events that need serverinformation to parse might happen before 005
+    	
+    	/*
+    	 * 	serv->chantypes = strdup ("#&!+");
+	serv->chanmodes = strdup ("beI,k,l");
+	serv->nick_prefixes = strdup ("@%+");
+	serv->nick_modes = strdup ("ohv");
+
+	serv->nickcount = 1;
+	serv->nickservtype = 1;
+	serv->end_of_motd = FALSE;
+	serv->is_away = FALSE;
+	serv->supports_watch = FALSE;
+	serv->bad_prefix = FALSE;
+	serv->use_who = TRUE;
+	serv->have_namesx = FALSE;
+	serv->have_uhnames = FALSE;
+	serv->have_whox = FALSE;
+	serv->have_capab = FALSE;
+	serv->have_idmsg = FALSE;
+	serv->have_except = FALSE;
+    	 */
+    	
+    	channelPrefixes = new String[]{"#" , "&" , "!" , "+"};
+    	nickPrefixMap.put("@", "o");
+    	nickPrefixMap.put("%", "h");
+    	nickPrefixMap.put("+", "v");
+    	
+    }
+    
     /*
       * :irc.nixgeeks.com 005 mohadib CMDS=KNOCK,MAP,DCCALLOW,USERIP SAFELIST HCN MAXCHANNELS=20 CHANLIMIT=#:20 MAXLIST=b:60,e:60,I:60 NICKLEN=30 CHANNELLEN=32 TOPICLEN=307 KICKLEN=307 AWAYLEN=307 MAXTARGETS=20 WALLCHOPS :are supported by this server
       * :irc.nixgeeks.com 005 mohadib WATCH=128 SILENCE=15 MODES=12 CHANTYPES=# PREFIX=(qaohv)~&@%+ CHANMODES=beI,kfL,lj,psmntirRcOAQKVGCuzNSMTG NETWORK=NixGeeks CASEMAPPING=ascii EXTBAN=~,cqnr ELIST=MNUCT STATUSMSG=~&@%+ EXCEPTS INVEX :are supported by this server
