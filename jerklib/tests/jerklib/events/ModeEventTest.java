@@ -16,7 +16,6 @@ import org.testng.annotations.Test;
 
 import static org.testng.AssertJUnit.assertTrue;
 
-//TODO need to get 324 numeric ModeEvent data and tests
 
 public class ModeEventTest extends EventTestBase
 {
