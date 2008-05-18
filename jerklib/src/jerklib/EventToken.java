@@ -133,7 +133,7 @@ public class EventToken
 		if(eindex == -1)eindex = prefix.length() - 1;
 		if(sindex != -1 && sindex + 1 < prefix.length())
 		{
-			return prefix.substring(sindex , eindex);
+			return prefix.substring(sindex + 1 , eindex);
 		}
 		return "";
 	}

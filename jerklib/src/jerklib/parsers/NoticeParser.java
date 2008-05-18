@@ -28,6 +28,7 @@ public class NoticeParser implements CommandParser
 		if(!session.isChannelToken(token.getArguments().get(0)))
 		{
 			toWho = token.getArguments().get(0);
+			if(toWho.equals("AUTH")) toWho = "";
 		}
 		else
 		{

@@ -27,7 +27,7 @@ public class Example implements IRCEventListener
 		 * The Session is the main way users will interact with this library and IRC
 		 * networks
 		 */
-		Session session = manager.requestConnection("za.shadowfire.org");
+		Session session = manager.requestConnection("irc.freenode.net");
 
 		/*
 		 * JerkLib fires IRCEvents to notify users of the lib of incoming events
@@ -48,7 +48,7 @@ public class Example implements IRCEventListener
 		if (e.getType() == Type.CONNECT_COMPLETE)
 		{
 			e.getSession().join("#jerklib");
-
+			e.getSession().join("#ubuntu");
 		}
 		else if (e.getType() == Type.CHANNEL_MESSAGE)
 		{

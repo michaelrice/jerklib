@@ -46,11 +46,10 @@ public class NoticeEventTest extends EventTestBase
 	public void testBahamutChannelNotice()
 	{
 		NoticeEvent event = events.get(24);
-		assertTrue(event.getNoticeType() , event.getNoticeType().equals("channel"));
 		assertTrue(event.getChannel().getName() , event.getChannel().getName().equals("#testing"));
 		assertTrue(event.getNoticeMessage() , event.getNoticeMessage().equals("test"));
 		assertTrue(event.byWho() , event.byWho().equals("mohadib"));
-		assertTrue(event.toWho() , event.toWho().equals("#testing"));
+		assertTrue(event.toWho() , event.toWho().equals(""));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -58,11 +57,10 @@ public class NoticeEventTest extends EventTestBase
 	public void  testUnrealChannelNotice()
 	{
 		NoticeEvent event = events.get(25);
-		assertTrue(event.getNoticeType() , event.getNoticeType().equals("channel"));
 		assertTrue(event.getChannel().getName() , event.getChannel().getName().equals("#test"));
 		assertTrue(event.getNoticeMessage() , event.getNoticeMessage().equals("testss"));
 		assertTrue(event.byWho() , event.byWho().equals("mohadib"));
-		assertTrue(event.toWho() , event.toWho().equals("#test"));
+		assertTrue(event.toWho() , event.toWho().equals(""));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -70,11 +68,10 @@ public class NoticeEventTest extends EventTestBase
 	public void testHyperionChannelNotice()
 	{
 		NoticeEvent event = events.get(23);
-		assertTrue(event.getNoticeType() , event.getNoticeType().equals("channel"));
 		assertTrue(event.getChannel().getName() , event.getChannel().getName().equals("#jerklib"));
 		assertTrue(event.getNoticeMessage() , event.getNoticeMessage().equals("testtt"));
 		assertTrue(event.byWho() , event.byWho().equals("mohadib__"));
-		assertTrue(event.toWho() , event.toWho().equals("#jerklib"));
+		assertTrue(event.toWho() , event.toWho().equals(""));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -82,11 +79,10 @@ public class NoticeEventTest extends EventTestBase
 	public void testSnircdChannelNotice()
 	{
 		NoticeEvent event = events.get(26);
-		assertTrue(event.getNoticeType() , event.getNoticeType().equals("channel"));
 		assertTrue(event.getChannel().getName() , event.getChannel().getName().equals("#foooo"));
 		assertTrue(event.getNoticeMessage() , event.getNoticeMessage().equals("heloooo"));
 		assertTrue(event.byWho() , event.byWho().equals("mohadib"));
-		assertTrue(event.toWho() , event.toWho().equals("#foooo"));
+		assertTrue(event.toWho() , event.toWho().equals(""));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -101,11 +97,10 @@ public class NoticeEventTest extends EventTestBase
 	public void testBahamutUserNotice()
 	{
 		NoticeEvent event = events.get(27);
-		assertTrue(event.getNoticeType().equals("user"));
 		assertTrue(event.getChannel() == null);
 		assertTrue(event.getNoticeMessage().equals("TEST?"));
 		assertTrue(event.byWho().equals("mohadib_"));
-		assertTrue(event.toWho().equals(session.getNick()));
+		assertTrue(event.toWho().equals("mohadib__"));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -113,11 +108,10 @@ public class NoticeEventTest extends EventTestBase
 	public void testUnrealUserNotice()
 	{
 		NoticeEvent event = events.get(28);
-		assertTrue(event.getNoticeType().equals("user"));
 		assertTrue(event.getChannel() == null);
 		assertTrue(event.getNoticeMessage().equals("TESTTSS"));
 		assertTrue(event.byWho().equals("mohadib_"));
-		assertTrue(event.toWho().equals(session.getNick()));
+		assertTrue(event.toWho().equals("mohadib__"));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -125,11 +119,10 @@ public class NoticeEventTest extends EventTestBase
 	public void testHyperionUserNotice()
 	{
 		NoticeEvent event = events.get(18);
-		assertTrue(event.getNoticeType().equals("user"));
 		assertTrue(event.getChannel() == null);
 		assertTrue(event.getNoticeMessage().equals("This nickname is owned by someone else"));
 		assertTrue(event.byWho().equals("NickServ"));
-		assertTrue(event.toWho().equals(session.getNick()));
+		assertTrue(event.toWho() , event.toWho().equals("scripy"));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -137,11 +130,10 @@ public class NoticeEventTest extends EventTestBase
 	public void testSnircdUserNotice()
 	{
 		NoticeEvent event = events.get(29);
-		assertTrue(event.getNoticeType().equals("user"));
 		assertTrue(event.getChannel() == null);
 		assertTrue(event.getNoticeMessage().equals("HELLO"));
 		assertTrue(event.byWho().equals("mohadib_"));
-		assertTrue(event.toWho().equals(session.getNick()));
+		assertTrue(event.toWho().equals("mohadib__"));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -149,14 +141,13 @@ public class NoticeEventTest extends EventTestBase
 	public void testBahamutServerNotice()
 	{
 		NoticeEvent event = events.get(2);
-		assertTrue(event.getNoticeType().equals("server"));
 		assertTrue(event.getChannel() == null);
 		assertTrue(event.getNoticeMessage().equals("*** Found your hostname, cached"));
 		//returns freenode for name because of event parser just uses conncted
 		//hostname instead of parsing the name - the test only creates one session
 		//and it uses the name anthony.freenode.net
-		assertTrue(event.byWho() , event.byWho().equals("anthony.freenode.net"));
-		assertTrue(event.toWho().equals(session.getNick()));
+		assertTrue(event.byWho() , event.byWho().equals("swiftco.wa.us.dal.net"));
+		assertTrue(event.toWho().equals(""));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -164,14 +155,10 @@ public class NoticeEventTest extends EventTestBase
 	public void testUnrealServerNotice()
 	{
 		NoticeEvent event = events.get(14);
-		assertTrue(event.getNoticeType().equals("server"));
 		assertTrue(event.getChannel() == null);
 		assertTrue(event.getNoticeMessage().equals("*** Looking up your hostname..."));
-		//returns freenode for name because of event parser just uses conncted
-		//hostname instead of parsing the name - the test only creates one session
-		//and it uses the name anthony.freenode.net
-		assertTrue(event.byWho() , event.byWho().equals("anthony.freenode.net"));
-		assertTrue(event.toWho().equals(session.getNick()));
+		assertTrue(event.byWho() , event.byWho().equals("irc.nixgeeks.com"));
+		assertTrue(event.toWho().equals(""));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -179,11 +166,10 @@ public class NoticeEventTest extends EventTestBase
 	public void testHyperionServerNotice()
 	{
 		NoticeEvent event = events.get(30);
-		assertTrue(event.getNoticeType().equals("server"));
 		assertTrue(event.getChannel() == null);
 		assertTrue(event.getNoticeMessage().equals("NickServ set your hostname to \"unaffiliated/mohadib\""));
-		assertTrue(event.byWho() , event.byWho().equals("anthony.freenode.net"));
-		assertTrue(event.toWho().equals(session.getNick()));
+		assertTrue(event.byWho() , event.byWho().equals("kubrick.freenode.net"));
+		assertTrue(event.toWho().equals("mohadib"));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -191,11 +177,10 @@ public class NoticeEventTest extends EventTestBase
 	public void testSnircdServerNotice()
 	{
 		NoticeEvent event = events.get(20);
-		assertTrue(event.getNoticeType().equals("server"));
 		assertTrue(event.getChannel() == null);
 		assertTrue(event.getNoticeMessage().equals("Highest connection count: 5736 (5735 clients)"));
-		assertTrue(event.byWho() , event.byWho().equals("anthony.freenode.net"));
-		assertTrue(event.toWho().equals(session.getNick()));
+		assertTrue(event.byWho() , event.byWho().equals("underworld2.no.quakenet.org"));
+		assertTrue(event.toWho() , event.toWho().equals(session.getNick()));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -215,11 +200,10 @@ public class NoticeEventTest extends EventTestBase
 	public void testHyperionGenericNotices()
 	{
 		NoticeEvent event = events.get(7);
-		assertTrue(event.getNoticeType().equals("generic"));
 		assertTrue(event.getChannel() == null);
 		assertTrue(event.getNoticeMessage().equals("*** No identd (auth) response"));
 		assertTrue(event.byWho() , event.byWho().equals("anthony.freenode.net"));
-		assertTrue(event.toWho().equals(session.getNick()));
+		assertTrue(event.toWho().equals(""));
 		assertTrue(event.getSession().equals(session));
 	}
 	
@@ -227,11 +211,10 @@ public class NoticeEventTest extends EventTestBase
 	public void testSnircdGenericNotices()
 	{
 		NoticeEvent event = events.get(8);
-		assertTrue(event.getNoticeType().equals("generic"));
 		assertTrue(event.getChannel() == null);
 		assertTrue(event.getNoticeMessage().equals("*** Checking Ident"));
 		assertTrue(event.byWho() , event.byWho().equals("anthony.freenode.net"));
-		assertTrue(event.toWho().equals(session.getNick()));
+		assertTrue(event.toWho().equals(""));
 		assertTrue(event.getSession().equals(session));
 	}
 	

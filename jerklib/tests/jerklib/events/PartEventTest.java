@@ -89,7 +89,7 @@ public class PartEventTest extends EventTestBase
 		assertTrue(pe.getPartMessage().equals("\u000314Looking for Inviter!\u0003"));
 		
 		pe = events.get(4);
-		assertTrue(pe.getChannelName().equals("#perkosa"));
+		assertTrue(pe.getChannelName() , pe.getChannelName().equals("#Perkosa"));
 		assertTrue(pe.getWho().equals("_^Gracia^_"));
 		assertTrue(pe.getUserName().equals("~Hatiyayan"));
 		assertTrue(pe.getHostName().equals("124.195.18.42"));
