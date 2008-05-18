@@ -4,7 +4,6 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import jerklib.EventToken;
 import jerklib.events.MessageEvent;
 import jerklib.events.impl.dcc.DccAcceptEventImpl;
 import jerklib.events.impl.dcc.DccChatEventImpl;
@@ -79,7 +78,7 @@ public class DccEventFactory
 	public static DccEvent dcc(MessageEvent event, String ctcpString)
 	{
 		
-		EventToken dccTokens = new EventToken(ctcpString);
+		//EventToken dccTokens = new EventToken(ctcpString);
 		
 		//List<Token> dccTokenList = dccTokens.getWordTokens();
 		//hack till mr_ank can fix
