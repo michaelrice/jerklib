@@ -1,4 +1,4 @@
-package jerklib.tasks;
+package jerklib.listeners;
 
 public interface TaskCompletionListener
 {

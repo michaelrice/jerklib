@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import jerklib.listeners.TaskCompletionListener;
+
 public abstract class TaskImpl implements Task
 {
     private final List<TaskCompletionListener> listeners = new ArrayList<TaskCompletionListener>();
