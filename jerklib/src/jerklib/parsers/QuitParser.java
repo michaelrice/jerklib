@@ -14,15 +14,15 @@ public class QuitParser implements CommandParser
 	public QuitEvent createEvent(EventToken token, IRCEvent event)
 	{
 		Session session = event.getSession();
-		String nick = token.getNick();
+		String nick = token.nick();
 		List<Channel> chanList = event.getSession().removeNickFromAllChannels(nick);
 		return new QuitEventImpl
 		(
-			token.getData(), 
+			token.data(), 
 			session, 
 			nick, // who
-			token.getUserName(), // username
-			token.getHostName(), // hostName
+			token.userName(), // username
+			token.hostName(), // hostName
 			token.arg(0), // message
 			chanList
 		);

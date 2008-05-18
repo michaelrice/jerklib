@@ -27,13 +27,13 @@ public class PrivMsgParser implements CommandParser
 		MessageEvent me =  new MessageEventImpl
 		(
 			chan,
-			token.getHostName(),
+			token.hostName(),
 			token.arg(1), 
-			token.getNick(),
-			token.getData(), 
+			token.nick(),
+			token.data(), 
 			session, 
 			type, 
-			token.getUserName()
+			token.userName()
 		);
 		
 		String msg = me.getMessage();

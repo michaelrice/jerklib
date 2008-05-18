@@ -114,14 +114,14 @@ public class ModeParser implements CommandParser
 			}
 		}
 
-		return new ModeEventImpl(ModeEvent.ModeType.USER, token.getData(), event.getSession(), modeAdjustments , event.getSession().getConnectedHostName(), null);
+		return new ModeEventImpl(ModeEvent.ModeType.USER, token.data(), event.getSession(), modeAdjustments , event.getSession().getConnectedHostName(), null);
 	}
 
 	
 	// :mohadib_!n=mohadib@unaffiliated/mohadib MODE #jerklib +o scripyasas
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
-		if (token.getNumeric() == 324) return numericModeEvent(token, event);
+		if (token.numeric() == 324) return numericModeEvent(token, event);
 		else if (!event.getSession().isChannelToken(token.arg(0)))
 		{
 			return userModeEvent(token, event);
@@ -186,7 +186,7 @@ public class ModeParser implements CommandParser
 				event.getRawEventData(), 
 				event.getSession(), 
 				modeAdjustments, 
-				token.getNick(),
+				token.nick(),
 				event.getSession().getChannel(token.arg(0))
 			);
 		}

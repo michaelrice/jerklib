@@ -19,11 +19,11 @@ public class TopicParser implements CommandParser
 	
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
-		if(token.getNumeric() == 332)
+		if(token.numeric() == 332)
 		{
 			TopicEvent tEvent = new TopicEventImpl
 			(
-					token.getData(), 
+					token.data(), 
 					event.getSession(), 
 					event.getSession().getChannel(token.arg(1)),
 					token.arg(2)

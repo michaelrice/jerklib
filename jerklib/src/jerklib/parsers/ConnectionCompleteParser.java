@@ -21,8 +21,8 @@ public class ConnectionCompleteParser implements CommandParser
 	{
 		return new ConnectionCompleteEventImpl
 		(
-				token.getData(), 
-				token.getPrefix(), // actual hostname
+				token.data(), 
+				token.prefix(), // actual hostname
 				event.getSession(), 
 				event.getSession().getConnectedHostName() // requested hostname
 		);

@@ -113,7 +113,7 @@ public class DataParser
 		}
 		public boolean matches(EventToken token)
 		{
-			return token.getCommand().equals(command);
+			return token.command().equals(command);
 		}
 	}
 	
@@ -127,7 +127,7 @@ public class DataParser
 		
 		public boolean matches(EventToken token)
 		{
-			return token.getData().matches(super.command);
+			return token.data().matches(super.command);
 		}
 	}
 	

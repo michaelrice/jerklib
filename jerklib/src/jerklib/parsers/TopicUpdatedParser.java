@@ -11,7 +11,7 @@ public class TopicUpdatedParser implements CommandParser
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
 		Pattern p = Pattern.compile("^.+?TOPIC\\s+(.+?)\\s+.*$");
-		Matcher m = p.matcher(token.getData());
+		Matcher m = p.matcher(token.data());
 		m.matches();
 		event.getSession().sayRaw("TOPIC " + m.group(1));
 		return event;

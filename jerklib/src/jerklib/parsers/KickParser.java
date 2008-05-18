@@ -25,11 +25,11 @@ public class KickParser implements CommandParser
 		
 		return new KickEventImpl
 		(
-			token.getData(), 
+			token.data(), 
 			session, 
-			token.getNick(), // byWho
-			token.getUserName(), // username
-			token.getHostName(), // host name
+			token.nick(), // byWho
+			token.userName(), // username
+			token.hostName(), // host name
 			token.arg(1), // victim
 			msg, // message
 			channel

@@ -20,11 +20,11 @@ public class JoinParser implements CommandParser
 		
 		JoinEvent je = new JoinEventImpl
 		(
-			token.getData(), 
+			token.data(), 
 			session, 
-			token.getNick(), // nick
-			token.getUserName(), // user name
-			token.getHostName(), // host
+			token.nick(), // nick
+			token.userName(), // user name
+			token.hostName(), // host
 			token.arg(0), // channel name
 			session.getChannel(token.arg(0)) // channel
 		);

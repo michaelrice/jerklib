@@ -17,7 +17,7 @@ public class WhoWasParser implements CommandParser
 				token.arg(2), 
 				token.arg(1), 
 				token.arg(5), 
-				token.getData(), 
+				token.data(), 
 				event.getSession()
 		); 
 	}

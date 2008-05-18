@@ -12,12 +12,12 @@ public class NickParser implements CommandParser
 		Session session = event.getSession();
 		return new NickChangeEventImpl
 		(
-				token.getData(), 
+				token.data(), 
 				session, 
-				token.getNick(), // old
+				token.nick(), // old
 				token.arg(0), // new nick
-				token.getHostName(), // hostname
-				token.getUserName() // username
+				token.hostName(), // hostname
+				token.userName() // username
 		); 
 	}
 }

@@ -104,19 +104,14 @@ public class EventToken
 	
 	private void extractPrefix(String data)
 	{
-		//remove :
-		data = data.substring(1);
-		//move offset up one for char we removed
-		offset++;
+		//set prefix - : is at 0
+		prefix = data.substring(1 , data.indexOf(" "));
 		
-		//set prefix
-		prefix = data.substring(0 , data.indexOf(" "));
-		
-		//increment offset
-		offset += prefix.length();
+		//increment offset , +1 is for : removed
+		offset += prefix.length() + 1;
 	}
 	
-	public String getHostName()
+	public String hostName()
 	{
 		int index = prefix.indexOf('@');
 		if(index != -1 && index + 1 < prefix.length())
@@ -126,7 +121,7 @@ public class EventToken
 		return "";
 	}
 
-	public String getUserName()
+	public String userName()
 	{
 		int sindex = prefix.indexOf('!');
 		int eindex = prefix.indexOf("@");
@@ -138,7 +133,7 @@ public class EventToken
 		return "";
 	}
 	
-	public String getNick()
+	public String nick()
 	{
 		if(prefix.indexOf("!") != -1)
 		{
@@ -147,12 +142,12 @@ public class EventToken
 		return "";
 	}
 
-	public String getPrefix()
+	public String prefix()
 	{
 		return prefix;
 	}
 	
-	public String getCommand()
+	public String command()
 	{
 		return command;
 	}
@@ -171,12 +166,12 @@ public class EventToken
 		return null;
 	}
 	
-	public String getData()
+	public String data()
 	{
 		return data;
 	}
 	
-	public int getNumeric()
+	public int numeric()
 	{
 		int i = -1;
 		try

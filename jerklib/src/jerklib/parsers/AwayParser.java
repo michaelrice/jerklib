@@ -19,7 +19,7 @@ public class AwayParser implements CommandParser
 		Session session = event.getSession();
 		if (m.matches())
 		{
-			switch (Integer.parseInt(token.getCommand()))
+			switch (Integer.parseInt(token.command()))
 			{
 			case 305:
 				return new AwayEventImpl

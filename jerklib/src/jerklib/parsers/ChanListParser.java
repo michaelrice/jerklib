@@ -10,7 +10,7 @@ public class ChanListParser implements CommandParser
 {
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
-		String data = token.getData();
+		String data = token.data();
 		Pattern p = Pattern.compile("^:\\S+\\s322\\s\\S+\\s(\\S+)\\s(\\d+)\\s:(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches()) 

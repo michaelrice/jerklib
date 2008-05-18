@@ -35,21 +35,21 @@ public class NoticeParser implements CommandParser
 			chan = session.getChannel(token.arg(0));
 		}
 		
-		if(token.getPrefix().length() > 0)
+		if(token.prefix().length() > 0)
 		{
-			if(token.getPrefix().contains("!"))
+			if(token.prefix().contains("!"))
 			{
-				byWho = token.getNick();
+				byWho = token.nick();
 			}
 			else
 			{
-				byWho = token.getPrefix();
+				byWho = token.prefix();
 			}
 		}
 		
 		return new NoticeEventImpl
 		(
-			token.getData(),
+			token.data(),
 			event.getSession(),
 			token.arg(1),
 			toWho,

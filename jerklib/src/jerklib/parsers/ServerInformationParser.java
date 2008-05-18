@@ -10,7 +10,7 @@ public class ServerInformationParser implements CommandParser
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
 		Session session = event.getSession();
-		session.getServerInformation().parseServerInfo(token.getData());
-		return new ServerInformationEventImpl(session, token.getData(), session.getServerInformation());
+		session.getServerInformation().parseServerInfo(token.data());
+		return new ServerInformationEventImpl(session, token.data(), session.getServerInformation());
 	}
 }

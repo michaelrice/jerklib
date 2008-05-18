@@ -23,7 +23,7 @@ public class DefaultInternalEventParser implements InternalEventParser
 	public IRCEvent receiveEvent(IRCEvent e)
 	{
 		EventToken eventToken = new EventToken(e.getRawEventData());
-		CommandParser parser = parsers.get(eventToken.getCommand());
+		CommandParser parser = parsers.get(eventToken.command());
 		parser = parser == null? defaultParser : parser;
 		return parser == null?e:parser.createEvent(eventToken, e);
 	}

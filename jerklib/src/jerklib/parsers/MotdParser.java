@@ -10,10 +10,10 @@ public class MotdParser implements CommandParser
 	{
 		return new MotdEventImpl
 		(
-			token.getData(), 
+			token.data(), 
 			event.getSession(), 
 			token.arg(1), 
-			token.getPrefix()
+			token.prefix()
 		);
 	}
 }

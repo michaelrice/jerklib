@@ -17,11 +17,11 @@ public class PartParser implements CommandParser
 			Session session = event.getSession();
 			return new PartEventImpl
 			(
-					token.getData(), 
+					token.data(), 
 					session,
-					token.getNick(), // who
-					token.getUserName(), // username
-					token.getHostName(), // host name
+					token.nick(), // who
+					token.userName(), // username
+					token.hostName(), // host name
 					token.arg(0), // channel name
 					session.getChannel(token.arg(0)), 
 					token.args().size() == 2? token.arg(1) : ""

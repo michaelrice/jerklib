@@ -11,7 +11,7 @@ public class InviteParser implements CommandParser
 {
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
-		String data = token.getData();
+		String data = token.data();
 		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+INVITE.+?:(.*)$");
 		Matcher m = p.matcher(data);
 		m.matches();

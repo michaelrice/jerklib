@@ -67,7 +67,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		{
 			Session session = event.getSession();
 			String data = event.getRawEventData();
-			String command = new EventToken(data).getCommand();
+			String command = new EventToken(data).command();
 		
 			if(command.equals("PING"))
 			{
@@ -159,7 +159,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 			pi.setActualNick(nick);
 			NickChangeEvent nce = new NickChangeEventImpl
 			(
-				token.getData(),
+				token.data(),
 				session,
 				profileNick,
 				nick,

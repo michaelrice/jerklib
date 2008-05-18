@@ -18,15 +18,15 @@ public class ServerVersionParser implements CommandParser
 	{
 
 		Session session = event.getSession();
-		if(token.getNumeric() == 002)
+		if(token.numeric() == 002)
 		{
 			return new ServerVersionEventImpl
 			(
 				token.arg(1),
-				token.getPrefix(),
+				token.prefix(),
 				token.arg(1).substring(token.arg(1).indexOf("running ") + 8),
 				"",
-				token.getData(),
+				token.data(),
 				session
 			);
 		}
@@ -34,10 +34,10 @@ public class ServerVersionParser implements CommandParser
 			return new ServerVersionEventImpl
 			(
 				token.arg(3),
-				token.getPrefix(),
+				token.prefix(),
 				token.arg(1), 
 				"", 
-				token.getData(), 
+				token.data(), 
 				session
 			);
 	}

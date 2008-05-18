@@ -15,12 +15,12 @@ public class NamesParser implements CommandParser
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
 
-		if (token.getCommand().matches("366"))
+		if (token.command().matches("366"))
 		{
 			Session session = event.getSession();
 			return new NickListEventImpl
 			(
-				token.getData(), 
+				token.data(), 
 				session, 
 				session.getChannel(token.arg(1)),
 				session.getChannel(token.arg(1)).getNicks());
