@@ -2,7 +2,6 @@ package jerklib;
 
 import java.util.List;
 
-import jerklib.tokens.EventToken;
 import jerklib.tokens.Token;
 
 import org.testng.annotations.Test;

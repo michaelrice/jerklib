@@ -1,36 +1,32 @@
 package jerklib.parsers;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import jerklib.Channel;
+import jerklib.EventToken;
 import jerklib.events.IRCEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.impl.TopicEventImpl;
-import jerklib.tokens.EventToken;
-import jerklib.tokens.Token;
 
-
-//TODO this class is fucked and a left over from old code
-//PLOX FIX ME
+/*
+:sterling.freenode.net 332 scrip #test :Welcome to #test - This channel is
+:sterling.freenode.net 333 scrip #test LuX 1159267246
+*/
 public class TopicParser implements CommandParser
 {
 	private Map<Channel, TopicEvent> topicMap = new HashMap<Channel, TopicEvent>();
+	
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
-		int numeric = Integer.parseInt(token.getCommand());
-		if(numeric == 332)
+		if(token.getNumeric() == 332)
 		{
-			List<Token> tokens = token.getWordTokens();
 			TopicEvent tEvent = new TopicEventImpl
 			(
 					token.getData(), 
 					event.getSession(), 
-					event.getSession().getChannel(tokens.get(3).data),
-					token.concatTokens(8).substring(1)
+					event.getSession().getChannel(token.getArguments().get(1)),
+					token.getArguments().get(2)
 			);
 			if (topicMap.containsValue(tEvent.getChannel()))
 			{
@@ -43,16 +39,13 @@ public class TopicParser implements CommandParser
 		}
 		else
 		{
-			Pattern p = Pattern.compile(":(\\S+)\\s+333\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)$");
-			Matcher m = p.matcher(token.getData());
-			m.matches();
-			Channel chan = (Channel)event.getSession().getChannel(m.group(3));
+			Channel chan = event.getSession().getChannel(token.getArguments().get(1));
 			if (topicMap.containsKey(chan))
 			{
 				TopicEventImpl tEvent = (TopicEventImpl) topicMap.get(chan);
 				topicMap.remove(chan);
-				tEvent.setSetBy(m.group(4));
-				tEvent.setSetWhen(m.group(5));
+				tEvent.setSetBy(token.getArguments().get(2));
+				tEvent.setSetWhen(token.getArguments().get(3));
 				chan.setTopicEvent(tEvent);
 				return tEvent;
 			}

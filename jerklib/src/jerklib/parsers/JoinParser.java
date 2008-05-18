@@ -1,12 +1,12 @@
 package jerklib.parsers;
 
 import jerklib.Channel;
+import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.impl.JoinCompleteEventImpl;
 import jerklib.events.impl.JoinEventImpl;
-import jerklib.tokens.EventToken;
 
 public class JoinParser implements CommandParser
 {

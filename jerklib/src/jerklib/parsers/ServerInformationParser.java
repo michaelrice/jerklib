@@ -1,9 +1,9 @@
 package jerklib.parsers;
 
+import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.impl.ServerInformationEventImpl;
-import jerklib.tokens.EventToken;
 
 public class ServerInformationParser implements CommandParser
 {

@@ -1,8 +1,8 @@
 package jerklib.parsers;
 
+import jerklib.EventToken;
 import jerklib.events.IRCEvent;
 import jerklib.events.impl.NickInUseEventImpl;
-import jerklib.tokens.EventToken;
 
 public class NickInUseParser implements CommandParser
 {

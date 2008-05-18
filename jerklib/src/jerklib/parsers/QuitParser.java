@@ -3,11 +3,11 @@ package jerklib.parsers;
 import java.util.List;
 
 import jerklib.Channel;
+import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.impl.QuitEventImpl;
-import jerklib.tokens.EventToken;
 
 public class QuitParser implements CommandParser
 {

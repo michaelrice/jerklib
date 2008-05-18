@@ -3,8 +3,8 @@ package jerklib.parsers;
 import java.util.HashMap;
 import java.util.Map;
 
+import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.tokens.EventToken;
 
 public class DefaultInternalEventParser implements InternalEventParser
 {
@@ -75,7 +75,7 @@ public class DefaultInternalEventParser implements InternalEventParser
 		parsers.put("321" , chanListParser);
 		parsers.put("322" , chanListParser);
 		
-		parsers.put("324" , new ModeParser());
+		//parsers.put("324" , new ModeParser());
 		
 		TopicParser topicParser = new TopicParser();
 		parsers.put("332", topicParser);
@@ -103,7 +103,7 @@ public class DefaultInternalEventParser implements InternalEventParser
 		parsers.put("TOPIC", new TopicUpdatedParser());
 		parsers.put("INVITE", new InviteParser());
 		parsers.put("NICK", new NickParser());
-		parsers.put("MODE", new ModeParser());
+		//parsers.put("MODE", new ModeParser());
 
 		
 		//numeric errors

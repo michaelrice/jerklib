@@ -16,7 +16,6 @@ import jerklib.events.IRCEvent.Type;
 import jerklib.events.impl.NickChangeEventImpl;
 import jerklib.events.modes.ModeEvent;
 import jerklib.listeners.IRCEventListener;
-import jerklib.tokens.EventToken;
 import static jerklib.events.IRCEvent.Type.*;
 
 public class DefaultInternalEventHandler implements IRCEventListener

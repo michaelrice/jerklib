@@ -3,6 +3,7 @@ package jerklib.parsers;
 import java.util.ArrayList;
 import java.util.List;
 
+import jerklib.EventToken;
 import jerklib.ServerInformation;
 import jerklib.ServerInformation.ModeType;
 import jerklib.events.IRCEvent;
@@ -10,9 +11,6 @@ import jerklib.events.impl.ModeEventImpl;
 import jerklib.events.modes.ModeAdjustment;
 import jerklib.events.modes.ModeEvent;
 import jerklib.events.modes.ModeAdjustment.Action;
-import jerklib.tokens.EventToken;
-import jerklib.tokens.Token;
-import jerklib.tokens.TokenUtil;
 
 /**
  * @author mohadib

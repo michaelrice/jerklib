@@ -1,10 +1,10 @@
 package jerklib.parsers;
 
 import jerklib.Channel;
+import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.impl.NickListEventImpl;
-import jerklib.tokens.EventToken;
 
 /**
  * @author mohadib

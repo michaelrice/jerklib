@@ -1,9 +1,9 @@
 package jerklib.parsers;
 
+import jerklib.EventToken;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.impl.ConnectionCompleteEventImpl;
-import jerklib.tokens.EventToken;
 
 public class ConnectionCompleteParser implements CommandParser
 {

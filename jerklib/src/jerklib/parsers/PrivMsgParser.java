@@ -1,8 +1,7 @@
 package jerklib.parsers;
 
-import java.util.List;
-
 import jerklib.Channel;
+import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.MessageEvent;
@@ -10,28 +9,31 @@ import jerklib.events.IRCEvent.Type;
 import jerklib.events.dcc.DccEventFactory;
 import jerklib.events.impl.CtcpEventImpl;
 import jerklib.events.impl.MessageEventImpl;
-import jerklib.tokens.EventToken;
-import jerklib.tokens.Token;
-import jerklib.tokens.TokenUtil;
 
 public class PrivMsgParser implements CommandParser
 {
+	/*
+	 * :gh00p!~ghoti@nix-58E3BFC5.cpe.net.cable.rogers.com PRIVMSG #tvtorrents :gotcha
+	 * :NeWtoz!jimmy@nix-2F996C9F.dhcp.aldl.mi.charter.com PRIVMSG #tvtorrents :No problem
+	 * :cute_bettong!n=elphias@about/apple/IIe/B0FH PRIVMSG #ubuntu :Elphias (elphias)
+	 */
+	
 	public MessageEvent createEvent(EventToken token, IRCEvent event)
 	{
-		List<Token>tokens = token.getWordTokens();
 		Session session = event.getSession();
-		Type type = session.isChannelToken(tokens.get(2))?Type.CHANNEL_MESSAGE:Type.PRIVATE_MESSAGE;
-		Channel chan = type == Type.CHANNEL_MESSAGE? session.getChannel(tokens.get(2).data):null;
+		Type type = session.isChannelToken(token.getArguments().get(0))?Type.CHANNEL_MESSAGE:Type.PRIVATE_MESSAGE;
+		Channel chan = type == Type.CHANNEL_MESSAGE? session.getChannel(token.getArguments().get(0)):null;
+		
 		MessageEvent me =  new MessageEventImpl
 		(
 			chan,
-			TokenUtil.getHostName(tokens.get(0)), 
-			token.concatTokens(6).substring(1), 
-			TokenUtil.getNick(tokens.get(0)),
+			token.getHostName(),
+			token.getArguments().get(1), 
+			token.getNick(),
 			token.getData(), 
 			session, 
 			type, 
-			TokenUtil.getUserName(tokens.get(0))
+			token.getUserName()
 		);
 		
 		String msg = me.getMessage();
