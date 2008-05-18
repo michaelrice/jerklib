@@ -6,6 +6,10 @@ import java.util.Map;
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
 
+/**
+ * @author mohadib
+ *
+ */
 public class DefaultInternalEventParser implements InternalEventParser
 {
 	private final Map<String , CommandParser> parsers = new HashMap<String, CommandParser>();
@@ -33,6 +37,11 @@ public class DefaultInternalEventParser implements InternalEventParser
 	public void addParser(String command , CommandParser parser)
 	{
 		parsers.put(command, parser);
+	}
+	
+	public CommandParser getParser(String command)
+	{
+		return parsers.get(command);
 	}
 	
 	public boolean removeParser(String command)
