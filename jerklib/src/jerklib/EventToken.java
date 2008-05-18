@@ -171,7 +171,6 @@ public class EventToken
 		return null;
 	}
 	
-	
 	public String getData()
 	{
 		return data;
