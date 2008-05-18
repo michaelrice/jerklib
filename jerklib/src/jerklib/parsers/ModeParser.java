@@ -27,9 +27,12 @@ public class ModeParser implements CommandParser
 	// :kubrick.freenode.net 324 mohadib__ #test +mnPzlfJ 101 #flood 1,2
 	private IRCEvent numericModeEvent(EventToken token, IRCEvent event)
 	{
-		List<Token> wordTokens = token.getWordTokens();
-		char[] modeTokens = wordTokens.get(4).data.replaceFirst(":", "").toCharArray();
-		String[] arguments = token.concatTokens(10).split("\\s+");
+		char[] modeTokens = token.getArguments().get(2).toCharArray();
+		String[] arguments = new String[0];
+		if(token.getArguments().size() > 3)
+		{
+			arguments = token.getArguments().subList(3, token.getArguments().size()).toArray(new String[0]);
+		}
 		ServerInformation info = event.getSession().getServerInformation();
 		List<ModeAdjustment> modeAdjustments = new ArrayList<ModeAdjustment>();
 		char action = '+';
@@ -81,7 +84,7 @@ public class ModeParser implements CommandParser
 			event.getSession(), 
 			modeAdjustments, 
 			"",
-			event.getSession().getChannel(wordTokens.get(3).data)
+			event.getSession().getChannel(token.getArguments().get(1))
 		);
 	}
 
@@ -91,9 +94,15 @@ public class ModeParser implements CommandParser
 		List<ModeAdjustment> modeAdjustments = new ArrayList<ModeAdjustment>();
 		char action = '+';
 		int argumntOffset = 0;
-		List<Token> wordTokens = token.getWordTokens();
-		char[] modeTokens = wordTokens.get(3).data.replaceFirst(":", "").toCharArray();
-		String[] arguments = token.concatTokens(8).split("\\s+");
+		char[] modeTokens = token.getArguments().get(1).toCharArray();
+		String[] arguments = new String[0];
+		
+		//if size > 2 then mode adjustment has arguments
+		if(token.getArguments().size() > 2)
+		{
+			arguments = token.getArguments().subList(2, token.getArguments().size()).toArray(new String[0]);
+		}
+		
 		for (char mode : modeTokens)
 		{
 			if (mode == '+' || mode == '-') action = mode;
@@ -112,16 +121,20 @@ public class ModeParser implements CommandParser
 	// :mohadib_!n=mohadib@unaffiliated/mohadib MODE #jerklib +o scripyasas
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
-		List<Token> wordTokens = token.getWordTokens();
-		if (token.getCommand().equals("324")) return numericModeEvent(token, event);
-		else if (!event.getSession().isChannelToken(wordTokens.get(2)))
+		if (token.getNumeric() == 324) return numericModeEvent(token, event);
+		else if (!event.getSession().isChannelToken(token.getArguments().get(0)))
 		{
 			return userModeEvent(token, event);
 		}
 		else
 		{
-			char[] modeTokens = wordTokens.get(3).data.replaceFirst(":", "").toCharArray();
-			String[] arguments = token.concatTokens(8).split("\\s+");
+			char[] modeTokens = token.getArguments().get(1).toCharArray();
+			String[] arguments = new String[0];
+			if(token.getArguments().size() > 2)
+			{
+				arguments = token.getArguments().subList(2, token.getArguments().size()).toArray(new String[0]);
+			}
+			
 			ServerInformation info = event.getSession().getServerInformation();
 			List<ModeAdjustment> modeAdjustments = new ArrayList<ModeAdjustment>();
 			char action = '+';
@@ -173,8 +186,8 @@ public class ModeParser implements CommandParser
 				event.getRawEventData(), 
 				event.getSession(), 
 				modeAdjustments, 
-				TokenUtil.getNick(wordTokens.get(0)),
-				event.getSession().getChannel(wordTokens.get(2).data)
+				token.getNick(),
+				event.getSession().getChannel(token.getArguments().get(0))
 			);
 		}
 	}

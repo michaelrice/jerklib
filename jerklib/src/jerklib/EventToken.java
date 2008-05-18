@@ -174,10 +174,7 @@ public class EventToken
 		{
 			i = Integer.parseInt(command);
 		}
-		catch (NumberFormatException e) 
-		{
-			e.printStackTrace();
-		}
+		catch (NumberFormatException e){}
 		return i;
 	}
 	

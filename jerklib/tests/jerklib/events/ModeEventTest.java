@@ -43,7 +43,7 @@ public class ModeEventTest extends EventTestBase
 				events.add((ModeEvent)e);
 			}
 		} , Type.MODE_EVENT);
-		
+
 		conMan.start(session);
 	}
 	
@@ -51,10 +51,9 @@ public class ModeEventTest extends EventTestBase
 	@Test
 	public void testNumDispatched()
 	{
-		assertTrue(events.size() == 546);
+		assertTrue(events.size()+"" , events.size() == 546);
 	}
 
-	
 	@Test
 	public void testBahamutChannelModes()
 	{
@@ -357,5 +356,4 @@ public class ModeEventTest extends EventTestBase
 		assertTrue(ma.getArgument().equals(""));
 		
 	}
-	
 }

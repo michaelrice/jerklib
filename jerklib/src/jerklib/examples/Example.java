@@ -6,6 +6,7 @@ import jerklib.Session;
 import jerklib.events.*;
 import jerklib.events.IRCEvent.Type;
 import jerklib.listeners.IRCEventListener;
+import jerklib.parsers.DefaultInternalEventParser;
 
 /**
  * @author mohadib A simple example that demonsrates how to use JerkLib
@@ -20,15 +21,16 @@ public class Example implements IRCEventListener
 		 * ConnectionManager takes a Profile to use for new connections.
 		 */
 		manager = new ConnectionManager(new Profile("scripy"));
-
+		
 		/*
 		 * One instance of ConnectionManager can connect to many IRC networks.
 		 * ConnectionManager#requestConnection(String) will return a Session object.
 		 * The Session is the main way users will interact with this library and IRC
 		 * networks
 		 */
-		Session session = manager.requestConnection("irc.freenode.net");
-
+		Session session = manager.requestConnection("irc.dalnet.com");
+		
+		
 		/*
 		 * JerkLib fires IRCEvents to notify users of the lib of incoming events
 		 * from a connected IRC server.
@@ -48,7 +50,6 @@ public class Example implements IRCEventListener
 		if (e.getType() == Type.CONNECT_COMPLETE)
 		{
 			e.getSession().join("#jerklib");
-			e.getSession().join("#ubuntu");
 		}
 		else if (e.getType() == Type.CHANNEL_MESSAGE)
 		{
@@ -58,7 +59,6 @@ public class Example implements IRCEventListener
 		else if (e.getType() == Type.JOIN_COMPLETE)
 		{
 			JoinCompleteEvent jce = (JoinCompleteEvent) e;
-
 			/* say hello and version number */
 			jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
 		}
