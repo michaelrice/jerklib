@@ -1,87 +1,59 @@
 package jerklib.parsers;
 
-import java.util.List;
-
 import jerklib.Channel;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.NoticeEvent;
 import jerklib.events.impl.NoticeEventImpl;
 import jerklib.tokens.EventToken;
-import jerklib.tokens.Token;
-import jerklib.tokens.TokenUtil;
 
 public class NoticeParser implements CommandParser
 {
-	public NoticeEvent createEvent(EventToken token, IRCEvent event)
+	
+	/*
+	 *:DIBLET!n=fran@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #jerklib :test
+	 *:anthony.freenode.net NOTICE mohadib_ :NickServ set your hostname to foo
+	 *:DIBLET!n=fran@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #jerklib :test
+	 *:NickServ!NickServ@services. NOTICE mohadib_ :This nickname is owned by someone else
+	 * NOTICE AUTH :*** No identd (auth) response
+	 */
+	
+	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
-		final List<Token> tokens = token.getWordTokens();
 		Session session = event.getSession();
-		// generic notice NOTICE AUTH :*** No identd (auth) response
-		if(tokens.get(0).data.equals("NOTICE"))
+		
+		String toWho = "";
+		String byWho = session.getConnectedHostName();
+		Channel chan = null;
+		
+		if(!session.isChannelToken(token.getArguments().get(0)))
 		{
-			return new NoticeEventImpl
-			(
-				token.getData(), 
-				session, 
-				"generic", 
-				token.substring(token.getData().indexOf(":") + 1), 
-				session.getNick(), 
-				session.getConnectedHostName(),
-				null
-			);
+			toWho = token.getArguments().get(0);
+		}
+		else
+		{
+			chan = session.getChannel(token.getArguments().get(0));
 		}
 		
-		if(tokens.get(1).data.equals("NOTICE"))
+		if(token.getPrefix().length() > 0)
 		{
-			//from server to user
-			//:anthony.freenode.net NOTICE mohadib_ :NickServ set your hostname to foo
-			if(tokens.get(0).data.indexOf("@") == -1)
+			if(token.getPrefix().contains("!"))
 			{
-				return new NoticeEventImpl
-				(
-					token.getData(), 
-					session, 
-					"server", 
-					token.substring(token.getData().indexOf(":" , 1) + 1), 
-					session.getNick(), 
-					session.getConnectedHostName(), 
-					null
-				);
-			}
-			
-			//from user to channel
-			// channel notice :DIBLET!n=fran@c-68-35-11-181.hsd1.nm.comcast.net NOTICE #jerklib :test
-			if(session.isChannelToken(tokens.get(2)))
-			{
-				Channel channel = session.getChannel(tokens.get(2).data);
-				return new NoticeEventImpl
-				(
-						token.getData(),
-						session,
-						"channel",
-						token.getData().substring(token.getData().indexOf(":", 1) + 1),
-						channel.getName(),
-						TokenUtil.getNick(tokens.get(0)),
-						channel
-				);
+				byWho = token.getNick();
 			}
 			else
 			{
-				//:NickServ!NickServ@services. NOTICE mohadib_ :This nickname is owned by someone else
-				return new NoticeEventImpl
-				(
-						token.getData(),
-						session,
-						"user",
-						token.getData().substring(token.getData().indexOf(":", 1) + 1),
-						session.getNick(),
-						TokenUtil.getNick(tokens.get(0)),
-						null
-				);
+				byWho = token.getPrefix();
 			}
 		}
 		
-		return null;
+		return new NoticeEventImpl
+		(
+			token.getData(),
+			event.getSession(),
+			token.getArguments().get(1),
+			toWho,
+			byWho,
+			chan
+		);
 	}
 }

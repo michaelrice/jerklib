@@ -142,7 +142,7 @@ public class EventToken
 	{
 		if(prefix.indexOf("!") != -1)
 		{
-			return prefix.substring(0,prefix.indexOf('!')).substring(1);
+			return prefix.substring(0,prefix.indexOf('!'));
 		}
 		return "";
 	}

@@ -11,33 +11,26 @@ public class NoticeEventImpl implements NoticeEvent
 {
 
     private final Type type = IRCEvent.Type.NOTICE;
-    private final String rawEventData, noticeType, message, toWho, byWho;
+    private final String rawEventData,message, toWho, byWho;
     private final Session session;
     private final Channel channel;
 
     public NoticeEventImpl
-            (
-                    String rawEventData,
-                    Session session,
-                    String noticeType,
-                    String message,
-                    String toWho,
-                    String byWho,
-                    Channel channel
-            )
+    (
+    	String rawEventData,
+    	Session session,
+    	String message,
+    	String toWho,
+    	String byWho,
+    	Channel channel
+    )
     {
         this.rawEventData = rawEventData;
         this.session = session;
-        this.noticeType = noticeType;
         this.message = message;
         this.toWho = toWho;
         this.byWho = byWho;
         this.channel = channel;
-    }
-
-    public String getNoticeType()
-    {
-        return noticeType;
     }
 
     public String getNoticeMessage()

@@ -7,11 +7,11 @@ import jerklib.Session;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.MessageEvent;
-import jerklib.listeners.BaseListener;
+import jerklib.listeners.IRCEventListenerImpl;
 
-public class BaseListenerExample extends BaseListener implements Runnable
+public class Example2 extends IRCEventListenerImpl implements Runnable
 {
-    public BaseListenerExample()
+    public Example2()
     {
     }
 
@@ -61,7 +61,7 @@ public class BaseListenerExample extends BaseListener implements Runnable
 
     public static void main(String[] args)
     {
-        BaseListenerExample ble = new BaseListenerExample();
+        Example2 ble = new Example2();
         Thread t = new Thread(ble);
         t.start();
         try

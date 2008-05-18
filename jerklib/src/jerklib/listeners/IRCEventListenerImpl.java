@@ -7,7 +7,7 @@ import jerklib.events.modes.ModeEvent;
 
 import java.util.logging.Logger;
 
-public abstract class BaseListener implements IRCEventListener
+public abstract class IRCEventListenerImpl implements IRCEventListener
 {
     protected Logger log = Logger.getLogger(this.getClass().getName());
 

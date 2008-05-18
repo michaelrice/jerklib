@@ -34,15 +34,6 @@ import jerklib.Channel;
 public interface NoticeEvent extends IRCEvent
 {
 
-
-    /**
-     * Returns a string that represents the notice type
-     *
-     * @return event type
-     */
-    public String getNoticeType();
-
-
     /**
      * returns notice message
      *
