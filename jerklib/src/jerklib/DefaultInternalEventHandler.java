@@ -1,12 +1,9 @@
 package jerklib;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import jerklib.ServerInformation.ModeType;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
@@ -17,10 +14,8 @@ import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.IRCEvent.Type;
 import jerklib.events.impl.NickChangeEventImpl;
-import jerklib.events.modes.ModeAdjustment;
 import jerklib.events.modes.ModeEvent;
 import jerklib.listeners.IRCEventListener;
-import jerklib.parsers.NoticeParser;
 import jerklib.tokens.EventToken;
 import static jerklib.events.IRCEvent.Type.*;
 
@@ -50,34 +45,29 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	
 	public void receiveEvent(IRCEvent event)
 	{
-
 		IRCEventListener l = stratMap.get(event.getType());
+		
 		if(l != null)
 		{
 			l.receiveEvent(event);
-			manager.addToRelayList(event);
-			return;
 		}
+		else
+		{
+			Session session = event.getSession();
+			String data = event.getRawEventData();
+			String command = new EventToken(data).getCommand();
 		
-		Session session = event.getSession();
-		String data = event.getRawEventData();
-		EventToken eventToken = new EventToken(data);
-
-		
-			if (data.matches("^PING.*"))
+			if(command.equals("PING"))
 			{
 				session.getConnection().pong(event);
 			}
-			else if (data.matches(".*PONG.*"))
+			else if(command.equals("PONG"))
 			{
 				session.getConnection().gotPong();
 			}
-			else if (data.matches("^NOTICE\\s+(.*$)$"))
-			{
-				event = new NoticeParser().createEvent(eventToken, event);
-			}
-			
-			manager.addToRelayList(event);
+		}
+		
+		manager.addToRelayList(event);
 	}
 	
 	
@@ -149,7 +139,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		 */
 		EventToken token = new EventToken(e.getRawEventData());
 		Session session = e.getSession();
-		String nick = token.getWordTokens().get(2).data;
+		String nick = token.getArguments().get(0);
 		String profileNick = session.getNick();
 		if(!nick.equalsIgnoreCase(profileNick))
 		{

@@ -28,7 +28,8 @@ import java.util.List;
  */
 public class EventToken
 {
-	private String data , prefix = "" , command = "";
+	private final String data; 
+	private String prefix = "", command = "";
 	private List<String>arguments = new ArrayList<String>();
 	private int offset = 0;
 	
@@ -54,7 +55,6 @@ public class EventToken
 		
 		extractArguments();
 	}
-	
 	
 	private void extractArguments()
 	{
@@ -117,6 +117,25 @@ public class EventToken
 		//increment offset
 		offset += prefix.length();
 	}
+	
+	public String getHostName()
+	{
+		return prefix.substring(prefix.indexOf('@') + 1);
+	}
+
+	public String getUserName()
+	{
+		return prefix.substring(prefix.indexOf('!') + 1 , prefix.indexOf('@'));
+	}
+	
+	public String getNick()
+	{
+		if(prefix.indexOf("!") != -1)
+		{
+			return prefix.substring(1).substring(0,prefix.indexOf('!') - 1);
+		}
+			return data.substring(1);
+	}
 
 	public String getPrefix()
 	{
@@ -136,6 +155,20 @@ public class EventToken
 	public String getData()
 	{
 		return data;
+	}
+	
+	public int getNumeric()
+	{
+		int i = -1;
+		try
+		{
+			i = Integer.parseInt(command);
+		}
+		catch (NumberFormatException e) 
+		{
+			e.printStackTrace();
+		}
+		return i;
 	}
 	
 	public String toString()

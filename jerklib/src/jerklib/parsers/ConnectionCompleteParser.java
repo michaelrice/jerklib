@@ -1,12 +1,9 @@
 package jerklib.parsers;
 
-import java.util.List;
-
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.impl.ConnectionCompleteEventImpl;
 import jerklib.tokens.EventToken;
-import jerklib.tokens.Token;
 
 public class ConnectionCompleteParser implements CommandParser
 {
@@ -22,12 +19,10 @@ public class ConnectionCompleteParser implements CommandParser
 	
 	public ConnectionCompleteEvent createEvent(EventToken token, IRCEvent event)
 	{
-		List<Token> tokens = token.getWordTokens();
-		
 		return new ConnectionCompleteEventImpl
 		(
 				token.getData(), 
-				tokens.get(0).data.substring(1).toLowerCase(), // actual hostname
+				token.getPrefix(), // actual hostname
 				event.getSession(), 
 				event.getSession().getConnectedHostName() // requested hostname
 		);

@@ -7,27 +7,27 @@ import jerklib.events.IRCEvent;
 import jerklib.events.PartEvent;
 import jerklib.events.impl.PartEventImpl;
 import jerklib.tokens.EventToken;
-import jerklib.tokens.Token;
-import jerklib.tokens.TokenUtil;
 
+/**
+ * @author mohadib
+ *
+ */
 public class PartParser implements CommandParser
 {
 	public PartEvent createEvent(EventToken token, IRCEvent event)
 	{
-		Session session = event.getSession();
-		List<Token>tokens = token.getWordTokens();
-			String partMsg = tokens.size() >= 4?token.concatTokens(6).substring(1):"";
-			if(tokens.get(2).data.startsWith(":"))tokens.get(2).data = tokens.get(2).data.substring(1);
+			Session session = event.getSession();
+			List<String>args = token.getArguments();
 			return new PartEventImpl
 			(
 					token.getData(), 
 					session,
-					TokenUtil.getNick(tokens.get(0)), // who
-					TokenUtil.getUserName(tokens.get(0)), // username
-					TokenUtil.getHostName(tokens.get(0)), // host name
-					session.getChannel(tokens.get(2).data).getName(), // channel name
-					session.getChannel(tokens.get(2).data), 
-					partMsg 
+					token.getNick(), // who
+					token.getUserName(), // username
+					token.getHostName(), // host name
+					args.get(0), // channel name
+					session.getChannel(args.get(0)), 
+					args.size() == 2? args.get(1) : ""
 			);
 	}
 }

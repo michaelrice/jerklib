@@ -21,13 +21,9 @@ public class IdentServer implements Runnable
 		{
 			socket = new ServerSocket(113);
 			socket.setSoTimeout(60000);
+			new Thread(this).start();
 		}
-		catch (Exception e)
-		{
-			// log
-			e.printStackTrace();
-		}
-		new Thread(this).start();
+		catch (Exception e){}
 	}
 
 	public void run()
@@ -53,8 +49,7 @@ public class IdentServer implements Runnable
 		}
 		catch (IOException e)
 		{
-			// /log
-			//e.printStackTrace();
+			// log
 		}
 
 	}
