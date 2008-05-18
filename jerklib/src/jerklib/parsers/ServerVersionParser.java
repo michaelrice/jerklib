@@ -1,7 +1,5 @@
 package jerklib.parsers;
 
-import java.util.List;
-
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;

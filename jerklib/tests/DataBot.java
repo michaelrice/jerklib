@@ -7,7 +7,6 @@ import java.util.Map;
 
 import jerklib.ConnectionManager;
 import jerklib.Profile;
-import jerklib.Profile;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.ServerVersionEvent;

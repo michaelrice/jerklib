@@ -6,7 +6,6 @@ import jerklib.Session;
 import jerklib.events.*;
 import jerklib.events.IRCEvent.Type;
 import jerklib.listeners.IRCEventListener;
-import jerklib.parsers.DefaultInternalEventParser;
 
 /**
  * @author mohadib A simple example that demonsrates how to use JerkLib
