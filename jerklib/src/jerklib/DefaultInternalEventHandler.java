@@ -138,7 +138,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		 */
 		EventToken token = new EventToken(e.getRawEventData());
 		Session session = e.getSession();
-		String nick = token.getArguments().get(0);
+		String nick = token.arg(0);
 		String profileNick = session.getNick();
 		if(!nick.equalsIgnoreCase(profileNick))
 		{

@@ -25,14 +25,14 @@ public class NoticeParser implements CommandParser
 		String byWho = session.getConnectedHostName();
 		Channel chan = null;
 		
-		if(!session.isChannelToken(token.getArguments().get(0)))
+		if(!session.isChannelToken(token.arg(0)))
 		{
-			toWho = token.getArguments().get(0);
+			toWho = token.arg(0);
 			if(toWho.equals("AUTH")) toWho = "";
 		}
 		else
 		{
-			chan = session.getChannel(token.getArguments().get(0));
+			chan = session.getChannel(token.arg(0));
 		}
 		
 		if(token.getPrefix().length() > 0)
@@ -51,7 +51,7 @@ public class NoticeParser implements CommandParser
 		(
 			token.getData(),
 			event.getSession(),
-			token.getArguments().get(1),
+			token.arg(1),
 			toWho,
 			byWho,
 			chan

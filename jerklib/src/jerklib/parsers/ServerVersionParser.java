@@ -20,14 +20,13 @@ public class ServerVersionParser implements CommandParser
 	{
 
 		Session session = event.getSession();
-		List<String>args = token.getArguments();
 		if(token.getNumeric() == 002)
 		{
 			return new ServerVersionEventImpl
 			(
-				args.get(1),
+				token.arg(1),
 				token.getPrefix(),
-				args.get(1).substring(args.get(1).indexOf("running ") + 8),
+				token.arg(1).substring(token.arg(1).indexOf("running ") + 8),
 				"",
 				token.getData(),
 				session
@@ -36,9 +35,9 @@ public class ServerVersionParser implements CommandParser
 		
 			return new ServerVersionEventImpl
 			(
-				token.getArguments().get(3),
+				token.arg(3),
 				token.getPrefix(),
-				token.getArguments().get(1), 
+				token.arg(1), 
 				"", 
 				token.getData(), 
 				session

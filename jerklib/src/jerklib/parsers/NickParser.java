@@ -15,7 +15,7 @@ public class NickParser implements CommandParser
 				token.getData(), 
 				session, 
 				token.getNick(), // old
-				token.getArguments().get(0), // new nick
+				token.arg(0), // new nick
 				token.getHostName(), // hostname
 				token.getUserName() // username
 		); 

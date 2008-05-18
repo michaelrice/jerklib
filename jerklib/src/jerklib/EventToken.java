@@ -157,10 +157,20 @@ public class EventToken
 		return command;
 	}
 	
-	public List<String>getArguments()
+	public List<String>args()
 	{
 		return arguments;
 	}
+	
+	public String arg(int index)
+	{
+		if(index < arguments.size())
+		{
+			return arguments.get(index);
+		}
+		return null;
+	}
+	
 	
 	public String getData()
 	{

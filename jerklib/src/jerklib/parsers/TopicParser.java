@@ -25,8 +25,8 @@ public class TopicParser implements CommandParser
 			(
 					token.getData(), 
 					event.getSession(), 
-					event.getSession().getChannel(token.getArguments().get(1)),
-					token.getArguments().get(2)
+					event.getSession().getChannel(token.arg(1)),
+					token.arg(2)
 			);
 			if (topicMap.containsValue(tEvent.getChannel()))
 			{
@@ -39,13 +39,13 @@ public class TopicParser implements CommandParser
 		}
 		else
 		{
-			Channel chan = event.getSession().getChannel(token.getArguments().get(1));
+			Channel chan = event.getSession().getChannel(token.arg(1));
 			if (topicMap.containsKey(chan))
 			{
 				TopicEventImpl tEvent = (TopicEventImpl) topicMap.get(chan);
 				topicMap.remove(chan);
-				tEvent.setSetBy(token.getArguments().get(2));
-				tEvent.setSetWhen(token.getArguments().get(3));
+				tEvent.setSetBy(token.arg(2));
+				tEvent.setSetWhen(token.arg(3));
 				chan.setTopicEvent(tEvent);
 				return tEvent;
 			}

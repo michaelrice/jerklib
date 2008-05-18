@@ -13,7 +13,6 @@ public class WhoisParser implements CommandParser
 	
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
-		List<String>args = token.getArguments();
 		switch (token.getNumeric())
 		{
 			case 311:
@@ -22,10 +21,10 @@ public class WhoisParser implements CommandParser
 				// "<nick> <user> <host> * :<real name>"
 				we = new WhoisEventImpl
 				(		
-					args.get(0),
-					args.get(4),
-					args.get(1),
-					args.get(2),
+					token.arg(0),
+					token.arg(4),
+					token.arg(1),
+					token.arg(2),
 					token.getData(), 
 					event.getSession()
 				); 
@@ -38,7 +37,7 @@ public class WhoisParser implements CommandParser
 				// kubrick.freenode.net 319 scripy mohadib :@#jerklib ##swing
 				if (we != null )
 				{
-					List<String> chanNames = Arrays.asList(token.getArguments().get(2).split("\\s+"));
+					List<String> chanNames = Arrays.asList(token.arg(2).split("\\s+"));
 					we.setChannelNamesList(chanNames);
 					we.appendRawEventData(token.getData());
 				}
@@ -50,8 +49,8 @@ public class WhoisParser implements CommandParser
 				// :kubrick.freenode.net 312 scripy mohadib irc.freenode.net :http://freenode.net/
 				if (we != null)
 				{
-					we.setWhoisServer(token.getArguments().get(2));
-					we.setWhoisServerInfo(token.getArguments().get(3));
+					we.setWhoisServer(token.arg(2));
+					we.setWhoisServerInfo(token.arg(3));
 					we.appendRawEventData(token.getData());
 				}
 				break;
@@ -72,8 +71,8 @@ public class WhoisParser implements CommandParser
 				// from rfc "<nick> <integer> :seconds idle"
 				if (we != null)
 				{
-					we.setSignOnTime(Integer.parseInt(token.getArguments().get(3)));
-					we.setSecondsIdle(Integer.parseInt(token.getArguments().get(2)));
+					we.setSignOnTime(Integer.parseInt(token.arg(3)));
+					we.setSecondsIdle(Integer.parseInt(token.arg(2)));
 					we.appendRawEventData(token.getData());
 				}
 				break;

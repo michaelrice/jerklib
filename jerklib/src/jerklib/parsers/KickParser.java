@@ -15,12 +15,12 @@ public class KickParser implements CommandParser
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
 		Session session = event.getSession();
-		Channel channel = session.getChannel(token.getArguments().get(0));
+		Channel channel = session.getChannel(token.arg(0));
 		
 		String msg = "";
-		if (token.getArguments().size() == 3)
+		if (token.args().size() == 3)
 		{
-			msg = token.getArguments().get(2);
+			msg = token.arg(2);
 		}
 		
 		return new KickEventImpl
@@ -30,7 +30,7 @@ public class KickParser implements CommandParser
 			token.getNick(), // byWho
 			token.getUserName(), // username
 			token.getHostName(), // host name
-			token.getArguments().get(1), // victim
+			token.arg(1), // victim
 			msg, // message
 			channel
 		);

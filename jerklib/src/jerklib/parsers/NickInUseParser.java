@@ -10,7 +10,7 @@ public class NickInUseParser implements CommandParser
 	{
 		return new NickInUseEventImpl
 		(
-				token.getArguments().get(1),
+				token.arg(1),
 				token.getData(), 
 				event.getSession()
 		); 

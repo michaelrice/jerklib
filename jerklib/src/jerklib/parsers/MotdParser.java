@@ -12,7 +12,7 @@ public class MotdParser implements CommandParser
 		(
 			token.getData(), 
 			event.getSession(), 
-			token.getArguments().get(1), 
+			token.arg(1), 
 			token.getPrefix()
 		);
 	}

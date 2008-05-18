@@ -14,7 +14,7 @@ public class EventTokenTest
 		
 		assertTrue(eventToken.getCommand().equals("353"));
 		
-		assertTrue(eventToken.getArguments().size()+"" , eventToken.getArguments().size() == 4);
+		assertTrue(eventToken.args().size()+"" , eventToken.args().size() == 4);
 	}
 	
 	
@@ -27,7 +27,7 @@ public class EventTokenTest
 		
 		assertTrue(eventToken.getCommand().equals("PRIVMSG"));
 		
-		assertTrue(eventToken.getArguments().size()+"" , eventToken.getArguments().size() == 2);
+		assertTrue(eventToken.args().size()+"" , eventToken.args().size() == 2);
 	}
 	
 	@Test
@@ -38,8 +38,8 @@ public class EventTokenTest
 		
 		assertTrue(eventToken.getCommand().equals("PING"));
 		
-		assertTrue(eventToken.getArguments().size()+"" , eventToken.getArguments().size() == 1);
-		assertTrue(eventToken.getArguments().get(0).equals("irc.nixgeeks.com"));
+		assertTrue(eventToken.args().size()+"" , eventToken.args().size() == 1);
+		assertTrue(eventToken.arg(0).equals("irc.nixgeeks.com"));
 	}
 	
 	

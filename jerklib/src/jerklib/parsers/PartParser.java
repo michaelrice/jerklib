@@ -1,7 +1,5 @@
 package jerklib.parsers;
 
-import java.util.List;
-
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
@@ -17,7 +15,6 @@ public class PartParser implements CommandParser
 	public PartEvent createEvent(EventToken token, IRCEvent event)
 	{
 			Session session = event.getSession();
-			List<String>args = token.getArguments();
 			return new PartEventImpl
 			(
 					token.getData(), 
@@ -25,9 +22,9 @@ public class PartParser implements CommandParser
 					token.getNick(), // who
 					token.getUserName(), // username
 					token.getHostName(), // host name
-					args.get(0), // channel name
-					session.getChannel(args.get(0)), 
-					args.size() == 2? args.get(1) : ""
+					token.arg(0), // channel name
+					session.getChannel(token.arg(0)), 
+					token.args().size() == 2? token.arg(1) : ""
 			);
 	}
 }

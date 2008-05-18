@@ -23,7 +23,7 @@ public class QuitParser implements CommandParser
 			nick, // who
 			token.getUserName(), // username
 			token.getHostName(), // hostName
-			token.getArguments().get(0), // message
+			token.arg(0), // message
 			chanList
 		);
 	}

@@ -22,12 +22,12 @@ public class NamesParser implements CommandParser
 			(
 				token.getData(), 
 				session, 
-				session.getChannel(token.getArguments().get(1)),
-				session.getChannel(token.getArguments().get(1)).getNicks());
+				session.getChannel(token.arg(1)),
+				session.getChannel(token.arg(1)).getNicks());
 		}
 
-		Channel chan = event.getSession().getChannel(token.getArguments().get(2));
-		String[] names = token.getArguments().get(3).split("\\s+");
+		Channel chan = event.getSession().getChannel(token.arg(2));
+		String[] names = token.arg(3).split("\\s+");
 
 		for (String name : names)
 		{

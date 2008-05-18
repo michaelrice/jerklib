@@ -25,8 +25,8 @@ public class JoinParser implements CommandParser
 			token.getNick(), // nick
 			token.getUserName(), // user name
 			token.getHostName(), // host
-			token.getArguments().get(0), // channel name
-			session.getChannel(token.getArguments().get(0)) // channel
+			token.arg(0), // channel name
+			session.getChannel(token.arg(0)) // channel
 		);
 		
 		if(je.getNick().equalsIgnoreCase(event.getSession().getNick()))

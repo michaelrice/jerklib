@@ -21,14 +21,14 @@ public class PrivMsgParser implements CommandParser
 	public MessageEvent createEvent(EventToken token, IRCEvent event)
 	{
 		Session session = event.getSession();
-		Type type = session.isChannelToken(token.getArguments().get(0))?Type.CHANNEL_MESSAGE:Type.PRIVATE_MESSAGE;
-		Channel chan = type == Type.CHANNEL_MESSAGE? session.getChannel(token.getArguments().get(0)):null;
+		Type type = session.isChannelToken(token.arg(0))?Type.CHANNEL_MESSAGE:Type.PRIVATE_MESSAGE;
+		Channel chan = type == Type.CHANNEL_MESSAGE? session.getChannel(token.arg(0)):null;
 		
 		MessageEvent me =  new MessageEventImpl
 		(
 			chan,
 			token.getHostName(),
-			token.getArguments().get(1), 
+			token.arg(1), 
 			token.getNick(),
 			token.getData(), 
 			session, 
