@@ -7,20 +7,18 @@ import java.util.List;
  * 
  * A Class to parse a line of IRC text
  * 
-<pre>
-<message>  ::= [':' <prefix> <SPACE> ] <command> <params> <crlf>
-<prefix>   ::= <servername> | <nick> [ '!' <user> ] [ '@' <host> ]
-<command>  ::= <letter> { <letter> } | <number> <number> <number>
-<SPACE>    ::= ' ' { ' ' }
-<params>   ::= <SPACE> [ ':' <trailing> | <middle> <params> ]
-
-<middle>   ::= <Any *non-empty* sequence of octets not including SPACE
-               or NUL or CR or LF, the first of which may not be ':'>
-<trailing> ::= <Any, possibly *empty*, sequence of octets not including
-                 NUL or CR or LF>
-
-<crlf>     ::= CR LF
-</pre>
+ * <pre> 
+ * <message>  ::= [':' <prefix> <SPACE> ] <command> <params> <crlf>
+ * <prefix>   ::= <servername> | <nick> [ '!' <user> ] [ '@' <host> ]
+ * <command>  ::= <letter> { <letter> } | <number> <number> <number>
+ * <SPACE>    ::= ' ' { ' ' }
+ * <params>   ::= <SPACE> [ ':' <trailing> | <middle> <params> ]
+ *
+ * <middle>   ::= <Any *non-empty* sequence of octets not including SPACE
+ *              or NUL or CR or LF, the first of which may not be ':'>
+ * <trailing> ::= <Any, possibly *empty*, sequence of octets not including
+ *                NUL or CR or LF>
+ * </pre>
  * 
  * 
  * @author mohadib
@@ -120,21 +118,33 @@ public class EventToken
 	
 	public String getHostName()
 	{
-		return prefix.substring(prefix.indexOf('@') + 1);
+		int index = prefix.indexOf('@');
+		if(index != -1 && index + 1 < prefix.length())
+		{
+			return prefix.substring(index + 1);
+		}
+		return "";
 	}
 
 	public String getUserName()
 	{
-		return prefix.substring(prefix.indexOf('!') + 1 , prefix.indexOf('@'));
+		int sindex = prefix.indexOf('!');
+		int eindex = prefix.indexOf("@");
+		if(eindex == -1)eindex = prefix.length() - 1;
+		if(sindex != -1 && sindex + 1 < prefix.length())
+		{
+			return prefix.substring(sindex , eindex);
+		}
+		return "";
 	}
 	
 	public String getNick()
 	{
 		if(prefix.indexOf("!") != -1)
 		{
-			return prefix.substring(1).substring(0,prefix.indexOf('!') - 1);
+			return prefix.substring(0,prefix.indexOf('!')).substring(1);
 		}
-			return data.substring(1);
+		return "";
 	}
 
 	public String getPrefix()

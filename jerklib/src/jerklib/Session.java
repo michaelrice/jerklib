@@ -4,7 +4,6 @@ import jerklib.events.IRCEvent.Type;
 import jerklib.listeners.IRCEventListener;
 import jerklib.parsers.InternalEventParser;
 import jerklib.tasks.Task;
-import jerklib.tokens.Token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -417,13 +416,13 @@ public class Session extends RequestGenerator
     }
 
     
-  	public boolean isChannelToken(Token token)
+  	public boolean isChannelToken(String token)
   	{
   		ServerInformation serverInfo = getServerInformation();
   		String[] chanPrefixes = serverInfo.getChannelPrefixes();
   		for (String prefix : chanPrefixes)
   		{
-  			if (token.data.startsWith(prefix)) { return true; }
+  			if (token.startsWith(prefix)) { return true; }
   		}
   		return false;
   	}
