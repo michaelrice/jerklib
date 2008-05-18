@@ -4,7 +4,7 @@ package jerklib;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.assertTrue;
 
-public class TmpEventTokenTest
+public class EventTokenTest
 {
 	@Test
 	public void parseTest1()

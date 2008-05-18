@@ -9,7 +9,6 @@ import java.util.List;
 
 import jerklib.ConnectionManager;
 import jerklib.EventToken;
-import jerklib.tokens.Token;
 
 
 public class DataParser
@@ -106,7 +105,7 @@ public class DataParser
 	
 	public static class CommandRunnable implements ParserRunnable
 	{
-		String command;
+		protected String command;
 		
 		public CommandRunnable(String command)
 		{
@@ -114,8 +113,7 @@ public class DataParser
 		}
 		public boolean matches(EventToken token)
 		{
-			List<Token> wordTokens = token.getWordTokens();
-			return wordTokens.size() > 2 && wordTokens.get(1).data.equals(command);
+			return token.getCommand().equals(command);
 		}
 	}
 	
