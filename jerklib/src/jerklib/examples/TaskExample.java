@@ -15,6 +15,7 @@ public class TaskExample
 		ConnectionManager conman = new ConnectionManager(new Profile("scripy"));
 		Session session = conman.requestConnection("irc.freenode.net");
 		
+		
 		/* Add a Task to join a channel when the connection is complete 
 		   This task will only ever be notified of ConnectionCompleteEvents */
 		session.onEvent(new TaskImpl("join_channels")
@@ -24,6 +25,7 @@ public class TaskExample
 				e.getSession().join("#jerklib");
 			}
 		}, Type.CONNECT_COMPLETE);
+		
 		
 		/* Add a Task to say hello */
 		session.onEvent(new TaskImpl("hello")
@@ -44,6 +46,7 @@ public class TaskExample
 				System.out.println(e.getRawEventData());
 			}
 		});
+		
 	}
 	
 	public static void main(String[] args)

@@ -21,6 +21,9 @@ import jerklib.events.modes.ModeAdjustment.Action;
  * https://sourceforge.net/tracker/index.php?func=detail&aid=1962621&group_id=214803&atid=1031130
  * http://tools.ietf.org/draft/draft-hardy-irc-isupport/draft-hardy-irc-isupport-00.txt
  * 
+ * known shortcoming: usermode event arguments are not correctly lined up
+ *  Only way i can think to fix this is to hardcode known usermodes?
+ * 
  */
 public class ModeParser implements CommandParser
 {
