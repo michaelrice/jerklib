@@ -261,10 +261,7 @@ class Connection
         try
         {
 
-            if (quitMessage == null || quitMessage.length() == 0)
-            {
-                quitMessage = ConnectionManager.getVersion();
-            }
+            if (quitMessage == null)quitMessage="";
 
             WriteRequest request = new WriteRequest("QUIT :" + quitMessage + "\r\n", this);
 

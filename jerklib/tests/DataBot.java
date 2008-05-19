@@ -75,8 +75,9 @@ public class DataBot implements IRCEventListener
 				}
 			}
 		});
-
-		ConnectionManager.dontParse = true;
+		
+		//TODO readd removel of all parsers that arent critical
+		
 		conMan = new ConnectionManager(profile);
 		makeConnections();
 	}

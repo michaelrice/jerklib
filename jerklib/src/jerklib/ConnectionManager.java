@@ -19,7 +19,6 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.UnresolvedAddressException;
-import java.util.Properties;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,55 +30,13 @@ import java.util.TimerTask;
 import java.util.Collection;
 
 /**
- * @author Jason Davis <p/> This class is used to control all Connections. <p/>
- *         Request new connections with this class
+ * @author Jason Davis 
+ * <p/> This class is used to control/store Sessions/Connection. <p/>
+ * Request new connections with this class
  */
 public class ConnectionManager
 {
-
-	public static boolean debug, dontParse;
-	private static String version = "0.3 or greater";
-	private static String extendedVersion = "";
-
-	static
-	{
-		Properties props = new Properties();
-		try
-		{
-			props.load(ConnectionManager.class.getResourceAsStream("/jerklib/JerkLib.Properties"));
-			version = props.getProperty("version");
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Jerklib will answer CTCP VERSION requests automatically. This method allows
-	 * users to prepend a string to the version rely.
-	 * 
-	 * @param version
-	 *          The version string to use
-	 */
-	public static void setVersionString(String version)
-	{
-		if (version == null) { return; }
-		extendedVersion = version;
-	}
-
-	/**
-	 * gets the version string of library
-	 * 
-	 * @return Version string
-	 */
-
-	public static String getVersion()
-	{
-		if (extendedVersion.length() > 0) { return extendedVersion + " : " + version; }
-		return version;
-	}
-
+	
 	/* maps to index sessions by name and socketchannel */
 	final Map<String, Session> sessionMap = Collections.synchronizedMap(new HashMap<String, Session>());
 	final Map<SocketChannel, Session> socChanMap = Collections.synchronizedMap(new HashMap<SocketChannel, Session>());
@@ -110,12 +67,10 @@ public class ConnectionManager
 	private Selector selector;
 
 	/**
-	 * Only constructor - Takes a profile to use as default profile for new
+	 * Takes a profile to use as default profile for new
 	 * Connections
 	 * 
-	 * @param defaultProfile
-	 *          default user profile
-	 * @see Profile
+	 * @param defaultProfile default user profile
 	 * @see Profile
 	 */
 	public ConnectionManager(Profile defaultProfile)
@@ -226,7 +181,11 @@ public class ConnectionManager
 		RequestedConnection rCon = new RequestedConnection(hostName, port, profile);
 		Session session = new Session(rCon , this);
 
-		if (sessionMap.containsValue(session)) { throw new IllegalArgumentException("Already connected to " + hostName + " on same port with same profile"); }
+		if (sessionMap.containsValue(session)) 
+		{
+			System.err.println("Already connected to " + hostName + " on same port with same profile");
+			System.err.println("Connection request ignored [" + hostName + "]");
+		}
 
 		session.setInternalParser(internalEventParser);
 

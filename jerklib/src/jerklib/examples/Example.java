@@ -60,13 +60,8 @@ public class Example implements IRCEventListener
 		else if (e.getType() == Type.JOIN_COMPLETE)
 		{
 			JoinCompleteEvent jce = (JoinCompleteEvent) e;
-			/* say hello and version number */
-			jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
-		}
-		else if(e.getType() == Type.MODE_EVENT)
-		{
-			ModeEvent me = (ModeEvent)e;
-			System.out.println("MODE " + me.getModeType());
+			/* say hello */
+			jce.getChannel().say("Hello from Jerklib ");
 		}
 		else
 		{
