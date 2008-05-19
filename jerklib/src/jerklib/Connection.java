@@ -297,12 +297,6 @@ class Connection
                 return session;
             }
 
-            @SuppressWarnings ("unused")
-            public String getHostName()
-            {
-                return actualHostName;
-            }
-
             public String getRawEventData()
             {
                 return rawData;
