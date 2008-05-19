@@ -123,6 +123,7 @@ public interface IRCEvent
         AWAY_EVENT,
         ERROR,
         CTCP_EVENT,
+        CONNECTION_LOST,
         
         /**
          * a DCC Event.

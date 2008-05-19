@@ -1,6 +1,7 @@
 package jerklib;
 
 import jerklib.events.IRCEvent.Type;
+import jerklib.events.impl.ConnectionLostEventImpl;
 import jerklib.events.modes.ModeAdjustment;
 import jerklib.events.modes.ModeAdjustment.Action;
 import jerklib.listeners.IRCEventListener;
@@ -451,6 +452,8 @@ public class Session extends RequestGenerator
             con = null;
         }
         channelNames.clear();
+        
+        conman.addToRelayList(new ConnectionLostEventImpl(this));
     }
 
     void connected()

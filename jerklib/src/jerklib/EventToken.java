@@ -7,7 +7,9 @@ import java.util.List;
  * 
  * A Class to parse a line of IRC text
  * 
- * <pre> 
+ * <code>
+ * <pre>
+ *  
  * <message>  ::= [':' <prefix> <SPACE> ] <command> <params> <crlf>
  * <prefix>   ::= <servername> | <nick> [ '!' <user> ] [ '@' <host> ]
  * <command>  ::= <letter> { <letter> } | <number> <number> <number>
@@ -19,6 +21,7 @@ import java.util.List;
  * <trailing> ::= <Any, possibly *empty*, sequence of octets not including
  *                NUL or CR or LF>
  * </pre>
+ * </code>
  * 
  * 
  * @author mohadib

@@ -1,8 +1,5 @@
 package jerklib.examples;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import jerklib.ConnectionManager;
 import jerklib.Profile;
 import jerklib.Session;
@@ -16,7 +13,6 @@ import jerklib.listeners.IRCEventListener;
 public class Example implements IRCEventListener
 {
 	private ConnectionManager manager;
-	private Map<Session, String>map = new HashMap<Session, String>();
 	
 	
 	public Example()
@@ -33,8 +29,6 @@ public class Example implements IRCEventListener
 		 * networks
 		 */
 		Session session = manager.requestConnection("irc.freenode.net");
-		
-		map.put(session, "HELLO WORLD");
 		
 		/*
 		 * JerkLib fires IRCEvents to notify users of the lib of incoming events
@@ -56,7 +50,6 @@ public class Example implements IRCEventListener
 		
 		if (e.getType() == Type.CONNECT_COMPLETE)
 		{
-			//e.getSession().sayPrivate("nickserv", "ident efwh76");
 			e.getSession().join("#jerklib");
 		}
 		else if (e.getType() == Type.CHANNEL_MESSAGE)
@@ -69,7 +62,6 @@ public class Example implements IRCEventListener
 			JoinCompleteEvent jce = (JoinCompleteEvent) e;
 			/* say hello */
 			jce.getChannel().say("Hello from Jerklib ");
-			jce.getChannel().say(map.get(e.getSession()));
 			
 		}
 		else if(e.getType() == Type.NICK_IN_USE)
