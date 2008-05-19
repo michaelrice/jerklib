@@ -102,7 +102,7 @@ public class DefaultInternalEventParser implements InternalEventParser
 		parsers.put("375", motdParser);
 		parsers.put("376", motdParser);
 		
-		parsers.put("433", new NickInUseParser());
+		
 		
 		parsers.put("PRIVMSG", new PrivMsgParser());
 		parsers.put("QUIT" , new QuitParser());
@@ -121,5 +121,7 @@ public class DefaultInternalEventParser implements InternalEventParser
 		{
 			parsers.put(String.valueOf(i), errorParser);
 		}
+		
+		parsers.put("433", new NickInUseParser());
 	}
 }

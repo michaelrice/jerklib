@@ -505,14 +505,15 @@ public class Session extends RequestGenerator
     
     public int hashCode()
     {
-        return rCon.hashCode();
+        return rCon.getHostName().hashCode();
     }
 
     public boolean equals(Object o)
     {
         if (o instanceof Session && o.hashCode() == hashCode())
         {
-            return ((Session) o).getRequestedConnection().equals(rCon);
+            return ((Session) o).getRequestedConnection().getHostName().matches(getRequestedConnection().getHostName())
+            && ((Session) o).getNick().matches(getNick());
         }
         return false;
     }
