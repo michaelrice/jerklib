@@ -15,8 +15,7 @@ import jerklib.events.modes.ModeAdjustment.Action;
 /**
  * @author mohadib
  * 
- * Class currently handles Server level modes for use of the lib and channel
- * level modes for any user in a given channel.
+ * mode parser
  * 
  * developers see:
  * https://sourceforge.net/tracker/index.php?func=detail&aid=1962621&group_id=214803&atid=1031130
@@ -24,130 +23,43 @@ import jerklib.events.modes.ModeAdjustment.Action;
  */
 public class ModeParser implements CommandParser
 {
-	// :kubrick.freenode.net 324 mohadib__ #test +mnPzlfJ 101 #flood 1,2
-	private IRCEvent numericModeEvent(EventToken token, IRCEvent event)
+	//channel//  :mohadib_!n=mohadib@unaffiliated/mohadib MODE #jerklib +o scripyasas
+	//channel//  :kubrick.freenode.net 324 mohadib__ #test +mnPzlfJ 101 #flood 1,2
+	//usermode// :services. MODE mohadib :+e
+	
+	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
-		char[] modeTokens = token.arg(2).toCharArray();
-		String[] arguments = new String[0];
-		if(token.args().size() > 3)
-		{
-			arguments = token.args().subList(3, token.args().size()).toArray(arguments);
-		}
-		ServerInformation info = event.getSession().getServerInformation();
-		List<ModeAdjustment> modeAdjustments = new ArrayList<ModeAdjustment>();
-		char action = '+';
-		int argumntOffset = 0;
-		for (char mode : modeTokens)
-		{
-			if (mode == '+' || mode == '-')
-			{
-				action = mode;
-			}
-			else
-			{
-				ModeType type = info.getTypeForMode(String.valueOf(mode));
-				// must have an argument on + and -
-				if (type == ModeType.GROUP_A || type == ModeType.GROUP_B)
-				{
-					modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, arguments[argumntOffset]));
-					argumntOffset++;
-				}
-				// must have args on + , must not have args on -
-				else if (type == ModeType.GROUP_C)
-				{
-					if (action == '-')
-					{
-						modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, ""));
-					}
-					else
-					{
-						modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, arguments[argumntOffset]));
-						argumntOffset++;
-					}
-				}
-				// no args
-				else if (type == ModeType.GROUP_D)
-				{
-					modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, ""));
-				}
-				else
-				{
-					System.err.println("unreconzied mode " + mode);
-				}
-			}
-		}
-		
-		return new ModeEventImpl
-		(
-			ModeEvent.ModeType.CHANNEL, 
-			event.getRawEventData(), 
-			event.getSession(), 
-			modeAdjustments, 
-			"",
-			event.getSession().getChannel(token.arg(1))
-		);
-	}
-
-	// :services. MODE mohadib :+e
-	private IRCEvent userModeEvent(EventToken token, IRCEvent event)
-	{
-		List<ModeAdjustment> modeAdjustments = new ArrayList<ModeAdjustment>();
-		char action = '+';
-		int argumntOffset = 0;
-		char[] modeTokens = token.arg(1).toCharArray();
+		boolean userMode = token.numeric() != 324 && !event.getSession().isChannelToken(token.arg(0));
+		char[] modeTokens = new char[0];
 		String[] arguments = new String[0];
 		
-		//if size > 2 then mode adjustment has arguments
-		if(token.args().size() > 2)
+		int modeOffs = token.numeric() == 324?2:1;
+		modeTokens = token.arg(modeOffs).toCharArray();
+		
+		int size = token.args().size();
+		if(modeOffs + 1 < size)
 		{
-			arguments = token.args().subList(2, token.args().size()).toArray(arguments);
+			arguments = token.args().subList(modeOffs + 1, token.args().size()).toArray(arguments);
 		}
 		
+		int argumntOffset = 0;
+		char action = '+';
+		List<ModeAdjustment> modeAdjustments = new ArrayList<ModeAdjustment>();
+			
 		for (char mode : modeTokens)
 		{
 			if (mode == '+' || mode == '-') action = mode;
 			else
 			{
-				String argument = argumntOffset >= arguments.length? "":arguments[argumntOffset];
-				modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, argument));
-				argumntOffset++;
-			}
-		}
-
-		return new ModeEventImpl(ModeEvent.ModeType.USER, token.data(), event.getSession(), modeAdjustments , event.getSession().getConnectedHostName(), null);
-	}
-
-	
-	// :mohadib_!n=mohadib@unaffiliated/mohadib MODE #jerklib +o scripyasas
-	public IRCEvent createEvent(EventToken token, IRCEvent event)
-	{
-		if (token.numeric() == 324) return numericModeEvent(token, event);
-		else if (!event.getSession().isChannelToken(token.arg(0)))
-		{
-			return userModeEvent(token, event);
-		}
-		else
-		{
-			char[] modeTokens = token.arg(1).toCharArray();
-			String[] arguments = new String[0];
-			if(token.args().size() > 2)
-			{
-				arguments = token.args().subList(2, token.args().size()).toArray(arguments);
-			}
-			
-			ServerInformation info = event.getSession().getServerInformation();
-			List<ModeAdjustment> modeAdjustments = new ArrayList<ModeAdjustment>();
-			char action = '+';
-			int argumntOffset = 0;
-
-			for (char mode : modeTokens)
-			{
-				if (mode == '+' || mode == '-')
+				if(userMode)
 				{
-					action = mode;
+					String argument = argumntOffset >= arguments.length? "":arguments[argumntOffset];
+					modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, argument));
+					argumntOffset++;
 				}
 				else
 				{
+					ServerInformation info = event.getSession().getServerInformation();
 					ModeType type = info.getTypeForMode(String.valueOf(mode));
 					// must have an argument on + and -
 					if (type == ModeType.GROUP_A || type == ModeType.GROUP_B)
@@ -160,11 +72,11 @@ public class ModeParser implements CommandParser
 					{
 						if (action == '-')
 						{
-							modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, ""));
+							modeAdjustments.add(new ModeAdjustment(Action.MINUS, mode, ""));
 						}
 						else
 						{
-							modeAdjustments.add(new ModeAdjustment(action == '+' ? Action.PLUS : Action.MINUS, mode, arguments[argumntOffset]));
+							modeAdjustments.add(new ModeAdjustment(Action.PLUS, mode, arguments[argumntOffset]));
 							argumntOffset++;
 						}
 					}
@@ -179,16 +91,29 @@ public class ModeParser implements CommandParser
 					}
 				}
 			}
-
+		}
+			
+		if(userMode)
+		{
 			return new ModeEventImpl
 			(
-				ModeEvent.ModeType.CHANNEL, 
+				ModeEvent.ModeType.USER, 
 				event.getRawEventData(), 
 				event.getSession(), 
-				modeAdjustments, 
-				token.nick(),
-				event.getSession().getChannel(token.arg(0))
+				modeAdjustments , 
+				event.getSession().getConnectedHostName(), 
+				null
 			);
 		}
+			
+		return new ModeEventImpl
+		(
+			ModeEvent.ModeType.CHANNEL, 
+			event.getRawEventData(), 
+			event.getSession(), 
+			modeAdjustments, 
+			token.numeric() == 324 ? "" : token.nick(),
+			event.getSession().getChannel(token.numeric() == 324 ?token.arg(1):token.arg(0))
+		);
 	}
 }

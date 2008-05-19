@@ -30,7 +30,7 @@ public class Channel
 
     
     
-    /* This code assumes the only valid user modes can be found in PREFIX from serverinfo*/
+    /* This code assumes the only valid, trackworthy, user modes can be found in PREFIX from serverinfo*/
     void updateModes(List<ModeAdjustment> modes)
     {
     	ServerInformation info = session.getServerInformation();

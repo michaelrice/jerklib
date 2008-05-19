@@ -27,7 +27,7 @@ public class Example implements IRCEventListener
 		 * The Session is the main way users will interact with this library and IRC
 		 * networks
 		 */
-		Session session = manager.requestConnection("irc.dalnet.com");
+		Session session = manager.requestConnection("irc.freenode.net");
 		
 		
 		/*
@@ -59,7 +59,7 @@ public class Example implements IRCEventListener
 		{
 			JoinCompleteEvent jce = (JoinCompleteEvent) e;
 			/* say hello and version number */
-			jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
+			//jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
 		}
 		else
 		{
