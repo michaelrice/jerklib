@@ -443,6 +443,7 @@ public class Session extends RequestGenerator
 
     void disconnected()
     {
+    		if(state == State.DISCONNECTED)return;
         state = State.DISCONNECTED;
         if (con != null)
         {
