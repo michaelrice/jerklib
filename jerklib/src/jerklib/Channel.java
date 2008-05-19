@@ -30,7 +30,7 @@ public class Channel
 
     
     
-    /* This code assumes the only valid, trackworthy, user modes can be found in PREFIX from serverinfo*/
+    /* This code assumes the only valid, trackworthy, user-channel modes can be found in PREFIX from serverinfo*/
     void updateModes(List<ModeAdjustment> modes)
     {
     	ServerInformation info = session.getServerInformation();
@@ -100,7 +100,6 @@ public class Channel
 
     public List<ModeAdjustment> getUsersModes(String nick)
     {
-    		nick = getActualUserString(nick);
         if (userMap.containsKey(nick))
         {
             return new ArrayList<ModeAdjustment>(userMap.get(nick));
@@ -225,23 +224,13 @@ public class Channel
 
     boolean removeNick(String nick)
     {
-    	nick = getActualUserString(nick);
-    	if(nick != null)
-    	{
-    		return userMap.remove(nick) != null;
-    	}
-    		return false;
+    	return userMap.remove(nick) != null;
     }
 
-    //do channel modes follow when nick changes? yes :)
     void nickChanged(String oldNick, String newNick)
     {
-    		String nick = getActualUserString(oldNick);
-    		if(nick != null)
-    		{
-    			List<ModeAdjustment> modes = userMap.remove(nick);
-          userMap.put(newNick, modes);
-    		}
+    	List<ModeAdjustment> modes = userMap.remove(oldNick);
+      userMap.put(newNick, modes);
     }
 
     /* (non-Javadoc)
@@ -330,15 +319,6 @@ public class Channel
     public String toString()
     {
         return "[Channel: name=" + name + "]";
-    }
-
-
-    private String getActualUserString(String userName)
-    {
-    	List<String> nicks = getNicks();
-  		int index = nicks.indexOf(userName);
-  		if(index == -1) return null;
-  		return nicks.get(index);
     }
     
 }

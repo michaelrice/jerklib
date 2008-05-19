@@ -5,6 +5,7 @@ import jerklib.Profile;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
+import jerklib.events.MotdEvent;
 import jerklib.events.IRCEvent.Type;
 import jerklib.tasks.TaskImpl;
 
@@ -36,6 +37,27 @@ public class TaskExample
 				jce.getChannel().say("Hello from JerkLib!");
 			}
 		}, Type.JOIN_COMPLETE);
+		
+		
+		
+		/* Add a Task to be notified on MOTD and JoinComplete events */
+		session.onEvent(new TaskImpl("motd_join")
+		{
+			public void receiveEvent(IRCEvent e)
+			{
+				if(e.getType() == Type.MOTD)
+				{
+					MotdEvent me = (MotdEvent)e;
+					System.out.println(me.getMotdLine());
+				}
+				else
+				{
+					JoinCompleteEvent je = (JoinCompleteEvent)e;
+					je.getChannel().say("Yay tasks!");
+				}
+			}
+		}, Type.MOTD , Type.JOIN_COMPLETE);
+		
 		
 		
 		/* Add a Task that will be notified of all events */

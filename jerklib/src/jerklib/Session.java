@@ -16,509 +16,496 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
-
 /**
  * @author mohadib
  */
 public class Session extends RequestGenerator
 {
 
-    private final List<String> channelNames = new ArrayList<String>();
-    private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
-    private final Map<Type, List<Task>> taskMap = new HashMap<Type, List<Task>>();
-    private final RequestedConnection rCon;
-    private Connection con;
-    private final ConnectionManager conman;
-    private boolean rejoinOnKick = true, profileUpdating, isAway;
-    private Profile tmpProfile;
-    private long lastRetry = -1, lastResponse = System.currentTimeMillis();
-    private ServerInformation serverInfo = new ServerInformation();
-    private State state = State.DISCONNECTED;
-    private InternalEventParser parser;
-    private IRCEventListener internalEventHandler;
-    private List<ModeAdjustment>userModes = new ArrayList<ModeAdjustment>();
-    
-    public InternalEventParser getInternalEventParser()
-    {
-    	return parser;
-    }
-    
-    public void setInternalParser(InternalEventParser parser)
-    {
-    	this.parser = parser;
-    }
-    
-    public void setInternalEventHandler(IRCEventListener handler)
-    {
-    	internalEventHandler = handler;
-    }
-    
-    public IRCEventListener getInternalEventHandler()
-    {
-    	return internalEventHandler;
-    }
-    
-    
-    void updateUserModes(List<ModeAdjustment>modes)
-    {
-    	for(ModeAdjustment ma : modes)
-    	{
-    		updateUserMode(ma);
-    	}
-    }
-    
-    
-    /**
-     * If Action is MINUS and the same mode exists with a PLUS Action
-     * then just remove the PLUS mode ModeAdjustment from the collection.
-     * 
-     * If Action is MINUS and the same mode with PLUS does not exist
-     * then add the MINUS mode to the ModeAdjustment collection
-     * 
-     * if Action is PLUS and the same mode exists with a MINUS Action
-     * then remove MINUS mode and add PLUS mode
-     * 
-     * If Action is PLUS and the same mode with MINUS does not exist
-     * then just add PLUS mode to collection
-     * 
-     * @param mode
-     */
-    private void updateUserMode(ModeAdjustment mode)
-    {
-    	int index = indexOfMode(mode.getMode(), userModes);
-    	
-    	if(mode.getAction() == Action.MINUS)
-    	{
-    		if(index != -1)
-    		{
-    			ModeAdjustment ma = userModes.remove(index);
-    			if(ma.getAction() == Action.MINUS) 
-    				userModes.add(ma);
-    		}
-    		else
-    		{
-    			userModes.add(mode);
-    		}
-    	}
-    	else
-    	{
-    		if(index != -1) userModes.remove(index);
-    		userModes.add(mode);
-    	}
-    }
-    
-    
-    private int indexOfMode(char mode , List<ModeAdjustment>modes)
-    {
-    	for(int i = 0 ; i < modes.size(); i++)
-    	{
-    		ModeAdjustment ma = modes.get(i);
-    		if(ma.getMode() == mode) return i;
-    	}
-    	return -1;
-    }
-    
+	private final List<String> channelNames = new ArrayList<String>();
+	private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
+	private final Map<Type, List<Task>> taskMap = new HashMap<Type, List<Task>>();
+	private final RequestedConnection rCon;
+	private Connection con;
+	private final ConnectionManager conman;
+	private boolean rejoinOnKick = true, profileUpdating, isAway;
+	private Profile tmpProfile;
+	private long lastRetry = -1, lastResponse = System.currentTimeMillis();
+	private ServerInformation serverInfo = new ServerInformation();
+	private State state = State.DISCONNECTED;
+	private InternalEventParser parser;
+	private IRCEventListener internalEventHandler;
+	private List<ModeAdjustment> userModes = new ArrayList<ModeAdjustment>();
 
-    public List<ModeAdjustment> getUserModes()
-    {
-    	return new ArrayList<ModeAdjustment>(userModes);
-    }
-    
-    
-    
-    /* a Map to index currently joined channels by name */
-    private final Map<String, Channel> channelMap = new HashMap<String, Channel>();
+	public InternalEventParser getInternalEventParser()
+	{
+		return parser;
+	}
 
-    public void sayChannel(Channel channel, String msg)
-    {
-        super.sayChannel(msg, channel);
-    }
+	public void setInternalParser(InternalEventParser parser)
+	{
+		this.parser = parser;
+	}
 
-    enum State
-    {
-        CONNECTED,
-        CONNECTING,
-        HALF_CONNECTED,
-        DISCONNECTED,
-        MARKED_FOR_REMOVAL,
-        NEED_TO_PING,
-        PING_SENT,
-        NEED_TO_RECONNECT
-    }
+	public void setInternalEventHandler(IRCEventListener handler)
+	{
+		internalEventHandler = handler;
+	}
 
-    Session(RequestedConnection rCon , ConnectionManager conman)
-    {
-        this.rCon = rCon;
-        this.conman = conman;
-    }
+	public IRCEventListener getInternalEventHandler()
+	{
+		return internalEventHandler;
+	}
 
-    /* general methods */
+	void updateUserModes(List<ModeAdjustment> modes)
+	{
+		for (ModeAdjustment ma : modes)
+		{
+			updateUserMode(ma);
+		}
+	}
 
-    public boolean isConnected()
-    {
-        return state == State.CONNECTED;
-    }
+	/**
+	 * If Action is MINUS and the same mode exists with a PLUS Action then just
+	 * remove the PLUS mode ModeAdjustment from the collection.
+	 * 
+	 * If Action is MINUS and the same mode with PLUS does not exist then add the
+	 * MINUS mode to the ModeAdjustment collection
+	 * 
+	 * if Action is PLUS and the same mode exists with a MINUS Action then remove
+	 * MINUS mode and add PLUS mode
+	 * 
+	 * If Action is PLUS and the same mode with MINUS does not exist then just add
+	 * PLUS mode to collection
+	 * 
+	 * @param mode
+	 */
+	private void updateUserMode(ModeAdjustment mode)
+	{
+		int index = indexOfMode(mode.getMode(), userModes);
 
-    public boolean isRejoinOnKick()
-    {
-        return rejoinOnKick;
-    }
+		if (mode.getAction() == Action.MINUS)
+		{
+			if (index != -1)
+			{
+				ModeAdjustment ma = userModes.remove(index);
+				if (ma.getAction() == Action.MINUS) userModes.add(ma);
+			}
+			else
+			{
+				userModes.add(mode);
+			}
+		}
+		else
+		{
+			if (index != -1) userModes.remove(index);
+			userModes.add(mode);
+		}
+	}
 
-    public void setRejoinOnKick(boolean rejoin)
-    {
-        rejoinOnKick = rejoin;
-    }
+	private int indexOfMode(char mode, List<ModeAdjustment> modes)
+	{
+		for (int i = 0; i < modes.size(); i++)
+		{
+			ModeAdjustment ma = modes.get(i);
+			if (ma.getMode() == mode) return i;
+		}
+		return -1;
+	}
 
-    public void close(String quitMessage)
-    {
-        if (con != null)
-        {
-            con.quit(quitMessage);
-            conman.removeSession(this);
-        }
-    }
+	public List<ModeAdjustment> getUserModes()
+	{
+		return new ArrayList<ModeAdjustment>(userModes);
+	}
 
-    public String getNick()
-    {
-        return getRequestedConnection().getProfile().getActualNick();
-    }
+	/* a Map to index currently joined channels by name */
+	private final Map<String, Channel> channelMap = new HashMap<String, Channel>();
 
-    public void changeProfile(Profile profile)
-    {
-        tmpProfile = profile;
-        profileUpdating = true;
-        super.changeNick(tmpProfile.getActualNick());
-    }
+	public void sayChannel(Channel channel, String msg)
+	{
+		super.sayChannel(msg, channel);
+	}
 
-    public void changeNick(String newNick)
-    {
-    	tmpProfile = rCon.getProfile().clone();
-    	tmpProfile.setActualNick(newNick);
-    	tmpProfile.setFirstNick(newNick);
-    	profileUpdating = true;
-    	super.changeNick(newNick);
-    }
-    
-    public boolean isProfileUpdating()
-    {
-        return profileUpdating;
-    }
+	enum State
+	{
+		CONNECTED, CONNECTING, HALF_CONNECTED, DISCONNECTED, MARKED_FOR_REMOVAL, NEED_TO_PING, PING_SENT, NEED_TO_RECONNECT
+	}
 
-    public void kick(String userName, String reason, Channel channel)
-    {
-        if (reason == null || reason.length() == 0)
-        {
-            reason = getNick();
-        }
-        super.kick(userName, reason, channel);
-    }
+	Session(RequestedConnection rCon, ConnectionManager conman)
+	{
+		this.rCon = rCon;
+		this.conman = conman;
+	}
 
-    public boolean isAway()
-    {
-        return isAway;
-    }
+	/* general methods */
 
-    public void setAway(String message)
-    {
-        isAway = true;
-        super.setAway(message);
-    }
+	public boolean isConnected()
+	{
+		return state == State.CONNECTED;
+	}
 
-    public void unsetAway()
-    {
-        /* if we're not away let's not bother even delegating */
-        if (isAway)
-        {
-            super.unSetAway();
-            isAway = false;
-        }
-    }
+	public boolean isRejoinOnKick()
+	{
+		return rejoinOnKick;
+	}
 
-    /* methods to get information about connection and server */
+	public void setRejoinOnKick(boolean rejoin)
+	{
+		rejoinOnKick = rejoin;
+	}
 
-    public ServerInformation getServerInformation()
-    {
-        return serverInfo;
-    }
+	public void close(String quitMessage)
+	{
+		if (con != null)
+		{
+			con.quit(quitMessage);
+			conman.removeSession(this);
+		}
+	}
 
-    public RequestedConnection getRequestedConnection()
-    {
-        return rCon;
-    }
+	public String getNick()
+	{
+		return getRequestedConnection().getProfile().getActualNick();
+	}
 
-    public String getConnectedHostName()
-    {
-        return con.getHostName();
-    }
+	public void changeProfile(Profile profile)
+	{
+		tmpProfile = profile;
+		profileUpdating = true;
+		super.changeNick(tmpProfile.getActualNick());
+	}
 
-    /* methods for adding/removing IRCEventListeners and Tasks */
-    public void addIRCEventListener(IRCEventListener listener)
-    {
-        listenerList.add(listener);
-    }
+	public void changeNick(String newNick)
+	{
+		tmpProfile = rCon.getProfile().clone();
+		tmpProfile.setActualNick(newNick);
+		tmpProfile.setFirstNick(newNick);
+		profileUpdating = true;
+		super.changeNick(newNick);
+	}
 
-    public void removeIRCEventListener(IRCEventListener listener)
-    {
-        listenerList.remove(listener);
-    }
+	public boolean isProfileUpdating()
+	{
+		return profileUpdating;
+	}
 
-    public Collection<IRCEventListener> getIRCEventListeners()
-    {
-        return Collections.unmodifiableCollection(listenerList);
-    }
+	public void kick(String userName, String reason, Channel channel)
+	{
+		if (reason == null || reason.length() == 0)
+		{
+			reason = getNick();
+		}
+		super.kick(userName, reason, channel);
+	}
 
-    /**
-     * Chances are you'll never need this. (But tests will.)
-     */
-    protected void clearListeners()
-    {
+	public boolean isAway()
+	{
+		return isAway;
+	}
 
-        listenerList.clear();
-    }
+	public void setAway(String message)
+	{
+		isAway = true;
+		super.setAway(message);
+	}
 
+	public void unsetAway()
+	{
+		/* if we're not away let's not bother even delegating */
+		if (isAway)
+		{
+			super.unSetAway();
+			isAway = false;
+		}
+	}
 
-    public void onEvent(Task task)
-    {
-        // null means task should be notified of all Events
-        onEvent(task, null);
-    }
+	/* methods to get information about connection and server */
 
-    public void onEvent(Task task, Type type)
-    {
-        synchronized (taskMap)
-        {
-            if (!taskMap.containsKey(type))
-            {
-                List<Task> tasks = new ArrayList<Task>();
-                tasks.add(task);
-                taskMap.put(type, tasks);
-            }
-            else
-            {
-                if (!taskMap.get(type).contains(task))
-                {
-                    taskMap.get(type).add(task);
-                }
-            }
-        }
-    }
+	public ServerInformation getServerInformation()
+	{
+		return serverInfo;
+	}
 
-    Map<Type, List<Task>> getTasks()
-    {
-        return new HashMap<Type, List<Task>>(taskMap);
-    }
+	public RequestedConnection getRequestedConnection()
+	{
+		return rCon;
+	}
 
-    /**
-     * Chances are you'll never need this. (But testing does.)
-     */
-    protected void clearTasks()
-    {
-        taskMap.clear();
-    }
+	public String getConnectedHostName()
+	{
+		return con.getHostName();
+	}
 
-    public void removeTask(Task t)
-    {
-        synchronized (taskMap)
-        {
-            for (Iterator<Type> it = taskMap.keySet().iterator(); it.hasNext();)
-            {
-                List<Task> tasks = taskMap.get(it.next());
-                if (tasks != null)
-                {
-                    tasks.remove(t);
-                }
-            }
-        }
-    }
+	/* methods for adding/removing IRCEventListeners and Tasks */
+	public void addIRCEventListener(IRCEventListener listener)
+	{
+		listenerList.add(listener);
+	}
 
-    void updateProfileSuccessfully(boolean success)
-    {
-        if (success)
-        {
-            rCon.setProfile(tmpProfile);
-        }
-        tmpProfile = null;
-        profileUpdating = false;
-    }
+	public void removeIRCEventListener(IRCEventListener listener)
+	{
+		listenerList.remove(listener);
+	}
 
-    /* Channel methods */
+	public Collection<IRCEventListener> getIRCEventListeners()
+	{
+		return Collections.unmodifiableCollection(listenerList);
+	}
 
-    public List<Channel> getChannels()
-    {
-        return Collections.unmodifiableList(new ArrayList<Channel>(channelMap.values()));
-    }
+	/**
+	 * Chances are you'll never need this. (But tests will.)
+	 */
+	protected void clearListeners()
+	{
 
-    public Channel getChannel(String channelName)
-    {
-        Channel chan = channelMap.get(channelName);
-        return chan == null? channelMap.get(channelName.toLowerCase()) : chan;
-    }
+		listenerList.clear();
+	}
 
-    public List<String> getChannelNames()
-    {
-        return Collections.unmodifiableList(channelNames);
-    }
+	/**
+	 * Add a task to be ran when any IRCEvent is received
+	 * @param task
+	 */
+	public void onEvent(Task task)
+	{
+		// null means task should be notified of all Events
+		onEvent(task, (Type) null);
+	}
 
-    void addChannel(Channel channel)
-    {
-        channelMap.put(channel.getName(), channel);
-    }
+	
+	/**
+	 * Add a task to be ran when any of the given Types 
+	 * of IRCEvents are received
+	 * 
+	 * @param task - task to run
+	 * @param types - types of events task should run on
+	 */
+	public void onEvent(Task task, Type... types)
+	{
+		synchronized (taskMap)
+		{
+			for (Type type : types)
+			{
+				if (!taskMap.containsKey(type))
+				{
+					List<Task> tasks = new ArrayList<Task>();
+					tasks.add(task);
+					taskMap.put(type, tasks);
+				}
+				else
+				{
+					taskMap.get(type).add(task);
+				}
+			}
+		}
+	}
 
+	Map<Type, List<Task>> getTasks()
+	{
+		return new HashMap<Type, List<Task>>(taskMap);
+	}
 
-    void removeChannel(Channel channel)
-    {
-        channelMap.remove(channel.getName());
-    }
+	/**
+	 * Chances are you'll never need this. (But testing does.)
+	 */
+	protected void clearTasks()
+	{
+		taskMap.clear();
+	}
 
+	public void removeTask(Task t)
+	{
+		synchronized (taskMap)
+		{
+			for (Iterator<Type> it = taskMap.keySet().iterator(); it.hasNext();)
+			{
+				List<Task> tasks = taskMap.get(it.next());
+				if (tasks != null)
+				{
+					tasks.remove(t);
+				}
+			}
+		}
+	}
 
-    void nickChanged(String oldNick, String newNick)
-    {
-        /*
-          if (log.isLoggable(Level.INFO))
-          {
-              log.info("Looking for " + oldNick);
-          }
-          */
-        synchronized (channelMap)
-        {
-            for (Channel chan : channelMap.values())
-            {
-                if (chan.getNicks().contains(oldNick))
-                {
-                    //	log.severe("Found nick in " + chan.getName());
-                    chan.nickChanged(oldNick, newNick);
-                }
-            }
-        }
-    }
+	void updateProfileSuccessfully(boolean success)
+	{
+		if (success)
+		{
+			rCon.setProfile(tmpProfile);
+		}
+		tmpProfile = null;
+		profileUpdating = false;
+	}
 
-    public List<Channel> removeNickFromAllChannels(String nick)
-    {
-        List<Channel> returnList = new ArrayList<Channel>();
-        for (Channel chan : channelMap.values())
-        {
-            if (chan.removeNick(nick))
-            {
-                returnList.add(chan);
-            }
-        }
-        return returnList;
-    }
+	/* Channel methods */
 
-    /* methods to track connection attempts */
+	public List<Channel> getChannels()
+	{
+		return Collections.unmodifiableList(new ArrayList<Channel>(channelMap.values()));
+	}
 
-    long getLastRetry()
-    {
-        return lastRetry;
-    }
+	public Channel getChannel(String channelName)
+	{
+		Channel chan = channelMap.get(channelName);
+		return chan == null ? channelMap.get(channelName.toLowerCase()) : chan;
+	}
 
-    void retried()
-    {
-        lastRetry = System.currentTimeMillis();
-    }
+	public List<String> getChannelNames()
+	{
+		return Collections.unmodifiableList(channelNames);
+	}
 
-    /* methods to get/set Connection object */
-    void setConnection(Connection con)
-    {
-        this.con = con;
-        super.setConnection(con);
-    }
+	void addChannel(Channel channel)
+	{
+		channelMap.put(channel.getName(), channel);
+	}
 
-    Connection getConnection()
-    {
-        return con;
-    }
+	void removeChannel(Channel channel)
+	{
+		channelMap.remove(channel.getName());
+	}
 
-    /* Methods to get and set the state of the session */
+	void nickChanged(String oldNick, String newNick)
+	{
+		/*
+		 * if (log.isLoggable(Level.INFO)) { log.info("Looking for " + oldNick); }
+		 */
+		synchronized (channelMap)
+		{
+			for (Channel chan : channelMap.values())
+			{
+				if (chan.getNicks().contains(oldNick))
+				{
+					// log.severe("Found nick in " + chan.getName());
+					chan.nickChanged(oldNick, newNick);
+				}
+			}
+		}
+	}
 
-    void gotResponse()
-    {
-        lastResponse = System.currentTimeMillis();
-        state = State.CONNECTED;
-    }
+	public List<Channel> removeNickFromAllChannels(String nick)
+	{
+		List<Channel> returnList = new ArrayList<Channel>();
+		for (Channel chan : channelMap.values())
+		{
+			if (chan.removeNick(nick))
+			{
+				returnList.add(chan);
+			}
+		}
+		return returnList;
+	}
 
-    void pingSent()
-    {
-        state = State.PING_SENT;
-    }
+	/* methods to track connection attempts */
 
-    void disconnected()
-    {
-    		if(state == State.DISCONNECTED)return;
-        state = State.DISCONNECTED;
-        if (con != null)
-        {
-            con.quit("");
-            con = null;
-        }
-        channelNames.clear();
-        
-        conman.addToRelayList(new ConnectionLostEventImpl(this));
-    }
+	long getLastRetry()
+	{
+		return lastRetry;
+	}
 
-    void connected()
-    {
-        gotResponse();
-    }
+	void retried()
+	{
+		lastRetry = System.currentTimeMillis();
+	}
 
-    void connecting()
-    {
-        state = State.CONNECTING;
-    }
+	/* methods to get/set Connection object */
+	void setConnection(Connection con)
+	{
+		this.con = con;
+		super.setConnection(con);
+	}
 
-    void halfConnected()
-    {
-        state = State.HALF_CONNECTED;
-    }
+	Connection getConnection()
+	{
+		return con;
+	}
 
-    void markForRemoval()
-    {
-        state = State.MARKED_FOR_REMOVAL;
-    }
+	/* Methods to get and set the state of the session */
 
-    State getState()
-    {
-        long current = System.currentTimeMillis();
-        
-        if(state == State.DISCONNECTED) return state;
-        
-        if (current - lastResponse > 300000 && state == State.NEED_TO_PING)
-        {
-            state = State.NEED_TO_RECONNECT;
-        }
-        else if (current - lastResponse > 200000 && state != State.PING_SENT)
-        {
-            state = State.NEED_TO_PING;
-        }
+	void gotResponse()
+	{
+		lastResponse = System.currentTimeMillis();
+		state = State.CONNECTED;
+	}
 
-        return state;
-    }
+	void pingSent()
+	{
+		state = State.PING_SENT;
+	}
 
-    
-  	public boolean isChannelToken(String token)
-  	{
-  		ServerInformation serverInfo = getServerInformation();
-  		String[] chanPrefixes = serverInfo.getChannelPrefixes();
-  		for (String prefix : chanPrefixes)
-  		{
-  			if (token.startsWith(prefix)) { return true; }
-  		}
-  		return false;
-  	}
-    
-    public int hashCode()
-    {
-        return rCon.getHostName().hashCode();
-    }
+	void disconnected()
+	{
+		if (state == State.DISCONNECTED) return;
+		state = State.DISCONNECTED;
+		if (con != null)
+		{
+			con.quit("");
+			con = null;
+		}
+		channelNames.clear();
 
-    public boolean equals(Object o)
-    {
-        if (o instanceof Session && o.hashCode() == hashCode())
-        {
-            return ((Session) o).getRequestedConnection().getHostName().matches(getRequestedConnection().getHostName())
-            && ((Session) o).getNick().matches(getNick());
-        }
-        return false;
-    }
+		conman.addToRelayList(new ConnectionLostEventImpl(this));
+	}
+
+	void connected()
+	{
+		gotResponse();
+	}
+
+	void connecting()
+	{
+		state = State.CONNECTING;
+	}
+
+	void halfConnected()
+	{
+		state = State.HALF_CONNECTED;
+	}
+
+	void markForRemoval()
+	{
+		state = State.MARKED_FOR_REMOVAL;
+	}
+
+	State getState()
+	{
+		long current = System.currentTimeMillis();
+
+		if (state == State.DISCONNECTED) return state;
+
+		if (current - lastResponse > 300000 && state == State.NEED_TO_PING)
+		{
+			state = State.NEED_TO_RECONNECT;
+		}
+		else if (current - lastResponse > 200000 && state != State.PING_SENT)
+		{
+			state = State.NEED_TO_PING;
+		}
+
+		return state;
+	}
+
+	public boolean isChannelToken(String token)
+	{
+		ServerInformation serverInfo = getServerInformation();
+		String[] chanPrefixes = serverInfo.getChannelPrefixes();
+		for (String prefix : chanPrefixes)
+		{
+			if (token.startsWith(prefix)) { return true; }
+		}
+		return false;
+	}
+
+	public int hashCode()
+	{
+		return rCon.getHostName().hashCode();
+	}
+
+	public boolean equals(Object o)
+	{
+		if (o instanceof Session && o.hashCode() == hashCode()) { return ((Session) o).getRequestedConnection().getHostName().matches(getRequestedConnection().getHostName())
+				&& ((Session) o).getNick().matches(getNick()); }
+		return false;
+	}
 
 }
