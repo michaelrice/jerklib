@@ -14,6 +14,7 @@ import jerklib.util.IdentServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.channels.CancelledKeyException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
@@ -225,7 +226,7 @@ public class ConnectionManager
 		if (sessionMap.containsKey(hostName)) { throw new IllegalArgumentException("Duplicate hostnames are not allowed"); }
 
 		RequestedConnection rCon = new RequestedConnection(hostName, port, profile);
-		Session session = new Session(rCon);
+		Session session = new Session(rCon , this);
 
 		if (sessionMap.containsValue(session)) { throw new IllegalArgumentException("Already connected to " + hostName + " on same port with same profile"); }
 
@@ -251,7 +252,7 @@ public class ConnectionManager
 
 		dispatchTimer.cancel();
 
-		for (Session session : sessionMap.values())
+		for (Session session : new ArrayList<Session>(sessionMap.values()))
 		{
 			session.close(quitMsg);
 		}
@@ -408,25 +409,34 @@ public class ConnectionManager
 				while (it.hasNext())
 				{
 					SelectionKey key = it.next();
-
+					
+					Session session = socChanMap.get(key.channel());
+					
 					it.remove();
 
-					if (!key.isValid())
+					try
 					{
-						continue;
-					}
+						if (!key.isValid())
+						{
+							continue;
+						}
 
-					if (key.isReadable())
-					{
-						socChanMap.get(key.channel()).getConnection().read();
+						if (key.isReadable())
+						{
+							socChanMap.get(key.channel()).getConnection().read();
+						}
+						if (key.isWritable())
+						{
+							socChanMap.get(key.channel()).getConnection().doWrites();
+						}
+						if (key.isConnectable())
+						{
+							finishConnection(key);
+						}
 					}
-					if (key.isWritable())
+					catch (CancelledKeyException ke) 
 					{
-						socChanMap.get(key.channel()).getConnection().doWrites();
-					}
-					if (key.isConnectable())
-					{
-						finishConnection(key);
+						session.disconnected();
 					}
 				}
 			}
@@ -635,8 +645,7 @@ public class ConnectionManager
 
 					try
 					{
-						// System.err.println("Trying to connect to " +
-						// session.getRequestedConnection().getHostName());
+						System.err.println("Trying to connect to " +session.getRequestedConnection().getHostName());
 						session.retried();
 						connect(session);
 					}

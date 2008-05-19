@@ -30,7 +30,7 @@ public class MockConnectionManager extends ConnectionManager
 
 	public Session requestConnection(String hostName, int port, Profile profile , String inputFile , String outputFile)
 	{
-		Session session = new Session(new RequestedConnection(hostName , port , profile));
+		Session session = new Session(new RequestedConnection(hostName , port , profile) , this);
 		
 		InternalEventParser parser = new DefaultInternalEventParser();
 		session.setInternalParser(parser);

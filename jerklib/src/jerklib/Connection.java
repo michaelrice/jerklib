@@ -273,8 +273,6 @@ class Connection
             // clear out write queue
             doWrites();
 
-            manager.removeSession(session);
-
             socChannel.close();
 
         }

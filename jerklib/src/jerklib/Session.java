@@ -27,6 +27,7 @@ public class Session extends RequestGenerator
     private final Map<Type, List<Task>> taskMap = new HashMap<Type, List<Task>>();
     private final RequestedConnection rCon;
     private Connection con;
+    private final ConnectionManager conman;
     private boolean rejoinOnKick = true, profileUpdating, isAway;
     private Profile tmpProfile;
     private long lastRetry = -1, lastResponse = System.currentTimeMillis();
@@ -144,9 +145,10 @@ public class Session extends RequestGenerator
         NEED_TO_RECONNECT
     }
 
-    Session(RequestedConnection rCon)
+    Session(RequestedConnection rCon , ConnectionManager conman)
     {
         this.rCon = rCon;
+        this.conman = conman;
     }
 
     /* general methods */
@@ -171,6 +173,7 @@ public class Session extends RequestGenerator
         if (con != null)
         {
             con.quit(quitMessage);
+            conman.removeSession(this);
         }
     }
 
@@ -472,7 +475,9 @@ public class Session extends RequestGenerator
     State getState()
     {
         long current = System.currentTimeMillis();
-
+        
+        if(state == State.DISCONNECTED) return state;
+        
         if (current - lastResponse > 300000 && state == State.NEED_TO_PING)
         {
             state = State.NEED_TO_RECONNECT;
