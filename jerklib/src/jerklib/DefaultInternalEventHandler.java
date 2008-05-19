@@ -190,6 +190,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		else
 		{
 			//user mode
+			me.getSession().updateUserModes(me.getModeAdjustments());
 		}
 	}
 	

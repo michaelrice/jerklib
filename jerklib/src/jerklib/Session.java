@@ -1,6 +1,8 @@
 package jerklib;
 
 import jerklib.events.IRCEvent.Type;
+import jerklib.events.modes.ModeAdjustment;
+import jerklib.events.modes.ModeAdjustment.Action;
 import jerklib.listeners.IRCEventListener;
 import jerklib.parsers.InternalEventParser;
 import jerklib.tasks.Task;
@@ -32,6 +34,7 @@ public class Session extends RequestGenerator
     private State state = State.DISCONNECTED;
     private InternalEventParser parser;
     private IRCEventListener internalEventHandler;
+    private List<ModeAdjustment>userModes = new ArrayList<ModeAdjustment>();
     
     public InternalEventParser getInternalEventParser()
     {
@@ -52,6 +55,73 @@ public class Session extends RequestGenerator
     {
     	return internalEventHandler;
     }
+    
+    
+    void updateUserModes(List<ModeAdjustment>modes)
+    {
+    	for(ModeAdjustment ma : modes)
+    	{
+    		updateUserMode(ma);
+    	}
+    }
+    
+    
+    /**
+     * If Action is MINUS and the same mode exists with a PLUS Action
+     * then just remove the PLUS mode ModeAdjustment from the collection.
+     * 
+     * If Action is MINUS and the same mode with PLUS does not exist
+     * then add the MINUS mode to the ModeAdjustment collection
+     * 
+     * if Action is PLUS and the same mode exists with a MINUS Action
+     * then remove MINUS mode and add PLUS mode
+     * 
+     * If Action is PLUS and the same mode with MINUS does not exist
+     * then just add PLUS mode to collection
+     * 
+     * @param mode
+     */
+    private void updateUserMode(ModeAdjustment mode)
+    {
+    	int index = indexOfMode(mode.getMode(), userModes);
+    	
+    	if(mode.getAction() == Action.MINUS)
+    	{
+    		if(index != -1)
+    		{
+    			ModeAdjustment ma = userModes.remove(index);
+    			if(ma.getAction() == Action.MINUS) 
+    				userModes.add(ma);
+    		}
+    		else
+    		{
+    			userModes.add(mode);
+    		}
+    	}
+    	else
+    	{
+    		if(index != -1) userModes.remove(index);
+    		userModes.add(mode);
+    	}
+    }
+    
+    
+    private int indexOfMode(char mode , List<ModeAdjustment>modes)
+    {
+    	for(int i = 0 ; i < modes.size(); i++)
+    	{
+    		ModeAdjustment ma = modes.get(i);
+    		if(ma.getMode() == mode) return i;
+    	}
+    	return -1;
+    }
+    
+
+    public List<ModeAdjustment> getUserModes()
+    {
+    	return new ArrayList<ModeAdjustment>(userModes);
+    }
+    
     
     
     /* a Map to index currently joined channels by name */

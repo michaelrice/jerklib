@@ -103,7 +103,7 @@ public class Channel
     		nick = getActualUserString(nick);
         if (userMap.containsKey(nick))
         {
-            return userMap.get(nick);
+            return new ArrayList<ModeAdjustment>(userMap.get(nick));
         }
         else
         {
@@ -125,6 +125,10 @@ public class Channel
         return nicks;
     }
 
+    public List<ModeAdjustment> getChannelModes()
+    {
+    	return new ArrayList<ModeAdjustment>(channelModes);
+    }
 
     /* (non-Javadoc)
       * @see jerklib.Channel#getTopic()
