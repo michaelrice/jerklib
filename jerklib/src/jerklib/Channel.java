@@ -170,7 +170,11 @@ public class Channel
         this.topicEvent = topicEvent;
     }
 
-
+    public void mode(String mode)
+    {
+    	session.mode(name, mode);
+    }
+    
     /* (non-Javadoc)
       * @see jerklib.Channel#getName()
       */

@@ -10,10 +10,6 @@ class RequestGenerator
 		this.con = con;
 	}
 
-	RequestGenerator()
-	{
-	}
-
 	public void whois(String nick)
 	{
 		con.addWriteRequest(new WriteRequest("WHOIS " + nick, con));
@@ -98,14 +94,9 @@ class RequestGenerator
 		con.addWriteRequest(new WriteRequest("NICK " + nick, con));
 	}
 
-	public void mode(Channel channel, String mode)
+	public void mode(String target , String mode)
 	{
-		con.addWriteRequest(new WriteRequest("MODE " + channel.getName() + " " + mode, con));
-	}
-
-	public void mode(String userName, Channel channel, String mode)
-	{
-		con.addWriteRequest(new WriteRequest("MODE " + channel.getName() + " " + mode + " " + userName, con));
+		con.addWriteRequest(new WriteRequest("MODE " + target + " " + mode, con));
 	}
 
 	public void deVoice(String userName, Channel channel)
