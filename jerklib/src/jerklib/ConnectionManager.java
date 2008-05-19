@@ -122,8 +122,6 @@ public class ConnectionManager
 	{
 		this.defaultProfile = defaultProfile;
 
-		// if(dontParse)parser = new MinimalEventParser(this);
-
 		try
 		{
 			selector = Selector.open();
@@ -409,9 +407,7 @@ public class ConnectionManager
 				while (it.hasNext())
 				{
 					SelectionKey key = it.next();
-					
 					Session session = socChanMap.get(key.channel());
-					
 					it.remove();
 
 					try
@@ -645,7 +641,6 @@ public class ConnectionManager
 
 					try
 					{
-						System.err.println("Trying to connect to " +session.getRequestedConnection().getHostName());
 						session.retried();
 						connect(session);
 					}

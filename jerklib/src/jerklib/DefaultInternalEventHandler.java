@@ -87,6 +87,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	{
 		JoinCompleteEvent jce = (JoinCompleteEvent)e;
 		e.getSession().addChannel(jce.getChannel());
+		jce.getSession().sayRaw("MODE " + jce.getChannel().getName());
 	}
 	
 	public void join(IRCEvent e)

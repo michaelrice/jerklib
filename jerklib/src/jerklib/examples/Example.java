@@ -5,6 +5,7 @@ import jerklib.Profile;
 import jerklib.Session;
 import jerklib.events.*;
 import jerklib.events.IRCEvent.Type;
+import jerklib.events.modes.ModeEvent;
 import jerklib.listeners.IRCEventListener;
 
 /**
@@ -19,7 +20,7 @@ public class Example implements IRCEventListener
 		/*
 		 * ConnectionManager takes a Profile to use for new connections.
 		 */
-		manager = new ConnectionManager(new Profile("scripy"));
+		manager = new ConnectionManager(new Profile("fran"));
 		
 		/*
 		 * One instance of ConnectionManager can connect to many IRC networks.
@@ -48,6 +49,7 @@ public class Example implements IRCEventListener
 	{
 		if (e.getType() == Type.CONNECT_COMPLETE)
 		{
+			//e.getSession().sayPrivate("nickserv", "ident efwh76");
 			e.getSession().join("#jerklib");
 		}
 		else if (e.getType() == Type.CHANNEL_MESSAGE)
@@ -60,6 +62,11 @@ public class Example implements IRCEventListener
 			JoinCompleteEvent jce = (JoinCompleteEvent) e;
 			/* say hello and version number */
 			jce.getChannel().say("Hello from Jerklib " + ConnectionManager.getVersion());
+		}
+		else if(e.getType() == Type.MODE_EVENT)
+		{
+			ModeEvent me = (ModeEvent)e;
+			System.out.println("MODE " + me.getModeType());
 		}
 		else
 		{
