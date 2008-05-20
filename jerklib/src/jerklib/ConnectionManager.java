@@ -32,12 +32,11 @@ import java.util.Collection;
 /**
  * @author mohadib 
  * 
- * <p/> This class is used to control/store Sessions/Connection. <p/>
- * Request new connections with this class
+ * <p/> This class is used to control/store Sessions/Connections. <p/>
+ * Request new connections with this class.
  */
 public class ConnectionManager
 {
-	
 	/* maps to index sessions by name and socketchannel */
 	final Map<String, Session> sessionMap = Collections.synchronizedMap(new HashMap<String, Session>());
 	final Map<SocketChannel, Session> socChanMap = Collections.synchronizedMap(new HashMap<SocketChannel, Session>());
@@ -90,7 +89,11 @@ public class ConnectionManager
 		startMainLoop();
 	}
 
-	/* this ctor is for testing purposes only */
+	/**
+	 * This is for testing purposes only.
+	 * Do not use unless testing. 
+	 * 
+	 */
 	ConnectionManager()
 	{
 	}
@@ -108,8 +111,7 @@ public class ConnectionManager
 	/**
 	 * gets a session by name
 	 * 
-	 * @param name
-	 *          session name - the hostname of the server this session is for
+	 * @param name session name - the hostname of the server this session is for
 	 * @return Session or null if no Session with name exists
 	 */
 	public Session getSession(String name)
@@ -120,8 +122,7 @@ public class ConnectionManager
 	/**
 	 * Adds a listener to be notified of all writes
 	 * 
-	 * @param listener
-	 *          listener to be notified
+	 * @param listener to be notified
 	 */
 	public void addWriteRequestListener(WriteRequestListener listener)
 	{
@@ -141,8 +142,7 @@ public class ConnectionManager
 	/**
 	 * request a new connection to a host with the default port of 6667
 	 * 
-	 * @param hostName
-	 *          DNS name of host to connect to
+	 * @param hostName DNS name or IP of host to connect to
 	 * @return the {@link Session} for this connection
 	 */
 	public Session requestConnection(String hostName)
@@ -153,10 +153,8 @@ public class ConnectionManager
 	/**
 	 * request a new connection to a host
 	 * 
-	 * @param hostName
-	 *          DNS name of host to connect to
-	 * @param port
-	 *          port to use for connection
+	 * @param hostName DNS name or IP of host to connect to
+	 * @param port port to use for connection
 	 * @return the {@link Session} for this connection
 	 */
 	public Session requestConnection(String hostName, int port)
@@ -167,26 +165,17 @@ public class ConnectionManager
 	/**
 	 * request a new connection to a host
 	 * 
-	 * @param hostName DNS name of host to connect to
+	 * @param hostName DNS name or IP of host to connect to
 	 * @param port port to use for connection
 	 * @param profile profile to use for this connection
 	 * @return the {@link Session} for this connection
 	 */
 	public Session requestConnection(String hostName, int port, Profile profile)
 	{
-		if (sessionMap.containsKey(hostName)) { throw new IllegalArgumentException("Duplicate hostnames are not allowed"); }
-
 		RequestedConnection rCon = new RequestedConnection(hostName, port, profile);
+
 		Session session = new Session(rCon , this);
-
-		if (sessionMap.containsValue(session)) 
-		{
-			System.err.println("Already connected to " + hostName + " on same port with same profile");
-			System.err.println("Connection request ignored [" + hostName + "]");
-		}
-
 		session.setInternalParser(internalEventParser);
-
 		sessionMap.put(hostName, session);
 		
 		new IdentServer(defaultProfile.getName());
@@ -197,8 +186,7 @@ public class ConnectionManager
 	/**
 	 * Closes all connections and shuts down manager
 	 * 
-	 * @param quitMsg
-	 *          quit message
+	 * @param quitMsg quit message
 	 */
 	public synchronized void quit(String quitMsg)
 	{
@@ -257,7 +245,7 @@ public class ConnectionManager
 	}
 
 	/**
-	 * Sets the InternalEventParser implementation to use
+	 * Sets the InternalEventHandler to use for this Session.
 	 * 
 	 * @param parser
 	 */
@@ -265,22 +253,40 @@ public class ConnectionManager
 	{
 		internalEventHandler = handler;
 	}
-
+	
+	/**
+	 * Gets the InternalEventHandler to use for this Session.
+	 * @return
+	 */
+	public IRCEventListener getDefaultEventHandler()
+	{
+		return internalEventHandler;
+	}
+	
+	/**
+	 * Set the InternalEventParser used for this Session.
+	 * 
+	 * @param parser
+	 */
 	public void setDefaultInternalEventParser(InternalEventParser parser)
 	{
 		internalEventParser = parser;
 	}
 
+	/**
+	 * Get the InternalEventParser used for this Session.
+	 * @return
+	 */
 	public InternalEventParser getDefaultInternalEventParser()
 	{
 		return internalEventParser;
 	}
-
-	public IRCEventListener getDefaultEventHandler()
-	{
-		return internalEventHandler;
-	}
-
+	
+	/**
+	 * Remove a session
+	 * 
+	 * @param session
+	 */
 	void removeSession(Session session)
 	{
 		sessionMap.remove(session.getRequestedConnection().getHostName());
@@ -294,20 +300,21 @@ public class ConnectionManager
 		}
 	}
 
-	Session getSessionFor(Connection con)
-	{
-		for (Session session : sessionMap.values())
-		{
-			if (session.getConnection() == con) { return session; }
-		}
-		return null;
-	}
-
+	/**
+	 * Add an event to the EventQueue to be parsed and dispatched to Listeners
+	 * 
+	 * @param event
+	 */
 	void addToEventQueue(IRCEvent event)
 	{
 		eventQueue.add(event);
 	}
 
+	/**
+	 * Add an event to be dispatched to Listeners(will not be parsed)
+	 * 
+	 * @param event
+	 */
 	void addToRelayList(IRCEvent event)
 	{
 		if (event == null)
@@ -323,6 +330,10 @@ public class ConnectionManager
 		}
 	}
 
+	/**
+	 * Starts a Thread for IO/Parsing/Checking-Making Connections
+	 * Start another Thread for relaying events
+	 */
 	void startMainLoop()
 	{
 		dispatchTimer = new Timer();
@@ -354,6 +365,11 @@ public class ConnectionManager
 		dispatchTimer.schedule(dispatchTask, 0, 200);
 	}
 
+	/**
+	 * Makes read and write request via Connections when
+	 * they can be done without blocking.
+	 * 
+	 */
 	void doNetworkIO()
 	{
 		try
@@ -400,6 +416,10 @@ public class ConnectionManager
 		}
 	}
 
+	/**
+	 * Attempts to finish a connection
+	 * @param key
+	 */
 	void finishConnection(SelectionKey key)
 	{
 		SocketChannel chan = (SocketChannel) key.channel();
@@ -428,6 +448,9 @@ public class ConnectionManager
 		}
 	}
 
+	/**
+	 * Check livelyness of server connections
+	 */
 	void checkServerConnections()
 	{
 		synchronized (sessionMap)
@@ -449,6 +472,9 @@ public class ConnectionManager
 		}
 	}
 
+	/**
+	 * Parse Events
+	 */
 	void parseEvents()
 	{
 		synchronized (eventQueue)
@@ -462,7 +488,12 @@ public class ConnectionManager
 			eventQueue.clear();
 		}
 	}
-
+	
+	/**
+	 * Remove Cancelled Tasks for a Session
+	 * @param session
+	 * @return remanding valid tasks
+	 */
 	Map<Type, List<Task>> removeCanceled(Session session)
 	{
 		Map<Type, List<Task>> tasks = session.getTasks();
@@ -484,6 +515,9 @@ public class ConnectionManager
 		return tasks;
 	}
 
+	/**
+	 * Relay events to Listeners/Tasks
+	 */
 	void relayEvents()
 	{
 		List<IRCEvent> events = new ArrayList<IRCEvent>();
@@ -547,6 +581,9 @@ public class ConnectionManager
 		}
 	}
 
+	/**
+	 * Relay write requests to listeners
+	 */
 	void notifyWriteListeners()
 	{
 		List<WriteRequestListener> list = new ArrayList<WriteRequestListener>();
@@ -573,6 +610,9 @@ public class ConnectionManager
 		}
 	}
 
+	/**
+	 * Make COnnections
+	 */
 	void makeConnections()
 	{
 		synchronized (sessionMap)
@@ -617,6 +657,12 @@ public class ConnectionManager
 		}
 	}
 
+	/**
+	 * Connect a Session to a server
+	 * 
+	 * @param session
+	 * @throws IOException
+	 */
 	void connect(Session session) throws IOException
 	{
 		SocketChannel sChannel = SocketChannel.open();
@@ -632,5 +678,4 @@ public class ConnectionManager
 
 		socChanMap.put(sChannel, session);
 	}
-
 }
