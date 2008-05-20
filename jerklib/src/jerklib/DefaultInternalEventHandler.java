@@ -10,6 +10,7 @@ import jerklib.events.JoinCompleteEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
 import jerklib.events.NickChangeEvent;
+import jerklib.events.NickInUseEvent;
 import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.IRCEvent.Type;
@@ -128,6 +129,30 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		}
 	}
 	
+	public void nickInUse(IRCEvent e)
+	{
+		Session session = e.getSession();
+		if(!session.hasLoggedIn() && session.getShouldUseAltNicks())
+		{
+			Profile p = session.getRequestedConnection().getProfile();
+			NickInUseEvent niu = (NickInUseEvent)e;
+			String usedNick = niu.getInUseNick();
+			String newNick = "";
+			if(usedNick.equals(p.getFirstNick())) newNick = p.getSecondNick();
+			else if(usedNick.equals(p.getSecondNick()))newNick = p.getThirdNick();
+			if(newNick.length() > 0)
+			{
+				System.out.println("trying to change nick to " + newNick);
+				session.changeNick(newNick);
+			}
+			else
+			{
+				System.err.println("Nicks exahusted");
+			}
+		}
+	}
+	
+	
 	public void kick(IRCEvent e)
 	{
 		KickEvent ke = (KickEvent)e;
@@ -170,6 +195,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 				"",
 				""
 			);
+			e.getSession().loginSuccess();
 			manager.addToRelayList(nce);
 		}
 		
@@ -248,6 +274,14 @@ public class DefaultInternalEventHandler implements IRCEventListener
 			public void receiveEvent(IRCEvent e)
 			{
 				nick(e);
+			}
+		});
+		
+		stratMap.put(NICK_IN_USE, new IRCEventListener()
+		{
+			public void receiveEvent(IRCEvent e)
+			{
+				nickInUse(e);
 			}
 		});
 		

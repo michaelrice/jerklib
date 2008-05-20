@@ -20,7 +20,7 @@ public class Example implements IRCEventListener
 		/*
 		 * ConnectionManager takes a Profile to use for new connections.
 		 */
-		manager = new ConnectionManager(new Profile("foobazbar"));
+		manager = new ConnectionManager(new Profile("mohadib"));
 		
 		/*
 		 * One instance of ConnectionManager can connect to many IRC networks.
@@ -63,10 +63,6 @@ public class Example implements IRCEventListener
 			/* say hello */
 			jce.getChannel().say("Hello from Jerklib ");
 			
-		}
-		else if(e.getType() == Type.NICK_IN_USE)
-		{
-			e.getSession().changeNick("mohadib___");
 		}
 		else
 		{

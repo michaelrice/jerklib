@@ -48,7 +48,7 @@ public class Session extends RequestGenerator
 	private final RequestedConnection rCon;
 	private Connection con;
 	private final ConnectionManager conman;
-	private boolean rejoinOnKick = true, profileUpdating, isAway;
+	private boolean rejoinOnKick = true, profileUpdating, isAway , haveLoggedIn , useAltNicks = true;
 	private Profile tmpProfile;
 	private long lastRetry = -1, lastResponse = System.currentTimeMillis();
 	private ServerInformation serverInfo = new ServerInformation();
@@ -260,7 +260,31 @@ public class Session extends RequestGenerator
 	{
 		rejoinOnKick = rejoin;
 	}
-
+	
+	
+	void loginSuccess()
+	{
+		haveLoggedIn = true;
+	}
+	
+	
+	public boolean hasLoggedIn()
+	{
+		return haveLoggedIn;
+	}
+	
+	public void setShouldUseAltNicks(boolean use)
+	{
+		useAltNicks = use;
+	}
+	
+	
+	public boolean getShouldUseAltNicks()
+	{
+		return useAltNicks;
+	}
+	
+	
 	/**
 	 * Disconnect from server and destroy Session
 	 * 
@@ -644,7 +668,8 @@ public class Session extends RequestGenerator
 			con.quit("");
 			con = null;
 		}
-
+		
+		haveLoggedIn = false;
 		conman.addToRelayList(new ConnectionLostEventImpl(this));
 	}
 
