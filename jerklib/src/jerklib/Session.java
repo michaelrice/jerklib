@@ -768,8 +768,11 @@ public class Session extends RequestGenerator
 	 */
 	public boolean equals(Object o)
 	{
-		if (o instanceof Session && o.hashCode() == hashCode()) { return ((Session) o).getRequestedConnection().getHostName().matches(getRequestedConnection().getHostName())
-				&& ((Session) o).getNick().matches(getNick()); }
+		if (o instanceof Session && o.hashCode() == hashCode()) 
+		{ 
+			return ((Session) o).getRequestedConnection().getHostName().matches(getRequestedConnection().getHostName())
+				&& ((Session) o).getNick().matches(getNick()); 
+		}
 		return false;
 	}
 

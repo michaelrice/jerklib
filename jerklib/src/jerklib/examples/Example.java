@@ -1,5 +1,8 @@
 package jerklib.examples;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import jerklib.ConnectionManager;
 import jerklib.Profile;
 import jerklib.Session;
@@ -13,7 +16,6 @@ import jerklib.listeners.IRCEventListener;
 public class Example implements IRCEventListener
 {
 	private ConnectionManager manager;
-	
 	
 	public Example()
 	{
@@ -62,7 +64,6 @@ public class Example implements IRCEventListener
 			JoinCompleteEvent jce = (JoinCompleteEvent) e;
 			/* say hello */
 			jce.getChannel().say("Hello from Jerklib ");
-			
 		}
 		else
 		{
