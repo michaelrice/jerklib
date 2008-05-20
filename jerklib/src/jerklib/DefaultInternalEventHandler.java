@@ -199,8 +199,18 @@ public class DefaultInternalEventHandler implements IRCEventListener
 			NickInUseEvent niu = (NickInUseEvent)e;
 			String usedNick = niu.getInUseNick();
 			String newNick = "";
-			if(usedNick.equals(p.getFirstNick())) newNick = p.getSecondNick();
-			else if(usedNick.equals(p.getSecondNick()))newNick = p.getThirdNick();
+			if(usedNick.equals(p.getFirstNick()))
+			{
+				/* if first nick same as second will cause a loop*/
+				if(p.getFirstNick().equals(p.getSecondNick())) return;
+				newNick = p.getSecondNick();
+			}
+			else if(usedNick.equals(p.getSecondNick()))
+			{
+				/* if second nick same as third will cause a loop*/
+				if(p.getSecondNick().equals(p.getThirdNick())) return;
+				newNick = p.getThirdNick();
+			}
 			if(newNick.length() > 0)
 			{
 				session.changeNick(newNick);

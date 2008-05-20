@@ -7,22 +7,18 @@ import java.util.List;
  * 
  * A Class to parse a line of IRC text
  * 
- * <code>
- * <pre>
- *  
- * <message>  ::= [':' <prefix> <SPACE> ] <command> <params> <crlf>
- * <prefix>   ::= <servername> | <nick> [ '!' <user> ] [ '@' <host> ]
- * <command>  ::= <letter> { <letter> } | <number> <number> <number>
- * <SPACE>    ::= ' ' { ' ' }
- * <params>   ::= <SPACE> [ ':' <trailing> | <middle> <params> ]
+ *  <pre>
+ * &lt;message&gt;  ::= [':' &lt;prefix&gt; &lt;SPACE&gt; ] &lt;command&gt; &lt;params&gt; &lt;crlf&gt;
+ * &lt;prefix&gt;   ::= &lt;servername&gt; | &lt;nick&gt; [ '!' &lt;user&gt; ] [ '@' &lt;host&gt; ]
+ * &lt;command&gt;  ::= &lt;letter&gt; { &lt;letter&gt; } | &lt;number&gt; &lt;number&gt; &lt;number&gt;
+ * &lt;SPACE&gt;    ::= ' ' { ' ' }
+ * &lt;params&gt;   ::= &lt;SPACE&gt; [ ':' &lt;trailing&gt; | &lt;middle&gt; &lt;params&gt; ]
  *
- * <middle>   ::= <Any *non-empty* sequence of octets not including SPACE
- *              or NUL or CR or LF, the first of which may not be ':'>
- * <trailing> ::= <Any, possibly *empty*, sequence of octets not including
- *                NUL or CR or LF>
+ * &lt;middle&gt;   ::= &lt;Any *non-empty* sequence of octets not including SPACE
+ *              or NUL or CR or LF, the first of which may not be ':'&gt;
+ * &lt;trailing&gt; ::= &lt;Any, possibly *empty*, sequence of octets not including
+ *                NUL or CR or LF&gt;
  * </pre>
- * </code>
- * 
  * 
  * @author mohadib
  *
@@ -35,7 +31,9 @@ public class EventToken
 	private int offset = 0;
 	
 	/**
-	 * @param data
+	 * Create a new EventToken
+	 * 
+	 * @param data to parse
 	 */
 	public EventToken(String data)
 	{
@@ -103,7 +101,7 @@ public class EventToken
 	
 
 	/**
-	 * Increment offset until a noon whitespace char is found
+	 * Increment offset until a non-whitespace char is found
 	 */
 	private void incTillChar()
 	{
@@ -208,7 +206,7 @@ public class EventToken
 	 * Gets an argument
 	 * 
 	 * @param index
-	 * @return the argument or null if not argument at that index
+	 * @return the argument or null if no argument at that index
 	 */
 	public String arg(int index)
 	{
@@ -220,6 +218,8 @@ public class EventToken
 	}
 	
 	/**
+	 * Returns raw event data
+	 * 
 	 * @return raw event data
 	 */
 	public String data()
@@ -228,6 +228,8 @@ public class EventToken
 	}
 	
 	/**
+	 * Get the numeric code of an event.
+	 * 
 	 * @return numeric or -1 if command is not numeric
 	 */
 	public int numeric()
@@ -241,6 +243,9 @@ public class EventToken
 		return i;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString()
 	{
 		return data;
