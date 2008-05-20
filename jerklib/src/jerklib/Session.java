@@ -284,6 +284,7 @@ public class Session extends RequestGenerator
 	/**
 	 * Set Session yo try alternate nicks
 	 * on connection if a nick in use event is received , or not.
+	 * True by default.
 	 * 
 	 * @param use
 	 */
@@ -296,6 +297,7 @@ public class Session extends RequestGenerator
 	/**
 	 * Returns if Session should try alternate nicks
 	 * on connection if a nick in use event is received.
+	 * True by default.
 	 * 
 	 * @return
 	 */
