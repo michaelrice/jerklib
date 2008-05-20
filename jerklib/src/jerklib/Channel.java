@@ -1,6 +1,5 @@
 package jerklib;
 
-import jerklib.events.JoinCompleteEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.modes.ModeAdjustment;
 import jerklib.events.modes.ModeAdjustment.Action;
@@ -403,11 +402,11 @@ public class Channel
 			}
 		};
 	}
-
-	/*
-	 * (non-Javadoc)
+	
+	/**
+	 * Part the channel
 	 * 
-	 * @see jerklib.Channel#part(java.lang.String)
+	 * @param partMsg
 	 */
 	public void part(String partMsg)
 	{
@@ -417,14 +416,16 @@ public class Channel
 	/**
 	 * Send an action
 	 * 
-	 * @param text
-	 *          action text
+	 * @param text action text
 	 */
 	public void action(String text)
 	{
 		con.addWriteRequest(new WriteRequest("\001ACTION " + text + "\001", this, con));
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	public boolean equals(Object o)
 	{
 		if (this == o) { return true; }
@@ -438,6 +439,9 @@ public class Channel
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	public int hashCode()
 	{
 		int result;
@@ -446,14 +450,11 @@ public class Channel
 		return result;
 	}
 
-	/**
-	 * Added to simplify debugging? Ask r0bby.
-	 * 
-	 * @return the channel name
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
 	public String toString()
 	{
 		return "[Channel: name=" + name + "]";
 	}
-
 }
