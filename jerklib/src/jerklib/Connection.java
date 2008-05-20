@@ -14,8 +14,7 @@ import java.util.logging.Logger;
 
 /**
  * A class for reading and writing to an IRC connection.
- * This class will also handle PIMG/PONG and sending login
- * messages
+ * This class will also handle PING/PONG.
  * 
  * @author mohadib
  *
@@ -44,16 +43,15 @@ class Connection
 
 	/* actual hostname connected to */
 	private String actualHostName;
-
-	/*
-	 * this is used for auto choosing a nick - if we have logged in successfully
-	 * once, a new nick will not be auto choose in event of NickInUse
-	 */
-	private boolean loggedInSuccessfully;
 	
 	/* Session Connection belongs to */
 	private final Session session;
 
+	/**
+	 * @param manager
+	 * @param socChannel - socket channel to read from
+	 * @param session - Session this Connection belongs to
+	 */
 	Connection(ConnectionManager manager, SocketChannel socChannel, Session session)
 	{
 		this.manager = manager;
@@ -61,51 +59,62 @@ class Connection
 		this.session = session;
 	}
 
-	boolean loggedInSuccessfully()
-	{
-		return loggedInSuccessfully;
-	}
-
-	void loginSuccess()
-	{
-		loggedInSuccessfully = true;
-	}
-
+	/**
+	 * Get profile use for this Connection
+	 * 
+	 * @return the Profile
+	 */
 	Profile getProfile()
 	{
 		return session.getRequestedConnection().getProfile();
 	}
 
+	/**
+	 * Sets the actual host name of this Connection.
+	 * @param name
+	 */
 	void setHostName(String name)
 	{
-		session.connected();
 		actualHostName = name;
 	}
 
+	/**
+	 * Gets actual hostname for Connection.
+	 * 
+	 * @return hostname
+	 */
 	String getHostName()
 	{
 		return actualHostName;
 	}
 
+	/**
+	 * Adds a listener to be notified of all data written via this Connection
+	 * 
+	 * @param request
+	 */
 	void addWriteRequest(WriteRequest request)
 	{
 		writeRequests.add(request);
 	}
 
+	/**
+	 * Called to finish the Connection Process
+	 * 
+	 * @return true if fincon is successfull
+	 * @throws IOException
+	 */
 	boolean finishConnect() throws IOException
 	{
 		return socChannel.finishConnect();
 	}
-
-	void login()
-	{
-		// test :irc.inter.net.il CAP * LS :multi-prefix
-		// writeRequests.add(new WriteRequest("CAP LS", this));
-
-		writeRequests.add(new WriteRequest("NICK " + getProfile().getActualNick() + "\r\n", this));
-		writeRequests.add(new WriteRequest("USER " + getProfile().getName() + " 0 0 :" + getProfile().getName() + "\r\n", this));
-	}
-
+	
+	/**
+	 * Reads from connection and creates default IRCEvents that 
+	 * are added to the ConnectionManager for relaying
+	 * 
+	 * @return bytes read
+	 */
 	int read()
 	{
 
@@ -185,6 +194,11 @@ class Connection
 		return numRead;
 	}
 
+	/**
+	 * Writes all requests in queue to server
+	 * 
+	 * @return number bytes written
+	 */
 	int doWrites()
 	{
 		int amount = 0;
@@ -240,12 +254,20 @@ class Connection
 		return amount;
 	}
 
+	/**
+	 * Send a ping
+	 */
 	void ping()
 	{
 		writeRequests.add(new WriteRequest("PING " + actualHostName + "\r\n", this));
 		session.pingSent();
 	}
 
+	/**
+	 * Send a pong
+	 * 
+	 * @param event , the Ping event
+	 */
 	void pong(IRCEvent event)
 	{
 		session.gotResponse();
@@ -253,11 +275,19 @@ class Connection
 		writeRequests.add(new WriteRequest("PONG " + data + "\r\n", this));
 	}
 
+	/**
+	 * Alert connection a pong was received
+	 */
 	void gotPong()
 	{
 		session.gotResponse();
 	}
 
+	/**
+	 * Close connection
+	 * 
+	 * @param quitMessage
+	 */
 	void quit(String quitMessage)
 	{
 		try
@@ -275,6 +305,11 @@ class Connection
 		}
 	}
 
+	/**
+	 * Fires a write request to all write listeners
+	 * 
+	 * @param request
+	 */
 	void fireWriteEvent(WriteRequest request)
 	{
 		for (WriteRequestListener listener : manager.getWriteListeners())
@@ -282,7 +317,13 @@ class Connection
 			listener.receiveEvent(request);
 		}
 	}
-
+	
+	/**
+	 * Create a default irc event
+	 * 
+	 * @param rawData
+	 * @return
+	 */
 	private IRCEvent createDefaultIRCEvent(final String rawData)
 	{
 		return new IRCEvent()

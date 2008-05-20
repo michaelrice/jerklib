@@ -171,8 +171,8 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		}
 		
 		ConnectionCompleteEvent ccEvent = (ConnectionCompleteEvent)e;
-		session.getConnection().loginSuccess();
 		session.getConnection().setHostName(ccEvent.getActualHostName());
+		session.connected();
 	}
 	
 	

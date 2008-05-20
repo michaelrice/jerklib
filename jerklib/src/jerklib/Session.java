@@ -487,6 +487,14 @@ public class Session extends RequestGenerator
 		}
 		return false;
 	}
+	
+	void login()
+	{
+		// test :irc.inter.net.il CAP * LS :multi-prefix
+		// writeRequests.add(new WriteRequest("CAP LS", this));
+		sayRaw("NICK " + getNick());
+		sayRaw("USER " + rCon.getProfile().getName() + " 0 0 :" + rCon.getProfile().getName());
+	}
 
 	public int hashCode()
 	{

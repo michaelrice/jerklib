@@ -412,7 +412,7 @@ public class ConnectionManager
 				if (session.getConnection().finishConnect())
 				{
 					session.halfConnected();
-					session.getConnection().login();
+					session.login();
 				}
 				else
 				{
