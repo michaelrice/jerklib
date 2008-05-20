@@ -5,8 +5,11 @@ import jerklib.events.impl.ConnectionLostEventImpl;
 import jerklib.events.modes.ModeAdjustment;
 import jerklib.events.modes.ModeAdjustment.Action;
 import jerklib.listeners.IRCEventListener;
+import jerklib.parsers.CommandParser;
+import jerklib.parsers.DefaultInternalEventParser;
 import jerklib.parsers.InternalEventParser;
 import jerklib.tasks.Task;
+import jerklib.tasks.TaskImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +20,29 @@ import java.util.Collections;
 import java.util.Iterator;
 
 /**
+ * 
+ * Session contains methods to manage an IRC connection.
+ * Like {@link Session#changeNick(String)} , {@link Session#setRejoinOnKick(boolean)} , {@link Session#getUserModes()} etc.
+ *<p>
+ * Session is where Tasks and Listeners should be added
+ * to be notified of IRCEvents coming from the connected server.
+ *<p> 
+ * You can override the default parsing and internal event handling
+ * of a Session with {@link Session#setInternalEventHandler(IRCEventListener)} and
+ * {@link Session#setInternalParser(InternalEventParser)}.
+ *<p>
+ * New Session instances are obtained by requesting a connection with the
+ * ConnectionManager
+ * 
+ * @see ConnectionManager#requestConnection(String)
+ * @see ConnectionManager#requestConnection(String, int)
+ * @see ConnectionManager#requestConnection(String, int, Profile)
+ * 
  * @author mohadib
  */
 public class Session extends RequestGenerator
 {
 
-	private final List<String> channelNames = new ArrayList<String>();
 	private final List<IRCEventListener> listenerList = new ArrayList<IRCEventListener>();
 	private final Map<Type, List<Task>> taskMap = new HashMap<Type, List<Task>>();
 	private final RequestedConnection rCon;
@@ -36,27 +56,90 @@ public class Session extends RequestGenerator
 	private InternalEventParser parser;
 	private IRCEventListener internalEventHandler;
 	private List<ModeAdjustment> userModes = new ArrayList<ModeAdjustment>();
+	private final Map<String, Channel> channelMap = new HashMap<String, Channel>();
+	
+	public static enum State
+	{
+		CONNECTED, 
+		CONNECTING, 
+		HALF_CONNECTED, 
+		DISCONNECTED, 
+		MARKED_FOR_REMOVAL, 
+		NEED_TO_PING, 
+		PING_SENT, 
+		NEED_TO_RECONNECT
+	}
 
+	
+	/**
+	 * @param rCon
+	 * @param conman
+	 */
+	Session(RequestedConnection rCon, ConnectionManager conman)
+	{
+		this.rCon = rCon;
+		this.conman = conman;
+	}
+	
+	/**
+	 * Gets the InternalEventParser this Session uses for event parsing
+	 * 
+	 * @see InternalEventParser
+	 * @see DefaultInternalEventParser
+	 * @see CommandParser
+	 * @return InternalEventParser
+	 */
 	public InternalEventParser getInternalEventParser()
 	{
 		return parser;
 	}
 
+	/**
+	 * Sets the InternalEventParser this Session should use for
+	 * event parsing
+	 * 
+	 * 
+	 * @see InternalEventParser
+	 * @see DefaultInternalEventParser
+	 * @see CommandParser
+	 * @param parser
+	 */
 	public void setInternalParser(InternalEventParser parser)
 	{
 		this.parser = parser;
 	}
-
+	
+	/**
+	 * Sets the internal event handler this Session should use 
+	 * 
+	 * @see IRCEventListener
+	 * @see DefaultInternalEventHandler
+	 * @param handler
+	 */
 	public void setInternalEventHandler(IRCEventListener handler)
 	{
 		internalEventHandler = handler;
 	}
 
+	/**
+	 * Returns the internal event handler this Session is using
+	 * 
+	 * @see IRCEventListener
+	 * @see DefaultInternalEventHandler
+	 * @param handler
+	 * @return event handler
+	 * 
+	 */
 	public IRCEventListener getInternalEventHandler()
 	{
 		return internalEventHandler;
 	}
 
+	/**
+	 * Called when UserMode events are received for this Session.
+	 * 
+	 * @param modes
+	 */
 	void updateUserModes(List<ModeAdjustment> modes)
 	{
 		for (ModeAdjustment ma : modes)
@@ -103,6 +186,12 @@ public class Session extends RequestGenerator
 		}
 	}
 
+	/**
+	 * Finds the index of a mode in a list modes
+	 * @param mode
+	 * @param modes
+	 * @return index of mode or -1 if mode if not found
+	 */
 	private int indexOfMode(char mode, List<ModeAdjustment> modes)
 	{
 		for (int i = 0; i < modes.size(); i++)
@@ -113,47 +202,70 @@ public class Session extends RequestGenerator
 		return -1;
 	}
 
+	/**
+	 * returns a List of UserModes for this Session
+	 * 
+	 * @return UserModes
+	 */
 	public List<ModeAdjustment> getUserModes()
 	{
 		return new ArrayList<ModeAdjustment>(userModes);
 	}
 
-	/* a Map to index currently joined channels by name */
-	private final Map<String, Channel> channelMap = new HashMap<String, Channel>();
-
+	/**
+	 * Speak in a Channel
+	 * 
+	 * @see Channel#say(String)
+	 * @param channel 
+	 * @param msg
+	 */
 	public void sayChannel(Channel channel, String msg)
 	{
 		super.sayChannel(msg, channel);
 	}
 
-	enum State
-	{
-		CONNECTED, CONNECTING, HALF_CONNECTED, DISCONNECTED, MARKED_FOR_REMOVAL, NEED_TO_PING, PING_SENT, NEED_TO_RECONNECT
-	}
-
-	Session(RequestedConnection rCon, ConnectionManager conman)
-	{
-		this.rCon = rCon;
-		this.conman = conman;
-	}
 
 	/* general methods */
 
+	/**
+	 * Is this Session currently connected to an IRC server?
+	 * 
+	 * @return true if connected else false
+	 */
 	public boolean isConnected()
 	{
 		return state == State.CONNECTED;
 	}
+	
 
+	/**
+	 * Should this Session rejoin channels it is Kicked from?
+	 * Default is true.
+	 * 
+	 * @return true if channels should be rejoined else false
+	 */
 	public boolean isRejoinOnKick()
 	{
 		return rejoinOnKick;
 	}
+	
 
+	/**
+	 * Sets that this Sessions should or should not rejoin Channels
+	 * kiced from
+	 * 
+	 * @param rejoin
+	 */
 	public void setRejoinOnKick(boolean rejoin)
 	{
 		rejoinOnKick = rejoin;
 	}
 
+	/**
+	 * Disconnect from server and destroy Session
+	 * 
+	 * @param quitMessage
+	 */
 	public void close(String quitMessage)
 	{
 		if (con != null)
@@ -163,18 +275,19 @@ public class Session extends RequestGenerator
 		}
 	}
 
+	/**
+	 * Nick used for Session
+	 * 
+	 * @return nick
+	 */
 	public String getNick()
 	{
 		return getRequestedConnection().getProfile().getActualNick();
 	}
 
-	public void changeProfile(Profile profile)
-	{
-		tmpProfile = profile;
-		profileUpdating = true;
-		super.changeNick(tmpProfile.getActualNick());
-	}
-
+	/* (non-Javadoc)
+	 * @see jerklib.RequestGenerator#changeNick(java.lang.String)
+	 */
 	public void changeNick(String newNick)
 	{
 		tmpProfile = rCon.getProfile().clone();
@@ -184,23 +297,38 @@ public class Session extends RequestGenerator
 		super.changeNick(newNick);
 	}
 
+	/**
+	 * Profile is updating when a new nick is requested but has not been approved from server yet.
+	 * @return true if profile is updating
+	 */
 	public boolean isProfileUpdating()
 	{
 		return profileUpdating;
 	}
 
 
+	/**
+	 * Is this Session marked away?
+	 * 
+	 * @return true if away else false
+	 */
 	public boolean isAway()
 	{
 		return isAway;
 	}
 
+	/* (non-Javadoc)
+	 * @see jerklib.RequestGenerator#setAway(java.lang.String)
+	 */
 	public void setAway(String message)
 	{
 		isAway = true;
 		super.setAway(message);
 	}
 
+	/**
+	 *  Unset away
+	 */
 	public void unsetAway()
 	{
 		/* if we're not away let's not bother even delegating */
@@ -213,48 +341,73 @@ public class Session extends RequestGenerator
 
 	/* methods to get information about connection and server */
 
+	/**
+	 * Get ServerInformation for Session
+	 * @see ServerInformation
+	 * @return ServerInformation for Session
+	 */
 	public ServerInformation getServerInformation()
 	{
 		return serverInfo;
 	}
 
+	/**
+	 * Get RequestedConnection for Session
+	 * @see RequestedConnection
+	 * @return RequestedConnection for Session
+	 */
 	public RequestedConnection getRequestedConnection()
 	{
 		return rCon;
 	}
 
+	/**
+	 * Returns host name this Session is connected to
+	 * 
+	 * @return hostname
+	 */
 	public String getConnectedHostName()
 	{
 		return con.getHostName();
 	}
 
-	/* methods for adding/removing IRCEventListeners and Tasks */
+
+	/**
+	 * Adds an IRCEventListener to the Session. This listener will be
+	 * notified of all IRCEvents coming from the connected sever.
+	 * 
+	 * @param listener
+	 */
 	public void addIRCEventListener(IRCEventListener listener)
 	{
 		listenerList.add(listener);
 	}
 
-	public void removeIRCEventListener(IRCEventListener listener)
+	/**
+	 * Remove IRCEventListner from Session
+	 * 
+	 * @param listener
+	 * @return true if listener was removed else false
+	 */
+	public boolean removeIRCEventListener(IRCEventListener listener)
 	{
-		listenerList.remove(listener);
+		return listenerList.remove(listener);
 	}
 
+	/**
+	 * Get a collection of all IRCEventListeners attached to Session
+	 * 
+	 * @return listeners
+	 */
 	public Collection<IRCEventListener> getIRCEventListeners()
 	{
 		return Collections.unmodifiableCollection(listenerList);
 	}
 
 	/**
-	 * Chances are you'll never need this. (But tests will.)
-	 */
-	protected void clearListeners()
-	{
-
-		listenerList.clear();
-	}
-
-	/**
 	 * Add a task to be ran when any IRCEvent is received
+	 * @see Task
+	 * @see TaskImpl
 	 * @param task
 	 */
 	public void onEvent(Task task)
@@ -263,11 +416,12 @@ public class Session extends RequestGenerator
 		onEvent(task, (Type) null);
 	}
 
-	
 	/**
 	 * Add a task to be ran when any of the given Types 
 	 * of IRCEvents are received
 	 * 
+	 * @see Task
+	 * @see TaskImpl
 	 * @param task - task to run
 	 * @param types - types of events task should run on
 	 */
@@ -290,20 +444,26 @@ public class Session extends RequestGenerator
 			}
 		}
 	}
-
+	
+	/**
+	 * Gets All Tasks attacthed to Session
+	 * Indexed by the Type the task is receving events for.
+	 * Task type of null are default tasks that receive all events.
+	 * Some Tasks can possibly be the value for many Types.
+	 * 
+	 * @return tasks
+	 */
 	Map<Type, List<Task>> getTasks()
 	{
 		return new HashMap<Type, List<Task>>(taskMap);
 	}
 
 	/**
-	 * Chances are you'll never need this. (But testing does.)
+	 * Removes a Task from the Session.
+	 * Some Tasks can possibly be the value for many Types.
+	 * 
+	 * @param t
 	 */
-	protected void clearTasks()
-	{
-		taskMap.clear();
-	}
-
 	public void removeTask(Task t)
 	{
 		synchronized (taskMap)
@@ -319,6 +479,11 @@ public class Session extends RequestGenerator
 		}
 	}
 
+	/**
+	 * Called to alert Session if the profile was updated
+	 * 
+	 * @param success
+	 */
 	void updateProfileSuccessfully(boolean success)
 	{
 		if (success)
@@ -329,52 +494,74 @@ public class Session extends RequestGenerator
 		profileUpdating = false;
 	}
 
-	/* Channel methods */
-
+	/**
+	 * Get a List of Channels Session is currently in
+	 * 
+	 * @see Channel
+	 * @return channels
+	 */
 	public List<Channel> getChannels()
 	{
 		return Collections.unmodifiableList(new ArrayList<Channel>(channelMap.values()));
 	}
 
+	/**
+	 * Gets a Channel by name 
+	 * 
+	 * @param channelName
+	 * @return Channel or null if no such Channel is joined.
+	 */
 	public Channel getChannel(String channelName)
 	{
 		Channel chan = channelMap.get(channelName);
 		return chan == null ? channelMap.get(channelName.toLowerCase()) : chan;
 	}
 
-	public List<String> getChannelNames()
-	{
-		return Collections.unmodifiableList(channelNames);
-	}
-
+	/**
+	 * Add a Channel to the session
+	 * @see Channel
+	 * @param channel
+	 */
 	void addChannel(Channel channel)
 	{
 		channelMap.put(channel.getName(), channel);
 	}
 
-	void removeChannel(Channel channel)
+	/**
+	 * Remove a channel from the Session
+	 * @param channel
+	 * @return true if channel was removed else false
+	 */
+	boolean removeChannel(Channel channel)
 	{
-		channelMap.remove(channel.getName());
+		return channelMap.remove(channel.getName()) == null;
 	}
 
+	/**
+	 * Updates a nick in all channels currently joined
+	 * 
+	 * @param oldNick
+	 * @param newNick
+	 */
 	void nickChanged(String oldNick, String newNick)
 	{
-		/*
-		 * if (log.isLoggable(Level.INFO)) { log.info("Looking for " + oldNick); }
-		 */
 		synchronized (channelMap)
 		{
 			for (Channel chan : channelMap.values())
 			{
 				if (chan.getNicks().contains(oldNick))
 				{
-					// log.severe("Found nick in " + chan.getName());
 					chan.nickChanged(oldNick, newNick);
 				}
 			}
 		}
 	}
-
+	
+	/**
+	 * Removes a nick from all channels
+	 * @param nick
+	 * @return
+	 */
 	public List<Channel> removeNickFromAllChannels(String nick)
 	{
 		List<Channel> returnList = new ArrayList<Channel>();
@@ -390,41 +577,64 @@ public class Session extends RequestGenerator
 
 	/* methods to track connection attempts */
 
+	/**
+	 * return time of last reconnect attempt
+	 * @return
+	 */
 	long getLastRetry()
 	{
 		return lastRetry;
 	}
 
+	/**
+	 * sets time of last reconnect event
+	 */
 	void retried()
 	{
 		lastRetry = System.currentTimeMillis();
 	}
 
-	/* methods to get/set Connection object */
+	/* (non-Javadoc)
+	 * @see jerklib.RequestGenerator#setConnection(jerklib.Connection)
+	 */
 	void setConnection(Connection con)
 	{
 		this.con = con;
 		super.setConnection(con);
 	}
 
+	/**
+	 * Gets Connection used for this Session. Can return null if
+	 * Session is disconnected.
+	 * 
+	 * @return Connection
+	 */
 	Connection getConnection()
 	{
 		return con;
 	}
 
-	/* Methods to get and set the state of the session */
 
+	/**
+	 * Got ping response
+	 */
 	void gotResponse()
 	{
 		lastResponse = System.currentTimeMillis();
 		state = State.CONNECTED;
 	}
 
+	/**
+	 * Ping has been sent but no response yet
+	 */
 	void pingSent()
 	{
 		state = State.PING_SENT;
 	}
 
+	/**
+	 *Session has been disconnected 
+	 */
 	void disconnected()
 	{
 		if (state == State.DISCONNECTED) return;
@@ -434,31 +644,47 @@ public class Session extends RequestGenerator
 			con.quit("");
 			con = null;
 		}
-		channelNames.clear();
 
 		conman.addToRelayList(new ConnectionLostEventImpl(this));
 	}
 
+	/**
+	 * Session is now connected
+	 */
 	void connected()
 	{
 		gotResponse();
 	}
 
+	/**
+	 * Session is connecting
+	 */
 	void connecting()
 	{
 		state = State.CONNECTING;
 	}
 
+	/**
+	 * Session is half connected
+	 */
 	void halfConnected()
 	{
 		state = State.HALF_CONNECTED;
 	}
 
+	/**
+	 * Session has been marked for removal
+	 */
 	void markForRemoval()
 	{
 		state = State.MARKED_FOR_REMOVAL;
 	}
 
+	/**
+	 * Get the State of the Session
+	 * @return Session state
+	 * @see State
+	 */
 	State getState()
 	{
 		long current = System.currentTimeMillis();
@@ -477,6 +703,11 @@ public class Session extends RequestGenerator
 		return state;
 	}
 
+	/**
+	 * Test if a String starts with a known channel prefix
+	 * @param token
+	 * @return true if starts with a channel prefix else false
+	 */
 	public boolean isChannelToken(String token)
 	{
 		ServerInformation serverInfo = getServerInformation();
@@ -488,6 +719,9 @@ public class Session extends RequestGenerator
 		return false;
 	}
 	
+	/**
+	 * Send login messages to server
+	 */
 	void login()
 	{
 		// test :irc.inter.net.il CAP * LS :multi-prefix
@@ -496,11 +730,17 @@ public class Session extends RequestGenerator
 		sayRaw("USER " + rCon.getProfile().getName() + " 0 0 :" + rCon.getProfile().getName());
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	public int hashCode()
 	{
 		return rCon.getHostName().hashCode();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	public boolean equals(Object o)
 	{
 		if (o instanceof Session && o.hashCode() == hashCode()) { return ((Session) o).getRequestedConnection().getHostName().matches(getRequestedConnection().getHostName())

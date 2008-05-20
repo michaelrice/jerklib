@@ -1,13 +1,11 @@
 package jerklib.events;
 
 import jerklib.Channel;
-import jerklib.Session;
 
 /**
  * @author mohadib
- *         <p/>
- *         Event fired when someone is kicked from a channel
- * @see Session#kick(String, String, Channel)
+ * Event fired when someone is kicked from a channel
+ * @see Channel#kick(String, String)
  */
 public interface KickEvent extends IRCEvent
 {

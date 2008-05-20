@@ -1,5 +1,6 @@
 package jerklib;
 
+import jerklib.events.JoinCompleteEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.modes.ModeAdjustment;
 import jerklib.events.modes.ModeAdjustment.Action;
@@ -257,7 +258,7 @@ public class Channel
 	/**
 	 * Gets the nick of who set the topic or an empty string if the topic is not set.
 	 * 
-	 * @return
+	 * @return nick of topic setter
 	 */
 	public String getTopicSetter()
 	{
@@ -267,7 +268,7 @@ public class Channel
 	/**
 	 * Returns the Date the topic was set or null if the topic is unset.
 	 * 
-	 * @return
+	 * @return date topic was set or null if not set
 	 */
 	public Date getTopicSetTime()
 	{

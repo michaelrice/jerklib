@@ -247,7 +247,7 @@ public class ConnectionManager
 	/**
 	 * Sets the InternalEventHandler to use for this Session.
 	 * 
-	 * @param parser
+	 * @param handler
 	 */
 	public void setDefaultInternalEventHandler(IRCEventListener handler)
 	{
@@ -256,7 +256,7 @@ public class ConnectionManager
 	
 	/**
 	 * Gets the InternalEventHandler to use for this Session.
-	 * @return
+	 * @return default Event Handler
 	 */
 	public IRCEventListener getDefaultEventHandler()
 	{
@@ -275,7 +275,7 @@ public class ConnectionManager
 
 	/**
 	 * Get the InternalEventParser used for this Session.
-	 * @return
+	 * @return InternalEventParser for Session
 	 */
 	public InternalEventParser getDefaultInternalEventParser()
 	{

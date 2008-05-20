@@ -12,6 +12,11 @@ class RequestGenerator
 {
 	private Connection con;
 
+	/**
+	 * Sets the Connection to use
+	 *  
+	 * @param con
+	 */
 	void setConnection(Connection con)
 	{
 		this.con = con;

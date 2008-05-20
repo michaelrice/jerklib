@@ -7,8 +7,8 @@ import jerklib.Session;
  * The event fired when a line from a channel listing is parsed
  *
  * @author mohaidb
- * @see Session#channelList()
- * @see Session#channelList(String)
+ * @see Session#chanList()
+ * @see Session#chanList(String)
  */
 public interface ChannelListEvent extends IRCEvent
 {

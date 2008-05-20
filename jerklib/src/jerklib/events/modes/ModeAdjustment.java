@@ -34,7 +34,7 @@ public class ModeAdjustment
 	 * This will return the argument for 
 	 * this mode if any.
 	 * 
-	 * @return
+	 * @return the argument for the mode or an empty string is no argument
 	 */
 	public String getArgument()
 	{
