@@ -12,6 +12,61 @@ import jerklib.events.modes.ModeEvent;
 import jerklib.events.modes.ModeAdjustment.Action;
 import jerklib.tasks.TaskImpl;
 
+/**
+ * 
+ * A Task to identify with NickServ and then join a list of channels names.
+ * Once the Task has succsessfully identifed with NickServ
+ * TaskCompletion Listeners will be notified with a true Boolean object.
+ * <p>
+ * If 40 seconds passes and the mode event to indicate ident success has not
+ * been received, TaskCompletion Listeners will be notified with a false Boolean object.
+ * <p>
+ * This plugin assumes Nickserv responds to the following syntax
+ * <p>
+ * "identify password"
+ * <p>
+ * To cancel this Task call cancel()
+ * <p>
+ * <b>To Use This Task</b>: You must use onEvent(Task , Type ... type) to add the Task
+ * You must pass Type.CONNECT_COMPLETE and Type.MODE_EVENT. Example of adding the Task:
+ * <p>
+ * session.onEvent(auth, Type.CONNECT_COMPLETE , Type.MODE_EVENT);
+ * <p>
+ * Example Code:
+ * <p>
+<pre> 		
+ 		final NickServAuthPlugin auth = new NickServAuthPlugin
+		(
+			"letmein", //password
+			'e', //mode char that indicates success
+			session, //session
+			Arrays.asList("#jerklib" , "##swing") // list of channels to join on success
+		);
+		
+		auth.addTaskListener(new TaskCompletionListener()
+		{
+			public void taskComplete(Object result)
+			{
+				if(result.equals(new Boolean(false)))
+				{
+					conman.quit();
+				}
+				else
+				{
+					System.out.println("Authed!");
+				}
+			}
+		});
+		
+		session.onEvent(auth, Type.CONNECT_COMPLETE , Type.MODE_EVENT);
+</pre>
+ * 
+ * 
+ * @see Session#onEvent(jerklib.tasks.Task, Type...)
+ * @see Type
+ * @author mohadib
+ *
+ */
 public class NickServAuthPlugin extends TaskImpl
 {
 	private final Session session;
@@ -20,6 +75,12 @@ public class NickServAuthPlugin extends TaskImpl
 	private final List<String> channels;
 	private boolean authed;
 	
+	/**
+	 * @param pass - nickserv password
+	 * @param identMode - mode that indicates ident success
+	 * @param session - Session this Task is attatched to
+	 * @param channels - A list of channel names to join on ident success
+	 */
 	public NickServAuthPlugin
 	(
 		String pass , 
