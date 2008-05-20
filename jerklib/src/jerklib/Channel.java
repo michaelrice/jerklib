@@ -410,7 +410,8 @@ public class Channel
 	 */
 	public void part(String partMsg)
 	{
-		session.part(this, partMsg);
+		if(partMsg == null || partMsg.length() == 0) partMsg = "Leaving";
+		con.addWriteRequest(new WriteRequest("PART " + getName() + " :" + partMsg, con));
 	}
 
 	/**
@@ -423,6 +424,61 @@ public class Channel
 		con.addWriteRequest(new WriteRequest("\001ACTION " + text + "\001", this, con));
 	}
 
+	/**
+	 *Send a names query to the server 
+	 */
+	public void names()
+	{
+		con.addWriteRequest(new WriteRequest("NAMES " + getName(), this, con));
+	}
+	
+	/** 
+	 * Devoice a user
+	 * @param userName
+	 */
+	public void deVoice(String userName)
+	{
+		con.addWriteRequest(new WriteRequest("MODE " + getName() + " -v " + userName, con));
+	}
+
+	/**
+	 * Voice a user
+	 * @param userName
+	 */
+	public void voice(String userName)
+	{
+		con.addWriteRequest(new WriteRequest("MODE " + getName() + " +v " + userName, con));
+	}
+
+	/**
+	 * Op a user
+	 * @param userName
+	 */
+	public void op(String userName)
+	{
+		con.addWriteRequest(new WriteRequest("MODE " + getName() + " +o " + userName, con));
+	}
+
+	/**
+	 * DeOp a user
+	 * @param userName
+	 */
+	public void deop(String userName)
+	{
+		con.addWriteRequest(new WriteRequest("MODE " + getName() + " -o " + userName, con));
+	}
+
+	/**
+	 * Kick a user
+	 * @param userName
+	 * @param reason
+	 */
+	public void kick(String userName, String reason)
+	{
+		if(reason == null || reason.length() == 0) reason = session.getNick();
+		con.addWriteRequest(new WriteRequest("KICK " + getName() + " " + userName + " :" + reason, con));
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */

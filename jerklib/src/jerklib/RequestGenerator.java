@@ -2,7 +2,6 @@ package jerklib;
 
 class RequestGenerator
 {
-
 	private Connection con;
 
 	void setConnection(Connection con)
@@ -42,20 +41,20 @@ class RequestGenerator
 			con.addWriteRequest(new WriteRequest("JOIN " + channel, con));
 		}
 	}
-
-	public void ctcp(String target, String request)
-	{
-		if (con != null)
-		{
-			con.addWriteRequest(new WriteRequest("\001" + request.toUpperCase() + "\001", con, target));
-		}
-	}
-
+	
 	public void join(String channel, String pass)
 	{
 		if (con != null)
 		{
 			con.addWriteRequest(new WriteRequest("JOIN " + channel + " " + pass, con));
+		}
+	}
+	
+	public void ctcp(String target, String request)
+	{
+		if (con != null)
+		{
+			con.addWriteRequest(new WriteRequest("\001" + request.toUpperCase() + "\001", con, target));
 		}
 	}
 
@@ -99,31 +98,6 @@ class RequestGenerator
 		con.addWriteRequest(new WriteRequest("MODE " + target + " " + mode, con));
 	}
 
-	public void deVoice(String userName, Channel channel)
-	{
-		con.addWriteRequest(new WriteRequest("MODE " + channel.getName() + " -v " + userName, con));
-	}
-
-	public void voice(String userName, Channel channel)
-	{
-		con.addWriteRequest(new WriteRequest("MODE " + channel.getName() + " +v " + userName, con));
-	}
-
-	public void op(String userName, Channel channel)
-	{
-		con.addWriteRequest(new WriteRequest("MODE " + channel.getName() + " +o " + userName, con));
-	}
-
-	public void deop(String userName, Channel channel)
-	{
-		con.addWriteRequest(new WriteRequest("MODE " + channel.getName() + " -o " + userName, con));
-	}
-
-	public void kick(String userName, String reason, Channel channel)
-	{
-		con.addWriteRequest(new WriteRequest("KICK " + channel.getName() + " " + userName + " :" + reason, con));
-	}
-
 	public void action(String target, String actionText)
 	{
 		ctcp(target, actionText);
@@ -137,16 +111,6 @@ class RequestGenerator
 	public void sayPrivate(String nick, String msg)
 	{
 		con.addWriteRequest(new WriteRequest(msg, con, nick));
-	}
-
-	public void part(Channel channel, String partMsg)
-	{
-		part(channel.getName(), partMsg);
-	}
-
-	public void part(String channelName, String partMsg)
-	{
-		con.addWriteRequest(new WriteRequest("PART " + channelName + " :" + partMsg, con));
 	}
 
 	public void sayRaw(String data)

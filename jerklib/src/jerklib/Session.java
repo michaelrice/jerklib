@@ -189,14 +189,6 @@ public class Session extends RequestGenerator
 		return profileUpdating;
 	}
 
-	public void kick(String userName, String reason, Channel channel)
-	{
-		if (reason == null || reason.length() == 0)
-		{
-			reason = getNick();
-		}
-		super.kick(userName, reason, channel);
-	}
 
 	public boolean isAway()
 	{
