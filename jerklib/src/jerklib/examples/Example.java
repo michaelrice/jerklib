@@ -19,7 +19,7 @@ public class Example implements IRCEventListener
 		/*
 		 * ConnectionManager takes a Profile to use for new connections.
 		 */
-		manager = new ConnectionManager(new Profile("mohadib"));
+		manager = new ConnectionManager(new Profile("scripy"));
 		
 		/*
 		 * One instance of ConnectionManager can connect to many IRC networks.

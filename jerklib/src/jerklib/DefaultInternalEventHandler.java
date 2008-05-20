@@ -20,10 +20,12 @@ import jerklib.listeners.IRCEventListener;
 import static jerklib.events.IRCEvent.Type.*;
 
 /**
- * Class that will only handle events that effect internal states/caches
+ * Class that will only handle events that effect internal states/caches.
  * Like channel nick lists. All events will be added to the ConnectionManager
- * for relaying.
+ * for relaying. You can change the internal behavior of Jerklib by overriding 
+ * methods in this class or by adding/removing event handlers.
  * 
+ * @see IRCEventListener
  * @author mohadib
  *
  */
@@ -34,6 +36,9 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	private Logger log = Logger.getLogger(this.getClass().getName());
 	
 	/**
+	 * Creates a new DefaultInternalEventHandler associated with
+	 * the given ConnectionManager
+	 * 
 	 * @param manager 
 	 */
 	public DefaultInternalEventHandler(ConnectionManager manager)
@@ -43,22 +48,47 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	}
 	
 	
+	/**
+	 * Adds an IRCEventListener to handle a given event Type.
+	 * This should only be used if you want to effect the internal
+	 * behavior of Jerklib.
+	 * 
+	 * @param type
+	 * @param listener
+	 */
 	public void addEventHandler(Type type , IRCEventListener listener)
 	{
 		stratMap.put(type, listener);
 	}
 	
+	/**
+	 * Removes any internal IRCEventListeners registered
+	 * to handle the Type passed in. This effects the internal
+	 * behavior of Jerklib.
+	 * 
+	 * @param type
+	 * @return true if a listener was removed , else false.
+	 */
 	public boolean removeEventHandler(Type type)
 	{
 		return stratMap.remove(type) != null;
 	}
 	
+	/**
+	 * Returns the event handler registerd to the Type given.
+	 * 
+	 * @param type
+	 * @return The handler or null if no handler for Type
+	 */
 	public IRCEventListener getEventHandler(Type type)
 	{
 		return stratMap.get(type);
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see jerklib.listeners.IRCEventListener#receiveEvent(jerklib.events.IRCEvent)
+	 */
 	public void receiveEvent(IRCEvent event)
 	{
 		IRCEventListener l = stratMap.get(event.getType());
@@ -87,6 +117,10 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	}
 	
 	
+	/**
+	 * Called when a JoinCompleteEvent is received
+	 * @param e the event
+	 */
 	public void joinComplete(IRCEvent e)
 	{
 		JoinCompleteEvent jce = (JoinCompleteEvent)e;
@@ -94,18 +128,33 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		jce.getSession().sayRaw("MODE " + jce.getChannel().getName());
 	}
 	
+	/**
+	 * Called when a JoinEvent is received.
+	 * 
+	 * @param e the event
+	 */
 	public void join(IRCEvent e)
 	{
 		JoinEvent je = (JoinEvent)e;
 		je.getChannel().addNick(je.getNick());
 	}
 	
+	/**
+	 * Called when a QuitEvent is received.
+	 * 
+	 * @param e the event
+	 */
 	public void quit(IRCEvent e)
 	{
 		QuitEvent qe = (QuitEvent)e;
 		e.getSession().removeNickFromAllChannels(qe.getNick());
 	}
 	
+	/**
+	 * Called when a PartEvent is received.
+	 * 
+	 * @param e the event
+	 */
 	public void part(IRCEvent e)
 	{
 		PartEvent pe = (PartEvent)e;
@@ -119,6 +168,12 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		}
 	}
 	
+	
+	/**
+	 * Called when a NickChangeEvent is received
+	 * 
+	 * @param e the event
+	 */
 	public void nick(IRCEvent e)
 	{
 		NickChangeEvent nce = (NickChangeEvent)e;
@@ -129,6 +184,12 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		}
 	}
 	
+	
+	/**
+	 * Called when a NickInUseEvent is received
+	 * 
+	 * @param e the event
+	 */
 	public void nickInUse(IRCEvent e)
 	{
 		Session session = e.getSession();
@@ -148,6 +209,11 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	}
 	
 	
+	/**
+	 * Called when a KickEvent is received
+	 * 
+	 * @param e the event
+	 */
 	public void kick(IRCEvent e)
 	{
 		KickEvent ke = (KickEvent)e;
@@ -167,6 +233,11 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		}
 	}
 	
+	/**
+	 * Called when ConnectionComplete event is received.
+	 * 
+	 * @param e the event
+	 */
 	public void connectionComplete(IRCEvent e)
 	{
 		/* sometimes the server will change the nick when connecting
@@ -199,9 +270,11 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		session.connected();
 	}
 	
-	
-	/*
-	 *handle channel and user modes
+
+	/**
+	 * Called when a ModeEvent is received
+	 * 
+	 * @param event
 	 */
 	public void mode(IRCEvent event)
 	{
