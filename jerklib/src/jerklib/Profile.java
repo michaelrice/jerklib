@@ -54,66 +54,75 @@ public class Profile
 		this(nick, nick, nick + "1", nick + "2");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see jerklib.Profile#getName()
+
+	/**
+	 * return the name
+	 * @return name
 	 */
 	public String getName()
 	{
 		return name;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see jerklib.Profile#getFirstNick()
+	/**
+	 * Rreturn the first nick
+	 * @return first nick
 	 */
 	public String getFirstNick()
 	{
 		return firstNick;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Get the second nick
 	 * 
-	 * @see jerklib.Profile#getSecondNick()
+	 * @return second nick
 	 */
 	public String getSecondNick()
 	{
 		return secondNick;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see jerklib.Profile#getThirdNick()
+	/**
+	 * Get the third nick
+	 * @return third nick
 	 */
 	public String getThirdNick()
 	{
 		return thirdNick;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Get the nick currently being used.
 	 * 
-	 * @see jerklib.Profile#getActualNick()
+	 * @return current actual nick
 	 */
 	public String getActualNick()
 	{
 		return actualNick;
 	}
 
+	/**
+	 * Set current nick
+	 * @param aNick
+	 */
 	void setActualNick(String aNick)
 	{
 		actualNick = aNick;
 	}
 
+	/**
+	 * Set first nick
+	 * @param nick
+	 */
 	void setFirstNick(String nick)
 	{
 		firstNick = nick;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	public boolean equals(Object o)
 	{
 		if (this == o) { return true; }
@@ -127,6 +136,9 @@ public class Profile
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	public int hashCode()
 	{
 		int result;
@@ -135,7 +147,9 @@ public class Profile
 		return result;
 	}
 
-	@Override
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	public Profile clone()
 	{
 		Profile impl = new Profile(name, firstNick, secondNick, thirdNick);
