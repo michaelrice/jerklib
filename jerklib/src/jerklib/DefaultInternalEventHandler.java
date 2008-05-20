@@ -19,8 +19,8 @@ import jerklib.listeners.IRCEventListener;
 import static jerklib.events.IRCEvent.Type.*;
 
 /**
- * Class that will only handle events that effect internal state and caches
- * Like channel nicks lists. All events will be added to the ConnectionManager
+ * Class that will only handle events that effect internal states/caches
+ * Like channel nick lists. All events will be added to the ConnectionManager
  * for relaying.
  * 
  * @author mohadib
@@ -32,6 +32,9 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	private Map<Type, IRCEventListener> stratMap = new HashMap<Type, IRCEventListener>();
 	private Logger log = Logger.getLogger(this.getClass().getName());
 	
+	/**
+	 * @param manager 
+	 */
 	public DefaultInternalEventHandler(ConnectionManager manager)
 	{
 		this.manager = manager;

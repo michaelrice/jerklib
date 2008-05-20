@@ -34,12 +34,18 @@ public class EventToken
 	private List<String>arguments = new ArrayList<String>();
 	private int offset = 0;
 	
+	/**
+	 * @param data
+	 */
 	public EventToken(String data)
 	{
 		this.data = data;
 		parse();
 	}
 	
+	/**
+	 * Parse message
+	 */
 	private void parse()
 	{
 		//see if message has prefix
@@ -57,6 +63,9 @@ public class EventToken
 		extractArguments();
 	}
 	
+	/**
+	 * Extract arguments from message
+	 */
 	private void extractArguments()
 	{
 		String argument = "";
@@ -92,7 +101,10 @@ public class EventToken
 		}
 	}
 	
-	// increment offset till next non whitespace char
+
+	/**
+	 * Increment offset until a noon whitespace char is found
+	 */
 	private void incTillChar()
 	{
 		for(int i = offset ; i < data.length(); i++)
@@ -105,6 +117,11 @@ public class EventToken
 		}
 	}
 	
+	/**
+	 * Extract prefix part of messgae , inc offset
+	 * 
+	 * @param data
+	 */
 	private void extractPrefix(String data)
 	{
 		//set prefix - : is at 0
@@ -114,6 +131,10 @@ public class EventToken
 		offset += prefix.length() + 1;
 	}
 	
+	/**
+	 * Gets hostname from message 
+	 * @return hostname or empty string if hostname could not be parsed
+	 */
 	public String hostName()
 	{
 		int index = prefix.indexOf('@');
@@ -124,6 +145,11 @@ public class EventToken
 		return "";
 	}
 
+	/**
+	 * Get username from message
+	 * 
+	 * @return username or empty string is username could not be parsed.
+	 */
 	public String userName()
 	{
 		int sindex = prefix.indexOf('!');
@@ -136,6 +162,11 @@ public class EventToken
 		return "";
 	}
 	
+	/**
+	 * Get nick from message
+	 * 
+	 * @return nick or empty string is could not be parsed
+	 */
 	public String nick()
 	{
 		if(prefix.indexOf("!") != -1)
@@ -145,21 +176,40 @@ public class EventToken
 		return "";
 	}
 
+	/**
+	 * Gets message prefix if any
+	 * @return returns prefix or empty string if no prefix
+	 */
 	public String prefix()
 	{
 		return prefix;
 	}
 	
+	/**
+	 * Gets the command 
+	 * @return the command
+	 */
 	public String command()
 	{
 		return command;
 	}
 	
+	/**
+	 * Gets list of arguments
+	 * 
+	 * @return list of arguments
+	 */
 	public List<String>args()
 	{
 		return arguments;
 	}
 	
+	/**
+	 * Gets an argument
+	 * 
+	 * @param index
+	 * @return the argument or null if not argument at that index
+	 */
 	public String arg(int index)
 	{
 		if(index < arguments.size())
@@ -169,11 +219,17 @@ public class EventToken
 		return null;
 	}
 	
+	/**
+	 * @return raw event data
+	 */
 	public String data()
 	{
 		return data;
 	}
 	
+	/**
+	 * @return numeric or -1 if command is not numeric
+	 */
 	public int numeric()
 	{
 		int i = -1;
