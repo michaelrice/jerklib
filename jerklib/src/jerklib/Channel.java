@@ -1,19 +1,38 @@
 package jerklib;
 
+import jerklib.events.JoinCompleteEvent;
 import jerklib.events.TopicEvent;
 import jerklib.events.modes.ModeAdjustment;
 import jerklib.events.modes.ModeAdjustment.Action;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date; 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-
+/**
+ * A Class to represent a <b>joined</b> IRC channel. This class has methods to 
+ * interact with IRC Channels like say() , part() , getChannelModes() etc.
+ * 
+ * You will never need to create an instance of this class manually. Instead
+ * it will be created for you and stored in the Session when you successfully
+ * join a channel.
+ * 
+ * @see Session
+ * @see Session#getChannel(String)
+ * @see Session#getChannels()
+ * @see Session#getChannelNames()
+ * @see JoinCompleteEvent
+ * 
+ * @author mohadib
+ *
+ */
 public class Channel
 {
+		/* channel name */
     private String name;
     private Connection con;
     private Session session;
@@ -21,6 +40,13 @@ public class Channel
     private List<ModeAdjustment> channelModes = new ArrayList<ModeAdjustment>();
     private TopicEvent topicEvent;
 
+    
+    /**
+     * This should only be used internally and for testing
+     * 
+     * @param name - Name of Channel
+     * @param session - Session Channel belongs to
+     */
     public Channel(String name, Session session)
     {
         this.name = name;
@@ -30,7 +56,11 @@ public class Channel
 
     
     
-    /* This code assumes the only valid, trackworthy, user-channel modes can be found in PREFIX from serverinfo*/
+    /**
+     * Updates Channel's modes.
+     * 
+     * @param modes - list of ModeAdjustments
+     */
     void updateModes(List<ModeAdjustment> modes)
     {
     	ServerInformation info = session.getServerInformation();
@@ -38,11 +68,13 @@ public class Channel
     	
     	for(ModeAdjustment mode : modes)
     	{
-    		if(nickModes.contains(mode.getMode()) && userMap.containsKey(mode.getArgument()))
+    		if(nickModes.contains(String.valueOf(mode.getMode())) && userMap.containsKey(mode.getArgument()))
     		{
     			updateMode(mode , userMap.get(mode.getArgument()));
     		}
-    		else
+    		/* filter out channel modes that apply to users that are not in prefix map */
+    		/* like +b - this behviour might not be desired , time will tell */
+    		else if(mode.getMode() != 'q' && mode.getMode() != 'b')
     		{
     			updateMode(mode , channelModes);
     		}

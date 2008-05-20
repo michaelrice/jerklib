@@ -219,6 +219,8 @@ public class ServerInformation
             }
             else if (subTokens[0].equals("PREFIX"))
             {
+            		nickPrefixMap.clear();
+            		
                 if (subTokens.length == 2)
                 {
                     supportsNickPrefixes = true;
