@@ -142,12 +142,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 			else if(usedNick.equals(p.getSecondNick()))newNick = p.getThirdNick();
 			if(newNick.length() > 0)
 			{
-				System.out.println("trying to change nick to " + newNick);
 				session.changeNick(newNick);
-			}
-			else
-			{
-				System.err.println("Nicks exahusted");
 			}
 		}
 	}

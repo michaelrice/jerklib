@@ -1,8 +1,5 @@
 package jerklib.examples;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import jerklib.ConnectionManager;
 import jerklib.Profile;
 import jerklib.Session;

@@ -262,23 +262,43 @@ public class Session extends RequestGenerator
 	}
 	
 	
+	/**
+	 * Called to alert the Session that login was a success
+	 */
 	void loginSuccess()
 	{
 		haveLoggedIn = true;
 	}
 	
 	
+	/**
+	 * Returns true if the Session has an active Connection and
+	 * has successfully logged on to the Connection.
+	 * @return
+	 */
 	public boolean hasLoggedIn()
 	{
 		return haveLoggedIn;
 	}
 	
+	/**
+	 * Set Session yo try alternate nicks
+	 * on connection if a nick in use event is received , or not.
+	 * 
+	 * @param use
+	 */
 	public void setShouldUseAltNicks(boolean use)
 	{
 		useAltNicks = use;
 	}
 	
 	
+	/**
+	 * Returns if Session should try alternate nicks
+	 * on connection if a nick in use event is received.
+	 * 
+	 * @return
+	 */
 	public boolean getShouldUseAltNicks()
 	{
 		return useAltNicks;
