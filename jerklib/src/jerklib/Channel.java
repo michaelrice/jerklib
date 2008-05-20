@@ -59,6 +59,16 @@ public class Channel
     /**
      * Updates Channel's modes.
      * 
+     * Only tracks channel modes that apply to users in the channel
+     * if the mode is in the nick prefix map received in numeric 005. If no
+     * numeric is passed o,v,h are used by default.
+     * 
+     * So basically modes that do not change the apperance of a nick with a prefix
+     * are not tracked if the mode applies to a user. Example: q and b are not tracked.
+     * 
+     * If the mode does not apply to a user in the channel , the mode will 
+     * always be tracked. Example: i is tracked
+     * 
      * @param modes - list of ModeAdjustments
      */
     void updateModes(List<ModeAdjustment> modes)
