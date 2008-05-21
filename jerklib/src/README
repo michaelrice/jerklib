@@ -27,6 +27,6 @@ Run example:
 Source code for example:                                                      	
 	http://jerklib.svn.sourceforge.net/viewvc/jerklib/jerklib/src/jerklib/examples/Example.java?view=markup
 	
-NOTE: The above example may not reflect the current release API.
+NOTE: The above example may not reflect this release's API.
       If you want the correct example for this release see: src/jerklib/examples/Example.java
 
