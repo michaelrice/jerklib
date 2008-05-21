@@ -79,6 +79,7 @@ public class Session extends RequestGenerator
 	{
 		this.rCon = rCon;
 		this.conman = conman;
+		setSession(this);
 	}
 	
 	/**
@@ -640,13 +641,13 @@ public class Session extends RequestGenerator
 		lastRetry = System.currentTimeMillis();
 	}
 
-	/* (non-Javadoc)
-	 * @see jerklib.RequestGenerator#setConnection(jerklib.Connection)
+	/**
+	 * Sets the connection for this Session
+	 * @param con
 	 */
 	void setConnection(Connection con)
 	{
 		this.con = con;
-		super.setConnection(con);
 	}
 
 	/**

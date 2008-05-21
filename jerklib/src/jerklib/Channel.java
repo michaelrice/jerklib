@@ -32,7 +32,6 @@ public class Channel
 {
 	/* channel name */
 	private String name;
-	private Connection con;
 	private Session session;
 	private Map<String, List<ModeAdjustment>> userMap;
 	private List<ModeAdjustment> channelModes = new ArrayList<ModeAdjustment>();
@@ -79,7 +78,6 @@ public class Channel
 		
 		this.name = name;
 		this.session = session;
-		this.con = session.getConnection();
 	}
 
 	/**
@@ -282,7 +280,7 @@ public class Channel
 	 */
 	public void setTopic(String topic)
 	{
-		con.addWriteRequest(new WriteRequest("TOPIC " + name + " :" + topic + "\r\n", con));
+		write(new WriteRequest("TOPIC " + name + " :" + topic, session));
 	}
 
 	/**
@@ -412,7 +410,7 @@ public class Channel
 	public void part(String partMsg)
 	{
 		if(partMsg == null || partMsg.length() == 0) partMsg = "Leaving";
-		con.addWriteRequest(new WriteRequest("PART " + getName() + " :" + partMsg, con));
+		write(new WriteRequest("PART " + getName() + " :" + partMsg, session));
 	}
 
 	/**
@@ -422,7 +420,7 @@ public class Channel
 	 */
 	public void action(String text)
 	{
-		con.addWriteRequest(new WriteRequest("\001ACTION " + text + "\001", this, con));
+		write(new WriteRequest("\001ACTION " + text + "\001", this, session));
 	}
 
 	/**
@@ -430,7 +428,7 @@ public class Channel
 	 */
 	public void names()
 	{
-		con.addWriteRequest(new WriteRequest("NAMES " + getName(), this, con));
+		write(new WriteRequest("NAMES " + getName(), this, session));
 	}
 	
 	/** 
@@ -439,7 +437,7 @@ public class Channel
 	 */
 	public void deVoice(String userName)
 	{
-		con.addWriteRequest(new WriteRequest("MODE " + getName() + " -v " + userName, con));
+		write(new WriteRequest("MODE " + getName() + " -v " + userName, session));
 	}
 
 	/**
@@ -448,7 +446,7 @@ public class Channel
 	 */
 	public void voice(String userName)
 	{
-		con.addWriteRequest(new WriteRequest("MODE " + getName() + " +v " + userName, con));
+		write(new WriteRequest("MODE " + getName() + " +v " + userName, session));
 	}
 
 	/**
@@ -457,7 +455,7 @@ public class Channel
 	 */
 	public void op(String userName)
 	{
-		con.addWriteRequest(new WriteRequest("MODE " + getName() + " +o " + userName, con));
+		write(new WriteRequest("MODE " + getName() + " +o " + userName, session));
 	}
 
 	/**
@@ -466,7 +464,7 @@ public class Channel
 	 */
 	public void deop(String userName)
 	{
-		con.addWriteRequest(new WriteRequest("MODE " + getName() + " -o " + userName, con));
+		write(new WriteRequest("MODE " + getName() + " -o " + userName, session));
 	}
 
 	/**
@@ -477,7 +475,21 @@ public class Channel
 	public void kick(String userName, String reason)
 	{
 		if(reason == null || reason.length() == 0) reason = session.getNick();
-		con.addWriteRequest(new WriteRequest("KICK " + getName() + " " + userName + " :" + reason, con));
+		write(new WriteRequest("KICK " + getName() + " " + userName + " :" + reason, session));
+	}
+	
+	
+	private void write(WriteRequest req)
+	{
+		session.getConnection().addWriteRequest(req);
+	}
+	
+	/**
+	 * Return the Session this Channel belongs to
+	 */
+	public Session getSession()
+	{
+		return session;
 	}
 	
 	/* (non-Javadoc)
@@ -487,11 +499,9 @@ public class Channel
 	{
 		if (this == o) { return true; }
 		if (!(o instanceof Channel)) { return false; }
-
 		Channel channel = (Channel) o;
-
-		if (con != null ? !con.getHostName().equals(channel.con.getHostName()) : channel.con != null) { return false; }
-		if (name != null ? !name.equals(channel.name) : channel.name != null) { return false; }
+		if (!session.getConnectedHostName().equals(channel.getSession().getConnectedHostName())) { return false; }
+		if (!name.equals(channel.getName())) { return false; }
 
 		return true;
 	}
@@ -503,7 +513,7 @@ public class Channel
 	{
 		int result;
 		result = (name != null ? name.hashCode() : 0);
-		result = 31 * result + (con != null ? con.getHostName().hashCode() : 0);
+		result = 31 * result + session.getConnectedHostName().hashCode();
 		return result;
 	}
 

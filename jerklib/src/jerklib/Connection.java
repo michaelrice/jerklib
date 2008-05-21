@@ -216,7 +216,7 @@ class Connection
 
 			if (request.getType() == WriteRequest.Type.CHANNEL_MSG)
 			{
-				data = "PRIVMSG " + request.getChannelName() + " :" + request.getMessage() + "\r\n";
+				data = "PRIVMSG " + request.getChannel().getName() + " :" + request.getMessage() + "\r\n";
 			}
 			else if (request.getType() == WriteRequest.Type.PRIVATE_MSG)
 			{
@@ -259,7 +259,7 @@ class Connection
 	 */
 	void ping()
 	{
-		writeRequests.add(new WriteRequest("PING " + actualHostName + "\r\n", this));
+		writeRequests.add(new WriteRequest("PING " + actualHostName + "\r\n", session));
 		session.pingSent();
 	}
 
@@ -272,7 +272,7 @@ class Connection
 	{
 		session.gotResponse();
 		String data = event.getRawEventData().substring(event.getRawEventData().lastIndexOf(":") + 1);
-		writeRequests.add(new WriteRequest("PONG " + data + "\r\n", this));
+		writeRequests.add(new WriteRequest("PONG " + data + "\r\n", session));
 	}
 
 	/**
@@ -293,7 +293,7 @@ class Connection
 		try
 		{
 			if (quitMessage == null) quitMessage = "";
-			WriteRequest request = new WriteRequest("QUIT :" + quitMessage + "\r\n", this);
+			WriteRequest request = new WriteRequest("QUIT :" + quitMessage + "\r\n", session);
 			writeRequests.add(request);
 			// clear out write queue
 			doWrites();

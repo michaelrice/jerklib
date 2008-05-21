@@ -10,16 +10,16 @@ package jerklib;
  */
 class RequestGenerator
 {
-	private Connection con;
+	private Session session;
 
 	/**
-	 * Sets the Connection to use
+	 * Sets the sessionnection to use
 	 *  
-	 * @param con
+	 * @param session
 	 */
-	void setConnection(Connection con)
+	void setSession(Session session)
 	{
-		this.con = con;
+		this.session = session;
 	}
 
 	/**
@@ -29,7 +29,7 @@ class RequestGenerator
 	 */
 	public void who(String who)
 	{
-		con.addWriteRequest(new WriteRequest("WHO " + who, con));
+		write(new WriteRequest("WHO " + who, session));
 	}
 	
 	/**
@@ -39,7 +39,7 @@ class RequestGenerator
 	 */
 	public void whois(String nick)
 	{
-		con.addWriteRequest(new WriteRequest("WHOIS " + nick, con));
+		write(new WriteRequest("WHOIS " + nick, session));
 	}
 
 	/**
@@ -48,7 +48,7 @@ class RequestGenerator
 	 */
 	public void whoWas(String nick)
 	{
-		con.addWriteRequest(new WriteRequest("WHOWAS " + nick, con));
+		write(new WriteRequest("WHOWAS " + nick, session));
 	}
 	
 	/**
@@ -59,7 +59,7 @@ class RequestGenerator
 	 */
 	public void invite(String nick, Channel chan)
 	{
-		con.addWriteRequest(new WriteRequest("INVITE " + nick + " " + chan.getName(), con));
+		write(new WriteRequest("INVITE " + nick + " " + chan.getName(), session));
 	}
 
 	/**
@@ -67,7 +67,7 @@ class RequestGenerator
 	 */
 	public void chanList()
 	{
-		con.addWriteRequest(new WriteRequest("LIST", con));
+		write(new WriteRequest("LIST", session));
 	}
 
 	
@@ -78,7 +78,7 @@ class RequestGenerator
 	 */
 	public void chanList(String channel)
 	{
-		con.addWriteRequest(new WriteRequest("LIST " + channel, con));
+		write(new WriteRequest("LIST " + channel, session));
 	}
 
 	/**
@@ -88,10 +88,7 @@ class RequestGenerator
 	 */
 	public void join(String channel)
 	{
-		if (con != null)
-		{
-			con.addWriteRequest(new WriteRequest("JOIN " + channel, con));
-		}
+			write(new WriteRequest("JOIN " + channel, session));
 	}
 	
 	/**
@@ -102,10 +99,7 @@ class RequestGenerator
 	 */
 	public void join(String channel, String pass)
 	{
-		if (con != null)
-		{
-			con.addWriteRequest(new WriteRequest("JOIN " + channel + " " + pass, con));
-		}
+			write(new WriteRequest("JOIN " + channel + " " + pass, session));
 	}
 	
 	/**
@@ -115,10 +109,7 @@ class RequestGenerator
 	 */
 	public void ctcp(String target, String request)
 	{
-		if (con != null)
-		{
-			con.addWriteRequest(new WriteRequest("\001" + request.toUpperCase() + "\001", con, target));
-		}
+		write(new WriteRequest("\001" + request.toUpperCase() + "\001", session, target));
 	}
 
 	
@@ -130,7 +121,7 @@ class RequestGenerator
 	 */
 	public void notice(String target, String msg)
 	{
-		con.addWriteRequest(new WriteRequest("NOTICE " + target + " :" + msg, con));
+		write(new WriteRequest("NOTICE " + target + " :" + msg, session));
 	}
 
 	/**
@@ -140,7 +131,7 @@ class RequestGenerator
 	 */
 	public void setAway(String message)
 	{
-		con.addWriteRequest(new WriteRequest("AWAY :" + message, con));
+		write(new WriteRequest("AWAY :" + message, session));
 	}
 
 	/**
@@ -149,7 +140,7 @@ class RequestGenerator
 	 */
 	public void unSetAway()
 	{
-		con.addWriteRequest(new WriteRequest("AWAY", con));
+		write(new WriteRequest("AWAY", session));
 	}
 
 	/**
@@ -157,7 +148,7 @@ class RequestGenerator
 	 */
 	public void getServerVersion()
 	{
-		con.addWriteRequest(new WriteRequest("VERSION " + con.getHostName(), con));
+		write(new WriteRequest("VERSION " + session.getConnection().getHostName(), session));
 	}
 
 	/**
@@ -167,7 +158,7 @@ class RequestGenerator
 	 */
 	public void getServerVersion(String hostPattern)
 	{
-		con.addWriteRequest(new WriteRequest("VERSION " + hostPattern, con));
+		write(new WriteRequest("VERSION " + hostPattern, session));
 	}
 
 	/**
@@ -177,7 +168,7 @@ class RequestGenerator
 	 */
 	public void changeNick(String nick)
 	{
-		con.addWriteRequest(new WriteRequest("NICK " + nick, con));
+		write(new WriteRequest("NICK " + nick, session));
 	}
 
 	/**
@@ -188,7 +179,7 @@ class RequestGenerator
 	 */
 	public void mode(String target , String mode)
 	{
-		con.addWriteRequest(new WriteRequest("MODE " + target + " " + mode, con));
+		write(new WriteRequest("MODE " + target + " " + mode, session));
 	}
 
 	/**
@@ -210,7 +201,7 @@ class RequestGenerator
 	 */
 	public void sayChannel(String msg, Channel channel)
 	{
-		con.addWriteRequest(new WriteRequest(msg, channel, con));
+		write(new WriteRequest(msg, channel, session));
 	}
 
 	/**
@@ -221,7 +212,7 @@ class RequestGenerator
 	 */
 	public void sayPrivate(String nick, String msg)
 	{
-		con.addWriteRequest(new WriteRequest(msg, con, nick));
+		write(new WriteRequest(msg, session, nick));
 	}
 
 	/**
@@ -231,7 +222,15 @@ class RequestGenerator
 	 */
 	public void sayRaw(String data)
 	{
-		con.addWriteRequest(new WriteRequest(data, con));
+		write(new WriteRequest(data, session));
 	}
 
+	private void write(WriteRequest req)
+	{
+		Connection con = session.getConnection();
+		if(con != null)
+		{
+			con.addWriteRequest(req);
+		}
+	}
 }

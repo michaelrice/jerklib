@@ -6,6 +6,7 @@ package jerklib;
  * RAW_MSG (from the Type enum). RAW_MSG is used when you need direct access to
  * the IRC stream , else PRIV_MSG or DIRECT_MSG should be used.
  * 
+ *  
  * @author mohadib
  */
 public class WriteRequest
@@ -14,9 +15,7 @@ public class WriteRequest
 	private final Type type;
 	private final String message, nick;
 	private final Channel channel;
-	private final Connection con;
-	private String channelName;
-	private String connectionName;
+	private final Session session;
 
 	/**
 	 * Type enum is used to determine type. It is returned from getType() PRIV_MSG
@@ -31,109 +30,107 @@ public class WriteRequest
 
 	;
 
-	public WriteRequest(String message, Connection con, String nick)
+	/**
+	 * Create a request that will be written as a private message.
+	 * 
+	 * @param message
+	 * @param con
+	 * @param nick
+	 */
+	WriteRequest(String message, Session session, String nick)
 	{
 		this.type = Type.PRIVATE_MSG;
 		this.message = message;
-		this.con = con;
+		this.session = session;
 		this.nick = nick;
 		this.channel = null;
 	}
 
-	public WriteRequest(String message, Channel channel, Connection con)
+	/**
+	 * Create a request that will be written as a channel message.
+	 * 
+	 * @param message
+	 * @param channel
+	 * @param con
+	 */
+	WriteRequest(String message, Channel channel, Session session)
 	{
 		this.type = Type.CHANNEL_MSG;
 		this.message = message;
 		this.channel = channel;
-		this.channelName = channel.getName();
-		this.con = con;
+		this.session = session;
 		this.nick = null;
 	}
 
-	public WriteRequest(String message, Channel channel, String hostName)
-	{
-		this.type = Type.CHANNEL_MSG;
-		this.message = message;
-		this.channel = channel;
-		this.channelName = channel.getName();
-		this.connectionName = hostName;
-		this.con = null;
-		this.nick = null;
-	}
 
-	public WriteRequest(String message, String channelName, String hostName)
-	{
-		this.type = Type.CHANNEL_MSG;
-		this.message = message;
-		this.channel = null;
-		this.channelName = channelName;
-		this.connectionName = hostName;
-		this.con = null;
-		this.nick = null;
-	}
-
-	public WriteRequest(String message, String channelName, Connection con)
-	{
-		this.type = Type.CHANNEL_MSG;
-		this.message = message;
-		this.channel = null;
-		this.channelName = channelName;
-		this.con = con;
-		this.nick = null;
-	}
-
-	public WriteRequest(String message, Connection con)
+	/**
+	 * Create a request that will be written as raw text.
+	 * @param message
+	 * @param con
+	 */
+	WriteRequest(String message, Session session)
 	{
 		this.type = Type.RAW_MSG;
 		this.message = message;
-		this.con = con;
+		this.session = session;
 		this.channel = null;
 		this.nick = null;
 	}
 
-	public WriteRequest(String message, String hostName)
-	{
-		this.type = Type.RAW_MSG;
-		this.message = message;
-		this.connectionName = hostName;
-		this.con = null;
-		this.channel = null;
-		this.nick = null;
-	}
-
+	/**
+	 * Type of request
+	 * @return type
+	 */
 	public Type getType()
 	{
 		return type;
 	}
 
+	/**
+	 * Get message part of request
+	 * 
+	 * @return message
+	 */
 	public String getMessage()
 	{
 		return message;
 	}
 
+	/**
+	 * Get Channel associated with the request. If no channel null will be returned;
+	 * @return channel or null if no channel for request
+	 */
 	public Channel getChannel()
 	{
 		return channel;
 	}
 
-	public Connection getConnection()
-	{
-		return con;
-	}
-
+	/**
+	 * Get the nick used for this request
+	 * @return nick
+	 */
 	public String getNick()
 	{
 		return nick;
 	}
-
-	public String getChannelName()
+	
+	/**
+	 * Return the Session
+	 * @return Session
+	 */
+	public Session getSession()
 	{
-		return channelName;
+		return session;
 	}
-
-	public String getConnectionName()
+	
+	/**
+	 * Gets the connection
+	 * @return the connection
+	 */
+	Connection getConnection()
 	{
-		return connectionName;
+		return session.getConnection();
 	}
-
+	
+	
 }

@@ -77,7 +77,7 @@ public class MockConnection extends Connection
 
         if (request.getType() == WriteRequest.Type.CHANNEL_MSG)
         {
-            data = "PRIVMSG " + request.getChannelName() + " :" + request.getMessage() + "\r\n";
+            data = "PRIVMSG " + request.getChannel().getName() + " :" + request.getMessage() + "\r\n";
         }
         else if (request.getType() == WriteRequest.Type.PRIVATE_MSG)
         {
