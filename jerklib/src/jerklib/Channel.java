@@ -479,6 +479,10 @@ public class Channel
 	}
 	
 	
+	/**
+	 * Helper method for writing
+	 * @param req
+	 */
 	private void write(WriteRequest req)
 	{
 		session.getConnection().addWriteRequest(req);

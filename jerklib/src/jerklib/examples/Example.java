@@ -8,7 +8,10 @@ import jerklib.events.IRCEvent.Type;
 import jerklib.listeners.IRCEventListener;
 
 /**
- * @author mohadib A simple example that demonsrates how to use JerkLib
+ * @author mohadib 
+ * 
+ *  A simple example that demonsrates how to use JerkLib
+ *  
  */
 public class Example implements IRCEventListener
 {
