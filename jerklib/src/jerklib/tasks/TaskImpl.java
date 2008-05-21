@@ -4,8 +4,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import jerklib.Session;
+import jerklib.events.IRCEvent.Type;
 import jerklib.listeners.TaskCompletionListener;
 
+/**
+ * An impl of the Task interface. This impl also 
+ * provides methods for notifications to listeners.
+ * 
+ * 
+ * @see Session#onEvent(Task)
+ * @see Session#onEvent(jerklib.tasks.Task, jerklib.events.IRCEvent.Type...)
+ * @see Type
+ * 
+ * @author mohadib
+ *
+ */
 public abstract class TaskImpl implements Task
 {
     private final List<TaskCompletionListener> listeners = new ArrayList<TaskCompletionListener>();

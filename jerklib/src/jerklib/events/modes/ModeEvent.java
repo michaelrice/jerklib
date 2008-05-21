@@ -6,10 +6,9 @@ import jerklib.events.IRCEvent;
 import java.util.List;
 
 /**
+ * Event fired when mode changes for us(UserMode) or Channel(ChannelMode)
+ *  
  * @author mohadib
- *         Event fired when mode changes for us(UserMode) or Channel(ChannelMode)
- *         
- * @see Channel
  */
 public interface ModeEvent extends IRCEvent
 {

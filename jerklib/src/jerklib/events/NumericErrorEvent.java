@@ -1,8 +1,10 @@
 package jerklib.events;
 
 /**
+ * 
+ * Event fired for most all numeric error replies
+ * 
  * @author Mohadib
- *         Event fired for most all numeric error replies
  */
 public interface NumericErrorEvent extends ErrorEvent
 {

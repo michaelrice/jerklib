@@ -3,8 +3,8 @@ package jerklib.events;
 import jerklib.Channel;
 
 /**
- * @author mohadib
  * Event fired when someone is kicked from a channel
+ * @author mohadib
  * @see Channel#kick(String, String)
  */
 public interface KickEvent extends IRCEvent

@@ -5,8 +5,10 @@ import jerklib.Channel;
 import java.util.List;
 
 /**
+ * 
+ * Event fired when nick list event comes from server
  * @author mohadib
- *         Event fired when nick list event comes from server
+ *         
  */
 public interface NickListEvent extends IRCEvent
 {
