@@ -127,7 +127,6 @@ public class Session extends RequestGenerator
 	 * 
 	 * @see IRCEventListener
 	 * @see DefaultInternalEventHandler
-	 * @param handler
 	 * @return event handler
 	 * 
 	 */
@@ -275,7 +274,7 @@ public class Session extends RequestGenerator
 	/**
 	 * Returns true if the Session has an active Connection and
 	 * has successfully logged on to the Connection.
-	 * @return
+	 * @return if logged in 
 	 */
 	public boolean hasLoggedIn()
 	{
@@ -300,7 +299,7 @@ public class Session extends RequestGenerator
 	 * on connection if a nick in use event is received.
 	 * True by default.
 	 * 
-	 * @return
+	 * @return should use alt nicks
 	 */
 	public boolean getShouldUseAltNicks()
 	{
@@ -607,7 +606,7 @@ public class Session extends RequestGenerator
 	/**
 	 * Removes a nick from all channels
 	 * @param nick
-	 * @return
+	 * @return list of Channels nick was found in
 	 */
 	public List<Channel> removeNickFromAllChannels(String nick)
 	{

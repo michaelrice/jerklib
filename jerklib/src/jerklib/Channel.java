@@ -22,7 +22,6 @@ import java.util.Map;
  * @see Session
  * @see Session#getChannel(String)
  * @see Session#getChannels()
- * @see Session#getChannelNames()
  * @see JoinCompleteEvent
  * 
  * @author mohadib

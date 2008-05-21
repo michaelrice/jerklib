@@ -62,7 +62,7 @@ import jerklib.tasks.TaskImpl;
 </pre>
  * 
  * 
- * @see Session#onEvent(jerklib.tasks.Task, Type...)
+ * @see Session#onEvent(jerklib.tasks.Task, jerklib.events.IRCEvent.Type...)
  * @see Type
  * @author mohadib
  *
