@@ -5,8 +5,9 @@ import java.util.List;
 
 
 /**
- * @author Mohadib
- *         Fired when who is recieved
+ * Fired when whois event recieved
+ * 
+ * @author mohadib
  */
 public interface WhoisEvent extends IRCEvent
 {

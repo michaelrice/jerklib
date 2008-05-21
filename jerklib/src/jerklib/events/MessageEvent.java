@@ -3,8 +3,9 @@ package jerklib.events;
 import jerklib.Channel;
 
 /**
- * Base interface for all PRIVMSGs.
+ * Base interface for all PRIVMSGs
  *
+ *@author mohadib
  */
 public interface MessageEvent extends IRCEvent
 {

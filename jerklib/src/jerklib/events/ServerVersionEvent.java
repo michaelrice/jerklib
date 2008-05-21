@@ -1,8 +1,9 @@
 package jerklib.events;
 
 /**
- * @author Mohadib
- *         Event fired for server version information
+ * 
+ * Event fired for server version information
+ * @author mohadib
  */
 public interface ServerVersionEvent extends IRCEvent
 {

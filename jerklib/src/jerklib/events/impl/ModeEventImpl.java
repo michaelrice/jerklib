@@ -7,6 +7,11 @@ import jerklib.events.modes.ModeEvent;
 
 import java.util.List;
 
+/**
+ * @author mohadib
+ * @see ModeEvent
+ *
+ */
 public class ModeEventImpl implements ModeEvent
 {
 
@@ -35,36 +40,57 @@ public class ModeEventImpl implements ModeEvent
 		this.channel = channel;
 	}
 
+	/* (non-Javadoc)
+	 * @see jerklib.events.modes.ModeEvent#getChannel()
+	 */
 	public Channel getChannel()
 	{
 		return channel;
 	}
 
+	/* (non-Javadoc)
+	 * @see jerklib.events.modes.ModeEvent#getModeAdjustments()
+	 */
 	public List<ModeAdjustment> getModeAdjustments()
 	{
 		return modeAdjustments;
 	}
 
+	/* (non-Javadoc)
+	 * @see jerklib.events.modes.ModeEvent#setBy()
+	 */
 	public String setBy()
 	{
 		return setBy;
 	}
 
+	/* (non-Javadoc)
+	 * @see jerklib.events.IRCEvent#getRawEventData()
+	 */
 	public String getRawEventData()
 	{
 		return rawEventData;
 	}
 
+	/* (non-Javadoc)
+	 * @see jerklib.events.IRCEvent#getSession()
+	 */
 	public Session getSession()
 	{
 		return session;
 	}
 
+	/* (non-Javadoc)
+	 * @see jerklib.events.modes.ModeEvent#getModeType()
+	 */
 	public ModeType getModeType()
 	{
 		return modeType;
 	}
 	
+	/* (non-Javadoc)
+	 * @see jerklib.events.IRCEvent#getType()
+	 */
 	public Type getType()
 	{
 		return type;

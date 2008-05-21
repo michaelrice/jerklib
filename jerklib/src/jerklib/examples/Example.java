@@ -53,6 +53,7 @@ public class Example implements IRCEventListener
 		if (e.getType() == Type.CONNECT_COMPLETE)
 		{
 			e.getSession().join("#jerklib");
+			e.getSession().join("#ubuntu");
 		}
 		else if (e.getType() == Type.CHANNEL_MESSAGE)
 		{

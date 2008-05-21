@@ -9,6 +9,12 @@ import jerklib.events.MotdEvent;
 import jerklib.events.IRCEvent.Type;
 import jerklib.tasks.TaskImpl;
 
+/**
+ * An example of how to use tasks.
+ * 
+ * @author mohadib
+ *
+ */
 public class TaskExample
 {
 	public TaskExample()

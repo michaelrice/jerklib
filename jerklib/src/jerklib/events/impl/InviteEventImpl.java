@@ -4,6 +4,9 @@ import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.InviteEvent;
 
+/**
+ *@see InviteEvent
+ */
 public class InviteEventImpl implements InviteEvent
 {
     private final String nick, channel, rawEventData, userName, hostName;
@@ -52,11 +55,17 @@ public class InviteEventImpl implements InviteEvent
         return nick;
     }
 
+    /* (non-Javadoc)
+     * @see jerklib.events.InviteEvent#getHostName()
+     */
     public String getHostName()
     {
         return hostName;
     }
 
+    /* (non-Javadoc)
+     * @see jerklib.events.InviteEvent#getUserName()
+     */
     public String getUserName()
     {
         return userName;

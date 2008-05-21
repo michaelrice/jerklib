@@ -6,8 +6,9 @@ import java.util.Date;
 
 
 /**
+ * 
+ * Event fired when topic is received
  * @author mohadib
- *         Event fired when topic is received
  * @see Channel
  */
 public interface TopicEvent extends IRCEvent

@@ -8,6 +8,7 @@ import jerklib.events.WhoEvent;
  * Created: Jan 31, 2008 6:31:31 PM
  *
  * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor</a>
+ * @see WhoEvent
  */
 public class WhoEventImpl implements WhoEvent
 {
@@ -118,6 +119,9 @@ public class WhoEventImpl implements WhoEvent
         return rawEventData;
     }
 
+    /* (non-Javadoc)
+     * @see jerklib.events.WhoEvent#getHopCount()
+     */
     public int getHopCount()
     {
         return hopCount;
@@ -133,6 +137,9 @@ public class WhoEventImpl implements WhoEvent
         return session;
     }
 
+    /* (non-Javadoc)
+     * @see jerklib.events.WhoEvent#getServerName()
+     */
     public String getServerName()
     {
         return serverName;

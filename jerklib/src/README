@@ -9,13 +9,14 @@ Bugs and Feature Requests:
 	https://sourceforge.net/tracker/?group_id=214803
 
 Support and Docs:
-	If you need help visit us on IRC! 
+	If you need help visit us on IRC or email mohadib! 
 	irc.freenode.net -- #jerklib
-
+	mohadib@openactive.org
+	
+	Wiki: http://jerklib.wikia.com
+	Java Docs: http://jerklib.sourceforge.net/doc/
 	SF Project Page: https://sourceforge.net/projects/jerklib/
 	HomePage: http://jerklib.sourceforge.net
-	Java Docs: http://jerklib.sourceforge.net/doc/
-	Tutorial: http://jerklib.sourceforge.net/doc_index.html
 
 Install:
 	To set up just add jerklib.jar to your classpath
