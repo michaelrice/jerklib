@@ -22,7 +22,7 @@ public class Example implements IRCEventListener
 		/*
 		 * ConnectionManager takes a Profile to use for new connections.
 		 */
-		manager = new ConnectionManager(new Profile("scripy"));
+		manager = new ConnectionManager(new Profile("mohadib" , "pchapman" , "jwormy" , "delvinj"));
 		
 		/*
 		 * One instance of ConnectionManager can connect to many IRC networks.
@@ -52,8 +52,7 @@ public class Example implements IRCEventListener
 		
 		if (e.getType() == Type.CONNECT_COMPLETE)
 		{
-			e.getSession().join("#jerklib");
-			e.getSession().join("#ubuntu");
+			e.getSession().join("##swing");
 		}
 		else if (e.getType() == Type.CHANNEL_MESSAGE)
 		{

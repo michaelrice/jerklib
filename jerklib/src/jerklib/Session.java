@@ -48,7 +48,7 @@ public class Session extends RequestGenerator
 	private final RequestedConnection rCon;
 	private Connection con;
 	private final ConnectionManager conman;
-	private boolean rejoinOnKick = true, profileUpdating, isAway , haveLoggedIn , useAltNicks = true;
+	private boolean rejoinOnKick = true, profileUpdating, isAway , isLoggedIn , useAltNicks = true;
 	private Profile tmpProfile;
 	private long lastRetry = -1, lastResponse = System.currentTimeMillis();
 	private ServerInformation serverInfo = new ServerInformation();
@@ -267,7 +267,7 @@ public class Session extends RequestGenerator
 	 */
 	void loginSuccess()
 	{
-		haveLoggedIn = true;
+		isLoggedIn = true;
 	}
 	
 	
@@ -276,9 +276,9 @@ public class Session extends RequestGenerator
 	 * has successfully logged on to the Connection.
 	 * @return if logged in 
 	 */
-	public boolean hasLoggedIn()
+	public boolean isLoggedIn()
 	{
-		return haveLoggedIn;
+		return isLoggedIn;
 	}
 	
 	/**
@@ -317,8 +317,9 @@ public class Session extends RequestGenerator
 		if (con != null)
 		{
 			con.quit(quitMessage);
-			conman.removeSession(this);
 		}
+		conman.removeSession(this);
+		isLoggedIn = false;
 	}
 
 	/**
@@ -414,7 +415,7 @@ public class Session extends RequestGenerator
 	 */
 	public String getConnectedHostName()
 	{
-		return con.getHostName();
+		return con == null?"":con.getHostName();
 	}
 
 
@@ -691,7 +692,7 @@ public class Session extends RequestGenerator
 			con = null;
 		}
 		
-		haveLoggedIn = false;
+		isLoggedIn = false;
 		conman.addToRelayList(new ConnectionLostEventImpl(this));
 	}
 

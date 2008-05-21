@@ -193,7 +193,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	public void nickInUse(IRCEvent e)
 	{
 		Session session = e.getSession();
-		if(!session.hasLoggedIn() && session.getShouldUseAltNicks())
+		if(!session.isLoggedIn() && session.getShouldUseAltNicks())
 		{
 			Profile p = session.getRequestedConnection().getProfile();
 			NickInUseEvent niu = (NickInUseEvent)e;
@@ -271,12 +271,12 @@ public class DefaultInternalEventHandler implements IRCEventListener
 				"",
 				""
 			);
-			e.getSession().loginSuccess();
 			manager.addToRelayList(nce);
 		}
 		
 		ConnectionCompleteEvent ccEvent = (ConnectionCompleteEvent)e;
 		session.getConnection().setHostName(ccEvent.getActualHostName());
+		session.loginSuccess();
 		session.connected();
 	}
 	
