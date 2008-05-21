@@ -1,11 +1,10 @@
 package jerklib;
 
 /**
- * IRCWriteRequest - this is sent to an IRCConnection whenever a 'write' needs
- * to happen. There are 3 types of IRCWriteRequests. PRIV_MSG , DIRECT_MSG ,
+ * WriteRequest - this is sent to a Connection whenever a 'write' needs
+ * to happen. There are 3 types of WriteRequests. PRIV_MSG , DIRECT_MSG ,
  * RAW_MSG (from the Type enum). RAW_MSG is used when you need direct access to
  * the IRC stream , else PRIV_MSG or DIRECT_MSG should be used.
- * 
  *  
  * @author mohadib
  */

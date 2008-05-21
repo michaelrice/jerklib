@@ -1,12 +1,11 @@
 package jerklib;
 
 /**
- * @author mohadib 
  * A class to hold information about Nick,RealName,AltNic etc.
  * 
  * @see ConnectionManager#ConnectionManager(Profile)
  * @see ConnectionManager#requestConnection(String, int, Profile)
- * 
+ * @author mohadib 
  */
 public class Profile
 {

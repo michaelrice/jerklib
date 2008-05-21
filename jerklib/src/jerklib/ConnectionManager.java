@@ -30,10 +30,11 @@ import java.util.TimerTask;
 import java.util.Collection;
 
 /**
+ * This class is used to control/store Sessions/Connections.
+ * Request new connections with this class.
+ * 
  * @author mohadib 
  * 
- * <p/> This class is used to control/store Sessions/Connections. <p/>
- * Request new connections with this class.
  */
 public class ConnectionManager
 {
