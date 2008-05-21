@@ -409,9 +409,12 @@ public class Session extends RequestGenerator
 	}
 
 	/**
-	 * Returns host name this Session is connected to
+	 * Returns host name this Session is connected to.
+	 * If the session is disconnectd an empty string will be returned.
 	 * 
-	 * @return hostname
+	 * @return hostname or an empty string if not connected
+	 * @see Session#getRequestedConnection()
+	 * @see RequestedConnection#getHostName()
 	 */
 	public String getConnectedHostName()
 	{
