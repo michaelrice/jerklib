@@ -96,13 +96,16 @@ public class NickServAuthPlugin extends TaskImpl
 		this.channels = channels;
 	}
 	
+	/* (non-Javadoc)
+	 * @see jerklib.listeners.IRCEventListener#receiveEvent(jerklib.events.IRCEvent)
+	 */
 	public void receiveEvent(IRCEvent e)
 	{
 		if(e.getType() == Type.CONNECT_COMPLETE)connectionComplete(e);
 		else if(e.getType() == Type.MODE_EVENT)mode(e);
 	}
 	
-	public void mode(IRCEvent e)
+	private void mode(IRCEvent e)
 	{
 		ModeEvent me = (ModeEvent)e;
 		if(me.getModeType() == ModeEvent.ModeType.USER)

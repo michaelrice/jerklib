@@ -19,37 +19,67 @@ public abstract class TaskImpl implements Task
     }
 
 
+    /* (non-Javadoc)
+     * @see jerklib.tasks.Task#getName()
+     */
     public String getName()
     {
         return name;
     }
 
+    /* (non-Javadoc)
+     * @see jerklib.tasks.Task#cancel()
+     */
     public void cancel()
     {
         canceled = true;
     }
 
+    /* (non-Javadoc)
+     * @see jerklib.tasks.Task#isCanceled()
+     */
     public boolean isCanceled()
     {
         return canceled;
     }
 
+    /**
+     * Add a listener to be notified by this Task
+     * 
+     * @see TaskImpl#taskComplete(Object)
+     * @param listener
+     */
     public void addTaskListener(TaskCompletionListener listener)
     {
         listeners.add(listener);
     }
 
+    /**
+     * remove a listener
+     * 
+     * @param listener
+     * @return true if a listener was removed , else false
+     */
     public boolean removeTaskListener(TaskCompletionListener listener)
     {
         return listeners.remove(listener);
     }
 
+    /**
+     * get a list of TaskCompletionListeners
+     * 
+     * @return list of listeners
+     */
     public List<TaskCompletionListener> getTaskListeners()
     {
         return Collections.unmodifiableList(listeners);
     }
 
-    public void taskComplete(Object result)
+    /**
+     *Can be called to notifiy listeners
+     * @param result
+     */
+    protected void taskComplete(Object result)
     {
         for (TaskCompletionListener listener : listeners)
         {
