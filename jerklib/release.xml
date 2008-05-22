@@ -46,10 +46,6 @@
 		<tar tarfile="${release}/JerkLib-${build.version}r${svn.Revision}_src.tar.bz2" basedir="${src}" compression="bzip2"/>
 	</target>
 
-	<target name="clean" description="clean up">
-		<delete dir="${build}" />
-		<delete file="svn.properties" />
-	</target>
 
 	<target name="javadoc">
 		<mkdir dir="${doc}" />
@@ -89,7 +85,16 @@
 		<tar tarfile="JerkLib-${build.version}r${svn.Revision}.tar.bz2" basedir="package" compression="bzip2"/>
 	</target>
 	
-	<target name="all" depends="init,get,compile,jar,clean,javadoc,package" description="checkout,compile,jar,clean,make docs">
+	<target name="clean" description="clean up">
+		<delete dir="${build}" />
+		<delete dir="$doc" />
+		<delete dir="package" />
+		<delete dir="${release}" />
+		<delete dir="${src}" />
+		<delete file="svn.properties" />
+	</target>
+	
+	<target name="all" depends="init,get,compile,jar,javadoc,package,clean" description="checkout,compile,jar,docs,package,clean">
 	</target>
 
 	<target name="dist" depends="init,get,compile,jar,clean" description="checkout,compile,jar,clean" >
