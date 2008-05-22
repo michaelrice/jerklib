@@ -8,10 +8,8 @@ import jerklib.events.IRCEvent.Type;
 import jerklib.listeners.IRCEventListener;
 
 /**
- * @author mohadib 
- * 
  *  A simple example that demonsrates how to use JerkLib
- *  
+ *  @author mohadib 
  */
 public class Example implements IRCEventListener
 {
@@ -22,7 +20,7 @@ public class Example implements IRCEventListener
 		/*
 		 * ConnectionManager takes a Profile to use for new connections.
 		 */
-		manager = new ConnectionManager(new Profile("mohadib" , "pchapman" , "jwormy" , "delvinj"));
+		manager = new ConnectionManager(new Profile("scripy"));
 		
 		/*
 		 * One instance of ConnectionManager can connect to many IRC networks.
@@ -52,7 +50,7 @@ public class Example implements IRCEventListener
 		
 		if (e.getType() == Type.CONNECT_COMPLETE)
 		{
-			e.getSession().join("##swing");
+			e.getSession().join("#jerklib");
 		}
 		else if (e.getType() == Type.CHANNEL_MESSAGE)
 		{
@@ -63,7 +61,7 @@ public class Example implements IRCEventListener
 		{
 			JoinCompleteEvent jce = (JoinCompleteEvent) e;
 			/* say hello */
-			jce.getChannel().say("Hello from Jerklib ");
+			jce.getChannel().say("Hello from Jerklib!");
 		}
 		else
 		{

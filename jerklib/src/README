@@ -19,7 +19,7 @@ Support and Docs:
 	HomePage: http://jerklib.sourceforge.net
 
 Install:
-	To set up just add jerklib.jar to your classpath
+	To set up add jerklib.jar to your classpath.
 
 Run example:
 	java -cp jerklib.jar jerklib.examples.Example
@@ -27,6 +27,6 @@ Run example:
 Source code for example:                                                      	
 	http://jerklib.svn.sourceforge.net/viewvc/jerklib/jerklib/src/jerklib/examples/Example.java?view=markup
 	
-NOTE: The above example may not reflect this release's API.
+NOTE: The above example may not reflect the current release API.
       If you want the correct example for this release see: src/jerklib/examples/Example.java
 

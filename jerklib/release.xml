@@ -35,7 +35,7 @@
 
 	<target name="compile" depends="init,get" description="compile">
 		<javac srcdir="${src}" destdir="${build}" target="1.5"/>       
-        <property prefix="svn" file="svn.properties" />
+    <property prefix="svn" file="svn.properties" />
 		<echo file="${build}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}" />
 		<echo file="${src}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}" />
 		<copy file="${src}/README" todir="${build}" />
@@ -43,7 +43,7 @@
 
 	<target name="jar" depends="init,get,compile" description="Create the jar">
 		<jar jarfile="${release}/jerklib.jar" basedir="${build}" />
-		<jar jarfile="${release}/jerklib_src.jar" basedir="${src}" />
+		<tar tarfile="${release}/JerkLib-${build.version}r${svn.Revision}_src.tar.bz2" basedir="${src}" compression="bzip2"/>
 	</target>
 
 	<target name="clean" description="clean up">
@@ -55,31 +55,44 @@
 		<mkdir dir="${doc}" />
 		<javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" 
 			packagenames=
-				"jerklib.events.listeners,
-				jerklib.util,
+				"
+				jerklib,
+				jerklib.events,
+				jerklib.events.dcc,
+				jerklib.events.impl,
+				jerklib.events.impl.dcc,
+				jerklib.events.modes,
+				jerklib.examples,
+				jerklib.listeners,
+				jerklib.parsers,
 				jerklib.tasks,
-				jerklib.events" source="1.6" 
-			sourcefiles="
-				src/jerklib/Channel.java,
-				src/jerklib/WriteRequest.java,
-				src/jerklib/Connection.java,
-				src/jerklib/ProfileImpl.java,
-				src/jerklib/Profile.java,
-				src/jerklib/ConnectionManager.java,
-				src/jerklib/Profile.java,
-				src/jerklib/Session.java,
-				src/jerklib/RequestedConnection.java,
-				src/jerklib/ServerInformation.java" sourcepath="src" splitindex="true" use="true" version="true">
+				jerklib.util
+				"
+			source="1.6" sourcepath="src" splitindex="true" use="true" version="true" Overview="${src}/overview.html">
 			
 			<link href="http://java.sun.com/javase/6/docs/api/" />
 		</javadoc>
-		<zip destfile="${basedir}/JerkLib-${build.version}r${svn.Revision}-javadocs.zip" basedir="${doc}" />
+		<tar tarfile="JerkLib-${build.version}r${svn.Revision}-javadocs.tar.bz2" basedir="${doc}" compression="bzip2"/>
+	</target>
+	
+	<target name="package">
+		<mkdir dir="package"/>
+		<mkdir dir="package/JerkLib-${build.version}r${svn.Revision}"/>
+		<mkdir dir="package/JerkLib-${build.version}r${svn.Revision}/doc"/>
+		<mkdir dir="package/JerkLib-${build.version}r${svn.Revision}/src"/>
+		
+		<move file="JerkLib-${build.version}r${svn.Revision}-javadocs.tar.bz2" todir="package/JerkLib-${build.version}r${svn.Revision}/doc"/>
+		<move file="${release}/jerklib.jar" todir="package/JerkLib-${build.version}r${svn.Revision}"/>
+		<move file="${release}/JerkLib-${build.version}r${svn.Revision}_src.tar.bz2" todir="package/JerkLib-${build.version}r${svn.Revision}/src"/>
+		<copy file="${src}/README" todir="package/JerkLib-${build.version}r${svn.Revision}"/>
+		
+		<tar tarfile="JerkLib-${build.version}r${svn.Revision}.tar.bz2" basedir="package" compression="bzip2"/>
+	</target>
+	
+	<target name="all" depends="init,get,compile,jar,clean,javadoc,package" description="checkout,compile,jar,clean,make docs">
 	</target>
 
-	<target name="all" depends="init,get,compile,jar,clean,javadoc" description="checkout,compile,jar,clean,make docs">
-	</target>
-
-	<target name="dist" depends="init,get,compile,jar,clean" description="checkout,compile,jar,clean">
+	<target name="dist" depends="init,get,compile,jar,clean" description="checkout,compile,jar,clean" >
 	</target>
 
 </project>
