@@ -77,17 +77,17 @@
 		<mkdir dir="package/JerkLib-${build.version}r${svn.Revision}/doc"/>
 		<mkdir dir="package/JerkLib-${build.version}r${svn.Revision}/src"/>
 		
-		<move file="JerkLib-${build.version}r${svn.Revision}-javadocs.tar.bz2" todir="package/JerkLib-${build.version}r${svn.Revision}/doc"/>
 		<move file="${release}/jerklib.jar" todir="package/JerkLib-${build.version}r${svn.Revision}"/>
 		<move file="${release}/JerkLib-${build.version}r${svn.Revision}_src.tar.bz2" todir="package/JerkLib-${build.version}r${svn.Revision}/src"/>
 		<copy file="${src}/README" todir="package/JerkLib-${build.version}r${svn.Revision}"/>
+		<copy file="JerkLib-${build.version}r${svn.Revision}-javadocs.tar.bz2" todir="package/JerkLib-${build.version}r${svn.Revision}/doc"/>
 		
 		<tar tarfile="JerkLib-${build.version}r${svn.Revision}.tar.bz2" basedir="package" compression="bzip2"/>
 	</target>
 	
 	<target name="clean" description="clean up">
 		<delete dir="${build}" />
-		<delete dir="$doc" />
+		<delete dir="${doc}" />
 		<delete dir="package" />
 		<delete dir="${release}" />
 		<delete dir="${src}" />
