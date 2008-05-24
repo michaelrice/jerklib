@@ -1,25 +1,23 @@
 
 package jerklib.events;
 
+import jerklib.EventToken;
 import jerklib.Session;
 
 
 /**
- * The base interface for all JerkLib events.
- * <p/>
- * This Interface provieds the bare essintails for an IRCEvent. The raw event
- * data, host , port , and IRCConnection object.
+ * The base class for all JerkLib events.
  *
  * @author mohadib
  */
 
-public interface IRCEvent
+public class IRCEvent extends EventToken
 {
-
+	
     /**
      * Type enum is used to determine type. It is returned from getType()
      */
-    public enum Type
+    public static enum Type
     {
         /**
          * Topic event - channel topic event
@@ -108,6 +106,21 @@ public interface IRCEvent
         DCC_EVENT
     }
 
+    
+    private final Type type;
+    private final String data;
+    private final Session session;
+    
+    
+    public IRCEvent(String data , Session session , Type type)
+    {
+    	super(data);
+    	this.type = type;
+    	this.session = session;
+    	this.data = data;
+    }
+    
+    
     /**
      * Used to find out the exact type of event the IRCEvent object
      * is. The IRCEvent object can be cast into a more specific event object to
@@ -115,7 +128,10 @@ public interface IRCEvent
      *
      * @return Type of event
      */
-    public Type getType();
+    public Type getType()
+    {
+    	return type;
+    }
 
 
     /**
@@ -123,7 +139,10 @@ public interface IRCEvent
      *
      * @return Raw IRC event text.
      */
-    public String getRawEventData();
+    public String getRawEventData()
+    {
+    	return data;
+    }
 
 
     /**
@@ -131,7 +150,19 @@ public interface IRCEvent
      *
      * @return Session
      */
-    public Session getSession();
+    public Session getSession()
+    {
+    	return session;
+    }
 
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+    	return data;
+    }
 
 }

@@ -3,7 +3,7 @@ package jerklib.parsers;
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.ServerInformationEventImpl;
+import jerklib.events.impl.ServerInformationEvent;
 
 public class ServerInformationParser implements CommandParser
 {
@@ -11,6 +11,6 @@ public class ServerInformationParser implements CommandParser
 	{
 		Session session = event.getSession();
 		session.getServerInformation().parseServerInfo(token.data());
-		return new ServerInformationEventImpl(session, token.data(), session.getServerInformation());
+		return new ServerInformationEvent(session, token.data(), session.getServerInformation());
 	}
 }

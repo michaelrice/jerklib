@@ -4,7 +4,7 @@ import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.PartEvent;
-import jerklib.events.impl.PartEventImpl;
+import jerklib.events.impl.PartEvent;
 
 /**
  * @author mohadib
@@ -15,7 +15,7 @@ public class PartParser implements CommandParser
 	public PartEvent createEvent(EventToken token, IRCEvent event)
 	{
 			Session session = event.getSession();
-			return new PartEventImpl
+			return new PartEvent
 			(
 					token.data(), 
 					session,

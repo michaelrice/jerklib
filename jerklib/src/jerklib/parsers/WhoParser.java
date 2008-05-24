@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.WhoEventImpl;
+import jerklib.events.impl.WhoEvent;
 
 public class WhoParser implements CommandParser
 {
@@ -18,7 +18,7 @@ public class WhoParser implements CommandParser
 		{
 			
 			boolean away = m.group(6).charAt(0) == 'G';
-			return new WhoEventImpl(m.group(1), // channel
+			return new WhoEvent(m.group(1), // channel
 					Integer.parseInt(m.group(7)), // hop count
 					m.group(3), // hostname
 					away, // status indicator

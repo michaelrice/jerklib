@@ -117,7 +117,7 @@ public class DefaultInternalEventParser implements InternalEventParser
 		
 		//numeric errors
 		CommandParser errorParser = new NumericErrorParser();
-		for(int i = 401 ; i < 503 ; i++)
+		for(int i = 400 ; i < 553 ; i++)
 		{
 			parsers.put(String.valueOf(i), errorParser);
 		}

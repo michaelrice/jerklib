@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.InviteEventImpl;
+import jerklib.events.impl.InviteEven;
 
 public class InviteParser implements CommandParser
 {
@@ -15,7 +15,7 @@ public class InviteParser implements CommandParser
 		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+INVITE.+?:(.*)$");
 		Matcher m = p.matcher(data);
 		m.matches();
-		return new InviteEventImpl
+		return new InviteEven
 		(
 			m.group(4).toLowerCase(), 
 			m.group(1), 

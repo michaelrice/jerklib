@@ -8,7 +8,7 @@ import jerklib.Session;
 import jerklib.events.AwayEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.AwayEvent.EventType;
-import jerklib.events.impl.AwayEventImpl;
+import jerklib.events.impl.AwayEvent;
 
 public class AwayParser implements CommandParser
 {
@@ -22,7 +22,7 @@ public class AwayParser implements CommandParser
 			switch (Integer.parseInt(token.command()))
 			{
 			case 305:
-				return new AwayEventImpl
+				return new AwayEvent
 				(
 					session, 
 					EventType.RETURNED_FROM_AWAY, 
@@ -33,7 +33,7 @@ public class AwayParser implements CommandParser
 				);
 			case 306:
 			{
-				return new AwayEventImpl
+				return new AwayEvent
 				(
 					session, 
 					EventType.WENT_AWAY, 
@@ -50,6 +50,6 @@ public class AwayParser implements CommandParser
 		p = Pattern.compile("^:\\S+\\s+\\d{3}\\s+\\S+\\s+(\\S+)\\s+:(.*)$");
 		m = p.matcher(event.getRawEventData());
 		m.matches();
-		return new AwayEventImpl(m.group(2), AwayEvent.EventType.USER_IS_AWAY, true, false, m.group(1), event.getRawEventData(), session);
+		return new AwayEvent(m.group(2), AwayEvent.EventType.USER_IS_AWAY, true, false, m.group(1), event.getRawEventData(), session);
 	}
 }

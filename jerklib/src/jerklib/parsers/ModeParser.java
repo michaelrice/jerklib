@@ -7,7 +7,7 @@ import jerklib.EventToken;
 import jerklib.ServerInformation;
 import jerklib.ServerInformation.ModeType;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.ModeEventImpl;
+import jerklib.events.impl.ModeEvent;
 import jerklib.events.modes.ModeAdjustment;
 import jerklib.events.modes.ModeEvent;
 import jerklib.events.modes.ModeAdjustment.Action;
@@ -99,7 +99,7 @@ public class ModeParser implements CommandParser
 			
 		if(userMode)
 		{
-			return new ModeEventImpl
+			return new ModeEvent
 			(
 				ModeEvent.ModeType.USER, 
 				event.getRawEventData(), 
@@ -110,7 +110,7 @@ public class ModeParser implements CommandParser
 			);
 		}
 			
-		return new ModeEventImpl
+		return new ModeEvent
 		(
 			ModeEvent.ModeType.CHANNEL, 
 			event.getRawEventData(), 

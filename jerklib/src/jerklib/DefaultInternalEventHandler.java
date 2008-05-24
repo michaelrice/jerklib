@@ -14,7 +14,7 @@ import jerklib.events.NickInUseEvent;
 import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.IRCEvent.Type;
-import jerklib.events.impl.NickChangeEventImpl;
+import jerklib.events.impl.NickChangeEvent;
 import jerklib.events.modes.ModeEvent;
 import jerklib.listeners.IRCEventListener;
 import static jerklib.events.IRCEvent.Type.*;
@@ -262,7 +262,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		{
 			Profile pi = (Profile)session.getRequestedConnection().getProfile();
 			pi.setActualNick(nick);
-			NickChangeEvent nce = new NickChangeEventImpl
+			NickChangeEvent nce = new NickChangeEvent
 			(
 				token.data(),
 				session,

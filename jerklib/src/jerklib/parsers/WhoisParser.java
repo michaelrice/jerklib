@@ -5,11 +5,11 @@ import java.util.List;
 
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.WhoisEventImpl;
+import jerklib.events.impl.WhoisEvent;
 
 public class WhoisParser implements CommandParser
 {
-	private WhoisEventImpl we;
+	private WhoisEvent we;
 	
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
@@ -19,7 +19,7 @@ public class WhoisParser implements CommandParser
 			{
 				
 				// "<nick> <user> <host> * :<real name>"
-				we = new WhoisEventImpl
+				we = new WhoisEvent
 				(		
 					token.arg(0),
 					token.arg(4),

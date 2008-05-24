@@ -2,13 +2,13 @@ package jerklib.parsers;
 
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.MotdEventImpl;
+import jerklib.events.impl.MotdEvent;
 
 public class MotdParser implements CommandParser
 {
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
-		return new MotdEventImpl
+		return new MotdEvent
 		(
 			token.data(), 
 			event.getSession(), 

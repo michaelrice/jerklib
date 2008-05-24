@@ -3,14 +3,14 @@ package jerklib.parsers;
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.NickChangeEventImpl;
+import jerklib.events.impl.NickChangeEvent;
 
 public class NickParser implements CommandParser
 {
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
 		Session session = event.getSession();
-		return new NickChangeEventImpl
+		return new NickChangeEvent
 		(
 				token.data(), 
 				session, 

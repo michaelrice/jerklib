@@ -3,7 +3,7 @@ package jerklib.parsers;
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.ServerVersionEventImpl;
+import jerklib.events.impl.ServerVersionEvent;
 
 /*
 "<version>.<debuglevel> <server> :<comments>"
@@ -20,7 +20,7 @@ public class ServerVersionParser implements CommandParser
 		Session session = event.getSession();
 		if(token.numeric() == 002)
 		{
-			return new ServerVersionEventImpl
+			return new ServerVersionEvent
 			(
 				token.arg(1),
 				token.prefix(),
@@ -31,7 +31,7 @@ public class ServerVersionParser implements CommandParser
 			);
 		}
 		
-			return new ServerVersionEventImpl
+			return new ServerVersionEvent
 			(
 				token.arg(3),
 				token.prefix(),

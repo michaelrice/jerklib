@@ -4,7 +4,7 @@ import jerklib.Channel;
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.KickEventImpl;
+import jerklib.events.impl.KickEvent;
 
 /**
  * @author mohadib
@@ -23,7 +23,7 @@ public class KickParser implements CommandParser
 			msg = token.arg(2);
 		}
 		
-		return new KickEventImpl
+		return new KickEvent
 		(
 			token.data(), 
 			session, 

@@ -2,7 +2,7 @@ package jerklib.parsers;
 
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.WhowasEventImpl;
+import jerklib.events.impl.WhowasEvent;
 
 public class WhoWasParser implements CommandParser
 {
@@ -11,7 +11,7 @@ public class WhoWasParser implements CommandParser
 	 "<nick> <user> <host> * :<real name>" */
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
-		return new WhowasEventImpl
+		return new WhowasEvent
 		(
 				token.arg(3), 
 				token.arg(2), 

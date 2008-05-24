@@ -4,7 +4,7 @@ import jerklib.Channel;
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.NoticeEventImpl;
+import jerklib.events.impl.NoticeEvent;
 
 public class NoticeParser implements CommandParser
 {
@@ -47,7 +47,7 @@ public class NoticeParser implements CommandParser
 			}
 		}
 		
-		return new NoticeEventImpl
+		return new NoticeEvent
 		(
 			token.data(),
 			event.getSession(),

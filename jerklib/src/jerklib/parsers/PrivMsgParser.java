@@ -7,8 +7,8 @@ import jerklib.events.IRCEvent;
 import jerklib.events.MessageEvent;
 import jerklib.events.IRCEvent.Type;
 import jerklib.events.dcc.DccEventFactory;
-import jerklib.events.impl.CtcpEventImpl;
-import jerklib.events.impl.MessageEventImpl;
+import jerklib.events.impl.CtcpEvent;
+import jerklib.events.impl.MessageEvent;
 
 public class PrivMsgParser implements CommandParser
 {
@@ -24,7 +24,7 @@ public class PrivMsgParser implements CommandParser
 		Type type = session.isChannelToken(token.arg(0))?Type.CHANNEL_MESSAGE:Type.PRIVATE_MESSAGE;
 		Channel chan = type == Type.CHANNEL_MESSAGE? session.getChannel(token.arg(0)):null;
 		
-		MessageEvent me =  new MessageEventImpl
+		MessageEvent me =  new MessageEvent
 		(
 			chan,
 			token.hostName(),
@@ -46,7 +46,7 @@ public class PrivMsgParser implements CommandParser
 			}
 			else
 			{
-				return new CtcpEventImpl
+				return new CtcpEvent
 				(
 					ctcpString, 
 					me.getHostName(), 

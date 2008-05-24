@@ -4,7 +4,7 @@ import jerklib.Channel;
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.NickListEventImpl;
+import jerklib.events.impl.NickListEvent;
 
 /**
  * @author mohadib
@@ -18,7 +18,7 @@ public class NamesParser implements CommandParser
 		if (token.command().matches("366"))
 		{
 			Session session = event.getSession();
-			return new NickListEventImpl
+			return new NickListEvent
 			(
 				token.data(), 
 				session, 

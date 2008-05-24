@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.ChannelListEventImpl;
+import jerklib.events.impl.ChannelListEvent;
 
 public class ChanListParser implements CommandParser
 {
@@ -15,7 +15,7 @@ public class ChanListParser implements CommandParser
 		Matcher m = p.matcher(data);
 		if (m.matches()) 
 		{ 
-			return new ChannelListEventImpl
+			return new ChannelListEvent
 			(
 				data, 
 				m.group(1), 
