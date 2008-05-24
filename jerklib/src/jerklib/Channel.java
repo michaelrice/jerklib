@@ -1,9 +1,8 @@
 package jerklib;
 
+import jerklib.ModeAdjustment.Action;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.TopicEvent;
-import jerklib.events.modes.ModeAdjustment;
-import jerklib.events.modes.ModeAdjustment.Action;
 
 import java.util.ArrayList;
 import java.util.Date;

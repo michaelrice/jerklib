@@ -3,8 +3,8 @@ package jerklib;
 import jerklib.Session.State;
 import jerklib.events.ErrorEvent;
 import jerklib.events.IRCEvent;
+import jerklib.events.UnresolvedHostnameErrorEvent;
 import jerklib.events.IRCEvent.Type;
-import jerklib.events.impl.UnresolvedHostnameErrorEventImpl;
 import jerklib.listeners.IRCEventListener;
 import jerklib.listeners.WriteRequestListener;
 import jerklib.parsers.DefaultInternalEventParser;
@@ -644,7 +644,7 @@ public class ConnectionManager
 					}
 					catch (UnresolvedAddressException e)
 					{
-						ErrorEvent error = new UnresolvedHostnameErrorEventImpl(session, e.getMessage(), session.getRequestedConnection().getHostName(), e);
+						ErrorEvent error = new UnresolvedHostnameErrorEvent(session, e.getMessage(), session.getRequestedConnection().getHostName(), e);
 						addToRelayList(error);
 						session.markForRemoval();
 					}

@@ -2,6 +2,7 @@ package jerklib;
 
 import jerklib.Session.State;
 import jerklib.events.IRCEvent;
+import jerklib.events.IRCEvent.Type;
 import jerklib.listeners.WriteRequestListener;
 
 import java.io.IOException;
@@ -173,7 +174,7 @@ class Connection
 
 		for (int i = 0; i < (strSplit.length - 1); i++)
 		{
-			manager.addToEventQueue(createDefaultIRCEvent(strSplit[i]));
+			manager.addToEventQueue(new IRCEvent(strSplit[i],session,Type.DEFAULT));
 		}
 
 		String last = strSplit[strSplit.length - 1];
@@ -188,7 +189,7 @@ class Connection
 		}
 		else
 		{
-			manager.addToEventQueue(createDefaultIRCEvent(last));
+			manager.addToEventQueue(new IRCEvent(last , session , Type.DEFAULT));
 		}
 
 		return numRead;
@@ -317,33 +318,4 @@ class Connection
 			listener.receiveEvent(request);
 		}
 	}
-	
-	/**
-	 * Create a default irc event
-	 * 
-	 * @param rawData
-	 * @return
-	 */
-	private IRCEvent createDefaultIRCEvent(final String rawData)
-	{
-		return new IRCEvent()
-		{
-
-			public Session getSession()
-			{
-				return session;
-			}
-
-			public String getRawEventData()
-			{
-				return rawData;
-			}
-
-			public Type getType()
-			{
-				return IRCEvent.Type.DEFAULT;
-			}
-		};
-	}
-
 }

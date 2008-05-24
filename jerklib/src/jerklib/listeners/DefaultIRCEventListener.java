@@ -2,8 +2,6 @@ package jerklib.listeners;
 
 import jerklib.events.*;
 import jerklib.events.IRCEvent.Type;
-import jerklib.events.dcc.DccEvent;
-import jerklib.events.modes.ModeEvent;
 
 import java.util.logging.Logger;
 
@@ -75,11 +73,6 @@ public abstract class DefaultIRCEventListener implements IRCEventListener
         if (Type.CTCP_EVENT.equals(t))
         {
            	handleCtcpEvent((CtcpEvent) e);	
-            return true;
-        }
-        if (Type.DCC_EVENT.equals(t))
-        {
-        		handleDccEvent((DccEvent) e);
             return true;
         }
         if (Type.ERROR.equals(t))
@@ -277,11 +270,6 @@ public abstract class DefaultIRCEventListener implements IRCEventListener
         log.finest(event.getRawEventData());
     }
 
-    protected void handleDccEvent(DccEvent event)
-    {
-    		log.finest(event.getRawEventData());
-    }
-    
     protected void handleConnectComplete(ConnectionCompleteEvent event)
     {
         log.finest(event.getRawEventData());

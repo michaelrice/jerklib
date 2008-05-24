@@ -9,13 +9,12 @@ import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
 import jerklib.events.JoinEvent;
 import jerklib.events.KickEvent;
+import jerklib.events.ModeEvent;
 import jerklib.events.NickChangeEvent;
 import jerklib.events.NickInUseEvent;
 import jerklib.events.PartEvent;
 import jerklib.events.QuitEvent;
 import jerklib.events.IRCEvent.Type;
-import jerklib.events.impl.NickChangeEvent;
-import jerklib.events.modes.ModeEvent;
 import jerklib.listeners.IRCEventListener;
 import static jerklib.events.IRCEvent.Type.*;
 
@@ -136,7 +135,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	public void join(IRCEvent e)
 	{
 		JoinEvent je = (JoinEvent)e;
-		je.getChannel().addNick(je.getNick());
+		je.getChannel().addNick(je.nick());
 	}
 	
 	/**
@@ -147,7 +146,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	public void quit(IRCEvent e)
 	{
 		QuitEvent qe = (QuitEvent)e;
-		e.getSession().removeNickFromAllChannels(qe.getNick());
+		e.getSession().removeNickFromAllChannels(qe.nick());
 	}
 	
 	/**
@@ -267,9 +266,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 				token.data(),
 				session,
 				profileNick,
-				nick,
-				"",
-				""
+				nick
 			);
 			manager.addToRelayList(nce);
 		}

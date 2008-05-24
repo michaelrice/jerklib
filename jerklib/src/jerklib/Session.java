@@ -1,9 +1,8 @@
 package jerklib;
 
+import jerklib.ModeAdjustment.Action;
+import jerklib.events.ConnectionLostEvent;
 import jerklib.events.IRCEvent.Type;
-import jerklib.events.impl.ConnectionLostEventImpl;
-import jerklib.events.modes.ModeAdjustment;
-import jerklib.events.modes.ModeAdjustment.Action;
 import jerklib.listeners.IRCEventListener;
 import jerklib.parsers.CommandParser;
 import jerklib.parsers.DefaultInternalEventParser;
@@ -696,7 +695,7 @@ public class Session extends RequestGenerator
 		}
 		
 		isLoggedIn = false;
-		conman.addToRelayList(new ConnectionLostEventImpl(this));
+		conman.addToRelayList(new ConnectionLostEvent("",this));
 	}
 
 	/**

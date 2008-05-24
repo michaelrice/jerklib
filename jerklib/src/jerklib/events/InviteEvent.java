@@ -8,11 +8,11 @@ import jerklib.events.IRCEvent;
  * 
  * @author <a href="mailto:rob@mybawx.org">Robert O'Connor</a>
  */
-public class InviteEven extends IRCEvent
+public class InviteEvent extends IRCEvent
 {
 	private final String channelName;
 
-	public InviteEven(String channelName, String rawEventData, Session session)
+	public InviteEvent(String channelName, String rawEventData, Session session)
 	{
 		super(rawEventData, session, Type.INVITE_EVENT);
 		this.channelName = channelName;

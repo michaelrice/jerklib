@@ -99,11 +99,6 @@ public class IRCEvent extends EventToken
         ERROR,
         CTCP_EVENT,
         CONNECTION_LOST,
-        
-        /**
-         * a DCC Event.
-         */
-        DCC_EVENT
     }
 
     

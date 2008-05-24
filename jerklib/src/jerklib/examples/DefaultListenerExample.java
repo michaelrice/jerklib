@@ -16,7 +16,7 @@ public class DefaultListenerExample extends DefaultIRCEventListener implements R
     }
 
     Session session;
-    //TODO: change this as to not spam our channel
+
     static final String CHANNEL_TO_JOIN = "#jerklib";
 
     public void run()
@@ -43,7 +43,7 @@ public class DefaultListenerExample extends DefaultIRCEventListener implements R
     @Override
     protected void handleChannelMessage(MessageEvent event)
     {
-        log.info(event.getChannel().getName() + ":" + event.getNick() + ":" + event.getMessage());
+        log.info(event.getChannel().getName() + ":" + event.nick() + ":" + event.getMessage());
         if ("now die".equalsIgnoreCase(event.getMessage()))
         {
             event.getChannel().say("Okay, fine, I'll die");

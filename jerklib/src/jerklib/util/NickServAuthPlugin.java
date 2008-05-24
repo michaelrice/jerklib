@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import jerklib.ModeAdjustment;
 import jerklib.Session;
+import jerklib.ModeAdjustment.Action;
 import jerklib.events.IRCEvent;
+import jerklib.events.ModeEvent;
 import jerklib.events.IRCEvent.Type;
-import jerklib.events.modes.ModeAdjustment;
-import jerklib.events.modes.ModeEvent;
-import jerklib.events.modes.ModeAdjustment.Action;
 import jerklib.tasks.TaskImpl;
 
 /**

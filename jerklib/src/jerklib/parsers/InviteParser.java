@@ -15,7 +15,7 @@ public class InviteParser implements CommandParser
 		Pattern p = Pattern.compile("^:(\\S+?)!(\\S+?)@(\\S+)\\s+INVITE.+?:(.*)$");
 		Matcher m = p.matcher(data);
 		m.matches();
-		return new InviteEven
+		return new InviteEvent
 		(
 			m.group(4).toLowerCase(), 
 			m.group(1), 

@@ -10,12 +10,12 @@ import java.nio.channels.UnresolvedAddressException;
  * @author mohadib
  *
  */
-public class UnresolvedHostnameErrorEventImpl extends ErrorEvent
+public class UnresolvedHostnameErrorEvent extends ErrorEvent
 {
 	private String hostName;
 	private UnresolvedAddressException exception;
 
-	public UnresolvedHostnameErrorEventImpl
+	public UnresolvedHostnameErrorEvent
 	(
 		Session session, 
 		String rawEventData, 
