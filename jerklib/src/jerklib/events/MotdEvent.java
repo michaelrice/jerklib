@@ -15,7 +15,7 @@ public class MotdEvent extends IRCEvent
 
 	public MotdEvent(String rawEventData, Session session, String motdLine, String hostName)
 	{
-		super(rawEventData, session, Type.MODE_EVENT);
+		super(rawEventData, session, Type.MOTD);
 		this.motdLine = motdLine;
 		this.hostName = hostName;
 	}
