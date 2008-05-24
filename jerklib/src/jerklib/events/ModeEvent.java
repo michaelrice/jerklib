@@ -1,9 +1,9 @@
 package jerklib.events;
 
 import jerklib.Channel;
+import jerklib.ModeAdjustment;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.modes.ModeAdjustment;
 
 import java.util.List;
 
