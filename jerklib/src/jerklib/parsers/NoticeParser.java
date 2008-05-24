@@ -1,7 +1,6 @@
 package jerklib.parsers;
 
 import jerklib.Channel;
-import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.NoticeEvent;
@@ -17,7 +16,7 @@ public class NoticeParser implements CommandParser
 	 * NOTICE AUTH :*** No identd (auth) response
 	 */
 	
-	public IRCEvent createEvent(EventToken token, IRCEvent event)
+	public IRCEvent createEvent(IRCEvent event)
 	{
 		Session session = event.getSession();
 		
@@ -25,33 +24,33 @@ public class NoticeParser implements CommandParser
 		String byWho = session.getConnectedHostName();
 		Channel chan = null;
 		
-		if(!session.isChannelToken(token.arg(0)))
+		if(!session.isChannelToken(event.arg(0)))
 		{
-			toWho = token.arg(0);
+			toWho = event.arg(0);
 			if(toWho.equals("AUTH")) toWho = "";
 		}
 		else
 		{
-			chan = session.getChannel(token.arg(0));
+			chan = session.getChannel(event.arg(0));
 		}
 		
-		if(token.prefix().length() > 0)
+		if(event.prefix().length() > 0)
 		{
-			if(token.prefix().contains("!"))
+			if(event.prefix().contains("!"))
 			{
-				byWho = token.getNick();
+				byWho = event.getNick();
 			}
 			else
 			{
-				byWho = token.prefix();
+				byWho = event.prefix();
 			}
 		}
 		
 		return new NoticeEvent
 		(
-			token.getRawEventData(),
+			event.getRawEventData(),
 			event.getSession(),
-			token.arg(1),
+			event.arg(1),
 			toWho,
 			byWho,
 			chan

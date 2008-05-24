@@ -3,15 +3,14 @@ package jerklib.parsers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jerklib.EventToken;
 import jerklib.events.IRCEvent;
 import jerklib.events.WhoEvent;
 
 public class WhoParser implements CommandParser
 {
-	public IRCEvent createEvent(EventToken token, IRCEvent event)
+	public IRCEvent createEvent(IRCEvent event)
 	{
-		String data = token.getRawEventData();
+		String data = event.getRawEventData();
 		Pattern p = Pattern.compile("^:.+?\\s+352\\s+.+?\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?):(\\d+)\\s+(.+)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())

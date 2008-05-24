@@ -1,6 +1,8 @@
 package jerklib;
 
 
+import jerklib.events.EventToken;
+
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.assertTrue;
 

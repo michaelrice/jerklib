@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jerklib.Channel;
-import jerklib.EventToken;
 import jerklib.events.IRCEvent;
 import jerklib.events.TopicEvent;
 
@@ -16,20 +15,20 @@ public class TopicParser implements CommandParser
 {
 	private Map<Channel, TopicEvent> topicMap = new HashMap<Channel, TopicEvent>();
 	
-	public IRCEvent createEvent(EventToken token, IRCEvent event)
+	public IRCEvent createEvent(IRCEvent event)
 	{
-		if(token.numeric() == 332)
+		if(event.numeric() == 332)
 		{
 			TopicEvent tEvent = new TopicEvent
 			(
-					token.getRawEventData(), 
+					event.getRawEventData(), 
 					event.getSession(), 
-					event.getSession().getChannel(token.arg(1)),
-					token.arg(2)
+					event.getSession().getChannel(event.arg(1)),
+					event.arg(2)
 			);
 			if (topicMap.containsValue(tEvent.getChannel()))
 			{
-				((TopicEvent) topicMap.get(tEvent.getChannel())).appendToTopic(tEvent.getTopic());
+				topicMap.get(tEvent.getChannel()).appendToTopic(tEvent.getTopic());
 			}
 			else
 			{
@@ -38,13 +37,13 @@ public class TopicParser implements CommandParser
 		}
 		else
 		{
-			Channel chan = event.getSession().getChannel(token.arg(1));
+			Channel chan = event.getSession().getChannel(event.arg(1));
 			if (topicMap.containsKey(chan))
 			{
 				TopicEvent tEvent = (TopicEvent) topicMap.get(chan);
 				topicMap.remove(chan);
-				tEvent.setSetBy(token.arg(2));
-				tEvent.setSetWhen(token.arg(3));
+				tEvent.setSetBy(event.arg(2));
+				tEvent.setSetWhen(event.arg(3));
 				chan.setTopicEvent(tEvent);
 				return tEvent;
 			}

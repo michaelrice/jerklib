@@ -3,7 +3,6 @@ package jerklib.parsers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.AwayEvent;
 import jerklib.events.IRCEvent;
@@ -11,14 +10,14 @@ import jerklib.events.AwayEvent.EventType;
 
 public class AwayParser implements CommandParser
 {
-	public IRCEvent createEvent(EventToken token, IRCEvent event)
+	public IRCEvent createEvent(IRCEvent event)
 	{
 		Pattern p = Pattern.compile("^:\\S+\\s\\d{3}\\s+(\\S+)\\s:(.*)$");
 		Matcher m = p.matcher(event.getRawEventData());
 		Session session = event.getSession();
 		if (m.matches())
 		{
-			switch (Integer.parseInt(token.command()))
+			switch (Integer.parseInt(event.command()))
 			{
 			case 305:
 				return new AwayEvent

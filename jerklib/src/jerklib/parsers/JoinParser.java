@@ -1,7 +1,6 @@
 package jerklib.parsers;
 
 import jerklib.Channel;
-import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.JoinCompleteEvent;
@@ -13,15 +12,15 @@ public class JoinParser implements CommandParser
 	// :r0bby!n=wakawaka@guifications/user/r0bby JOIN :#jerklib
 	// :mohadib_!~mohadib@68.35.11.181 JOIN &test
 	
-	public IRCEvent createEvent(EventToken token, IRCEvent event)
+	public IRCEvent createEvent(IRCEvent event)
 	{
 		Session session = event.getSession();
 		
 		JoinEvent je = new JoinEvent
 		(
-			token.getRawEventData(), 
+			event.getRawEventData(), 
 			session, 
-			session.getChannel(token.arg(0)) // channel
+			session.getChannel(event.arg(0)) // channel
 		);
 		
 		if(je.getNick().equalsIgnoreCase(event.getSession().getNick()))

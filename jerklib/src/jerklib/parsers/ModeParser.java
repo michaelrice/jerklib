@@ -3,7 +3,6 @@ package jerklib.parsers;
 import java.util.ArrayList;
 import java.util.List;
 
-import jerklib.EventToken;
 import jerklib.ModeAdjustment;
 import jerklib.ServerInformation;
 import jerklib.ModeAdjustment.Action;
@@ -30,19 +29,19 @@ public class ModeParser implements CommandParser
 	//channel//  :kubrick.freenode.net 324 mohadib__ #test +mnPzlfJ 101 #flood 1,2
 	//usermode// :services. MODE mohadib :+e
 	
-	public IRCEvent createEvent(EventToken token, IRCEvent event)
+	public IRCEvent createEvent(IRCEvent event)
 	{
-		boolean userMode = token.numeric() != 324 && !event.getSession().isChannelToken(token.arg(0));
+		boolean userMode = event.numeric() != 324 && !event.getSession().isChannelToken(event.arg(0));
 		char[] modeTokens = new char[0];
 		String[] arguments = new String[0];
 		
-		int modeOffs = token.numeric() == 324?2:1;
-		modeTokens = token.arg(modeOffs).toCharArray();
+		int modeOffs = event.numeric() == 324?2:1;
+		modeTokens = event.arg(modeOffs).toCharArray();
 		
-		int size = token.args().size();
+		int size = event.args().size();
 		if(modeOffs + 1 < size)
 		{
-			arguments = token.args().subList(modeOffs + 1, token.args().size()).toArray(arguments);
+			arguments = event.args().subList(modeOffs + 1, event.args().size()).toArray(arguments);
 		}
 		
 		int argumntOffset = 0;
@@ -115,8 +114,8 @@ public class ModeParser implements CommandParser
 			event.getRawEventData(), 
 			event.getSession(), 
 			modeAdjustments, 
-			token.numeric() == 324 ? "" : token.getNick(),
-			event.getSession().getChannel(token.numeric() == 324 ?token.arg(1):token.arg(0))
+			event.numeric() == 324 ? "" :  event.getNick(),
+			event.getSession().getChannel(event.numeric() == 324 ?event.arg(1):event.arg(0))
 		);
 	}
 }

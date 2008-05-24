@@ -1,6 +1,5 @@
 package jerklib.parsers;
 
-import jerklib.EventToken;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.IRCEvent;
 
@@ -16,12 +15,12 @@ public class ConnectionCompleteParser implements CommandParser
 	  connect to kubrick.freenode.net etc 
 	*/
 	
-	public ConnectionCompleteEvent createEvent(EventToken token, IRCEvent event)
+	public ConnectionCompleteEvent createEvent(IRCEvent event)
 	{
 		return new ConnectionCompleteEvent
 		(
-				token.getRawEventData(), 
-				token.prefix(), // actual hostname
+				event.getRawEventData(), 
+				event.prefix(), // actual hostname
 				event.getSession(), 
 				event.getSession().getConnectedHostName() // requested hostname
 		);

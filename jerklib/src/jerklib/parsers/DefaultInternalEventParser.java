@@ -3,7 +3,6 @@ package jerklib.parsers;
 import java.util.HashMap;
 import java.util.Map;
 
-import jerklib.EventToken;
 import jerklib.events.IRCEvent;
 
 /**
@@ -22,10 +21,9 @@ public class DefaultInternalEventParser implements InternalEventParser
 	
 	public IRCEvent receiveEvent(IRCEvent e)
 	{
-		EventToken eventToken = new EventToken(e.getRawEventData());
-		CommandParser parser = parsers.get(eventToken.command());
+		CommandParser parser = parsers.get(e.command());
 		parser = parser == null? defaultParser : parser;
-		return parser == null?e:parser.createEvent(eventToken, e);
+		return parser == null?e:parser.createEvent(e);
 	}
 
 	

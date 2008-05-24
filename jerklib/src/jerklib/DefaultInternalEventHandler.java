@@ -100,7 +100,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		{
 			Session session = event.getSession();
 			String data = event.getRawEventData();
-			String command = new EventToken(data).command();
+			String command = event.command();
 		
 			if(command.equals("PING"))
 			{
@@ -253,9 +253,8 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		 * for instance , if the nick is too long it will be trunckated
 		 * need to check if this happend and send a nick update event
 		 */
-		EventToken token = new EventToken(e.getRawEventData());
 		Session session = e.getSession();
-		String nick = token.arg(0);
+		String nick = e.arg(0);
 		String profileNick = session.getNick();
 		if(!nick.equalsIgnoreCase(profileNick))
 		{
@@ -263,7 +262,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 			pi.setActualNick(nick);
 			NickChangeEvent nce = new NickChangeEvent
 			(
-				token.getRawEventData(),
+				e.getRawEventData(),
 				session,
 				profileNick,
 				nick

@@ -1,7 +1,6 @@
 
 package jerklib.events;
 
-import jerklib.EventToken;
 import jerklib.Session;
 
 

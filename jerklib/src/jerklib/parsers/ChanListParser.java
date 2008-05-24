@@ -2,15 +2,14 @@ package jerklib.parsers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jerklib.EventToken;
 import jerklib.events.ChannelListEvent;
 import jerklib.events.IRCEvent;
 
 public class ChanListParser implements CommandParser
 {
-	public IRCEvent createEvent(EventToken token, IRCEvent event)
+	public IRCEvent createEvent(IRCEvent event)
 	{
-		String data = token.getRawEventData();
+		String data = event.getRawEventData();
 		Pattern p = Pattern.compile("^:\\S+\\s322\\s\\S+\\s(\\S+)\\s(\\d+)\\s:(.*)$");
 		Matcher m = p.matcher(data);
 		if (m.matches()) 

@@ -1,6 +1,5 @@
 package jerklib.parsers;
 
-import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.ServerVersionEvent;
@@ -14,30 +13,30 @@ import jerklib.events.ServerVersionEvent;
 
 public class ServerVersionParser implements CommandParser
 {
-	public IRCEvent createEvent(EventToken token, IRCEvent event)
+	public IRCEvent createEvent(IRCEvent event)
 	{
 
 		Session session = event.getSession();
-		if(token.numeric() == 002)
+		if(event.numeric() == 002)
 		{
 			return new ServerVersionEvent
 			(
-				token.arg(1),
-				token.prefix(),
-				token.arg(1).substring(token.arg(1).indexOf("running ") + 8),
+				event.arg(1),
+				event.prefix(),
+				event.arg(1).substring(event.arg(1).indexOf("running ") + 8),
 				"",
-				token.getRawEventData(),
+				event.getRawEventData(),
 				session
 			);
 		}
 		
 			return new ServerVersionEvent
 			(
-				token.arg(3),
-				token.prefix(),
-				token.arg(1), 
+				event.arg(3),
+				event.prefix(),
+				event.arg(1), 
 				"", 
-				token.getRawEventData(), 
+				event.getRawEventData(), 
 				session
 			);
 	}

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jerklib.ConnectionManager;
-import jerklib.EventToken;
+import jerklib.events.EventToken;
 
 
 public class DataParser

@@ -1,7 +1,6 @@
 package jerklib.parsers;
 
 import jerklib.Channel;
-import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.CtcpEvent;
 import jerklib.events.IRCEvent;
@@ -16,17 +15,17 @@ public class PrivMsgParser implements CommandParser
 	 * :cute_bettong!n=elphias@about/apple/IIe/B0FH PRIVMSG #ubuntu :Elphias (elphias)
 	 */
 	
-	public MessageEvent createEvent(EventToken token, IRCEvent event)
+	public MessageEvent createEvent(IRCEvent event)
 	{
 		Session session = event.getSession();
-		Type type = session.isChannelToken(token.arg(0))?Type.CHANNEL_MESSAGE:Type.PRIVATE_MESSAGE;
-		Channel chan = type == Type.CHANNEL_MESSAGE? session.getChannel(token.arg(0)):null;
+		Type type = session.isChannelToken(event.arg(0))?Type.CHANNEL_MESSAGE:Type.PRIVATE_MESSAGE;
+		Channel chan = type == Type.CHANNEL_MESSAGE? session.getChannel(event.arg(0)):null;
 		
 		MessageEvent me =  new MessageEvent
 		(
 			chan,
-			token.arg(1), 
-			token.getRawEventData(), 
+			event.arg(1), 
+			event.getRawEventData(), 
 			session, 
 			type 
 		);

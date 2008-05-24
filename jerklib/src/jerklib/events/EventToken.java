@@ -1,4 +1,4 @@
-package jerklib;
+package jerklib.events;
 
 import java.util.ArrayList;
 import java.util.List;

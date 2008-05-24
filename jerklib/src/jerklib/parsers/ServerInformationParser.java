@@ -1,16 +1,15 @@
 package jerklib.parsers;
 
-import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.ServerInformationEvent;
 
 public class ServerInformationParser implements CommandParser
 {
-	public IRCEvent createEvent(EventToken token, IRCEvent event)
+	public IRCEvent createEvent(IRCEvent event)
 	{
 		Session session = event.getSession();
-		session.getServerInformation().parseServerInfo(token.getRawEventData());
-		return new ServerInformationEvent(session, token.getRawEventData(), session.getServerInformation());
+		session.getServerInformation().parseServerInfo(event.getRawEventData());
+		return new ServerInformationEvent(session, event.getRawEventData(), session.getServerInformation());
 	}
 }

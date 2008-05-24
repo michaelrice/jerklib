@@ -1,6 +1,5 @@
 package jerklib.parsers;
 
-import jerklib.EventToken;
 import jerklib.events.IRCEvent;
 import jerklib.events.WhowasEvent;
 
@@ -9,15 +8,15 @@ public class WhoWasParser implements CommandParser
 	
 	/* :kubrick.freenode.net 314 scripy1 ty n=ty 71.237.206.180 * :ty
 	 "<nick> <user> <host> * :<real name>" */
-	public IRCEvent createEvent(EventToken token, IRCEvent event)
+	public IRCEvent createEvent(IRCEvent event)
 	{
 		return new WhowasEvent
 		(
-				token.arg(3), 
-				token.arg(2), 
-				token.arg(1), 
-				token.arg(5), 
-				token.getRawEventData(), 
+				event.arg(3), 
+				event.arg(2), 
+				event.arg(1), 
+				event.arg(5), 
+				event.getRawEventData(), 
 				event.getSession()
 		); 
 	}

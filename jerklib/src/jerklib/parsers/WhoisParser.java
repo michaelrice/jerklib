@@ -3,7 +3,6 @@ package jerklib.parsers;
 import java.util.Arrays;
 import java.util.List;
 
-import jerklib.EventToken;
 import jerklib.events.IRCEvent;
 import jerklib.events.WhoisEvent;
 
@@ -11,9 +10,9 @@ public class WhoisParser implements CommandParser
 {
 	private WhoisEvent we;
 	
-	public IRCEvent createEvent(EventToken token, IRCEvent event)
+	public IRCEvent createEvent(IRCEvent event)
 	{
-		switch (token.numeric())
+		switch (event.numeric())
 		{
 			case 311:
 			{
@@ -21,11 +20,11 @@ public class WhoisParser implements CommandParser
 				// "<nick> <user> <host> * :<real name>"
 				we = new WhoisEvent
 				(		
-					token.arg(0),
-					token.arg(4),
-					token.arg(1),
-					token.arg(2),
-					token.getRawEventData(), 
+					event.arg(0),
+					event.arg(4),
+					event.arg(1),
+					event.arg(2),
+					event.getRawEventData(), 
 					event.getSession()
 				); 
 				break;
@@ -37,9 +36,9 @@ public class WhoisParser implements CommandParser
 				// kubrick.freenode.net 319 scripy mohadib :@#jerklib ##swing
 				if (we != null )
 				{
-					List<String> chanNames = Arrays.asList(token.arg(2).split("\\s+"));
+					List<String> chanNames = Arrays.asList(event.arg(2).split("\\s+"));
 					we.setChannelNamesList(chanNames);
-					we.appendRawEventData(token.getRawEventData());
+					we.appendRawEventData(event.getRawEventData());
 				}
 				break;
 			}
@@ -49,9 +48,9 @@ public class WhoisParser implements CommandParser
 				// :kubrick.freenode.net 312 scripy mohadib irc.freenode.net :http://freenode.net/
 				if (we != null)
 				{
-					we.setWhoisServer(token.arg(2));
-					we.setWhoisServerInfo(token.arg(3));
-					we.appendRawEventData(token.getRawEventData());
+					we.setWhoisServer(event.arg(2));
+					we.setWhoisServerInfo(event.arg(3));
+					we.appendRawEventData(event.getRawEventData());
 				}
 				break;
 			}
@@ -61,7 +60,7 @@ public class WhoisParser implements CommandParser
 				// :kubrick.freenode.net 320 scripy mohadib :is identified to services
 				if (we != null)
 				{
-					we.appendRawEventData(token.getRawEventData());
+					we.appendRawEventData(event.getRawEventData());
 				}
 				break;
 			}
@@ -71,9 +70,9 @@ public class WhoisParser implements CommandParser
 				// from rfc "<nick> <integer> :seconds idle"
 				if (we != null)
 				{
-					we.setSignOnTime(Integer.parseInt(token.arg(3)));
-					we.setSecondsIdle(Integer.parseInt(token.arg(2)));
-					we.appendRawEventData(token.getRawEventData());
+					we.setSignOnTime(Integer.parseInt(event.arg(3)));
+					we.setSecondsIdle(Integer.parseInt(event.arg(2)));
+					we.appendRawEventData(event.getRawEventData());
 				}
 				break;
 			}
@@ -82,7 +81,7 @@ public class WhoisParser implements CommandParser
 				// end of whois - fireevent
 				if (we != null)
 				{
-					we.appendRawEventData(token.getRawEventData());
+					we.appendRawEventData(event.getRawEventData());
 					return we;
 				}
 				break;
