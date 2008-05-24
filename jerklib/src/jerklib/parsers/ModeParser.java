@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jerklib.EventToken;
+import jerklib.ModeAdjustment;
 import jerklib.ServerInformation;
+import jerklib.ModeAdjustment.Action;
 import jerklib.ServerInformation.ModeType;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.ModeEvent;
-import jerklib.events.modes.ModeAdjustment;
-import jerklib.events.modes.ModeEvent;
-import jerklib.events.modes.ModeAdjustment.Action;
+import jerklib.events.ModeEvent;
 
 /**
  * @author mohadib
@@ -116,7 +115,7 @@ public class ModeParser implements CommandParser
 			event.getRawEventData(), 
 			event.getSession(), 
 			modeAdjustments, 
-			token.numeric() == 324 ? "" : token.nick(),
+			token.numeric() == 324 ? "" : token.getNick(),
 			event.getSession().getChannel(token.numeric() == 324 ?token.arg(1):token.arg(0))
 		);
 	}

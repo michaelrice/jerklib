@@ -2,7 +2,7 @@ package jerklib.parsers;
 
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.MotdEvent;
+import jerklib.events.MotdEvent;
 
 public class MotdParser implements CommandParser
 {
@@ -10,7 +10,7 @@ public class MotdParser implements CommandParser
 	{
 		return new MotdEvent
 		(
-			token.data(), 
+			token.getRawEventData(), 
 			event.getSession(), 
 			token.arg(1), 
 			token.prefix()

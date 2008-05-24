@@ -135,7 +135,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	public void join(IRCEvent e)
 	{
 		JoinEvent je = (JoinEvent)e;
-		je.getChannel().addNick(je.nick());
+		je.getChannel().addNick(je.getNick());
 	}
 	
 	/**
@@ -146,7 +146,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	public void quit(IRCEvent e)
 	{
 		QuitEvent qe = (QuitEvent)e;
-		e.getSession().removeNickFromAllChannels(qe.nick());
+		e.getSession().removeNickFromAllChannels(qe.getNick());
 	}
 	
 	/**
@@ -263,7 +263,7 @@ public class DefaultInternalEventHandler implements IRCEventListener
 			pi.setActualNick(nick);
 			NickChangeEvent nce = new NickChangeEvent
 			(
-				token.data(),
+				token.getRawEventData(),
 				session,
 				profileNick,
 				nick

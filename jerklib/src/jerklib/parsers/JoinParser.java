@@ -4,9 +4,8 @@ import jerklib.Channel;
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
+import jerklib.events.JoinCompleteEvent;
 import jerklib.events.JoinEvent;
-import jerklib.events.impl.JoinCompleteEvent;
-import jerklib.events.impl.JoinEvent;
 
 public class JoinParser implements CommandParser
 {
@@ -20,12 +19,8 @@ public class JoinParser implements CommandParser
 		
 		JoinEvent je = new JoinEvent
 		(
-			token.data(), 
+			token.getRawEventData(), 
 			session, 
-			token.nick(), // nick
-			token.userName(), // user name
-			token.hostName(), // host
-			token.arg(0), // channel name
 			session.getChannel(token.arg(0)) // channel
 		);
 		

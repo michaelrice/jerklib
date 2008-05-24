@@ -7,22 +7,18 @@ import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
 import jerklib.events.QuitEvent;
-import jerklib.events.impl.QuitEvent;
 
 public class QuitParser implements CommandParser
 {
 	public QuitEvent createEvent(EventToken token, IRCEvent event)
 	{
 		Session session = event.getSession();
-		String nick = token.nick();
+		String nick = token.getNick();
 		List<Channel> chanList = event.getSession().removeNickFromAllChannels(nick);
 		return new QuitEvent
 		(
-			token.data(), 
+			token.getRawEventData(), 
 			session, 
-			nick, // who
-			token.userName(), // username
-			token.hostName(), // hostName
 			token.arg(0), // message
 			chanList
 		);

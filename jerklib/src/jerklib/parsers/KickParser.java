@@ -4,7 +4,7 @@ import jerklib.Channel;
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.KickEvent;
+import jerklib.events.KickEvent;
 
 /**
  * @author mohadib
@@ -25,11 +25,9 @@ public class KickParser implements CommandParser
 		
 		return new KickEvent
 		(
-			token.data(), 
+			token.getRawEventData(), 
 			session, 
-			token.nick(), // byWho
-			token.userName(), // username
-			token.hostName(), // host name
+			token.getNick(), // byWho
 			token.arg(1), // victim
 			msg, // message
 			channel

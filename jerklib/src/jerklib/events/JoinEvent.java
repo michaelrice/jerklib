@@ -19,8 +19,6 @@ public class JoinEvent extends IRCEvent
 	(
 		String rawEventData, 
 		Session session, 
-		String username, 
-		String hostName, 
 		Channel chan
 	)
 	{

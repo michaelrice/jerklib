@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import jerklib.events.modes.ModeAdjustment;
-import jerklib.events.modes.ModeAdjustment.Action;
+import jerklib.ModeAdjustment.Action;
+
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;

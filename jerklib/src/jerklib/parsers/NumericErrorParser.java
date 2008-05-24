@@ -2,7 +2,7 @@ package jerklib.parsers;
 
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.NumericErrorEvent;
+import jerklib.events.NumericErrorEvent;
 
 public class NumericErrorParser implements CommandParser
 {
@@ -11,8 +11,7 @@ public class NumericErrorParser implements CommandParser
 		return new NumericErrorEvent
 		(
 				token.arg(0), 
-				token.data(), 
-				token.numeric(), 
+				token.getRawEventData(), 
 				event.getSession()
 		); 
 	}

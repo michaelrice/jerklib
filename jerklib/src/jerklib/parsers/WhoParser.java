@@ -5,13 +5,13 @@ import java.util.regex.Pattern;
 
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.WhoEvent;
+import jerklib.events.WhoEvent;
 
 public class WhoParser implements CommandParser
 {
 	public IRCEvent createEvent(EventToken token, IRCEvent event)
 	{
-		String data = token.data();
+		String data = token.getRawEventData();
 		Pattern p = Pattern.compile("^:.+?\\s+352\\s+.+?\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?)\\s+(.+?):(\\d+)\\s+(.+)$");
 		Matcher m = p.matcher(data);
 		if (m.matches())

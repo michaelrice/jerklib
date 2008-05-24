@@ -2,7 +2,7 @@ package jerklib.parsers;
 
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.NickInUseEvent;
+import jerklib.events.NickInUseEvent;
 
 public class NickInUseParser implements CommandParser
 {
@@ -11,7 +11,7 @@ public class NickInUseParser implements CommandParser
 		return new NickInUseEvent
 		(
 				token.arg(1),
-				token.data(), 
+				token.getRawEventData(), 
 				event.getSession()
 		); 
 	}

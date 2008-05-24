@@ -133,7 +133,7 @@ public class EventToken
 	 * Gets hostname from message 
 	 * @return hostname or empty string if hostname could not be parsed
 	 */
-	public String hostName()
+	public String getHostName()
 	{
 		int index = prefix.indexOf('@');
 		if(index != -1 && index + 1 < prefix.length())
@@ -148,7 +148,7 @@ public class EventToken
 	 * 
 	 * @return username or empty string is username could not be parsed.
 	 */
-	public String userName()
+	public String getUserName()
 	{
 		int sindex = prefix.indexOf('!');
 		int eindex = prefix.indexOf("@");
@@ -165,7 +165,7 @@ public class EventToken
 	 * 
 	 * @return nick or empty string is could not be parsed
 	 */
-	public String nick()
+	public String getNick()
 	{
 		if(prefix.indexOf("!") != -1)
 		{
@@ -222,7 +222,7 @@ public class EventToken
 	 * 
 	 * @return raw event data
 	 */
-	public String data()
+	public String getRawEventData()
 	{
 		return data;
 	}

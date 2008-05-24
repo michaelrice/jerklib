@@ -3,7 +3,6 @@ package jerklib.parsers;
 import jerklib.EventToken;
 import jerklib.events.ConnectionCompleteEvent;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.ConnectionCompleteEvent;
 
 public class ConnectionCompleteParser implements CommandParser
 {
@@ -21,7 +20,7 @@ public class ConnectionCompleteParser implements CommandParser
 	{
 		return new ConnectionCompleteEvent
 		(
-				token.data(), 
+				token.getRawEventData(), 
 				token.prefix(), // actual hostname
 				event.getSession(), 
 				event.getSession().getConnectedHostName() // requested hostname

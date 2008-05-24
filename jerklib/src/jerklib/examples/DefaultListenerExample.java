@@ -43,7 +43,7 @@ public class DefaultListenerExample extends DefaultIRCEventListener implements R
     @Override
     protected void handleChannelMessage(MessageEvent event)
     {
-        log.info(event.getChannel().getName() + ":" + event.nick() + ":" + event.getMessage());
+        log.info(event.getChannel().getName() + ":" + event.getNick() + ":" + event.getMessage());
         if ("now die".equalsIgnoreCase(event.getMessage()))
         {
             event.getChannel().say("Okay, fine, I'll die");

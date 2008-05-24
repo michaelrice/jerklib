@@ -127,7 +127,7 @@ public class DataParser
 		
 		public boolean matches(EventToken token)
 		{
-			return token.data().matches(super.command);
+			return token.getRawEventData().matches(super.command);
 		}
 	}
 	

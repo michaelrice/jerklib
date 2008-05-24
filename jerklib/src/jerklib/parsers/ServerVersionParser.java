@@ -3,7 +3,7 @@ package jerklib.parsers;
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.ServerVersionEvent;
+import jerklib.events.ServerVersionEvent;
 
 /*
 "<version>.<debuglevel> <server> :<comments>"
@@ -26,7 +26,7 @@ public class ServerVersionParser implements CommandParser
 				token.prefix(),
 				token.arg(1).substring(token.arg(1).indexOf("running ") + 8),
 				"",
-				token.data(),
+				token.getRawEventData(),
 				session
 			);
 		}
@@ -37,7 +37,7 @@ public class ServerVersionParser implements CommandParser
 				token.prefix(),
 				token.arg(1), 
 				"", 
-				token.data(), 
+				token.getRawEventData(), 
 				session
 			);
 	}

@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jerklib.EventTestBase;
+import jerklib.ModeAdjustment;
+import jerklib.ModeAdjustment.Action;
 import jerklib.events.IRCEvent.Type;
-import jerklib.events.modes.ModeAdjustment;
-import jerklib.events.modes.ModeEvent;
-import jerklib.events.modes.ModeAdjustment.Action;
 import jerklib.tasks.TaskImpl;
 
 import org.testng.annotations.BeforeTest;

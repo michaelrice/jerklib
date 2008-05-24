@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jerklib.events.IRCEvent;
+import jerklib.events.IRCEvent.Type;
 
 /**
  * @version $Revision$
@@ -121,24 +122,7 @@ public class MockConnection extends Connection
   				if(!token.startsWith("#") && token.length() > 0)
   				{
   					final String token1 = token;
-    				events.add(new IRCEvent()
-    				{
-
-    					public String getRawEventData()
-    					{
-    						return token1;
-    					}
-
-    					public Session getSession()
-    					{
-    						return session;
-    					}
-
-    					public Type getType()
-    					{
-    						return Type.DEFAULT;
-    					}
-    				});
+    				events.add(new IRCEvent(token1 , session , Type.DEFAULT));
     				numEvents++;
   				}
   			}

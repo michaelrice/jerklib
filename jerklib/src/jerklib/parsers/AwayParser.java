@@ -8,7 +8,6 @@ import jerklib.Session;
 import jerklib.events.AwayEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.AwayEvent.EventType;
-import jerklib.events.impl.AwayEvent;
 
 public class AwayParser implements CommandParser
 {

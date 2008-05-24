@@ -2,7 +2,7 @@ package jerklib.parsers;
 
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.WhowasEvent;
+import jerklib.events.WhowasEvent;
 
 public class WhoWasParser implements CommandParser
 {
@@ -17,7 +17,7 @@ public class WhoWasParser implements CommandParser
 				token.arg(2), 
 				token.arg(1), 
 				token.arg(5), 
-				token.data(), 
+				token.getRawEventData(), 
 				event.getSession()
 		); 
 	}

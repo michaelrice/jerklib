@@ -5,7 +5,7 @@ import java.util.List;
 
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.WhoisEvent;
+import jerklib.events.WhoisEvent;
 
 public class WhoisParser implements CommandParser
 {
@@ -25,7 +25,7 @@ public class WhoisParser implements CommandParser
 					token.arg(4),
 					token.arg(1),
 					token.arg(2),
-					token.data(), 
+					token.getRawEventData(), 
 					event.getSession()
 				); 
 				break;
@@ -39,7 +39,7 @@ public class WhoisParser implements CommandParser
 				{
 					List<String> chanNames = Arrays.asList(token.arg(2).split("\\s+"));
 					we.setChannelNamesList(chanNames);
-					we.appendRawEventData(token.data());
+					we.appendRawEventData(token.getRawEventData());
 				}
 				break;
 			}
@@ -51,7 +51,7 @@ public class WhoisParser implements CommandParser
 				{
 					we.setWhoisServer(token.arg(2));
 					we.setWhoisServerInfo(token.arg(3));
-					we.appendRawEventData(token.data());
+					we.appendRawEventData(token.getRawEventData());
 				}
 				break;
 			}
@@ -61,7 +61,7 @@ public class WhoisParser implements CommandParser
 				// :kubrick.freenode.net 320 scripy mohadib :is identified to services
 				if (we != null)
 				{
-					we.appendRawEventData(token.data());
+					we.appendRawEventData(token.getRawEventData());
 				}
 				break;
 			}
@@ -73,7 +73,7 @@ public class WhoisParser implements CommandParser
 				{
 					we.setSignOnTime(Integer.parseInt(token.arg(3)));
 					we.setSecondsIdle(Integer.parseInt(token.arg(2)));
-					we.appendRawEventData(token.data());
+					we.appendRawEventData(token.getRawEventData());
 				}
 				break;
 			}
@@ -82,7 +82,7 @@ public class WhoisParser implements CommandParser
 				// end of whois - fireevent
 				if (we != null)
 				{
-					we.appendRawEventData(token.data());
+					we.appendRawEventData(token.getRawEventData());
 					return we;
 				}
 				break;

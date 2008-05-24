@@ -7,7 +7,6 @@ import jerklib.Channel;
 import jerklib.EventToken;
 import jerklib.events.IRCEvent;
 import jerklib.events.TopicEvent;
-import jerklib.events.impl.TopicEvent;
 
 /*
 :sterling.freenode.net 332 scrip #test :Welcome to #test - This channel is
@@ -23,7 +22,7 @@ public class TopicParser implements CommandParser
 		{
 			TopicEvent tEvent = new TopicEvent
 			(
-					token.data(), 
+					token.getRawEventData(), 
 					event.getSession(), 
 					event.getSession().getChannel(token.arg(1)),
 					token.arg(2)

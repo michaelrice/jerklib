@@ -4,7 +4,7 @@ import jerklib.Channel;
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.NickListEvent;
+import jerklib.events.NickListEvent;
 
 /**
  * @author mohadib
@@ -20,7 +20,7 @@ public class NamesParser implements CommandParser
 			Session session = event.getSession();
 			return new NickListEvent
 			(
-				token.data(), 
+				token.getRawEventData(), 
 				session, 
 				session.getChannel(token.arg(1)),
 				session.getChannel(token.arg(1)).getNicks());

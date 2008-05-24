@@ -2,7 +2,6 @@ package jerklib.events;
 
 import jerklib.Channel;
 import jerklib.Session;
-import jerklib.events.IRCEvent;
 
 /**
  * Event fired for generic CTCP events
@@ -10,7 +9,7 @@ import jerklib.events.IRCEvent;
  * @author mohadib
  *
  */
-public class CtcpEvent extends IRCEvent
+public class CtcpEvent extends MessageEvent
 {
 
 	private String ctcpString, message;
@@ -25,7 +24,7 @@ public class CtcpEvent extends IRCEvent
 		Session session
 	)
 	{
-		super(rawEventData,session,Type.CTCP_EVENT);
+		super(channel, message, rawEventData, session, Type.CTCP_EVENT);
 		this.ctcpString = ctcpString;
 		this.message = message;
 		this.channel = channel;

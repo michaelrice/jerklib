@@ -3,7 +3,7 @@ package jerklib.parsers;
 import jerklib.EventToken;
 import jerklib.Session;
 import jerklib.events.IRCEvent;
-import jerklib.events.impl.NickChangeEvent;
+import jerklib.events.NickChangeEvent;
 
 public class NickParser implements CommandParser
 {
@@ -12,12 +12,10 @@ public class NickParser implements CommandParser
 		Session session = event.getSession();
 		return new NickChangeEvent
 		(
-				token.data(), 
+				token.getRawEventData(), 
 				session, 
-				token.nick(), // old
-				token.arg(0), // new nick
-				token.hostName(), // hostname
-				token.userName() // username
+				token.getNick(), // old
+				token.arg(0)// new nick
 		); 
 	}
 }

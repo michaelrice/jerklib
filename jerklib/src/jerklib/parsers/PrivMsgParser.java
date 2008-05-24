@@ -3,12 +3,10 @@ package jerklib.parsers;
 import jerklib.Channel;
 import jerklib.EventToken;
 import jerklib.Session;
+import jerklib.events.CtcpEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.MessageEvent;
 import jerklib.events.IRCEvent.Type;
-import jerklib.events.dcc.DccEventFactory;
-import jerklib.events.impl.CtcpEvent;
-import jerklib.events.impl.MessageEvent;
 
 public class PrivMsgParser implements CommandParser
 {
@@ -27,37 +25,23 @@ public class PrivMsgParser implements CommandParser
 		MessageEvent me =  new MessageEvent
 		(
 			chan,
-			token.hostName(),
 			token.arg(1), 
-			token.nick(),
-			token.data(), 
+			token.getRawEventData(), 
 			session, 
-			type, 
-			token.userName()
+			type 
 		);
 		
 		String msg = me.getMessage();
 		if (msg.startsWith("\u0001"))
 		{
-			String ctcpString = msg.substring(1, msg.length() - 1);
-			if (ctcpString.startsWith("DCC "))
-			{
-				me = DccEventFactory.dcc(me, ctcpString);
-			}
-			else
-			{
 				return new CtcpEvent
 				(
-					ctcpString, 
-					me.getHostName(), 
+					msg.substring(1, msg.length() - 1), 
 					me.getMessage(), 
-					me.getNick(), 
-					me.getUserName(), 
 					me.getRawEventData(), 
 					me.getChannel(), 
 					me.getSession()
 				);
-			}
 		}
 		
 		return me;
