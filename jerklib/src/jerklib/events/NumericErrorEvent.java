@@ -1,4 +1,4 @@
-package jerklib.events.impl;
+package jerklib.events;
 
 import jerklib.Session;
 
