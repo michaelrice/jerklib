@@ -1,4 +1,4 @@
-package jerklib.events.modes;
+package jerklib;
 
 
 /**
