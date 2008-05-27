@@ -8,6 +8,8 @@ import jerklib.events.InviteEvent;
 
 public class InviteParser implements CommandParser
 {
+	/* :r0bby!n=wakawaka@guifications/user/r0bby INVITE scripy1 :#jerklib2 */
+	/* :yaloki!~yaloki@localhost INVITE SuSEmeet #test */
 	public IRCEvent createEvent(IRCEvent event)
 	{
 		String data = event.getRawEventData();
