@@ -54,24 +54,7 @@ public class AwayEvent extends IRCEvent
         this.nick = nick;
     }
 
-    public AwayEvent
-    (
-    	Session session, 
-    	EventType eventType, 
-    	boolean away, 
-    	boolean you, 
-    	String nick, 
-    	String rawEventData
-    )
-    {
-    		super(rawEventData , session , Type.AWAY_EVENT);
-        this.awayMessage = "";
-        this.eventType = eventType;
-        isAway = away;
-        isYou = you;
-        this.nick = nick;
-    }
-
+    
     /**
      * Returns the away message or an empty String if it was user of lib who caused the event to fire.
      *
