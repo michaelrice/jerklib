@@ -184,7 +184,8 @@ public class EventToken
 	}
 	
 	/**
-	 * Gets the command 
+	 * Gets the command. This will return the same result as numeric()
+	 * if the command is a numeric.
 	 * @return the command
 	 */
 	public String command()

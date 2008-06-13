@@ -192,7 +192,7 @@ public class Channel
 	}
 
 	/**
-	 * Gets a list of user in channel with a given mode set.
+	 * Gets a list of users in channel with a given mode set.
 	 * A user will only match if they have the exact mode set.
 	 * Non existance of +(mode) does not imply that the user is -(mode)
 	 * 
@@ -229,7 +229,7 @@ public class Channel
 	}
 
 	/**
-	 * Sets a mode in the Channel is you have the permissions to do so.
+	 * Sets a mode in the Channel if you have the permissions to do so.
 	 * 
 	 * example: +vv00 foo bar baz bob
 	 * example: -v+i foo

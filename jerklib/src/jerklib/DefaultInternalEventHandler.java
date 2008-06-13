@@ -99,7 +99,6 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		else
 		{
 			Session session = event.getSession();
-			String data = event.getRawEventData();
 			String command = event.command();
 		
 			if(command.equals("PING"))
