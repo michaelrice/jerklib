@@ -46,6 +46,8 @@ public class EventToken
 	 */
 	private void parse()
 	{
+		if(data.length() == 0) return;
+		
 		//see if message has prefix
 		if(data.startsWith(":"))
 		{
@@ -56,8 +58,8 @@ public class EventToken
 		//get command
 		command = data.substring(offset , data.indexOf(" ", offset));
 		offset += command.length();
-		incTillChar();
 		
+		incTillChar();
 		extractArguments();
 	}
 	
@@ -163,7 +165,7 @@ public class EventToken
 	/**
 	 * Get nick from message
 	 * 
-	 * @return nick or empty string is could not be parsed
+	 * @return nick or empty string if could not be parsed
 	 */
 	public String getNick()
 	{

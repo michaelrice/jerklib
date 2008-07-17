@@ -27,11 +27,6 @@ import jerklib.tasks.TaskImpl;
  * <p>
  * To cancel this Task call cancel()
  * <p>
- * <b>To Use This Task</b>: You must use onEvent(Task , Type ... type) to add the Task
- * You must pass Type.CONNECT_COMPLETE and Type.MODE_EVENT. Example of adding the Task:
- * <p>
- * session.onEvent(auth, Type.CONNECT_COMPLETE , Type.MODE_EVENT);
- * <p>
  * Example Code:
  * <p>
 <pre> 		
@@ -43,6 +38,7 @@ import jerklib.tasks.TaskImpl;
 			Arrays.asList("#jerklib" , "##swing") // list of channels to join on success
 		);
 		
+		// task listener is optional 
 		auth.addTaskListener(new TaskCompletionListener()
 		{
 			public void taskComplete(Object result)
@@ -57,8 +53,6 @@ import jerklib.tasks.TaskImpl;
 				}
 			}
 		});
-		
-		session.onEvent(auth, Type.CONNECT_COMPLETE , Type.MODE_EVENT);
 </pre>
  * 
  * 
@@ -94,6 +88,8 @@ public class NickServAuthPlugin extends TaskImpl
 		this.identMode = identMode;
 		this.session = session;
 		this.channels = channels;
+		
+		session.onEvent(this , Type.CONNECT_COMPLETE , Type.MODE_EVENT);
 	}
 	
 	/* (non-Javadoc)

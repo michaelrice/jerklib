@@ -644,7 +644,8 @@ public class ConnectionManager
 					}
 					catch (UnresolvedAddressException e)
 					{
-						ErrorEvent error = new UnresolvedHostnameErrorEvent(session, e.getMessage(), session.getRequestedConnection().getHostName(), e);
+						String msg = e.getMessage() == null?e.toString():e.getMessage();
+						ErrorEvent error = new UnresolvedHostnameErrorEvent(session, msg, session.getRequestedConnection().getHostName(), e);
 						addToRelayList(error);
 						session.markForRemoval();
 					}
