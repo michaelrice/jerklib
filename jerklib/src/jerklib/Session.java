@@ -777,7 +777,7 @@ public class Session extends RequestGenerator
 		// test :irc.inter.net.il CAP * LS :multi-prefix
 		// writeRequests.add(new WriteRequest("CAP LS", this));
 		sayRaw("NICK " + getNick());
-		sayRaw("USER " + rCon.getProfile().getName() + " 0 0 :" + rCon.getProfile().getGcos());
+		sayRaw("USER " + rCon.getProfile().getName() + " 0 0 :" + rCon.getProfile().getRealName());
 	}
 
 	/* (non-Javadoc)
