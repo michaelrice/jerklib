@@ -17,14 +17,15 @@ public class DataParser
 	public void filterData(File file , ParserRunnable runnable) throws IOException
 	{
 		List<String> tokens = new ArrayList<String>();
-		InputStream is = ConnectionManager.class.getResourceAsStream("/irc.data.all");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		InputStream is = this.getClass().getResourceAsStream("/undernet.data");        
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		String s = "";
 		StringBuilder builder = null;
 		int i = 0;
 		int added = 0;
 		while((s = reader.readLine()) != null)
-		{
+        
+        {
 			switch(i)
 			{
 				case 0:
