@@ -9,7 +9,7 @@ package jerklib;
  */
 public class Profile
 {
-	private String name, gcos, actualNick, firstNick, secondNick, thirdNick;
+	private String name, realName , actualNick, firstNick, secondNick, thirdNick;
 
 	/**
 	 * Create a new Profile
@@ -19,15 +19,25 @@ public class Profile
 	 * @param secondNick Alt nick 1
 	 * @param thirdNick Alt nick 2
 	 */
-	public Profile(String name, String gcos, String nick, String secondNick, String thirdNick)
+	public Profile(String name, String realName, String nick, String secondNick, String thirdNick)
 	{
-		this.gcos = gcos == null ? name : gcos;
+		this.realName = realName == null ? name : realName;
         this.name = name == null ? "" : name;
 		this.firstNick = nick == null ? "" : nick;
 		this.secondNick = secondNick == null ? "" : secondNick;
 		this.thirdNick = thirdNick == null ? "" : thirdNick;
 		actualNick = firstNick;
 	}
+
+    public Profile(String name, String nick,String secondNick, String thirdNick) 
+    {
+        this.realName = name;
+        this.name = name == null ? "" : name;
+		this.firstNick = nick == null ? "" : nick;
+		this.secondNick = secondNick == null ? "" : secondNick;
+		this.thirdNick = thirdNick == null ? "" : thirdNick;
+		actualNick = firstNick;
+    }
 
 	
 	/**
@@ -37,9 +47,9 @@ public class Profile
 	 * @param name
 	 * @param nick
 	 */
-	public Profile(String name, String gcos, String nick)
+	public Profile(String name, String realName, String nick)
 	{
-		this(name, gcos, nick, nick + "1", nick + "2");
+		this(name, realName, nick, nick + "1", nick + "2");
 	}
 
 	/**
@@ -120,14 +130,14 @@ public class Profile
 		firstNick = nick;
 	}
 
-    public String getGcos()
+    public String getRealName()
     {
-        return gcos;
+        return realName;
     }
 
-    public void setGcos(String gcos)
+    public void setRealName(String realName)
     {
-        this.gcos = gcos;
+        this.realName = realName;
     }/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -160,7 +170,7 @@ public class Profile
 	 */
 	public Profile clone()
 	{
-		Profile impl = new Profile(name, gcos, firstNick, secondNick, thirdNick);
+		Profile impl = new Profile(name, realName, firstNick, secondNick, thirdNick);
 		impl.setActualNick(actualNick);
 		return impl;
 	}
