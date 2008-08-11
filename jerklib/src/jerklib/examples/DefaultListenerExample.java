@@ -21,7 +21,7 @@ public class DefaultListenerExample extends DefaultIRCEventListener implements R
 
     public void run()
     {
-        ConnectionManager manager = new ConnectionManager(new Profile("ble", "ble", "ble_", "ble__"));
+        ConnectionManager manager = new ConnectionManager(new Profile("ble", "bleh bleh","ble", "ble_", "ble__"));
 
         session = manager.requestConnection("irc.freenode.net");
 

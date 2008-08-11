@@ -9,7 +9,7 @@ package jerklib;
  */
 public class Profile
 {
-	private String name, actualNick, firstNick, secondNick, thirdNick;
+	private String name, gcos, actualNick, firstNick, secondNick, thirdNick;
 
 	/**
 	 * Create a new Profile
@@ -19,9 +19,10 @@ public class Profile
 	 * @param secondNick Alt nick 1
 	 * @param thirdNick Alt nick 2
 	 */
-	public Profile(String name, String nick, String secondNick, String thirdNick)
+	public Profile(String name, String gcos, String nick, String secondNick, String thirdNick)
 	{
-		this.name = name == null ? "" : name;
+		this.gcos = gcos == null ? name : gcos;
+        this.name = name == null ? "" : name;
 		this.firstNick = nick == null ? "" : nick;
 		this.secondNick = secondNick == null ? "" : secondNick;
 		this.thirdNick = thirdNick == null ? "" : thirdNick;
@@ -36,9 +37,9 @@ public class Profile
 	 * @param name
 	 * @param nick
 	 */
-	public Profile(String name, String nick)
+	public Profile(String name, String gcos, String nick)
 	{
-		this(name, nick, nick + "1", nick + "2");
+		this(name, gcos, nick, nick + "1", nick + "2");
 	}
 
 	/**
@@ -50,7 +51,7 @@ public class Profile
 	 */
 	public Profile(String nick)
 	{
-		this(nick, nick, nick + "1", nick + "2");
+		this(nick, nick, nick, nick + "1", nick + "2");
 	}
 
 
@@ -119,7 +120,15 @@ public class Profile
 		firstNick = nick;
 	}
 
-	/* (non-Javadoc)
+    public String getGcos()
+    {
+        return gcos;
+    }
+
+    public void setGcos(String gcos)
+    {
+        this.gcos = gcos;
+    }/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object o)
@@ -151,7 +160,7 @@ public class Profile
 	 */
 	public Profile clone()
 	{
-		Profile impl = new Profile(name, firstNick, secondNick, thirdNick);
+		Profile impl = new Profile(name, gcos, firstNick, secondNick, thirdNick);
 		impl.setActualNick(actualNick);
 		return impl;
 	}
