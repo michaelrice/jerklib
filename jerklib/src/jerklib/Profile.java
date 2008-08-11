@@ -30,6 +30,14 @@ public class Profile
 		actualNick = firstNick;
 	}
 
+    /**
+	 * Create a new Profile
+	 *
+	 * @param name Username
+	 * @param nick Nick     
+	 * @param secondNick Alt nick 1
+	 * @param thirdNick Alt nick 2
+	 */
     public Profile(String name, String nick,String secondNick, String thirdNick) 
     {
         this.realName = name;
