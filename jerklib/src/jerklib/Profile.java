@@ -16,6 +16,7 @@ public class Profile
 	 * 
 	 * @param name Username
 	 * @param nick Nick
+     * @param realName real name
 	 * @param secondNick Alt nick 1
 	 * @param thirdNick Alt nick 2
 	 */
@@ -130,11 +131,19 @@ public class Profile
 		firstNick = nick;
 	}
 
+    /**
+     * get the rewal name
+     *  @return real name
+     */
     public String getRealName()
     {
         return realName;
     }
 
+    /**
+     * Set the real name
+     * @param realName
+     */
     public void setRealName(String realName)
     {
         this.realName = realName;
