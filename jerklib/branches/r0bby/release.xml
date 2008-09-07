@@ -1,0 +1,103 @@
+<project name="jerklib" default="all" basedir=".">
+	<description>
+   	Jerklib is event-driven IRC Library that can be used to write IRC Bots/clients.
+  </description>
+
+	<property name="build" location="build" />
+	<property name="src" location="src" />
+	<property name="release" location="release" />
+	<property name="doc" location="doc" />
+	<property prefix="build" file="build.properties" />
+
+	<path id="project.classpath">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="init">
+		<mkdir dir="${build}" />
+		<mkdir dir="${src}" />
+		<mkdir dir="${release}" />
+	</target>
+
+	<taskdef resource="svntask.properties" classpathref="project.classpath" />
+
+	<target name="get" depends="init" description="Download code from subversion repo">
+		<echo message="Downloading code for ${ant.project.name} from subversion" />
+		<svn>
+			<checkout url="https://jerklib.svn.sourceforge.net/svnroot/jerklib/jerklib/src" destPath="src" />
+		</svn>
+		<exec executable="svn" output="svn.properties" dir="src">
+			<arg value="info" />
+		</exec>
+	</target>
+
+	<target name="compile" depends="init,get" description="compile">
+		<javac srcdir="${src}" destdir="${build}" target="1.5"/>       
+    <property prefix="svn" file="svn.properties" />
+		<echo file="${build}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}" />
+		<echo file="${src}/jerklib/JerkLib.Properties" message="version=${build.version}r${svn.Revision}" />
+		<copy file="${src}/README" todir="${build}" />
+	</target>
+
+	<target name="jar" depends="init,get,compile" description="Create the jar">
+		<jar jarfile="${release}/jerklib.jar" basedir="${build}" />
+		<tar tarfile="${release}/JerkLib-${build.version}r${svn.Revision}_src.tar.bz2" basedir="${src}" compression="bzip2"/>
+	</target>
+
+
+	<target name="javadoc">
+		<mkdir dir="${doc}" />
+		<javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" 
+			packagenames=
+				"
+				jerklib,
+				jerklib.events,
+				jerklib.events.dcc,
+				jerklib.events.impl,
+				jerklib.events.impl.dcc,
+				jerklib.events.modes,
+				jerklib.examples,
+				jerklib.listeners,
+				jerklib.parsers,
+				jerklib.tasks,
+				jerklib.util
+				"
+			source="1.6" sourcepath="src" splitindex="true" use="true" version="true" Overview="${src}/overview.html">
+			
+			<link href="http://java.sun.com/javase/6/docs/api/" />
+		</javadoc>
+		<tar tarfile="JerkLib-${build.version}r${svn.Revision}-javadocs.tar.bz2" basedir="${doc}" compression="bzip2"/>
+	</target>
+	
+	<target name="package">
+		<mkdir dir="package"/>
+		<mkdir dir="package/JerkLib-${build.version}r${svn.Revision}"/>
+		<mkdir dir="package/JerkLib-${build.version}r${svn.Revision}/doc"/>
+		<mkdir dir="package/JerkLib-${build.version}r${svn.Revision}/src"/>
+		
+		<move file="${release}/jerklib.jar" todir="package/JerkLib-${build.version}r${svn.Revision}"/>
+		<move file="${release}/JerkLib-${build.version}r${svn.Revision}_src.tar.bz2" todir="package/JerkLib-${build.version}r${svn.Revision}/src"/>
+		<copy file="${src}/README" todir="package/JerkLib-${build.version}r${svn.Revision}"/>
+		<copy file="JerkLib-${build.version}r${svn.Revision}-javadocs.tar.bz2" todir="package/JerkLib-${build.version}r${svn.Revision}/doc"/>
+		
+		<tar tarfile="JerkLib-${build.version}r${svn.Revision}.tar.bz2" basedir="package" compression="bzip2"/>
+	</target>
+	
+	<target name="clean" description="clean up">
+		<delete dir="${build}" />
+		<delete dir="${doc}" />
+		<delete dir="package" />
+		<delete dir="${release}" />
+		<delete dir="${src}" />
+		<delete file="svn.properties" />
+	</target>
+	
+	<target name="all" depends="init,get,compile,jar,javadoc,package,clean" description="checkout,compile,jar,docs,package,clean">
+	</target>
+
+	<target name="dist" depends="init,get,compile,jar,clean" description="checkout,compile,jar,clean" >
+	</target>
+
+</project>

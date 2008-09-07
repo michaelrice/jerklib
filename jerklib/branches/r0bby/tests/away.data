@@ -1,0 +1,59 @@
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 0
+:swiftco.wa.us.dal.net 301 mohadib__ mohadib :NO
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 1
+:swiftco.wa.us.dal.net 306 mohadib__ :You have been marked as being away
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 2
+:swiftco.wa.us.dal.net 305 mohadib__ :You are no longer marked as being away
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 3
+:kubrick.freenode.net 301 mohadib__ SwingBot :FUCKER
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 4
+:kubrick.freenode.net 306 mohadib__ :You have been marked as being away
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 5
+:kubrick.freenode.net 305 mohadib__ :You are no longer marked as being away
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 6
+:underworld2.no.quakenet.org 301 mohadib__ mohadib :HEYE
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 7
+:underworld2.no.quakenet.org 306 mohadib__ :You have been marked as being away
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 8
+:underworld2.no.quakenet.org 305 mohadib__ :You are no longer marked as being away
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 9
+:irc.nixgeeks.com 301 mohadib__ mohadib :HI
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 10
+:irc.nixgeeks.com 306 mohadib__ :You have been marked as being away
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 11
+:irc.nixgeeks.com 305 mohadib__ :You are no longer marked as being away
