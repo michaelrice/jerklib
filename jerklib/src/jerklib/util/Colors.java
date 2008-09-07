@@ -16,6 +16,8 @@ import java.util.List;
  */
 public final class Colors
 {
+
+
     /**
      * Removes all applied color and formatting
      */
@@ -118,6 +120,12 @@ public final class Colors
 
 
     private static final List<String> colorList = new ArrayList<String>();
+
+    /**
+     * Do not allow instantiation.
+     */
+    private Colors() {
+    }
 
     static
     {
