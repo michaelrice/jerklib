@@ -16,7 +16,7 @@ public class IRCEvent extends EventToken
     /**
      * Type enum is used to determine type. It is returned from getType()
      */
-    public static enum Type
+    public enum Type
     {
         /**
          * Topic event - channel topic event
