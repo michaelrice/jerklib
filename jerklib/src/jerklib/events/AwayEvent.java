@@ -14,7 +14,7 @@ import jerklib.events.IRCEvent;
  * You can determine under which circumstance the event was fired by looking at
  * the {@link EventType}.</p>
  *
- * @author <a href="mailto:rob@mybawx.org">Robert O'Connor<a/>
+ * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor<a/>
  */
 public class AwayEvent extends IRCEvent
 {
@@ -28,7 +28,7 @@ public class AwayEvent extends IRCEvent
      * RETURNED_FROM_AWAY is when user of lib returns from away state.<br>
      * USER_IS_AWAY is when some other user goes away<br>
      */
-    public static enum EventType
+    public enum EventType
     {
         WENT_AWAY,
         RETURNED_FROM_AWAY,
