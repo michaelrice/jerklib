@@ -9,8 +9,13 @@ import java.net.UnknownHostException;
  * @author Andres N. Kievsky
  */
 public class InetAddressUtils {
+    /*
+     * Do not allow instantiation
+     */
+    private InetAddressUtils() {
+    }
 
-	/**
+    /**
 	 * Given an ip in a numeric, string format, return the InetAddress.
 	 * @param ip the ip address in string format (such as 3232235780)
 	 * @return the InetAddress object (such as the object representing 192.168.1.4)

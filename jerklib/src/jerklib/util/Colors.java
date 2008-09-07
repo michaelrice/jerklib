@@ -121,7 +121,7 @@ public final class Colors
 
     private static final List<String> colorList = new ArrayList<String>();
 
-    /**
+    /*
      * Do not allow instantiation.
      */
     private Colors() {
