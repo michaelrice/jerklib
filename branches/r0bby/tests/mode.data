@@ -1,0 +1,2730 @@
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 0
+:scripy MODE scripy :+i
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 1
+:scripy MODE scripy :+iwx
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 2
+:scripy!~scripy@c-68-35-11-181.hsd1.nm.comcast.net MODE scripy +i
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 3
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 4
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 5
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 6
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 7
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 8
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 9
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 10
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 11
+:ChanServ!services@nixgeeks.com MODE #tvtorrents +h TVTorrentsBot
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 12
+:ChanServ!services@nixgeeks.com MODE #tvtorrents +o p00ty
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 13
+:ChanServ!services@nixgeeks.com MODE #tvtorrents +o p00ty
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 14
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 15
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 16
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 17
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 18
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 19
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 20
+:FoNix!~vip@cinta.name MODE #Perkosa -k+v 9identified.avoice indrii
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 21
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 22
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 23
+:W`i`n!~....@125.162.7.197 MODE #Perkosa +v phebe
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 24
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 25
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 26
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 27
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 28
+:ChanServ!service@dal.net MODE #Perkosa +o kyotaro
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 29
+:W`i`n!~....@125.162.7.197 MODE #Perkosa +v r0Nx
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 30
+:ChanServ!service@dal.net MODE #Perkosa +o rONx
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 31
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 32
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 33
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 34
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 35
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 36
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 37
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 38
+:ChanServ!service@dal.net MODE #Perkosa +o W`i`n
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 39
+:ChanServ!service@dal.net MODE #Perkosa +o olala_girl
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 40
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 41
+:ChanServ!services@nixgeeks.com MODE #tvtorrents +o p00ty
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 42
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 43
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 44
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 45
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 46
+:ChanServ!services@nixgeeks.com MODE #tvtorrents +o p00ty_
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 47
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 48
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 49
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 50
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 51
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 52
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 53
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 54
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 55
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 56
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 57
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 58
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 59
+:ChanServ!services@nixgeeks.com MODE #tvtorrents +o rlatting_
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 60
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 61
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 62
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 63
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 64
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 65
+:ChanServ!services@nixgeeks.com MODE #tvtorrents +o steff
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 66
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 67
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 68
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 69
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 70
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 71
+:ChanServ!ChanServ@services. MODE #ubuntu +o nickrud 
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 72
+:nickrud!n=rich@pdpc/supporter/sustaining/nickrud MODE #ubuntu +b *!*@tejava.dreamhost.com 
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 73
+:ChanServ!ChanServ@services. MODE #ubuntu -o nickrud 
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 74
+:ChanServ!services@nixgeeks.com MODE #tvtorrents +o steff
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 75
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 76
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 77
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 78
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 79
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 80
+:W`i`n!~....@125.162.4.150 MODE #Perkosa +v PaO`Pei
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 81
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 82
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 83
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 84
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 85
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 86
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 87
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 88
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 89
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 90
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 91
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 92
+:ChanServ!service@dal.net MODE #Perkosa +o W`i`n
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 93
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 94
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 95
+:rONx!rONx@rONx.name MODE #Perkosa +v CooL`eLLegaNt
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 96
+:ChanServ!service@dal.net MODE #Perkosa +o CooL`eLLegaNt
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 97
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 98
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 99
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 100
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 101
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 102
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 103
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 104
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 105
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 106
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 107
+:KeiKo!DI@s3xy.biz MODE #Perkosa +b *!~kotu@78.84.11.72
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 108
+:ChanServ!services@nixgeeks.com MODE #tvtorrents +h TVTorrentsBot
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 109
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 110
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 111
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 112
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 113
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 114
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 115
+:ChanServ!service@dal.net MODE #Perkosa +o KeiKo
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 116
+:ChanServ!service@dal.net MODE #Perkosa +o FoNix
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 117
+:ChanServ!service@dal.net MODE #Perkosa +o KeiKo
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 118
+:ChanServ!service@dal.net MODE #Perkosa +o FoNix
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 119
+:KeiKo!DI@s3xy.biz MODE #Perkosa -vo+ov KeiKo KeiKo KeiKo KeiKo
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 120
+:FoNix!~vip@cinta.name MODE #Perkosa -vo+ov FoNix FoNix FoNix FoNix
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 121
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 122
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 123
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 124
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 125
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 126
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 127
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 128
+:ChanServ!service@dal.net MODE #Perkosa +o Luv_U
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 129
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 130
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 131
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 132
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 133
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 134
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 135
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 136
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 137
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 138
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 139
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 140
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 141
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 142
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 143
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 144
+:ChanServ!service@dal.net MODE #Perkosa +o co_chi
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 145
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 146
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 147
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 148
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 149
+:FloodBot3!i=nalioth@ubuntu/bot/floodbot MODE #ubuntu +zb %ani1!*@* 
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 150
+:FloodBot3!i=nalioth@ubuntu/bot/floodbot MODE #ubuntu -zb %ani1!*@* 
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 151
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 152
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 153
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 154
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 155
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 156
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 157
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 158
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 159
+:ChanServ!service@dal.net MODE #Perkosa +o W`i`n
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 160
+:W`i`n!madrid@125.162.6.226 MODE #Perkosa +v co_chi
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 161
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 162
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 163
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 164
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 165
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 166
+:ChanServ!service@dal.net MODE #Perkosa +o Luv_U
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 167
+:ChanServ!service@dal.net MODE #Perkosa +o Luv_U
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 168
+:ChanServ!service@dal.net MODE #Perkosa +o Luv_U
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 169
+:Luv_U!~Prue@125.162.42.146 MODE #Perkosa +b *!*@125.162.6.226
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 170
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 171
+:ChanServ!service@dal.net MODE #Perkosa -b *!*@125.162.6.226
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 172
+:ChanServ!service@dal.net MODE #Perkosa +o W`i`n
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 173
+:W`i`n!madrid@125.162.6.226 MODE #Perkosa -ko+v FoNix FoNix FoNix
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 174
+:W`i`n!madrid@125.162.6.226 MODE #Perkosa -b *!~kotu@78.84.11.72
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 175
+:KeiKo!DI@s3xy.biz MODE #Perkosa +b *!*@211.247.193.124
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 176
+:W`i`n!madrid@125.162.6.226 MODE #Perkosa -b *!*@211.247.193.124
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 177
+:W`i`n!madrid@125.162.6.226 MODE #Perkosa -ko+v KeiKo KeiKo KeiKo
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 178
+:ninja.hub.dal.net MODE #Perkosa +bb *!*@125.162.6.226 *!~kotu@78.84.11.72
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 179
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 180
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 181
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 182
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 183
+:W`i`n!madrid@125.162.6.226 MODE #Perkosa -bb *!~kotu@78.84.11.72 *!*@125.162.6.226
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 184
+:W`i`n!madrid@125.162.6.226 MODE #Perkosa -ko+v W`i`n W`i`n W`i`n
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 185
+:brain.hub.eu.dal.net MODE #Perkosa +bb *!*@125.162.6.226 *!~kotu@78.84.11.72
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 186
+:ChanServ!service@dal.net MODE #Perkosa +o W`i`n
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 187
+:W`i`n!madrid@125.162.6.226 MODE #Perkosa -bb *!~kotu@78.84.11.72 *!*@125.162.6.226
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 188
+:W`i`n!madrid@125.162.6.226 MODE #Perkosa -o W`i`n
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 189
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 190
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 191
+:ChanServ!service@dal.net MODE #Perkosa +o W`i`n
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 192
+:ChanServ!service@dal.net MODE #Perkosa +o KeiKo
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 193
+:ChanServ!service@dal.net MODE #Perkosa +o FoNix
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 194
+:FoNix!~vip@cinta.name MODE #Perkosa -vo+ov FoNix FoNix FoNix FoNix
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 195
+:KeiKo!DI@s3xy.biz MODE #Perkosa -vo+ov KeiKo KeiKo KeiKo KeiKo
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 196
+:ChanServ!service@dal.net MODE #Perkosa +o CooL`eLLegaNt
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 197
+:ChanServ!service@dal.net MODE #Perkosa +o CooL`eLLegaNt
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 198
+:ChanServ!service@dal.net MODE #Perkosa +o CooL`eLLegaNt
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 199
+:ChanServ!service@dal.net MODE #Perkosa +o CooL`eLLegaNt
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 200
+:ChanServ!service@dal.net MODE #Perkosa +o W`i`n
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 201
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 202
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 203
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 204
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 205
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 206
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 207
+:ChanServ!service@dal.net MODE #Perkosa +o Luv_U
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 208
+:ChanServ!service@dal.net MODE #Perkosa +o co_chi
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 209
+:ChanServ!service@dal.net MODE #Perkosa +o CooL`eLLegaNt
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 210
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 211
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 212
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 213
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 214
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 215
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 216
+:ChanServ!service@dal.net MODE #Perkosa +o olala_girl
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 217
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 218
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 219
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 220
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 221
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 222
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 223
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 224
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 225
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 226
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 227
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 228
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 229
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 230
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 231
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 232
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 233
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 234
+:gaston.se.eu.dal.net MODE #Perkosa +vv Chn^Girl jeyuQ
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 235
+:gaston.se.eu.dal.net MODE #Perkosa +bb *!~kotu@78.84.11.72 *!*@125.162.6.226
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 236
+:FoNix!~vip@cinta.name MODE #Perkosa +b *!*@heavy.join.flood.channel.temporary.moderate
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 237
+:FoNix!~vip@cinta.name MODE #Perkosa +b *!honda@mars.valueshells.net
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 238
+:KeiKo!DI@s3xy.biz MODE #Perkosa -bb *!~kotu@78.84.11.72 *!*@125.162.6.226
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 239
+:FoNix!~vip@cinta.name MODE #Perkosa -bb *!~kotu@78.84.11.72 *!*@125.162.6.226
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 240
+:ChanServ!service@dal.net MODE #Perkosa +o CooL`eLLegaNt
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 241
+:ChanServ!service@dal.net MODE #Perkosa +o W`i`n
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 242
+:FoNix!~vip@cinta.name MODE #Perkosa -b *!*@125.162.6.226
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 243
+:W`i`n!madrid@125.162.6.226 MODE #Perkosa -bb *!honda@mars.valueshells.net *!*@heavy.join.flood.channel.temporary.moderate
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 244
+:FoNix!~vip@cinta.name MODE #Perkosa -bm *!*@heavy.join.flood.channel.temporary.moderate
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 245
+:KeiKo!DI@s3xy.biz MODE #Perkosa -b *!*@125.162.6.226
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 246
+:KeiKo!DI@s3xy.biz MODE #Perkosa +b *!leo@69.42.218.66
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 247
+:W`i`n!madrid@125.162.6.226 MODE #Perkosa -b *!leo@69.42.218.66
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 248
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 249
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 250
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 251
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 252
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 253
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 254
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 255
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 256
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 257
+:W`i`n!madrid@125.162.6.226 MODE #Perkosa -ko+v FoNix FoNix FoNix
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 258
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 259
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 260
+:KeiKo!DI@s3xy.biz MODE #Perkosa -ko+v 4ADmIN.ReQuesT KeiKo KeiKo
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 261
+:ChanServ!service@dal.net MODE #Perkosa +o KeiKo
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 262
+:ChanServ!service@dal.net MODE #Perkosa +o FoNix
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 263
+:FoNix!~vip@cinta.name MODE #Perkosa -vo+ov FoNix FoNix FoNix FoNix
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 264
+:KeiKo!DI@s3xy.biz MODE #Perkosa -vo+ov KeiKo KeiKo KeiKo KeiKo
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 265
+:Martin-!martin@martin.fr.am MODE #cod4.wars +b *!*@topclan3.users.quakenet.org
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 266
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 267
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 268
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 269
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 270
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 271
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 272
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -b *!*@topclan3.users.quakenet.org
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 273
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 274
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 275
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 276
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 277
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 278
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 279
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 280
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 281
+:FoNix!~vip@cinta.name MODE #Perkosa -k+v 9identified.avoice indrii
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 282
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 283
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 284
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 285
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 286
+:FoNix!~vip@cinta.name MODE #Perkosa +b *!~capricon_@123-243-16-77.static.tpgi.com.au
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 287
+:ChanServ!service@dal.net MODE #Perkosa +o W`i`n
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 288
+:FoNix!~vip@cinta.name MODE #Perkosa -k+o 9identified.a@p Luv_U
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 289
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 290
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 291
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 292
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 293
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 294
+:BabY_LoVe!~olala@202.146.180.106 MODE #Perkosa +v Lev_maLe
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 295
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 296
+:BabY_LoVe!~olala@202.146.180.106 MODE #Perkosa +v yulli
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 297
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 298
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 299
+:ChanServ!service@dal.net MODE #Perkosa +o rONx
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 300
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 301
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 302
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 303
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 304
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 305
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 306
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 307
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 308
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 309
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 310
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 311
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 312
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 313
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 314
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 315
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 316
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 317
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 318
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 319
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 320
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 321
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 322
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 323
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 324
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 325
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 326
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 327
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 328
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 329
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 330
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 331
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 332
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 333
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 334
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 335
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 336
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 337
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 338
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 339
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 340
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 341
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 342
+:FloodBot3!i=nalioth@ubuntu/bot/floodbot MODE #ubuntu +zb %villegas!*@* 
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 343
+:ChanServ!ChanServ@services. MODE #ubuntu +o Pici 
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 344
+:ChanServ!ChanServ@services. MODE #ubuntu -o Pici 
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 345
+:FloodBot3!i=nalioth@ubuntu/bot/floodbot MODE #ubuntu -zb %villegas!*@* 
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 346
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 347
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 348
+:ChanServ!services@nixgeeks.com MODE #tvtorrents +o MIODude
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 349
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 350
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 351
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 352
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 353
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 354
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 355
+:FoNix!~vip@cinta.name MODE #Perkosa +b *!~IamAnna26@roi77-1-82-246-105-202.fbx.proxad.net
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 356
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 357
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 358
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 359
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 360
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 361
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 362
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 363
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 364
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 365
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 366
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 367
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 368
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 369
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 370
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 371
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 372
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 373
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 374
+:FoNix!~vip@cinta.name MODE #Perkosa +b *!*@149.9.0.59
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 375
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 376
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 377
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 378
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 379
+:FoNix!~vip@cinta.name MODE #Perkosa +b *!*@176.83.49.60.trm01-home.tm.net.my
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 380
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 381
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 382
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 383
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 384
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 385
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 386
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 387
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 388
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 389
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 390
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 391
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 392
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 393
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 394
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 395
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 396
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 397
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 398
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 399
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 400
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 401
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 402
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 403
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 404
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 405
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 406
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 407
+:Martin-!martin@martin.fr.am MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 408
+:ChanServ!service@dal.net MODE #Perkosa +o ALDO-182
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 409
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 410
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 411
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 412
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 413
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 414
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 415
+:ChanServ!ChanServ@services. MODE #ubuntu +o Jack_Sparrow 
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 416
+:Jack_Sparrow!n=Jack_Spa@ppp-69-239-124-30.dsl.sndg02.pacbell.net MODE #ubuntu +b %*!*@49.244-201-80.adsl-static.isp.belgacom.be 
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 417
+:ChanServ!ChanServ@services. MODE #ubuntu -o Jack_Sparrow 
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 418
+:FoNix!~vip@cinta.name MODE #Perkosa +v yulli
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 419
+:KeiKo!DI@s3xy.biz MODE #Perkosa +v yulli
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 420
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 421
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 422
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 423
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 424
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars +b *!*admin@*.t-dialin.net
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 425
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars +b *!*open-bot@*.btcentralplus.com
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 426
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars +b *!Avenger@*.stable-bouncer.com
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 427
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 428
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 429
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 430
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 431
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars +b *!*ikk_ik@86.86.92.*
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 432
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars +b *!101Yunky@*.MoneyMails.org
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 433
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 434
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 435
+:ChanServ!service@dal.net MODE #Perkosa +o r4ch3l_g1rl
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 436
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars +b *!*roen_ni@*.ip.telfort.nl
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 437
+:Q!TheQBot@CServe.quakenet.org MODE #cod4.wars +o pimpo
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 438
+:KeiKo!DI@s3xy.biz MODE #Perkosa +b *!~bellarina@29.65.111.218.klj04-home.tm.net.my
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 439
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars +b *!*dernwar@*.pool.t-online.hu
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 440
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -b *!*open-bot@*.btcentralplus.com
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 441
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -bbbbbb *!*dernwar@*.pool.t-online.hu *!*roen_ni@*.ip.telfort.nl *!101Yunky@*.MoneyMails.org *!*ikk_ik@86.86.92.* *!Avenger@*.stable-bouncer.com *!*admin@*.t-dialin.net
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 442
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars +b *!maxima@firewar.us
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 443
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars +b *!*nncfvff@*.hsi.kabelbw.de
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 444
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars +b *!*antonis@85.73.216.*
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 445
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 446
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 447
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars +b *!*gg_usdk@*.brest.rev.numericable.fr
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 448
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -b *!*nncfvff@*.hsi.kabelbw.de
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 449
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -b *!maxima@firewar.us
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 450
+:FoNix!~vip@cinta.name MODE #Perkosa +b *!*@88.229.70.15
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 451
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -b *!*antonis@85.73.216.*
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 452
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 453
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 454
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 455
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 456
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 457
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 458
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 459
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 460
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 461
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 462
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 463
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 464
+:pimpo!pimpo@staff.cod4-wars.com MODE #cod4.wars +b tann3hh!*tanncfvff@HSI-KBW-085-216-122-253.hsi.kabelbw.de
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 465
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 466
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 467
+:FoNix!~vip@cinta.name MODE #Perkosa -k+v 9identified.avoice tu|a|it
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 468
+:pimpo!pimpo@staff.cod4-wars.com MODE #cod4.wars -c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 469
+:pimpo!pimpo@staff.cod4-wars.com MODE #cod4.wars +c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 470
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -b *!*gg_usdk@*.brest.rev.numericable.fr
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 471
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 472
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 473
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 474
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 475
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 476
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 477
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 478
+:Martin-!martin@martin.fr.am MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 479
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 480
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 481
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 482
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 483
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 484
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 485
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 486
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 487
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 488
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 489
+:pimpo!pimpo@staff.cod4-wars.com MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 490
+:pimpo!pimpo@staff.cod4-wars.com MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 491
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 492
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 493
+:ChanServ!ChanServ@services. MODE #ubuntu +o Pici 
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 494
+:ChanServ!ChanServ@services. MODE #ubuntu -o Pici 
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 495
+:ChanServ!service@dal.net MODE #Perkosa +o r4ch3l_g1rl
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 496
+:r4ch3l_g1rl!~admin@125.160.83.73 MODE #Perkosa +v AmNeSs_girL
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 497
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 498
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 499
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 500
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 501
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 502
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 503
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 504
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 505
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 506
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 507
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 508
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 509
+:ChanServ!services@nixgeeks.com MODE #tvtorrents +o eFinger
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 510
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 511
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 512
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 513
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 514
+:FoNix!~vip@cinta.name MODE #Perkosa +b *!*@217.144.2.51
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 515
+:r4ch3l_g1rl!~admin@125.160.83.73 MODE #Perkosa +v Nobby
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 516
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 517
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 518
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 519
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 520
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 521
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 522
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 523
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 524
+:pimpo!pimpo@staff.cod4-wars.com MODE #cod4.wars +b H2k-Gaming!*H2kegg@eggdrop.by.bouncer4you.de
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 525
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 526
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 527
+:ChanServ!services@nixgeeks.com MODE #tvtorrents +o huba_
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 528
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 529
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 530
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 531
+:VeryGames!~GNHost@eggdrop.services.of.MoneyMails.org MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 532
+:Q!TheQBot@CServe.quakenet.org MODE #cod4.wars +o Josi
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 533
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 534
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 535
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 536
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 537
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 538
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 539
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -c+m
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 540
+:|cod4-wars|!vip@193.34.70.194 MODE #cod4.wars -m+c
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 541
+:services. MODE mohadib :+e
+
+# Host:irc.quakenet.org
+# Version:u2.10.12.10+snircd(1.3.4a)
+# Event index: 542
+:servercentral.il.us.quakenet.org 324 dibz #cod4.wars +tncCNu 
+
+# Host:irc.nixgeeks.com
+# Version:Unreal3.2.3
+# Event index: 543
+:irc.nixgeeks.com 324 dibz #tvtorrents +ntrSCf [30j#R10,30k#K10,40m#M10,10n#N10]:15
+
+# Host:irc.dalnet.com
+# Version:bahamut-1.8(04)
+# Event index: 544
+:swiftco.wa.us.dal.net 324 dibz #Perkosa +tn 
+
+# Host:irc.freenode.net
+# Version:hyperion-1.0.2b
+# Event index: 545
+:kubrick.freenode.net 324 dibz #jerklib +tn 
+

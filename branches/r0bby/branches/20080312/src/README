@@ -1,0 +1,27 @@
+Jerklib is an event-driven IRC library that can be used to write an IRC bot/client.
+
+Authors:
+	Jason Davis <mohadib@openactive.org> - mohadib on freenode
+	Robert O'Connor <rob@mybawx.org> - r0bby on freenode
+	Joseph B. Ottinger <joeo@enigmastation.com> - jottinger on freenode 
+
+Bugs/Feature Requests:
+	If you find a bug or would like a feature added , please let us know!
+	https://sourceforge.net/tracker/?group_id=214803
+
+Support and Docs:
+	If you need help visit us on IRC! 
+	irc.freenode.net -- #jerklib
+
+	SF Project Page: https://sourceforge.net/projects/jerklib/
+	HomePage: http://jerklib.sourceforge.net
+	Java Docs: http://jerklib.sourceforge.net/doc/
+	Tutorial: http://jerklib.sourceforge.net/doc_index.html
+
+Install:
+	To set up just add jerklib.jar to your classpath
+
+Run example:
+	java -cp jerklib.jar jerklib.examples.Examplesvn Source code for example:                                                      	
+	http://jerklib.svn.sourceforge.net/viewvc/jerklib/jerklib/src/jerklib/examples/Example.java?view=markup
+
