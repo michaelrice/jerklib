@@ -342,8 +342,6 @@ public class Channel
 				}
 			}
 
-			// TODO can a nick come in as voiced and oped? +@dib ?
-			// if so substring nick with modes.size();
 			if (!modes.isEmpty())
 			{
 				nick = nick.substring(1);

@@ -56,6 +56,7 @@ public class Example implements IRCEventListener
 		{
 			MessageEvent me = (MessageEvent) e;
 			System.out.println(me.getNick() + ":" + me.getMessage());
+			me.getChannel().say("Modes :" + me.getChannel().getUsersModes(me.getNick()).toString());
 		}
 		else if (e.getType() == Type.JOIN_COMPLETE)
 		{

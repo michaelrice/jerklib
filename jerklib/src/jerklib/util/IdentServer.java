@@ -13,7 +13,8 @@ public class IdentServer implements Runnable
 {
 	private ServerSocket socket;
 	private String login;
-
+	private Socket soc;
+	
 	public IdentServer(String login)
 	{
 		this.login = login;
@@ -31,9 +32,22 @@ public class IdentServer implements Runnable
 		if (socket == null) return;
 		try
 		{
-			Socket soc = socket.accept();
+			soc = socket.accept();
 			soc.setSoTimeout(60000);
-
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		//Session.identRequest();
+		
+	}
+	
+	public void reply()
+	{
+		try
+		{
 			BufferedReader reader = new BufferedReader(new InputStreamReader(soc.getInputStream()));
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(soc.getOutputStream()));
 
@@ -47,10 +61,6 @@ public class IdentServer implements Runnable
 			}
 			socket.close();
 		}
-		catch (IOException e)
-		{
-			// log
-		}
-
+		catch (IOException e){}
 	}
 }
