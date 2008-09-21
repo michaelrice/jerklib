@@ -28,7 +28,7 @@ public class PartEvent extends IRCEvent
    *
    * @return nick of parted
    */
-	public final String getWho()
+	public final String getNick()
 	{
 		return who;
 	}

@@ -47,7 +47,7 @@ public class Session extends RequestGenerator
 	private final RequestedConnection rCon;
 	private Connection con;
 	private final ConnectionManager conman;
-	private boolean rejoinOnKick = true, profileUpdating, isAway , isLoggedIn , useAltNicks = true;
+	private boolean rejoinOnKick = true, isAway , isLoggedIn , useAltNicks = true;
 	private Profile tmpProfile;
 	private long lastRetry = -1, lastResponse = System.currentTimeMillis();
 	private ServerInformation serverInfo = new ServerInformation();
@@ -336,20 +336,7 @@ public class Session extends RequestGenerator
 	 */
 	public void changeNick(String newNick)
 	{
-		tmpProfile = rCon.getProfile().clone();
-		tmpProfile.setActualNick(newNick);
-		tmpProfile.setFirstNick(newNick);
-		profileUpdating = true;
 		super.changeNick(newNick);
-	}
-
-	/**
-	 * Profile is updating when a new nick is requested but has not been approved from server yet.
-	 * @return true if profile is updating
-	 */
-	public boolean isProfileUpdating()
-	{
-		return profileUpdating;
 	}
 
 
@@ -528,20 +515,6 @@ public class Session extends RequestGenerator
 		}
 	}
 
-	/**
-	 * Called to alert Session if the profile was updated
-	 * 
-	 * @param success
-	 */
-	void updateProfileSuccessfully(boolean success)
-	{
-		if (success)
-		{
-			rCon.setProfile(tmpProfile);
-		}
-		tmpProfile = null;
-		profileUpdating = false;
-	}
 
 	/**
 	 * Get a List of Channels Session is currently in

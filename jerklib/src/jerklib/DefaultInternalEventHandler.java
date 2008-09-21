@@ -156,11 +156,11 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	public void part(IRCEvent e)
 	{
 		PartEvent pe = (PartEvent)e;
-		if(!pe.getChannel().removeNick(pe.getWho()))
+		if(!pe.getChannel().removeNick(pe.getNick()))
 		{
-			log.severe("Could Not remove nick " + pe.getWho() + " from " + pe.getChannelName());
+			log.severe("Could Not remove nick " + pe.getNick() + " from " + pe.getChannelName());
 		}
-		if (pe.getWho().equalsIgnoreCase(e.getSession().getNick()))
+		if (pe.getNick().equalsIgnoreCase(e.getSession().getNick()))
 		{
 			pe.getSession().removeChannel(pe.getChannel());
 		}
@@ -178,17 +178,10 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		e.getSession().nickChanged(nce.getOldNick(), nce.getNewNick());
 		if(nce.getOldNick().equals(e.getSession().getNick()))
 		{
-			if(nce.getSession().isProfileUpdating())
-			{
-				nce.getSession().updateProfileSuccessfully(true);
-			}
-			else
-			{
-				Profile p = e.getSession().getRequestedConnection().getProfile().clone();
-				p.setActualNick(nce.getNewNick());
-				p.setFirstNick(nce.getNewNick());
-				e.getSession().getRequestedConnection().setProfile(p);
-			}
+			Profile p = e.getSession().getRequestedConnection().getProfile().clone();
+			p.setActualNick(nce.getNewNick());
+			p.setFirstNick(nce.getNewNick());
+			e.getSession().getRequestedConnection().setProfile(p);
 		}
 	}
 	

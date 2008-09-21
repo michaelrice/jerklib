@@ -54,14 +54,14 @@ public class PartEventTest extends EventTestBase
 	{
 		PartEvent pe = events.get(0);
 		assertTrue(pe.getChannelName().equals("#ubuntu"));
-		assertTrue(pe.getWho().equals("Tmcarr89"));
+		assertTrue(pe.getNick().equals("Tmcarr89"));
 		assertTrue(pe.getUserName().equals("n=tmcarr"));
 		assertTrue(pe.getHostName().equals("dhcp-128-194-18-51.resnet.tamu.edu"));
 		assertTrue(pe.getPartMessage().equals(""));
 		
 		pe = events.get(5);
 		assertTrue(pe.getChannelName().equals("#ubuntu"));
-		assertTrue(pe.getWho().equals("egc"));
+		assertTrue(pe.getNick().equals("egc"));
 		assertTrue(pe.getUserName().equals("n=gcarrill"));
 		assertTrue(pe.getHostName().equals("cpe-66-25-187-182.austin.res.rr.com"));
 		assertTrue(pe.getPartMessage().equals("\"Ex-Chat\""));
@@ -72,7 +72,7 @@ public class PartEventTest extends EventTestBase
 	{
 		PartEvent pe = events.get(2);
 		assertTrue(pe.getChannelName().equals("#cod4.wars"));
-		assertTrue(pe.getWho().equals("AlbCMCSG"));
+		assertTrue(pe.getNick().equals("AlbCMCSG"));
 		assertTrue(pe.getUserName().equals("jenna"));
 		assertTrue(pe.getHostName().equals("stop.t.o.shit.la"));
 		assertTrue(pe.getPartMessage().equals(""));
@@ -83,14 +83,14 @@ public class PartEventTest extends EventTestBase
 	{
 		PartEvent pe = events.get(61);
 		assertTrue(pe.getChannelName().equals("#perkosa"));
-		assertTrue(pe.getWho().equals("KeiKo"));
+		assertTrue(pe.getNick().equals("KeiKo"));
 		assertTrue(pe.getUserName().equals("DI"));
 		assertTrue(pe.getHostName().equals("s3xy.biz"));
 		assertTrue(pe.getPartMessage().equals("\u000314Looking for Inviter!\u0003"));
 		
 		pe = events.get(4);
 		assertTrue(pe.getChannelName() , pe.getChannelName().equals("#perkosa"));
-		assertTrue(pe.getWho().equals("_^Gracia^_"));
+		assertTrue(pe.getNick().equals("_^Gracia^_"));
 		assertTrue(pe.getUserName().equals("~Hatiyayan"));
 		assertTrue(pe.getHostName().equals("124.195.18.42"));
 		assertTrue(pe.getPartMessage().equals(""));
@@ -101,14 +101,14 @@ public class PartEventTest extends EventTestBase
 	{
 		PartEvent pe = events.get(240);
 		assertTrue(pe.getChannelName().equals("#tvtorrents"));
-		assertTrue(pe.getWho().equals("Meph"));
+		assertTrue(pe.getNick().equals("Meph"));
 		assertTrue(pe.getUserName().equals("~Meph"));
 		assertTrue(pe.getHostName().equals("nix-1637EA46.zone2.bethere.co.uk"));
 		assertTrue(pe.getPartMessage().equals("Leaving"));
 		
 		pe = events.get(357);
 		assertTrue(pe.getChannelName().equals("#tvtorrents"));
-		assertTrue(pe.getWho().equals("steeltx"));
+		assertTrue(pe.getNick().equals("steeltx"));
 		assertTrue(pe.getUserName().equals("d0b46199"));
 		assertTrue(pe.getHostName().equals("nix-AFABC4F2.com"));
 		assertTrue(pe.getPartMessage().equals(""));
