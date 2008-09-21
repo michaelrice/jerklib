@@ -178,7 +178,17 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		e.getSession().nickChanged(nce.getOldNick(), nce.getNewNick());
 		if(nce.getOldNick().equals(e.getSession().getNick()))
 		{
-			nce.getSession().updateProfileSuccessfully(true);
+			if(nce.getSession().isProfileUpdating())
+			{
+				nce.getSession().updateProfileSuccessfully(true);
+			}
+			else
+			{
+				Profile p = e.getSession().getRequestedConnection().getProfile().clone();
+				p.setActualNick(nce.getNewNick());
+				p.setFirstNick(nce.getNewNick());
+				e.getSession().getRequestedConnection().setProfile(p);
+			}
 		}
 	}
 	
