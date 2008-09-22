@@ -24,6 +24,8 @@ import static jerklib.events.IRCEvent.Type.*;
  * for relaying. You can change the internal behavior of Jerklib by overriding 
  * methods in this class or by adding/removing event handlers.
  * 
+ * @see DefaultInternalEventHandler#addEventHandler(Type, IRCEventListener)
+ * @see DefaultInternalEventHandler#removeEventHandler(Type)
  * @see IRCEventListener
  * @author mohadib
  *

@@ -6,6 +6,12 @@ import java.util.Map;
 import jerklib.events.IRCEvent;
 
 /**
+ * This is the default impl of InternalEventParser. This class is used to turn
+ * raw irc text into IRCEvents. You can change the parsing of data and the creation of
+ * events by adding/removing CommandParsers.
+ * 
+ * 
+ * @see CommandParser
  * @author mohadib
  *
  */

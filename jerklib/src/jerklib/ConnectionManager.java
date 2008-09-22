@@ -247,6 +247,12 @@ public class ConnectionManager
 
 	/**
 	 * Sets the InternalEventHandler to use for this Session.
+	 * This IRCEventListener is responsible for getting internal house keeping done - like nick caches, channel caches.
+	 * This Listener is also responsible for redispatching events to other listeners if you choose to.
+	 * 
+	 * 
+	 * @see IRCEventListener
+	 * @see DefaultInternalEventHandler
 	 * 
 	 * @param handler
 	 */
