@@ -48,7 +48,6 @@ public class Session extends RequestGenerator
 	private Connection con;
 	private final ConnectionManager conman;
 	private boolean rejoinOnKick = true, isAway , isLoggedIn , useAltNicks = true;
-	private Profile tmpProfile;
 	private long lastRetry = -1, lastResponse = System.currentTimeMillis();
 	private ServerInformation serverInfo = new ServerInformation();
 	private State state = State.DISCONNECTED;
@@ -281,8 +280,8 @@ public class Session extends RequestGenerator
 	}
 	
 	/**
-	 * Set Session yo try alternate nicks
-	 * on connection if a nick in use event is received , or not.
+	 * Set Session to try alternate nicks
+	 * on connection if a nick inuse event is received , or not.
 	 * True by default.
 	 * 
 	 * @param use
@@ -524,7 +523,7 @@ public class Session extends RequestGenerator
 	 */
 	public List<Channel> getChannels()
 	{
-		return Collections.unmodifiableList(new ArrayList<Channel>(channelMap.values()));
+		return new ArrayList<Channel>(channelMap.values());
 	}
 
 	/**
@@ -535,8 +534,7 @@ public class Session extends RequestGenerator
 	 */
 	public Channel getChannel(String channelName)
 	{
-		Channel chan = channelMap.get(channelName);
-		return chan == null ? channelMap.get(channelName.toLowerCase()) : chan;
+		return channelMap.get(channelName.toLowerCase());
 	}
 
 	/**
@@ -546,7 +544,7 @@ public class Session extends RequestGenerator
 	 */
 	void addChannel(Channel channel)
 	{
-		channelMap.put(channel.getName(), channel);
+		channelMap.put(channel.getName().toLowerCase(), channel);
 	}
 
 	/**
@@ -556,7 +554,7 @@ public class Session extends RequestGenerator
 	 */
 	boolean removeChannel(Channel channel)
 	{
-		return channelMap.remove(channel.getName()) == null;
+		return channelMap.remove(channel.getName().toLowerCase()) == null;
 	}
 
 	/**

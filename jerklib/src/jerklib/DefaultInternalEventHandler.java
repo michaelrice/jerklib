@@ -98,16 +98,14 @@ public class DefaultInternalEventHandler implements IRCEventListener
 		}
 		else
 		{
-			Session session = event.getSession();
 			String command = event.command();
-		
 			if(command.equals("PING"))
 			{
-				session.getConnection().pong(event);
+				event.getSession().getConnection().pong(event);
 			}
 			else if(command.equals("PONG"))
 			{
-				session.getConnection().gotPong();
+				event.getSession().getConnection().gotPong();
 			}
 		}
 		
@@ -122,8 +120,11 @@ public class DefaultInternalEventHandler implements IRCEventListener
 	public void joinComplete(IRCEvent e)
 	{
 		JoinCompleteEvent jce = (JoinCompleteEvent)e;
-		e.getSession().addChannel(jce.getChannel());
-		jce.getSession().sayRaw("MODE " + jce.getChannel().getName());
+		if(e.getSession().getChannel(jce.getChannel().getName()) == null)
+		{
+			e.getSession().addChannel(jce.getChannel());
+			jce.getSession().sayRaw("MODE " + jce.getChannel().getName());
+		}
 	}
 	
 	/**
