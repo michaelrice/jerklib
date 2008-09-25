@@ -41,6 +41,7 @@ public class IdentServer implements Runnable
 		}
 		
 		//Session.identRequest();
+		reply();
 		
 	}
 	
