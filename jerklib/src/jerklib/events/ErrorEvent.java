@@ -10,7 +10,8 @@ public class ErrorEvent extends IRCEvent
 	public static enum ErrorType
   {
       NUMERIC_ERROR,
-      UNRESOLVED_HOSTNAME
+      UNRESOLVED_HOSTNAME,
+      GENERIC
   }
   
   

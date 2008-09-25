@@ -2,6 +2,7 @@ package jerklib;
 
 import jerklib.Session.State;
 import jerklib.events.ErrorEvent;
+import jerklib.events.GenericErrorEvent;
 import jerklib.events.IRCEvent;
 import jerklib.events.UnresolvedHostnameErrorEvent;
 import jerklib.events.IRCEvent.Type;
@@ -465,6 +466,8 @@ public class ConnectionManager
 			}
 			catch (IOException e)
 			{
+				ErrorEvent error = new GenericErrorEvent(e.getMessage(),session,e);
+				addToRelayList(error);
 				session.markForRemoval();
 				key.cancel();
 				e.printStackTrace();
@@ -678,11 +681,13 @@ public class ConnectionManager
 						String msg = e.getMessage() == null?e.toString():e.getMessage();
 						ErrorEvent error = new UnresolvedHostnameErrorEvent(session, msg, session.getRequestedConnection().getHostName(), e);
 						addToRelayList(error);
-						//session.markForRemoval();
+						session.disconnected();
 					}
 					catch (IOException e)
 					{
-						e.printStackTrace();
+						String msg = e.getMessage() == null?e.toString():e.getMessage();
+						ErrorEvent error = new GenericErrorEvent(msg,session,e);
+						addToRelayList(error);
 						session.disconnected();
 					}
 				}
