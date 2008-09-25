@@ -430,7 +430,7 @@ public class ConnectionManager
 					}
 					catch (CancelledKeyException ke) 
 					{
-						session.disconnected();
+						session.disconnected(ke);
 					}
 				}
 			}
@@ -651,7 +651,7 @@ public class ConnectionManager
 
 				if (state == State.NEED_TO_RECONNECT)
 				{
-					session.disconnected();
+					session.disconnected(new Exception("Connection Timeout Possibly"));
 				}
 
 				if (state == State.DISCONNECTED)
@@ -681,14 +681,14 @@ public class ConnectionManager
 						String msg = e.getMessage() == null?e.toString():e.getMessage();
 						ErrorEvent error = new UnresolvedHostnameErrorEvent(session, msg, session.getRequestedConnection().getHostName(), e);
 						addToRelayList(error);
-						session.disconnected();
+						session.disconnected(e);
 					}
 					catch (IOException e)
 					{
 						String msg = e.getMessage() == null?e.toString():e.getMessage();
 						ErrorEvent error = new GenericErrorEvent(msg,session,e);
 						addToRelayList(error);
-						session.disconnected();
+						session.disconnected(e);
 					}
 				}
 			}

@@ -11,8 +11,16 @@ import jerklib.events.IRCEvent;
  */
 public class ConnectionLostEvent extends IRCEvent
 {
-	public ConnectionLostEvent(String data , Session session)
+	private Exception e;
+	
+	public ConnectionLostEvent(String data , Session session , Exception e)
 	{
 		super(data,session,Type.CONNECTION_LOST);
+		this.e = e;
+	}
+	
+	public Exception getException()
+	{
+		return e;
 	}
 }

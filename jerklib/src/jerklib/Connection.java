@@ -136,12 +136,12 @@ class Connection
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			session.disconnected();
+			session.disconnected(e);
 		}
 
 		if (numRead == -1)
 		{
-			session.disconnected();
+			session.disconnected(new Exception("Numb read -1"));
 		}
 
 		if (session.getState() == State.DISCONNECTED || numRead <= 0) { return 0; }
@@ -292,7 +292,7 @@ class Connection
 		catch (IOException e)
 		{
 			e.printStackTrace();
-			session.disconnected();
+			session.disconnected(e);
 		}
 
 		if (session.getState() == State.DISCONNECTED) { return amount; }

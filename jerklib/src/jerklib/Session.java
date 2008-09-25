@@ -658,7 +658,7 @@ public class Session extends RequestGenerator
 	/**
 	 *Session has been disconnected 
 	 */
-	void disconnected()
+	void disconnected(Exception e)
 	{
 		if (state == State.DISCONNECTED) return;
 		state = State.DISCONNECTED;
@@ -669,7 +669,7 @@ public class Session extends RequestGenerator
 		}
 		
 		isLoggedIn = false;
-		conman.addToRelayList(new ConnectionLostEvent("",this));
+		conman.addToRelayList(new ConnectionLostEvent("",this,e));
 	}
 
 	/**
