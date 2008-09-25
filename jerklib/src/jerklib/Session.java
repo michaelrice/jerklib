@@ -55,6 +55,7 @@ public class Session extends RequestGenerator
 	private IRCEventListener internalEventHandler;
 	private List<ModeAdjustment> userModes = new ArrayList<ModeAdjustment>();
 	private final Map<String, Channel> channelMap = new HashMap<String, Channel>();
+	private int retries = 0;
 	
 	public static enum State
 	{
@@ -611,6 +612,8 @@ public class Session extends RequestGenerator
 	 */
 	void retried()
 	{
+		retries++;
+		System.err.println("Retry :" + retries);
 		lastRetry = System.currentTimeMillis();
 	}
 
@@ -674,6 +677,7 @@ public class Session extends RequestGenerator
 	 */
 	void connected()
 	{
+		retries = 0;
 		gotResponse();
 	}
 
@@ -724,6 +728,12 @@ public class Session extends RequestGenerator
 		return state;
 	}
 
+	
+	public int getRetries()
+	{
+		return retries;
+	}
+	
 	/**
 	 * Test if a String starts with a known channel prefix
 	 * @param token

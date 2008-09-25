@@ -99,6 +99,23 @@ public class ConnectionManager
 	{
 	}
 
+	
+	
+	
+	private boolean autoReCon = true;
+	private int reconTries = 10;
+	
+	public void setAutoReconnect(boolean bool)
+	{
+		this.autoReCon = bool;
+	}
+	
+	public void setAutoReconnect(int amountTries)
+	{
+		autoReCon = true;
+		reconTries = amountTries;
+	}
+	
 	/**
 	 * get a list of Sessions
 	 * 
@@ -645,15 +662,23 @@ public class ConnectionManager
 
 					try
 					{
-						session.retried();
-						connect(session);
+						if(!autoReCon || session.getRetries() >= reconTries)
+						{
+							session.markForRemoval();
+							System.err.println("Retires up, marked for removal");
+						}
+						else
+						{
+							session.retried();
+							connect(session);
+						}
 					}
 					catch (UnresolvedAddressException e)
 					{
 						String msg = e.getMessage() == null?e.toString():e.getMessage();
 						ErrorEvent error = new UnresolvedHostnameErrorEvent(session, msg, session.getRequestedConnection().getHostName(), e);
 						addToRelayList(error);
-						session.markForRemoval();
+						//session.markForRemoval();
 					}
 					catch (IOException e)
 					{
