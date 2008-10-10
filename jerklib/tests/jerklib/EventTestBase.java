@@ -10,7 +10,7 @@ public class EventTestBase
 	private String dataFile,outputFile,nick;
 	private Map<ServerInfo, String[]>serverInfoMap = new HashMap<ServerInfo, String[]>();
 	
-	public static enum ServerInfo
+	public enum ServerInfo
 	{
 		BAHAMUT,
 		UNREAL,
