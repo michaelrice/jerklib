@@ -7,7 +7,7 @@ public class ErrorEvent extends IRCEvent
 {
 	private final ErrorType errorType;
 	
-	public static enum ErrorType
+	public enum ErrorType
   {
       NUMERIC_ERROR,
       UNRESOLVED_HOSTNAME,

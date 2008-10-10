@@ -37,7 +37,7 @@ public class ModeEvent extends IRCEvent
 		this.channel = channel;
 	}
 
-	public static enum ModeType
+	public enum ModeType
 	{
 		USER,
 		CHANNEL
