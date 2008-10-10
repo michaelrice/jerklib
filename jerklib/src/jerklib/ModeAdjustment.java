@@ -16,7 +16,7 @@ public class ModeAdjustment
 	/**
 	 * Enum of mode action types. Modes can only be applied or removed. 
 	 */
-	public static enum Action
+	public enum Action
 	{
 		PLUS,
 		MINUS
