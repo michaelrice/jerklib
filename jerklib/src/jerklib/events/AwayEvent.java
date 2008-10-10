@@ -8,8 +8,8 @@ import jerklib.events.IRCEvent;
  * This is an event that is fired under three conditions:
  * <ul>
  * <li>Sending a message to a user who is marked as away.</li>
- * <li>User of lib marks self as away.</li>
- * <li>User of lib returns from away.</li>
+ * <li>User of the lib marks self as away.</li>
+ * <li>User of the lib returns from away.</li>
  * </ul>
  * You can determine under which circumstance the event was fired by looking at
  * the {@link EventType}.</p>
