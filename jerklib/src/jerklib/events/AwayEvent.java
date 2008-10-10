@@ -24,8 +24,8 @@ public class AwayEvent extends IRCEvent
 
     /**
      * An enum to determine the type of event that was fired.
-     * <br>WENT_AWAY is when user of lib goes away.<br>
-     * RETURNED_FROM_AWAY is when user of lib returns from away state.<br>
+     * <br>WENT_AWAY is when user of the lib goes away.<br>
+     * RETURNED_FROM_AWAY is when user of the lib returns from an away state.<br>
      * USER_IS_AWAY is when some other user goes away<br>
      */
     public enum EventType
