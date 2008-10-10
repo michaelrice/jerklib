@@ -57,7 +57,7 @@ public class Session extends RequestGenerator
 	private final Map<String, Channel> channelMap = new HashMap<String, Channel>();
 	private int retries = 0;
 	
-	public static enum State
+	public enum State
 	{
 		CONNECTED, 
 		CONNECTING, 
