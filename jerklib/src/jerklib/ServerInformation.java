@@ -40,7 +40,7 @@ public class ServerInformation
      * </p>
      * .
      */
-    public static enum ModeType
+    public enum ModeType
     {
         GROUP_A,
         GROUP_B,
