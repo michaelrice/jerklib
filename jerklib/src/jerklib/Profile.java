@@ -1,7 +1,7 @@
 package jerklib;
 
 /**
- * A class to hold information about Nick,RealName,AltNic etc.
+ * A class to hold information about Username, Realname, Nick,RealName,AltNic etc.
  * 
  * @see ConnectionManager#ConnectionManager(Profile)
  * @see ConnectionManager#requestConnection(String, int, Profile)
