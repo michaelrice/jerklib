@@ -6,7 +6,7 @@ import jerklib.events.IRCEvent;
 /**
  * Event fired when an Invite message is recieved from server
  * 
- * @author <a href="mailto:rob@mybawx.org">Robert O'Connor</a>
+ * @author <a href="mailto:robby.oconnor@gmail.com">Robert O'Connor</a>
  */
 public class InviteEvent extends IRCEvent
 {
