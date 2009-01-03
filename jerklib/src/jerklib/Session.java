@@ -593,7 +593,7 @@ public class Session extends RequestGenerator
 				returnList.add(chan);
 			}
 		}
-		return returnList;
+		return Collections.unmodifiableList(returnList);
 	}
 
 	/* methods to track connection attempts */
