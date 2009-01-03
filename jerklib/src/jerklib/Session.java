@@ -524,7 +524,7 @@ public class Session extends RequestGenerator
 	 */
 	public List<Channel> getChannels()
 	{
-		return new ArrayList<Channel>(channelMap.values());
+		return Collections.unmodifiableList(new ArrayList<Channel>(channelMap.values()));
 	}
 
 	/**
@@ -753,13 +753,13 @@ public class Session extends RequestGenerator
 	/**
 	 * Send login messages to server
 	 */
-	void login()
-	{
-		// test :irc.inter.net.il CAP * LS :multi-prefix
-		// writeRequests.add(new WriteRequest("CAP LS", this));
-		sayRaw("NICK " + getNick());
-		sayRaw("USER " + rCon.getProfile().getName() + " 0 0 :" + rCon.getProfile().getRealName());
-	}
+        void login()
+        {
+            // test :irc.inter.net.il CAP * LS :multi-prefix
+            // writeRequests.add(new WriteRequest("CAP LS", this));
+            sayRaw("NICK " + getNick());
+            sayRaw("USER " + rCon.getProfile().getName() + " 0 0 :" + rCon.getProfile().getRealName());
+        }
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
