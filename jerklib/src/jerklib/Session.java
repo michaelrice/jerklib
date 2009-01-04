@@ -491,7 +491,7 @@ public class Session extends RequestGenerator
 	 */
 	Map<Type, List<Task>> getTasks()
 	{
-		return new HashMap<Type, List<Task>>(taskMap);
+		return Collections.unmodifiableMap(new HashMap<Type, List<Task>>(taskMap));
 	}
 
 	/**
