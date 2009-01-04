@@ -117,6 +117,7 @@ public class DefaultInternalEventParser implements InternalEventParser
 		parsers.put("INVITE", new InviteParser());
 		parsers.put("NICK", new NickParser());
 		parsers.put("MODE", new ModeParser());
+        parsers.put("KICK",new KickParser());
 
 		
 		//numeric errors
