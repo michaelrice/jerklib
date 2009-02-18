@@ -14,17 +14,21 @@ public class IdentServer implements Runnable
 	private ServerSocket socket;
 	private String login;
 	private Socket soc;
+	private Thread t = null;
 	
 	public IdentServer(String login)
 	{
+		
 		this.login = login;
 		try
 		{
 			socket = new ServerSocket(113);
 			socket.setSoTimeout(60000);
-			new Thread(this).start();
+			t = new Thread(this);
+			t.start();
 		}
-		catch (Exception e){}
+		catch (Exception e)
+		{}
 	}
 
 	public void run()
@@ -33,16 +37,23 @@ public class IdentServer implements Runnable
 		try
 		{
 			soc = socket.accept();
-			soc.setSoTimeout(60000);
+			reply();
 		}
 		catch (IOException e)
+		{}
+		
+		if(t != null)
 		{
-			e.printStackTrace();
+			try
+			{
+				t.join(1);
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 		}
-		
-		//Session.identRequest();
-		reply();
-		
+		t = null;
 	}
 	
 	public void reply()
